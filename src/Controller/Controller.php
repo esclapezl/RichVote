@@ -33,7 +33,6 @@ class Controller{
     }
 
     public static function readAll(){
-        echo "read All";
         $pdo = DataBaseConnection::getInstance()::getPdo();
 
         $sql = "SELECT * FROM testRepSec";
@@ -41,15 +40,15 @@ class Controller{
         $pdoStatement = $pdo->prepare($sql);
 
         $pdoStatement->execute();
-        $var = $pdoStatement->fetch();
 
         $idPrevQ = 0;
-        foreach ($var as $currentQuestion){
-            if($idPrevQ != $currentQuestion[idQues])
-            echo "id Question: $currentQuestion[idQuestion]";
+        foreach ($pdoStatement as $currentQuestion){
+            if($idPrevQ != $currentQuestion['idQuestion']){
+                $idPrevQ = $currentQuestion['idQuestion'];
+                echo "autre question: $currentQuestion[intituleQuestion]<br>";
+            }
+            echo "Section: $currentQuestion[idSection] intitule :$currentQuestion[intituleSection] $currentQuestion[descriptionSection] <br>";
         }
-
-        echo "je test, l'id de la question: $var[idQuestion], sa section: $var[idSection]";
     }
 
     private static function afficheVue(string $cheminVue, array $parametres = []) : void {
