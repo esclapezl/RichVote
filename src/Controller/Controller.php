@@ -6,10 +6,29 @@ use mysql_xdevapi\DatabaseObject;
 class Controller{
     public static function accueil()
     {
-        echo "Accueil";
+
         self::afficheVue('view.php',[
             "pagetitle" => "Accueil",
             "cheminVueBody" => 'vote/accueil.php'
+        ]);
+    }
+
+    public static function createQuestion()
+    {
+
+        self::afficheVue('view.php',[
+            "pagetitle" => "créer une question",
+            "cheminVueBody" => 'vote/createQuestion.php'
+        ]);
+    }
+
+
+    public static function inscription()
+    {
+
+        self::afficheVue('view.php',[
+            "pagetitle" => "Inscription",
+            "cheminVueBody" => 'vote/inscription.php'
         ]);
     }
 

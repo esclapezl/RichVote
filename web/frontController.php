@@ -15,7 +15,5 @@ $action = 'accueil';
 if(isset($_GET['action'])) {
     $action = $_GET['action'];
 }
-
-
 Controller::$action(); // Appel de la méthode statique $action de Controller
 ?>
