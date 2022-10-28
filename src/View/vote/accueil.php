@@ -10,18 +10,18 @@
 </head>
 <body>
 <header>
-    <p>la y a des trucs de nav</p>
+    <p>header accueil</p>
 </header>
 <main>
     <?php
     /** @var $cheminVueBody string */
-    require __DIR__ . "/{$cheminVueBody}";
+    //require __DIR__ . "/{$cheminVueBody}";
     ?>
 </main>
 <footer>
     <p>
-        mon super site de covoit
+        foot accueil
     </p>
 </footer>
 </body>
-</html>
+</html><?php

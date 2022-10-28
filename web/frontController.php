@@ -11,9 +11,11 @@ $loader->addNamespace('App', __DIR__ . '/../src');
 // register the autoloader
 $loader->register();
 
-$action = 'readAll';
+$action = 'accueil';
 if(isset($_GET['action'])) {
     $action = $_GET['action'];
 }
-Controller::$action(); // Appel de la méthode statique $action de ControllerVoiture
+
+
+Controller::$action(); // Appel de la méthode statique $action de Controller
 ?>
