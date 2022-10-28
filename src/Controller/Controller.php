@@ -27,7 +27,7 @@ class Controller{
         $idPrevQ = 0;
         foreach ($var as $currentQuestion){
             if($idPrevQ != $currentQuestion[idQues])
-            echo "id Question: $currentQuestion[idQuestion]"
+            echo "id Question: $currentQuestion[idQuestion]";
         }
 
         echo "je test, l'id de la question: $var[idQuestion], sa section: $var[idSection]";

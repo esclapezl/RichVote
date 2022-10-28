@@ -16,7 +16,7 @@
 <main>
 
     <p>
-    <img src="../../../images/logoVote.png" alt="logo of a vote">
+    <img src="logoVote.png" alt="logo of a vote">
     </p>
     <div>
         <input type="text" id="id" name="identifiant" placeholder="Identifiant" required>
