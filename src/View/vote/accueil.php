@@ -8,11 +8,24 @@
         echo $pagetitle;
         ?></title>
 </head>
-<body>
 <header>
     <p>header accueil</p>
 </header>
+<body>
+
 <main>
+
+    <p>
+    <img src="../../../images/logoVote.png" alt="logo of a vote">
+    </p>
+    <div>
+        <input type="text" id="id" name="identifiant" placeholder="Identifiant" required>
+    </div>
+    <div>
+        <input type="password" id="mpd" name="motDePasse" placeholder="********" required>
+    </div>
+    <input type="submit" value="Se connecter">
+
     <?php
     /** @var $cheminVueBody string */
     //require __DIR__ . "/{$cheminVueBody}";
