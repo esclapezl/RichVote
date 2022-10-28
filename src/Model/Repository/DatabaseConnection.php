@@ -21,6 +21,17 @@ class DatabaseConnection{
         $this->pdo = new PDO("mysql:host=$hostname;dbname=$databaseName", $login, $password,
             array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 
+//        $db = "
+//        (DESCRIPTION =
+//            (ADRESSE = (PROTOCOL = TCP)(HOST = SOUVIGNETN)(PORT=1521)
+//            (CONNECT_DATA =
+//                (SERVER = DEDICATED)
+//                (SERVICE_NAME = IUT)
+//            )
+//        )";
+
+//        $this->pdo = new PDO("oci:dbname=".$db, $login, $password);
+
         // On active le mode d'affichage des erreurs, et le lancement d'exception en cas d'erreur
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }

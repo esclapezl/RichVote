@@ -7,16 +7,17 @@ class Conf {
         //
         // ou webinfo.iutmontp.univ-montp2.fr
         // pour accéder à webinfo depuis l'extérieur
+        // oracle: 162.38.222.149
         'hostname' => 'webinfo.iutmontp.univ-montp2.fr',
         // A l'IUT, vous avez une BDD nommee comme votre login
         // Sur votre machine, vous devrez creer une BDD
-        'database' => 'login iut',
+        'database' => 'souvignetn',
         // A l'IUT, c'est votre login
         // Sur votre machine, vous avez surement un compte 'root'
-        'login' => 'login iut',
+        'login' => 'souvignetn',
         // A l'IUT, c'est votre mdp (INE par defaut)
         // Sur votre machine personelle, vous avez creez ce mdp a l'installation
-        'password' => 'mdp'
+        'password' => '060781121EK'
     );
 
     static public function getLogin() : string {
