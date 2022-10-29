@@ -20,7 +20,7 @@
 </main>
 <footer>
     <p>
-        mon super site de covoit
+        mon super site de vote
     </p>
 </footer>
 </body>

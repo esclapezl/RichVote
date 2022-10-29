@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 use App\Model\Repository\DatabaseConnection as DataBaseConnection;
+use App\Model\Repository\QuestionRepository;
 use mysql_xdevapi\DatabaseObject;
 
 class Controller{
@@ -33,21 +34,12 @@ class Controller{
     }
 
     public static function readAll(){
-        $pdo = DataBaseConnection::getInstance()::getPdo();
+        $arrayQuestion = (new QuestionRepository)->selectAll();
 
-        $sql = "SELECT * FROM testRepSec";
-
-        $pdoStatement = $pdo->prepare($sql);
-
-        $pdoStatement->execute();
-
-        $idPrevQ = 0;
-        foreach ($pdoStatement as $currentQuestion){
-            if($idPrevQ != $currentQuestion['idQuestion']){
-                $idPrevQ = $currentQuestion['idQuestion'];
-                echo "autre question: $currentQuestion[intituleQuestion]<br>";
-            }
-            echo "Section: $currentQuestion[idSection] intitule :$currentQuestion[intituleSection] $currentQuestion[descriptionSection] <br>";
+        foreach ($arrayQuestion as $question){
+            $intitule = $question->getIntitule();
+            $description = $question->getDescription();
+            echo "je suis une question: $intitule           $description <br>";
         }
     }
 
