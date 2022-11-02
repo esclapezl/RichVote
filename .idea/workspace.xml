@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="test du gitignore sans la faute" />
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="creation fichier css">
+      <change afterPath="$PROJECT_DIR$/web/images/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/accueil.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/vote/accueil.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/styles.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -9,6 +15,13 @@
   </component>
   <component name="ComposerSettings">
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -21,25 +34,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/xampp/htdocs/sae-website",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sae-website/src/View/images&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\sae-website\src\View\images" />
       <recent name="$PROJECT_DIR$/src/view" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\sae-website\web" />
+      <recent name="C:\xampp\htdocs\sae-website" />
+      <recent name="C:\xampp\htdocs\sae-website\src" />
+      <recent name="C:\xampp\htdocs\sae-website\src\View" />
       <recent name="$PROJECT_DIR$/images" />
-      <recent name="$PROJECT_DIR$/web" />
-      <recent name="$PROJECT_DIR$/src/View/vote" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -57,6 +72,11 @@
       <workItem from="1667063455171" duration="4061000" />
       <workItem from="1667072961050" duration="122000" />
       <workItem from="1667249498994" duration="108000" />
+      <workItem from="1667249608707" duration="91000" />
+      <workItem from="1667257754113" duration="642000" />
+      <workItem from="1667327900383" duration="677000" />
+      <workItem from="1667328608914" duration="3251000" />
+      <workItem from="1667424429378" duration="87000" />
     </task>
     <task id="LOCAL-00001" summary="structure">
       <created>1666707099608</created>
@@ -135,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667073072584</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="creation fichier css">
+      <created>1667249663509</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1667249663509</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,6 +186,7 @@
     <MESSAGE value="configuration de la base pour les questions avec la classe abstraite repository et la classe Question&#10;la connexion avec la base de données marche" />
     <MESSAGE value="je test le .gitignore pour plus mettre mes identifiants dans le Conf" />
     <MESSAGE value="test du gitignore sans la faute" />
-    <option name="LAST_COMMIT_MESSAGE" value="test du gitignore sans la faute" />
+    <MESSAGE value="creation fichier css" />
+    <option name="LAST_COMMIT_MESSAGE" value="creation fichier css" />
   </component>
 </project>
