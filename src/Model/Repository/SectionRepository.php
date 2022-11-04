@@ -10,12 +10,13 @@ class SectionRepository extends AbstractRepository
 {
     protected function getNomTable(): string
     {
-        return "souvignetn.sections";
+        return "SOUVIGNETN.SECTIONS";
     }
 
     protected function construire(array $objetFormatTableau): AbstractDataObject
     {
         return new Section(
+            $objetFormatTableau['idSection'],
             $objetFormatTableau['idQuestion'],
             $objetFormatTableau['intitule'],
             $objetFormatTableau['description']
@@ -23,18 +24,22 @@ class SectionRepository extends AbstractRepository
     }
 
     public function getSectionsQuestion(string $idQuestion): array{
-        $sql = "SELECT * FROM getNomTable() WHERE idQuestion = :id";
+        $sql = "SELECT * FROM SOUVIGNETN.SECTIONS WHERE idQuestionConstitue = :id";
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $pdoStatement = $pdo->prepare($sql);
 
-        $pdoStatement->execute(array('id' => $idQuestion));
+        $pdoStatement->execute(array(
+            'id' => $idQuestion
+        ));
 
         $sections = array();
         foreach ($pdoStatement as $section){
             $sections[] = $this->construire(array(
-                'intitule' => $section['intituleSection'],
-                'description' => $section['descriptionSection']
+                'idSection' => $section['IDSECTION'],
+                'idQuestion' => $section['IDQUESTIONCONSTITUE'],
+                'intitule' => $section['INTITULESECTION'],
+                'description' => $section['DESCRIPTIONSECTION']
             ));
         }
         return $sections;

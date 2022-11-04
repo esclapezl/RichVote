@@ -40,6 +40,18 @@ class Controller{
         self::readAll();
     }
 
+    public static function modifyQuestion(){
+        $idQuestion = $_GET['idQuestion'];
+
+        $parametres = array(
+            'pagetitle' => 'modifier une question',
+            'cheminVueBody' => 'vote/modifyQuestion.php',
+            'question' => (new QuestionRepository())->select($idQuestion)
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
 
     public static function inscription()
     {

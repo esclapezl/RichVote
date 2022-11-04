@@ -43,4 +43,23 @@ class QuestionRepository extends AbstractRepository
         $question = new Question($id, $question->getIntitule(), $question->getDescription());
         return $question;
     }
+
+    public function select(int $idQuestion){
+        $sql = "SELECT * FROM SOUVIGNETN.QUESTIONS WHERE idQuestion = :idQuestion";
+
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdostatement = $pdo->prepare($sql);
+
+        $pdostatement->execute(array(
+            'idQuestion' => $idQuestion
+        ));
+
+        $questionTab = $pdostatement->fetch();
+
+        $question = $this->construire($questionTab);
+        $question->setSections((new SectionRepository)->getSectionsQuestion($question->getId()));
+
+        return $question;
+    }
 }

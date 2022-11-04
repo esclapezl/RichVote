@@ -7,6 +7,15 @@ class Section extends AbstractDataObject
     private string $intitule;
     private string $description;
     private int $idQuestion;
+    private int $idSection;
+
+    /**
+     * @return int
+     */
+    public function getIdSection(): int
+    {
+        return $this->idSection;
+    }
 
     /**
      * @return string
@@ -49,11 +58,13 @@ class Section extends AbstractDataObject
     }
 
     public function __construct(
+        int $idSection,
         int $idQuestion,
         string $intitule,
         string $description
     )
     {
+        $this->idSection = $idSection;
         $this->idQuestion = $idQuestion;
         $this->intitule = $intitule;
         $this->description = $description;
