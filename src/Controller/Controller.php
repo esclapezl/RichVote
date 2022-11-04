@@ -1,8 +1,11 @@
 <?php
 namespace App\Controller;
+use App\Model\DataObject\Section;
 use App\Model\Repository\DatabaseConnection as DataBaseConnection;
 use App\Model\Repository\QuestionRepository;
+use App\Model\Repository\SectionRepository;
 use mysql_xdevapi\DatabaseObject;
+use App\Model\DataObject\Question;
 
 class Controller{
     public static function accueil()
@@ -21,6 +24,20 @@ class Controller{
             "pagetitle" => "créer une question",
             "cheminVueBody" => 'vote/createQuestion.php'
         ]);
+    }
+
+    public static function questionCreated(){
+        $intitule = $_POST['titreQuestion'];
+        $nbSections = $_POST['nbSections'];
+
+        $question = new Question(null, $intitule, 'description');
+        $question = (new QuestionRepository)->sauvegarder($question);
+        for($i=0; $i<$nbSections; $i++){
+            $section = new Section($question->getId(), "section n°$i", 'description');
+            (new SectionRepository())->sauvegarder($section);
+        }
+
+        self::readAll();
     }
 
 

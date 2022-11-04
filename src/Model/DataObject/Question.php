@@ -4,9 +4,26 @@ namespace App\Model\DataObject;
 
 class Question extends AbstractDataObject
 {
-    private string $id;
+    private ?string $id;
     private string $intitule;
     private string $description;
+    private array $sections;
+
+    /**
+     * @return array
+     */
+    public function getSections(): array
+    {
+        return $this->sections;
+    }
+
+    /**
+     * @param array $sections
+     */
+    public function setSections(array $sections): void
+    {
+        $this->sections = $sections;
+    }
 
     /**
      * @param string $intitule
@@ -49,7 +66,7 @@ class Question extends AbstractDataObject
     }
 
     public function __construct(
-        string $id,
+        ?string $id,
         string $intitule,
         string $description
     )
@@ -57,5 +74,9 @@ class Question extends AbstractDataObject
         $this->id = $id;
         $this->intitule = $intitule;
         $this->description = $description;
+    }
+
+    public function ajouterSection(Section $section){
+        $this->sections[] = $section;
     }
 }

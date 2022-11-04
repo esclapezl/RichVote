@@ -15,16 +15,24 @@
 
 <main>
 
-    <div>
-    <input type="text" id="tq" name="titreQuestion" placeholder="Titre de la question" required>
-    </div>
-    <label for="nbSections"> Nombre de sections </label>
-    <input min="1" max="10" id="nbSections">
+    <form method="post" action="frontController.php?action=questionCreated">
+        <fieldset>
+            <legend>Créer une nouvelle question</legend>
 
+            <p>
+                <input type="text" id="tq" name="titreQuestion" placeholder="Titre de la question" required>
+            </p>
 
-    <div>
-    <input type="text" id="" name="titreQuestion" placeholder="Titre de la question" required>
-    </div>
+            <p>
+                <label for="nbSections"> Nombre de sections </label>
+                <input type="number" min="1" max="10" id="ns" name="nbSections">
+            </p>
+
+            <p>
+                <input type="submit" value="envoyer"/>
+            </p>
+        </fieldset>
+    </form>
 
     <?php
     /** @var $cheminVueBody string */
