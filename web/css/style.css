@@ -5,8 +5,13 @@
     padding: 0;
     text-decoration: none;
     list-style: none;
+    box-sizing: border-box;
 
     font-family: 'MADE Bon Voyage', sans-serif;
+}
+
+html{
+    scroll-behavior: smooth;
 }
 
 body {
@@ -15,11 +20,28 @@ body {
 
 
 header{
-    width: 100vw;
     height: 100vh;
-    background-image: url("../img/wallpaper.png");
-    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+    /*background-image: url("../img/wallpaper.png");
+    /*-webkit-background-size: cover; /* pour anciens Chrome et Safari
     background-size: cover; /* version standardisée */
+}
+
+.blocvid{
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    z-index: -100;
+    overflow: hidden;
+}
+.blocvid video{
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+
 }
 
 .navBar{
@@ -53,24 +75,24 @@ header{
 
 .navBar ul {
     display: flex;
-    background-color: rgba(141,141,141,0.3);
+    position: absolute;
+    left: 200px;
+    background-color: rgba(0,0,0,0.8);
     border-radius: 5px;
-    padding: 5px;
     height: 40px;
-    border-radius: 5px;
     justify-content: center;
     align-items: center;
+    font-size: 1.2em;
 
 }
 
-.navBar ul li a{
+.navBar ul li{
     margin: 0 25px;
     transition: 1s;
 }
 
-.navBar ul li a.active,.navBar ul li a:hover{
-    color: black;
-    transform: translateY(-10px);
+.navBar ul li.active,.navBar ul li:hover{
+    transform: translateY(-5px);
 }
 
 .navBar .btn {
@@ -113,6 +135,7 @@ header{
 .navBar #btn-connexion{
     background-color: white;
     color: black;
+    font-size: 1.2em;
     font-weight: bold;
     display: flex;
     width: 120px;
@@ -129,17 +152,11 @@ header{
     color: white;
 }
 
-.blockAccueil{
-    width: 100%;
-    height: 100vh;
-    background-image: url("../img/wallpaperLong.png");
-    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
-    background-size: cover; /* version standardisée */
-}
+
 .scroll{
     position: absolute;
     right: 10px;
-    bottom: 0.5rem;
+    bottom: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -176,7 +193,7 @@ header{
 
 
 footer{
-    box-sizing: border-box;
+
     position: relative;
     width: 100%;
     background: black;
@@ -216,7 +233,7 @@ footer ul li a:hover{
 footer #txtEffet{
     margin: 0 10px;
     transition: 0.5s;
-    color: red;
+    color: dodgerblue;
 }
 
 footer #txtEffet:hover{
@@ -293,8 +310,39 @@ footer .vague#vague4{
     }
 }
 
+.blockAccueil{
+    height: 100vh;
+    /*background-image: url("../img/wallpaperLong.png");*/
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*-webkit-background-size: cover; /* pour anciens Chrome et Safari
+    background-size: cover; /* version standardisée */
+}
 
 
+.blockAccueil .text-box {
+    position: absolute;
+    text-align: center;
+    color: white;
+    padding:100px;
+    margin: 40px;
+    background: rgba( 0, 0, 0, 0.4 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 15.5px );
+    -webkit-backdrop-filter: blur( 15.5px );
+    border-radius: 10px;
+
+}
+.blockAccueil .text-box p{
+    padding: 10px;
+    font-size: 1.5em;
+}
+.blockAccueil .text-box h3{
+    font-size: 2em;
+    margin-bottom: 20px;
+}
 
 
 @media screen and (max-width: 900px) {
@@ -310,6 +358,10 @@ footer .vague#vague4{
 
     .navBar .btn{
         display: flex;
+    }
+
+    .navBar .btn-connexion{
+        display: none;
     }
     .navBar ul{
         top:0;
