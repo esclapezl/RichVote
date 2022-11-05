@@ -95,11 +95,13 @@ class Controller{
     public static function readAll(){
         $arrayQuestion = (new QuestionRepository)->selectAll();
 
-        foreach ($arrayQuestion as $question){
-            $intitule = $question->getIntitule();
-            $description = $question->getDescription();
-            echo "je suis une question: $intitule           $description <br>";
-        }
+        $parametres = array(
+            'pagetitle' => 'liste des questions',
+            'cheminVueBody' => 'vote/listQuestion.php',
+            'questions' => $arrayQuestion
+        );
+
+        self::afficheVue('view.php', $parametres);
     }
 
     private static function afficheVue(string $cheminVue, array $parametres = []) : void {
