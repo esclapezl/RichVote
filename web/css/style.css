@@ -1,0 +1,151 @@
+@import url('https://fonts.cdnfonts.com/css/made-bon-voyage');
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'MADE Bon Voyage', sans-serif;
+}
+
+body {
+    background: #272727;
+}
+
+
+header{
+    width: 100vw;
+    height: 100vh;
+}
+
+.navBar{
+    position: absolute;
+    padding: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navBar a {
+    color: white;
+}
+
+.navBar #logo{
+    width: 90px;
+    height: 90px;
+    transition: 0.5s;
+    text-align: left;
+    border-radius: 100%;
+    background: white;
+    border: 5px solid white;
+}
+
+.navBar #logo:hover,
+.navBar #logo.active{
+    transform: rotate(360deg);
+}
+
+.navBar ul {
+    display: flex;
+}
+
+.navBar ul li{
+    margin: 0 25px;
+    transition: 0.5s;
+}
+
+.navBar ul li a.active,.navBar ul li a:hover{
+    color: grey;
+}
+
+.navBar .btn {
+    display: none;
+    position: absolute;
+    width: 50px;
+    height: 90px;
+    top:50px;
+    right: 50px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: end;
+    flex-direction: column;
+    transition: 1s;
+}
+
+.navBar .btn:hover,
+.navBar .btn.active{
+    transform: scaleY(1.2);
+}
+
+.navBar .btn .line {
+    height: 3px;
+    background: #fff;
+    border-radius: 30px;
+    position: relative;
+}
+.navBar .btn .line:nth-child(1){
+    bottom: 5px;
+    width: 60%;
+}
+.navBar .btn .line:nth-child(2){
+    width: 60%;
+}
+.navBar .btn .line:nth-child(3){
+    top: 5px;
+    width: 35%;
+}
+
+.navBar #btn-connexion{
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    display: flex;
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+}
+
+.navBar #btn-connexion.active,
+.navBar #btn-connexion:hover {
+    background-color: black;
+    color: white;
+}
+
+
+@media screen and (max-width: 900px) {
+    .navBar{
+        padding: 0;
+    }
+
+    .navBar #logo{
+        position: absolute;
+        top:50px;
+        left: 50px;
+    }
+
+    .navBar .btn{
+        display: flex;
+    }
+    .navBar ul{
+        top:0;
+        left: 0;
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.299);
+        backdrop-filter: blur(5px);
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .navBar ul li{
+        margin: 25px 0;
+        font-size: 1.2em;
+    }
+}

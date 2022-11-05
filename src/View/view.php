@@ -2,20 +2,28 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-
+        <link rel="stylesheet" href="css/style.css">
         <title><?php
             /** @var $pagetitle string */
             echo $pagetitle;
             ?>
         </title>
-        <link rel="stylesheet" href="css/styles.css">
+
     </head>
     <body>
         <header>
-            <nav class="navMenu">
-                <a href="#">Home</a>
+            <nav class="navBar">
                 <a href="#"><img src="images/logo.png" alt="RichVote" id="logo"></a>
-                <a href="#">About</a>
+                <ul>
+                    <li><a href="#">Questions</a></li>
+                    <li><a href="#">Résulats</a></li>
+                </ul>
+                <a href="#" id="btn-connexion">Connexion</a>
+                <div class="btn">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
             </nav>
         </header>
         <main>
