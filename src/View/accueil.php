@@ -8,7 +8,7 @@
 <div class="blockAccueil">
 
         <div class="text-box">
-            <h3>Qu'est ce que RichVote ?</h3>
+            <img src="img/logo.png" alt="RichVote" id="logo">
             <p>
                 RichVote est un site de vote. Il possède le système de vote le plus élaborée et le plus
                 sûr que l'on peut retrouver sur le web.
