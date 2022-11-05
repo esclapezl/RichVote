@@ -321,7 +321,7 @@ footer .vague#vague4{
     }
 }
 
-.blockAccueil{
+.block{
     height: 100vh;
     /*background-image: url("../img/wallpaperLong.png");*/
     background: rgb(249,249,249);
@@ -334,7 +334,9 @@ footer .vague#vague4{
 }
 
 
-.blockAccueil .text-box {
+
+
+.block .text-box {
     position: absolute;
     text-align: center;
     color: white;
@@ -347,15 +349,16 @@ footer .vague#vague4{
     border-radius: 10px;
 
 }
-.blockAccueil .text-box p{
+.block .text-box p{
     padding: 10px;
     font-size: 1.2em;
 }
-.blockAccueil .text-box img{
+.block .text-box img,
+.block .text-box h3{
     font-size: 3em;
     margin-bottom: 20px;
 }
-.blockAccueil .text-box a{
+.block .text-box a{
     padding: 10px;
     font-size: 1.5em;
     color: dodgerblue;

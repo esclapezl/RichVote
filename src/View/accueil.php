@@ -5,8 +5,7 @@
     <video autoplay="autoplay" muted="" loop="infinite" src="img/trailer.webm"></video>
     </div>
 </header>
-<div class="blockAccueil">
-
+<div class="block">
         <div class="text-box">
             <img src="img/logo.png" alt="RichVote" id="logo">
             <p>
@@ -14,11 +13,11 @@
                 sûr que l'on peut retrouver sur le web.
             </p>
             <p>
-                Suivez vos différents sujets en vous connectant <a href="#">ici</a>.
+                Suivez vos différents sujets en vous connectant <a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=connexion">ici</a>.
             </p>
             <p>
                 Si vous n'êtes pas inscrit, ne tardez plus !
-                Vous pouvez être nommé à différents rôles, vous avez juste à cliquer <a href="#">ici</a>.
+                Vous pouvez être nommé à différents rôles, vous avez juste à cliquer <a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=inscription">ici</a>.
             </p>
         </div>
 
