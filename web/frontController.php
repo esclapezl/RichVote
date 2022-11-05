@@ -11,7 +11,7 @@ $loader->addNamespace('App', __DIR__ . '/../src');
 // register the autoloader
 $loader->register();
 
-$action = 'accueil';
+
 if(isset($_GET['action'])) {
     $action = $_GET['action'];
 }

@@ -42,7 +42,7 @@
             <ul>
                 <li><a href="#">Accueil</a></li>
                 <li><a href="#">Questions</a></li>
-                <li><a href="#">Résulats</a></li>
+                <li><a href="#">Résultats</a></li>
                 <li><a href="#">Contributeurs</a></li>
             </ul>
             <p><a href="#" id="txtEffet">Connexion</a> |   Pas encore inscrit ? <a href="#" id="txtEffet">Inscrivez vous</a></p>
