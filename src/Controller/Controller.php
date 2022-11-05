@@ -15,7 +15,7 @@ class Controller{
 
         self::afficheVue('view.php',[
             "pagetitle" => "Accueil",
-            "cheminVueBody" => 'vote/accueil.php'
+            "cheminVueBody" => 'accueil.php'
         ]);
     }
 
@@ -90,7 +90,7 @@ class Controller{
 
         self::afficheVue('view.php',[
             "pagetitle" => "Inscription",
-            "cheminVueBody" => 'vote/inscription.php'
+            "cheminVueBody" => 'user/inscription.php'
         ]);
     }
 
