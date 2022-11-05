@@ -3,7 +3,7 @@ use App\Model\DataObject\Question;
 
 /** @var Question $question */
 ?>
-<form method="get" action="frontController.php?action=QuestionModified">
+<form method="post" action="frontController.php?action=QuestionModified&idQuestion=<?=$question->getId()?>">
     <fieldset>
         <legend>modification de la question</legend>
 
@@ -22,5 +22,7 @@ use App\Model\DataObject\Question;
             require 'section.php';
         }
         ?>
+
+        <input type="submit" value="envoyer">
     </fieldset>
 </form>

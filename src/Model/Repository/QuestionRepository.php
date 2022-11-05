@@ -62,4 +62,20 @@ class QuestionRepository extends AbstractRepository
 
         return $question;
     }
+
+    public function update(Question $question){
+        $sql = "update SOUVIGNETN.QUESTIONS SET intituleQuestion = :intitule, descriptionQuestion = :description where idQuestion = :id";
+
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute(
+            array(
+                'intitule' => $question->getIntitule(),
+                'description' => $question->getDescription(),
+                'id' => $question->getId()
+            )
+        );
+    }
 }

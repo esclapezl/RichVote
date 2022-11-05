@@ -14,7 +14,7 @@ abstract class AbstractRepository{
 
         $nomTable = $this->getNomTable();
 
-        $pdoStatement = $pdo->query("SELECT * FROM QUESTIONS");
+        $pdoStatement = $pdo->query("SELECT * FROM $nomTable");
 
         $tabRepo = array();
         foreach($pdoStatement as $objetFormatTab){

@@ -33,11 +33,17 @@ class Controller{
         $question = new Question(null, $intitule, 'description');
         $question = (new QuestionRepository)->sauvegarder($question);
         for($i=0; $i<$nbSections; $i++){
-            $section = new Section($question->getId(), "section n°$i", 'description');
+            $section = new Section(null, $question->getId(), "section n°$i", 'description');
             (new SectionRepository())->sauvegarder($section);
         }
 
-        self::readAll();
+        $parametres = array(
+            'pagetitle' => 'continuer la création de la question',
+            'cheminVueBody' => 'vote/modifyQuestion.php',
+            'question' => (new QuestionRepository())->select($question->getId())
+        );
+
+        self::afficheVue('view.php', $parametres);
     }
 
     public static function modifyQuestion(){
@@ -50,6 +56,30 @@ class Controller{
         );
 
         self::afficheVue('view.php', $parametres);
+    }
+
+    public static function questionModified(){
+        $titreQuestion = $_POST['titreQuestion'];
+        $descriptionQuestion = $_POST['descriptionQuestion'];
+
+        $question = new Question($_GET['idQuestion'], $titreQuestion, $descriptionQuestion);
+        (new QuestionRepository())->update($question);
+
+        $sections = array();
+        foreach($_POST['intitule'] as $key=>$intitule){
+            $sections[$key]['intitule'] = $intitule;
+        }
+
+        foreach($_POST['description'] as $key=>$description){
+            $sections[$key]['description'] = $description;
+        }
+
+        foreach ($sections as $key=>$tabSection){
+            $section = new Section($key, $_GET['idQuestion'], $tabSection['intitule'], $tabSection['description']);
+            (new SectionRepository())->update($section);
+        }
+
+        self::readAll();
     }
 
 

@@ -6,13 +6,13 @@ class Section extends AbstractDataObject
 {
     private string $intitule;
     private string $description;
-    private int $idQuestion;
-    private int $idSection;
+    private string $idQuestion;
+    private ?string $idSection;
 
     /**
-     * @return int
+     * @return string
      */
-    public function getIdSection(): int
+    public function getIdSection(): string
     {
         return $this->idSection;
     }
@@ -50,16 +50,16 @@ class Section extends AbstractDataObject
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getIdQuestion(): int
+    public function getIdQuestion(): string
     {
         return $this->idQuestion;
     }
 
     public function __construct(
-        int $idSection,
-        int $idQuestion,
+        ?string $idSection,
+        string $idQuestion,
         string $intitule,
         string $description
     )
