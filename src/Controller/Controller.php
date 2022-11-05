@@ -1,7 +1,9 @@
 <?php
 namespace App\Controller;
+use App\Model\DataObject\Proposition;
 use App\Model\DataObject\Section;
 use App\Model\Repository\DatabaseConnection as DataBaseConnection;
+use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\SectionRepository;
 use mysql_xdevapi\DatabaseObject;
@@ -113,6 +115,20 @@ class Controller{
             'pagetitle' => 'Vue question',
             'cheminVueBody' => 'vote/viewQuestion.php',
             'question' => $question
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
+    public static function selectProposition(){
+        $idProposition = $_GET['idProposition'];
+
+        $proposition = (new PropositionRepository())->select($idProposition);
+
+        $parametres = array(
+            'pagetitle' => 'Vue proposition',
+            'cheminVueBody' => 'vote/viewProposition.php',
+            'proposition' => $proposition
         );
 
         self::afficheVue('view.php', $parametres);

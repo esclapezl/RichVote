@@ -74,4 +74,23 @@ class SectionRepository extends AbstractRepository
         ));
     }
 
+    public function selectSection(string $idSection){
+        $sql = "SELECT * FROM SOUVIGNETN.SECTIONS WHERE idSection = :id";
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute(array(
+            'id' => $idSection
+        ));
+
+        $section = $pdoStatement->fetch();
+        return $this->construire(array(
+            'idSection' => $section['IDSECTION'],
+            'idQuestion' => $section['IDQUESTIONCONSTITUE'],
+            'intitule' => $section['INTITULESECTION'],
+            'description' => $section['DESCRIPTIONSECTION']
+        ));
+    }
+
 }
