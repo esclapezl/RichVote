@@ -104,6 +104,20 @@ class Controller{
         self::afficheVue('view.php', $parametres);
     }
 
+    public static function selectQuestion(){
+        $idQuestion = $_GET['idQuestion'];
+
+        $question = (new QuestionRepository())->select($idQuestion);
+
+        $parametres = array(
+            'pagetitle' => 'Vue question',
+            'cheminVueBody' => 'vote/viewQuestion.php',
+            'question' => $question
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
     private static function afficheVue(string $cheminVue, array $parametres = []) : void {
         extract($parametres); // Crée des variables à partir du tableau $parametres
         require __DIR__ . "/../View/$cheminVue"; // Charge la vue

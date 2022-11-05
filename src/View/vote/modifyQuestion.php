@@ -19,7 +19,7 @@ use App\Model\DataObject\Question;
         $sections = $question->getSections();
         for($i=0; $i<count($sections); $i++){
             $section = $sections[$i];
-            require 'section.php';
+            require 'modifySection.php';
         }
         ?>
 
