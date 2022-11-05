@@ -5,6 +5,7 @@
     padding: 0;
     text-decoration: none;
     list-style: none;
+
     font-family: 'MADE Bon Voyage', sans-serif;
 }
 
@@ -16,6 +17,9 @@ body {
 header{
     width: 100vw;
     height: 100vh;
+    background-image: url("../img/wallpaper.png");
+    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+    background-size: cover; /* version standardisée */
 }
 
 .navBar{
@@ -49,15 +53,24 @@ header{
 
 .navBar ul {
     display: flex;
+    background-color: rgba(141,141,141,0.3);
+    border-radius: 5px;
+    padding: 5px;
+    height: 40px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+
 }
 
-.navBar ul li{
+.navBar ul li a{
     margin: 0 25px;
-    transition: 0.5s;
+    transition: 1s;
 }
 
 .navBar ul li a.active,.navBar ul li a:hover{
-    color: grey;
+    color: black;
+    transform: translateY(-10px);
 }
 
 .navBar .btn {
@@ -115,6 +128,173 @@ header{
     background-color: black;
     color: white;
 }
+
+.blockAccueil{
+    width: 100%;
+    height: 100vh;
+    background-image: url("../img/wallpaperLong.png");
+    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+    background-size: cover; /* version standardisée */
+}
+.scroll{
+    position: absolute;
+    right: 10px;
+    bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    color: #fff;
+}
+
+.scroll span{
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    animation-name: bounce-1;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes bounce-1 {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    50% {
+        -webkit-transform: translateY(-15px);
+        transform: translateY(-15px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+
+footer{
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    background: black;
+    min-height: 100px;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+footer ul{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+footer ul li{
+    list-style: none;
+}
+
+footer ul li a{
+    font-size: 2em;
+    color: white;
+    margin: 0 10px;
+    display: inline-block;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+footer ul li a:hover{
+    transform: translateY(-10px);
+}
+
+footer #txtEffet{
+    margin: 0 10px;
+    transition: 0.5s;
+    color: red;
+}
+
+footer #txtEffet:hover{
+    color: white;
+}
+
+
+footer p{
+    color: white;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+footer .vague{
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url("../img/vague.png");
+    background-size: 1000px 100px;
+}
+
+footer .vague#vague1{
+    z-index: 1000;
+    opacity: 1;
+    bottom: 0;
+    animation: animateWave 4s linear infinite;
+}
+
+footer .vague#vague2{
+    z-index: 999;
+    opacity: 0.5;
+    bottom: 10px;
+    animation: animateWave_02 4s linear infinite;
+}
+
+footer .vague#vague3{
+    z-index: 1000;
+    opacity: 0.2;
+    bottom: 15px;
+    animation: animateWave 3s linear infinite;
+}
+
+footer .vague#vague4{
+    z-index: 999;
+    opacity: 0.7;
+    bottom: 20px;
+    animation: animateWave_02 3s linear infinite;
+}
+
+
+@keyframes animateWave {
+    0%
+    {
+        background-position: 1000px;
+    }
+    100%
+    {
+        background-position: 0px;
+    }
+}
+
+@keyframes animateWave_02 {
+    0%
+    {
+        background-position: 0px;
+    }
+    100%
+    {
+        background-position: 1000px;
+    }
+}
+
+
+
 
 
 @media screen and (max-width: 900px) {

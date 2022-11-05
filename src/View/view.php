@@ -11,12 +11,12 @@
 
     </head>
     <body>
-        <header>
             <nav class="navBar">
-                <a href="#"><img src="images/logo.png" alt="RichVote" id="logo"></a>
+                <a href="#"><img src="img/logo.png" alt="RichVote" id="logo"></a>
                 <ul>
                     <li><a href="#">Questions</a></li>
                     <li><a href="#">Résulats</a></li>
+                    <li><a href="#">Contributeurs</a></li>
                 </ul>
                 <a href="#" id="btn-connexion">Connexion</a>
                 <div class="btn">
@@ -25,7 +25,6 @@
                     <div class="line"></div>
                 </div>
             </nav>
-        </header>
         <main>
             <?php
             /** @var $cheminVueBody string */
@@ -33,7 +32,21 @@
             ?>
         </main>
         <footer>
-            <p>mon super site de vote</p>
+            <div class="vagues">
+                <div class="vague" id="vague1"></div>
+                <div class="vague" id="vague2"></div>
+                <div class="vague" id="vague3"></div>
+                <div class="vague" id="vague4"></div>
+
+            </div>
+            <ul>
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#">Questions</a></li>
+                <li><a href="#">Résulats</a></li>
+                <li><a href="#">Contributeurs</a></li>
+            </ul>
+            <p><a href="#" id="txtEffet">Connexion</a> |   Pas encore inscrit ? <a href="#" id="txtEffet">Inscrivez vous</a></p>
+            <p>Copyright &copy; RichVote | Tous droits reserves</p>
         </footer>
     </body>
 </html>
