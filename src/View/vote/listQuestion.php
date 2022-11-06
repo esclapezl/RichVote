@@ -8,9 +8,12 @@ use App\Model\DataObject\Question;
     <ul>
         <?php
         foreach ($questions as $question){
-            echo "<li>".$question->getIntitule()."</li>";
+            echo "<li>".$question->getIntitule()."<a href='frontController.php?controller=" . $_GET['controller'] . "&action=viewQuestion.php&id=".$question->getId() .">voir</a> </li>";
         }
         ?>
     </ul>
+        <p>
+            <a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=createQuestion">Créer une Question</a>
+        </p>
     </div>
 </div>

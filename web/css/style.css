@@ -349,9 +349,10 @@ footer .vague#vague4{
     border-radius: 10px;
 
 }
-.block .text-box p{
+.block .text-box p,
+.block .text-box ul{
     padding: 10px;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 .block .text-box img,
 .block .text-box h3{
@@ -360,7 +361,7 @@ footer .vague#vague4{
 }
 .block .text-box a{
     padding: 10px;
-    font-size: 1.5em;
+    font-size: 1em;
     color: dodgerblue;
 }
 

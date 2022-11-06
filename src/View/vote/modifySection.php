@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html>
+
 <?php
 use App\Model\DataObject\Section;
 /** @var Section $section */
