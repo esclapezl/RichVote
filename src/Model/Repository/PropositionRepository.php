@@ -77,21 +77,6 @@ class PropositionRepository extends AbstractRepository
 
         $sqlCreerTextes = "call creerSectionReponse(" . $idProposition . ")";
         $pdo->query($sqlCreerTextes);
-//
-//        $sectionsQuestion = (new SectionRepository())->getSectionsQuestion($proposition->getIdQuestion());
-//
-//        $sqlCreerTexteSection = "insert into SOUVIGNETN.PROPOSERTEXTE(idProposition, idSection, texte) VALUES (:idPropostion, :idSection, :texte)";
-//        $pdoStatementInsertTexte = $pdo->prepare($sqlCreerTexteSection);
-//
-//        foreach($sectionsQuestion as $section){
-//            $param = array(
-//                'idProposition' => $idProposition,
-//                'idSection' => $section->getIdSection(),
-//                'texte' => $section->getDescription()
-//            );
-//            var_dump($param);
-//            $pdoStatementInsertTexte->execute($param);
-//        }
 
         return $this->select($idProposition);
     }
