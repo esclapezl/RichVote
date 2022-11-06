@@ -10,7 +10,12 @@ class SectionRepository extends AbstractRepository
 {
     protected function getNomTable(): string
     {
-        return "SOUVIGNETN.SECTIONS";
+        return 'SOUVIGNETN.SECTIONS';
+    }
+
+    protected function getNomId(): string
+    {
+        return 'idSection';
     }
 
     protected function construire(array $objetFormatTableau): AbstractDataObject
@@ -73,24 +78,4 @@ class SectionRepository extends AbstractRepository
             'id' => $section->getIdSection()
         ));
     }
-
-    public function selectSection(string $idSection){
-        $sql = "SELECT * FROM SOUVIGNETN.SECTIONS WHERE idSection = :id";
-        $pdo = DatabaseConnection::getInstance()::getPdo();
-
-        $pdoStatement = $pdo->prepare($sql);
-
-        $pdoStatement->execute(array(
-            'id' => $idSection
-        ));
-
-        $section = $pdoStatement->fetch();
-        return $this->construire(array(
-            'idSection' => $section['IDSECTION'],
-            'idQuestion' => $section['IDQUESTIONCONSTITUE'],
-            'intitule' => $section['INTITULESECTION'],
-            'description' => $section['DESCRIPTIONSECTION']
-        ));
-    }
-
 }

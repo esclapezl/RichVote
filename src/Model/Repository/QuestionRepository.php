@@ -12,6 +12,11 @@ class QuestionRepository extends AbstractRepository
         return "SOUVIGNETN.QUESTIONS";
     }
 
+    protected function getNomId(): string
+    {
+        return 'idQuestion';
+    }
+
     protected function construire(array $objetFormatTableau): AbstractDataObject
     {
         return new Question(
@@ -44,22 +49,10 @@ class QuestionRepository extends AbstractRepository
         return $question;
     }
 
-    public function select(int $idQuestion){
-        $sql = "SELECT * FROM SOUVIGNETN.QUESTIONS WHERE idQuestion = :idQuestion";
-
-        $pdo = DatabaseConnection::getInstance()::getPdo();
-
-        $pdostatement = $pdo->prepare($sql);
-
-        $pdostatement->execute(array(
-            'idQuestion' => $idQuestion
-        ));
-
-        $questionTab = $pdostatement->fetch();
-
-        $question = $this->construire($questionTab);
+    public function select(string $id) : AbstractDataObject
+    {
+        $question = parent::select($id);
         $question->setSections((new SectionRepository)->getSectionsQuestion($question->getId()));
-
         return $question;
     }
 
