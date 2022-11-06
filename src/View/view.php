@@ -45,7 +45,17 @@
                 <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=readAll">Résultats</a></li>
                 <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=about">Contributeurs</a></li>
             </ul>
-            <p><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=connexion" id="txtEffet">Connexion</a> |   Pas encore inscrit ? <a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=inscription" id="txtEffet">Inscrivez vous</a></p>
+            <?php
+            if(($_GET['controller']) == 'user'){
+                echo '<p><a href="frontController.php?controller=user&action=connexion" id="txtEffet">Connexion</a> |   Pas encore inscrit ? <a href="frontController.php?controller=user&action=inscription" id="txtEffet">Inscrivez vous</a></p>';
+
+             }
+            else{
+                echo '<p><a href="frontController.php?controller=user&action='.$_GET['action'].'" id="txtEffet">Deconnexion</a>' ;
+
+            }
+
+            ?>
             <p>Copyright &copy; RichVote | Tous droits reserves</p>
         </footer>
     </body>

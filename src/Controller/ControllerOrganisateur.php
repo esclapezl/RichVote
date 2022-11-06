@@ -37,7 +37,8 @@ class ControllerOrganisateur
         $parametres = array(
             'pagetitle' => 'liste des questions',
             'cheminVueBody' => 'vote/listQuestion.php',
-            'questions' => $arrayQuestion
+            'questions' => $arrayQuestion,
+
         );
 
         self::afficheVue('view.php', $parametres);
