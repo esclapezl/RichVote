@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="vue connexion">
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="listQuestion : modif ajouté">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/vote/listQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/vote/listQuestion.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/modifyQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/vote/modifyQuestion.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +78,7 @@
       <workItem from="1667425030363" duration="35000" />
       <workItem from="1667425109732" duration="1859000" />
       <workItem from="1667645056921" duration="6750000" />
-      <workItem from="1667665466238" duration="26469000" />
+      <workItem from="1667665466238" duration="26834000" />
     </task>
     <task id="LOCAL-00001" summary="structure">
       <created>1666707099608</created>
@@ -236,7 +234,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667696759882</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="listQuestion : modif ajouté">
+      <created>1667698552125</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1667698552125</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,6 +275,7 @@
     <MESSAGE value="test" />
     <MESSAGE value="Affichage sur toutes les vues actuelles" />
     <MESSAGE value="vue connexion" />
-    <option name="LAST_COMMIT_MESSAGE" value="vue connexion" />
+    <MESSAGE value="listQuestion : modif ajouté" />
+    <option name="LAST_COMMIT_MESSAGE" value="listQuestion : modif ajouté" />
   </component>
 </project>
