@@ -22,7 +22,7 @@ Controller::$action(); // Appel de la méthode statique $action de Controller
 
 $controller = ucfirst($_GET['controller']);
 $controllerClassName = "App\Controller\Controller" . $controller;
-//echo $controller;
+//echo $controllerClassName;
 $check=false;
 $class_methods = get_class_methods($controllerClassName);
 foreach ($class_methods as $key){

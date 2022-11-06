@@ -5,7 +5,7 @@ use App\Model\DataObject\Question;
 ?>
 <div class="block">
     <div class="text-box">
-    <form method="post" action="frontController.php?controller=<?= $_GET['controller']?>&action=QuestionModified&id=<?=$question->getId()?>">
+    <form method="post" action="frontController.php?controller=<?= $_GET['controller']?>&action=questionModified&id=<?=$question->getId()?>">
         <fieldset>
             <legend>modification de la question</legend>
 
