@@ -158,5 +158,19 @@ class ControllerPresentation{
 
         self::afficheVue('view.php', $parametres);
     }
+
+    public static function viewProposition(){
+        $idProposition = $_GET['id'];
+
+        $proposition = (new PropositionRepository())->select($idProposition);
+
+        $parametres = array(
+            'pagetitle' => 'vue proposition',
+            'cheminVueBody' => 'vote/viewProposition.php',
+            'proposition' => $proposition
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
 }
 ?>
