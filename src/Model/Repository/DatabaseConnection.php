@@ -16,7 +16,7 @@ class DatabaseConnection{
         $password = Conf::getPassword();
 
         // Oracle
-        $this->pdo = new PDO("oci:dbname=//orainfo.iutmontp.univ-montp2.fr:1521/IUT", $login, $password);
+        $this->pdo = new PDO("oci:dbname=//orainfo.iutmontp.univ-montp2.fr:1521/IUT;charset=UTF8", $login, $password);
 
         // Connexion à la base de données
         // Le dernier argument sert à ce que toutes les chaines de caractères
