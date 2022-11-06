@@ -6,12 +6,12 @@ use App\Model\DataObject\Section;
 
 class Proposition extends AbstractDataObject
 {
-    private string $idProposition;
+    private ?string $idProposition;
     private string $idQuestion;
     private ?array $sectionsTexte; // pour chaque idSection, une chaine de caractere sera associée
 
     public function __construct(
-        string $idProposition,
+        ?string $idProposition,
         string $idQuestion,
         ?array $sections
     ){

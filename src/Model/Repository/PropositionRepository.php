@@ -57,7 +57,7 @@ class PropositionRepository extends AbstractRepository
 
         $arrayProposition = [];
         foreach ($pdoStatement as $propositionFormatTab){
-            $arrayProposition[] = $this->construire($propositionFormatTab);
+            $arrayProposition[] = $this->select($propositionFormatTab['IDPROPOSITION']);
         }
         return $arrayProposition;
     }
@@ -66,22 +66,34 @@ class PropositionRepository extends AbstractRepository
     public function sauvegarder(Proposition $proposition){
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
-        $sql = 'INSERT INTO SOUVIGNETN.PROPOSITIONS(idQuestion) VALUES ('.$proposition.');
-                SELECT MAX(idProposition) as maxi FROM SOUVIGNETN.PROPOSITIONS';
+        $sql = 'INSERT INTO SOUVIGNETN.PROPOSITIONS(idQuestion) VALUES ('.$proposition->getIdQuestion().')';
+        $sql1 = 'SELECT MAX(idProposition) as maxi FROM SOUVIGNETN.PROPOSITIONS';
+
         $pdoStatement = $pdo->query($sql);
+        $pdoStatement1 = $pdo->query($sql1);
 
-        $idProposition = $pdoStatement->fetch()['maxi'];
+        $pdoStatement->execute(); // ajoute une nouvelle proposition
+        $idProposition = $pdoStatement1->fetch()['MAXI']; // récupère le dernier id de proposition ajouté
 
-        $sql2 = "insert into SOUVIGNETN.PROPOSERTEXTE(idProposition, idSection, texte) VALUES (:idPropostion, :idSection, :texte)";
-        $pdoStatement2 = $pdo->prepare($sql2);
-        foreach($proposition->getSectionsTexte() as $key=>$text){
-            $params = array(
-                'idProposition' => $idProposition,
-                'idSection' => $key,
-                'texte' => $text
-            );
-            $pdoStatement2->execute($params);
-        }
+        $sqlCreerTextes = "call creerSectionReponse(" . $idProposition . ")";
+        $pdo->query($sqlCreerTextes);
+//
+//        $sectionsQuestion = (new SectionRepository())->getSectionsQuestion($proposition->getIdQuestion());
+//
+//        $sqlCreerTexteSection = "insert into SOUVIGNETN.PROPOSERTEXTE(idProposition, idSection, texte) VALUES (:idPropostion, :idSection, :texte)";
+//        $pdoStatementInsertTexte = $pdo->prepare($sqlCreerTexteSection);
+//
+//        foreach($sectionsQuestion as $section){
+//            $param = array(
+//                'idProposition' => $idProposition,
+//                'idSection' => $section->getIdSection(),
+//                'texte' => $section->getDescription()
+//            );
+//            var_dump($param);
+//            $pdoStatementInsertTexte->execute($param);
+//        }
+
+        return $this->select($idProposition);
     }
 
     public function update(Proposition $proposition){

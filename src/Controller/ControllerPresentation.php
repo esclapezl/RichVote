@@ -227,5 +227,18 @@ class ControllerPresentation{
 
         self::afficheVue('view.php',$parametres);
     }
+
+    public static function createProposition(){
+        $idQuestion = $_GET['id'];
+
+        $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, null));
+
+        $parametres = array(
+            'pagetitle' => 'personnalisez votre question',
+            'cheminVueBody' => 'vote/modifyProposition.php',
+            'proposition' => $proposition
+        );
+        self::afficheVue('view.php', $parametres);
+    }
 }
 ?>
