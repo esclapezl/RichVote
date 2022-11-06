@@ -18,7 +18,7 @@
                     <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=readAll">Résulats</a></li>
                     <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=about">Contributeurs</a></li>
                 </ul>
-                <a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=connexion" id="btn-connexion">Connexion</a>
+                <a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=connexion" id="btn-connexion"><?php if($_GET['controller']=='user'){echo "Connexion";} else{echo ucfirst(strtolower($_GET['controller']));}?></a>
                 <div class="btn">
                     <div class="line"></div>
                     <div class="line"></div>
