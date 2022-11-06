@@ -72,7 +72,7 @@ class ControllerOrganisateur
     }
 
     public static function modifyQuestion(){
-        $idQuestion = $_GET['idQuestion'];
+        $idQuestion = $_GET['id'];
 
         $parametres = array(
             'pagetitle' => 'modifier une question',
@@ -87,7 +87,7 @@ class ControllerOrganisateur
         $titreQuestion = $_POST['titreQuestion'];
         $descriptionQuestion = $_POST['descriptionQuestion'];
 
-        $question = new Question($_GET['idQuestion'], $titreQuestion, $descriptionQuestion);
+        $question = new Question($_GET['id'], $titreQuestion, $descriptionQuestion);
         (new QuestionRepository())->update($question);
 
         $sections = array();
@@ -100,7 +100,7 @@ class ControllerOrganisateur
         }
 
         foreach ($sections as $key=>$tabSection){
-            $section = new Section($key, $_GET['idQuestion'], $tabSection['intitule'], $tabSection['description']);
+            $section = new Section($key, $_GET['id'], $tabSection['intitule'], $tabSection['description']);
             (new SectionRepository())->update($section);
         }
 
