@@ -121,4 +121,21 @@ class ControllerOrganisateur
 
         self::afficheVue('view.php', $parametres);
     }
+
+    public static function delete() : void
+    {
+
+        $question = (new QuestionRepository())->select($_GET['id']);
+        if($question==null){
+            self::error();
+        }
+        else{
+            (new QuestionRepository())->delete($_GET['id']);
+            static::afficheVue('view.php',[
+                "pagetitle"=> "Question supprimée",
+                "cheminVueBody" => "vote/deletedQuestion.php",
+                "question" => $question,
+                "questions" => (new QuestionRepository())->selectAll()]);
+        }
+    }
 }

@@ -11,7 +11,9 @@ use App\Model\DataObject\Question;
     <ul>
         <?php
         foreach ($questions as $question){
-            echo "<li>".$question->getIntitule()."<a href='frontController.php?controller=" . $_GET['controller'] . "&action=viewQuestion&id=" . $question->getId() . "'>voir</a>" ."- <a href='frontController.php?controller=" . $_GET['controller'] . "&action=modifyQuestion&id=" . $question->getId() . "'>modifier</a></li>";
+            echo "<li>".htmlspecialchars($question->getIntitule())."<a href='frontController.php?controller=" . $_GET['controller'] . "&action=viewQuestion&id=" . rawurlencode($question->getId()) . "'>voir</a>"
+                ."- <a href='frontController.php?controller=" . $_GET['controller'] . "&action=modifyQuestion&id=" . rawurlencode($question->getId()) . "'>modifier</a>" .
+                "- <a href='frontController.php?controller=" . $_GET['controller'] . "&action=delete&id=" . rawurlencode($question->getId()) . "'>supprimer</a></li>";
         }
         ?>
     </ul>
