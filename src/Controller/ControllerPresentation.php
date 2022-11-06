@@ -213,5 +213,19 @@ class ControllerPresentation{
 
         self::afficheVue('view.php', $parametres);
     }
+
+    public static function listPropositionsQuestion(){
+        $idQuestion = $_GET['id'];
+
+        $listePropositions = (new PropositionRepository())->selectAllForQuestion($idQuestion);
+
+        $parametres = array(
+            'pagetitle' => 'liste des propositions pour la question',
+            'cheminVueBody' => 'vote/listPropositionQuestion.php',
+            'propositions' => $listePropositions
+        );
+
+        self::afficheVue('view.php',$parametres);
+    }
 }
 ?>

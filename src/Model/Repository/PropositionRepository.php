@@ -47,6 +47,21 @@ class PropositionRepository extends AbstractRepository
         return $proposition;
     }
 
+    //retourne toutes les propositions en lien avec une question
+    public function selectAllForQuestion(string $idQuestion) : array{
+        $sql = 'SELECT * FROM SOUVIGNETN.PROPOSITIONS WHERE idQuestion = :id';
+
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute(array('id' => $idQuestion));
+
+        $arrayProposition = [];
+        foreach ($pdoStatement as $propositionFormatTab){
+            $arrayProposition[] = $this->construire($propositionFormatTab);
+        }
+        return $arrayProposition;
+    }
+
 
     public function sauvegarder(Proposition $proposition){
         $pdo = DatabaseConnection::getInstance()::getPdo();
