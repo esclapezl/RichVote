@@ -17,4 +17,12 @@ class ControllerVotant
             "cheminVueBody" => 'accueil.php'
         ]);
     }
+
+    public static function error()
+    {
+        self::afficheVue('view.php',[
+            "pagetitle" => "Erreur",
+            "cheminVueBody" => 'error.php'
+        ]);
+    }
 }

@@ -20,11 +20,19 @@ class ControllerReponsable
         ]);
     }
 
+    public static function error()
+    {
+        self::afficheVue('view.php',[
+            "pagetitle" => "Erreur",
+            "cheminVueBody" => 'error.php'
+        ]);
+    }
+
     public static function readAll(){
         $arrayQuestion = (new QuestionRepository)->selectAll();
 
         $parametres = array(
-            'pagetitle' => 'liste des questions',
+            'pagetitle' => 'Liste des questions',
             'cheminVueBody' => 'vote/listQuestion.php',
             'questions' => $arrayQuestion
         );

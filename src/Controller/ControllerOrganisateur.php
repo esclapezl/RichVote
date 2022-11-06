@@ -23,6 +23,14 @@ class ControllerOrganisateur
         ]);
     }
 
+    public static function error()
+    {
+        self::afficheVue('view.php',[
+            "pagetitle" => "Erreur",
+            "cheminVueBody" => 'error.php'
+        ]);
+    }
+
     public static function readAll(){
         $arrayQuestion = (new QuestionRepository)->selectAll();
 
@@ -64,7 +72,7 @@ class ControllerOrganisateur
     }
 
     public static function modifyQuestion(){
-        $idQuestion = $_GET['idQuestion'];
+        $idQuestion = $_GET['id'];
 
         $parametres = array(
             'pagetitle' => 'modifier une question',
@@ -79,7 +87,7 @@ class ControllerOrganisateur
         $titreQuestion = $_POST['titreQuestion'];
         $descriptionQuestion = $_POST['descriptionQuestion'];
 
-        $question = new Question($_GET['idQuestion'], $titreQuestion, $descriptionQuestion);
+        $question = new Question($_GET['id'], $titreQuestion, $descriptionQuestion);
         (new QuestionRepository())->update($question);
 
         $sections = array();
@@ -92,15 +100,15 @@ class ControllerOrganisateur
         }
 
         foreach ($sections as $key=>$tabSection){
-            $section = new Section($key, $_GET['idQuestion'], $tabSection['intitule'], $tabSection['description']);
+            $section = new Section($key, $_GET['id'], $tabSection['intitule'], $tabSection['description']);
             (new SectionRepository())->update($section);
         }
 
         self::readAll();
     }
 
-    public static function selectQuestion(){
-        $idQuestion = $_GET['idQuestion'];
+    public static function viewQuestion(){
+        $idQuestion = $_GET['id'];
 
         $question = (new QuestionRepository())->select($idQuestion);
 

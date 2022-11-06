@@ -18,12 +18,28 @@ class ControllerUser
         ]);
     }
 
+    public static function error()
+    {
+        self::afficheVue('view.php',[
+            "pagetitle" => "Erreur",
+            "cheminVueBody" => 'error.php'
+        ]);
+    }
+
     public static function inscription()
     {
 
         self::afficheVue('view.php',[
             "pagetitle" => "Inscription",
             "cheminVueBody" => 'user/inscription.php'
+        ]);
+    }
+
+    public static function connexion()
+    {
+        self::afficheVue('view.php',[
+            "pagetitle" => "Connexion",
+            "cheminVueBody" => 'user/connexion.php'
         ]);
     }
 }

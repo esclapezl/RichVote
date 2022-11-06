@@ -148,7 +148,7 @@ header{
     font-size: 1.2em;
     font-weight: bold;
     display: flex;
-    width: 120px;
+    width: 150px;
     height: 40px;
     border-radius: 5px;
     justify-content: center;
@@ -161,7 +161,6 @@ header{
     background-color: black;
     color: white;
 }
-
 
 .scroll{
     position: absolute;
@@ -341,7 +340,7 @@ footer .vague#vague4{
     text-align: center;
     color: white;
     padding:70px;
-    margin: 100px;
+    margin: 150px;
     background: rgba( 0, 0, 0, 0.4 );
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 15.5px );
@@ -349,18 +348,19 @@ footer .vague#vague4{
     border-radius: 10px;
 
 }
-.block .text-box p{
+.block .text-box p,
+.block .text-box ul{
     padding: 10px;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 .block .text-box img,
 .block .text-box h3{
-    font-size: 3em;
-    margin-bottom: 20px;
+    font-size: 1.5em;
+    margin-bottom: 10px;
 }
 .block .text-box a{
     padding: 10px;
-    font-size: 1.5em;
+    font-size: 1em;
     color: dodgerblue;
 }
 
