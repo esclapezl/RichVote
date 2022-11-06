@@ -34,4 +34,12 @@ class ControllerUser
             "cheminVueBody" => 'user/inscription.php'
         ]);
     }
+
+    public static function connexion()
+    {
+        self::afficheVue('view.php',[
+            "pagetitle" => "Connexion",
+            "cheminVueBody" => 'user/connexion.php'
+        ]);
+    }
 }

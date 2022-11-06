@@ -32,7 +32,7 @@ class ControllerReponsable
         $arrayQuestion = (new QuestionRepository)->selectAll();
 
         $parametres = array(
-            'pagetitle' => 'liste des questions',
+            'pagetitle' => 'Liste des questions',
             'cheminVueBody' => 'vote/listQuestion.php',
             'questions' => $arrayQuestion
         );
