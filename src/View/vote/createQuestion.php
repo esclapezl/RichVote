@@ -1,6 +1,6 @@
 <div class="block">
     <div class="text-box">
-    <form method="post" action="frontController.php?action=questionCreated">
+    <form method="post" action="frontController.php?controller=<?= $_GET['controller']?>&action=questionCreated">
         <fieldset>
             <legend>Créer une nouvelle question</legend>
 

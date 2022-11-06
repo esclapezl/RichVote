@@ -107,8 +107,8 @@ class ControllerOrganisateur
         self::readAll();
     }
 
-    public static function selectQuestion(){
-        $idQuestion = $_GET['idQuestion'];
+    public static function viewQuestion(){
+        $idQuestion = $_GET['id'];
 
         $question = (new QuestionRepository())->select($idQuestion);
 

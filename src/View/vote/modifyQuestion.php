@@ -3,7 +3,7 @@ use App\Model\DataObject\Question;
 
 /** @var Question $question */
 ?>
-<form method="post" action="frontController.php?action=QuestionModified&idQuestion=<?=$question->getId()?>">
+<form method="post" action="frontController.php?controller=<?= $_GET['controller']?>&action=QuestionModified&id=<?=$question->getId()?>">
     <fieldset>
         <legend>modification de la question</legend>
 
