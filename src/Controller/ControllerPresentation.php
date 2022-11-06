@@ -172,5 +172,46 @@ class ControllerPresentation{
 
         self::afficheVue('view.php', $parametres);
     }
+
+    public static function modifyProposition(){
+        $idProposition = $_GET['id'];
+
+        $proposition = (new PropositionRepository())->select($idProposition);
+
+        $parametres = array(
+            'pagetitle' => 'modifier proposition',
+            'cheminVueBody' => 'vote/modifyProposition.php',
+            'proposition' => $proposition
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
+    public static function propositionModified(){
+        $idProposition = $_GET['id'];
+
+        $proposition = (new PropositionRepository())->select($idProposition);
+
+        $sectionsText = [];
+
+        foreach ($_POST['texte'] as $idSection=>$text){
+            $sectionsText[$idSection] = $text;
+        }
+
+        $proposition->setSectionsTexte($sectionsText);
+
+        (new PropositionRepository())->update($proposition);
+
+        // la je fais exactement ce qui est fait dans vueProposition sans passer par $_GET
+        $proposition = (new PropositionRepository())->select($idProposition);
+
+        $parametres = array(
+            'pagetitle' => 'vue proposition',
+            'cheminVueBody' => 'vote/viewProposition.php',
+            'proposition' => $proposition
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
 }
 ?>

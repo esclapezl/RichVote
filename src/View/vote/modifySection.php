@@ -1,5 +1,3 @@
-
-
 <?php
 use App\Model\DataObject\Section;
 /** @var Section $section */
