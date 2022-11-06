@@ -12,13 +12,13 @@
     </head>
     <body>
             <nav class="navBar">
-                <a href="#"><img src="img/logo.png" alt="RichVote" id="logo"></a>
+                <a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=accueil"><img src="img/logo.png" alt="RichVote" id="logo"></a>
                 <ul>
-                    <li><a href="#">Questions</a></li>
-                    <li><a href="#">Résulats</a></li>
-                    <li><a href="#">Contributeurs</a></li>
+                    <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=readAll">Questions</a></li>
+                    <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=readAll">Résulats</a></li>
+                    <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=about">Contributeurs</a></li>
                 </ul>
-                <a href="#" id="btn-connexion">Connexion</a>
+                <a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=connexion" id="btn-connexion">Connexion</a>
                 <div class="btn">
                     <div class="line"></div>
                     <div class="line"></div>
@@ -40,12 +40,12 @@
 
             </div>
             <ul>
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#">Questions</a></li>
-                <li><a href="#">Résultats</a></li>
-                <li><a href="#">Contributeurs</a></li>
+                <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=accueil">Accueil</a></li>
+                <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=readAll">Questions</a></li>
+                <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=readAll">Résultats</a></li>
+                <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=about">Contributeurs</a></li>
             </ul>
-            <p><a href="#" id="txtEffet">Connexion</a> |   Pas encore inscrit ? <a href="#" id="txtEffet">Inscrivez vous</a></p>
+            <p><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=connexion" id="txtEffet">Connexion</a> |   Pas encore inscrit ? <a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=inscription" id="txtEffet">Inscrivez vous</a></p>
             <p>Copyright &copy; RichVote | Tous droits reserves</p>
         </footer>
     </body>

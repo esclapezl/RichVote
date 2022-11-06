@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="footer responsive + ajustements graphiques + ajustements archietcture dossiers">
-      <change afterPath="$PROJECT_DIR$/web/img/trailer.webm" afterDir="false" />
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="accueil v1.0">
+      <change afterPath="$PROJECT_DIR$/src/Controller/ControllerAdmin.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/ControllerOrganisateur.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/ControllerReponsable.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/ControllerUser.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/ControllerVotant.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/View/error.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Controller.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/View/accueil.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/accueil.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/View/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/listQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/vote/listQuestion.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/frontController.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/frontController.php" afterDir="false" />
     </list>
@@ -82,7 +89,7 @@
       <workItem from="1667425030363" duration="35000" />
       <workItem from="1667425109732" duration="1859000" />
       <workItem from="1667645056921" duration="6750000" />
-      <workItem from="1667665466238" duration="15259000" />
+      <workItem from="1667665466238" duration="20004000" />
     </task>
     <task id="LOCAL-00001" summary="structure">
       <created>1666707099608</created>
@@ -189,7 +196,21 @@
       <option name="project" value="LOCAL" />
       <updated>1667672772327</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="ajout animation accueil">
+      <created>1667684877562</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1667684877562</updated>
+    </task>
+    <task id="LOCAL-00017" summary="accueil v1.0">
+      <created>1667689663732</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1667689663732</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,6 +238,8 @@
     <MESSAGE value="ajustement interface (début header)" />
     <MESSAGE value="navbar responsive validée (manque javascript)" />
     <MESSAGE value="footer responsive + ajustements graphiques + ajustements archietcture dossiers" />
-    <option name="LAST_COMMIT_MESSAGE" value="footer responsive + ajustements graphiques + ajustements archietcture dossiers" />
+    <MESSAGE value="ajout animation accueil" />
+    <MESSAGE value="accueil v1.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="accueil v1.0" />
   </component>
 </project>
