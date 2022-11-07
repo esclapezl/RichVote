@@ -122,7 +122,7 @@ class ControllerOrganisateur
         self::afficheVue('view.php', $parametres);
     }
 
-    public static function delete() : void
+    public static function deleteQuestion() : void
     {
 
         $question = (new QuestionRepository())->select($_GET['id']);
