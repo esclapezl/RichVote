@@ -21,7 +21,7 @@ class PropositionRepository extends AbstractRepository
         );
     }
 
-    protected function getNomId(): string
+    protected function getNomClePrimaire(): string
     {
         return 'idProposition';
     }
@@ -95,5 +95,4 @@ class PropositionRepository extends AbstractRepository
             $pdoStatement->execute($params);
         }
     }
-
 }

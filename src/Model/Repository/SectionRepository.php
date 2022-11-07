@@ -13,7 +13,7 @@ class SectionRepository extends AbstractRepository
         return 'SOUVIGNETN.SECTIONS';
     }
 
-    protected function getNomId(): string
+    protected function getNomClePrimaire(): string
     {
         return 'idSection';
     }

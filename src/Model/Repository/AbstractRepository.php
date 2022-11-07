@@ -7,7 +7,7 @@ use mysql_xdevapi\DatabaseObject;
 abstract class AbstractRepository{
     protected abstract function getNomTable() : string;
 
-    protected abstract function getNomId() : string;
+    protected abstract function getNomClePrimaire() : string;
 
     protected abstract function construire(array $objetFormatTableau) : AbstractDataObject;
 
@@ -30,7 +30,7 @@ abstract class AbstractRepository{
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $nomTable = $this->getNomTable();
-        $nomId = $this->getNomId();
+        $nomId = $this->getNomClePrimaire();
 
         $sql = 'SELECT * FROM '.$nomTable.' WHERE '.$nomId.' = '.$id;
 
@@ -41,5 +41,15 @@ abstract class AbstractRepository{
         $object = $this->construire($objectTab);
 
         return $object;
+    }
+
+    public function delete($valeurClePrimaire): void
+    {
+        $sql = "DELETE FROM ". $this->getNomTable() ." WHERE ". $this->getNomClePrimaire()." = :objetTag";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $values = array(
+            "objetTag" => $valeurClePrimaire,
+        );
+        $pdoStatement->execute($values);
     }
 }

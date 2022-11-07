@@ -12,7 +12,7 @@ class QuestionRepository extends AbstractRepository
         return "SOUVIGNETN.QUESTIONS";
     }
 
-    protected function getNomId(): string
+    protected function getNomClePrimaire(): string
     {
         return 'idQuestion';
     }
