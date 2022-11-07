@@ -43,7 +43,7 @@ abstract class AbstractRepository{
         return $object;
     }
 
-    public function delete($valeurClePrimaire): void
+    public function delete(string $valeurClePrimaire): void
     {
         $sql = "DELETE FROM ". $this->getNomTable() ." WHERE ". $this->getNomClePrimaire()." = :objetTag";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
