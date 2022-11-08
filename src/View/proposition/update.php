@@ -12,7 +12,7 @@ use App\Model\DataObject\Proposition;
                 <?php
                 $sectionsText = $proposition->getSectionsTexte();
                 foreach ($sectionsText as $idSection=>$text){
-                    echo '<input type="texte" id=i' . $idSection . ' name=texte[' . $idSection . '] value=' . $text . '>';
+                    echo '<input type="texte" id=i' . $idSection . ' name=texte[' . $idSection . '] value="' . $text . '">';
                 }
                 ?>
 

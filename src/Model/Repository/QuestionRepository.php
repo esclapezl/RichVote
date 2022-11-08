@@ -49,6 +49,24 @@ class QuestionRepository extends AbstractRepository
         return $question;
     }
 
+    public function creerQuestion(Question $question, int $nbSections){ // tentative pour réduire le temps d'attente apres la creatioin d'une question
+        $intitule = $question->getIntitule();
+        $description = $question->getDescription();
+        $sql = "call CREERQUESTION('$intitule', '$description', $nbSections)";
+
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdo->query($sql);
+
+        $sqlId = "SELECT MAX(idQuestion) FROM QUESTIONS";
+        $pdoStatementId = $pdo->query($sqlId);
+
+        $id = $pdoStatementId->fetch()[0];
+
+        $question = $this->select($id);
+        return $question;
+    }
+
     public function select(string $id) : AbstractDataObject
     {
         $question = parent::select($id);
