@@ -12,7 +12,7 @@ use App\Model\DataObject\Question;
         <?php
         foreach ($questions as $question){
 
-            echo '<li><a href=frontController.php?controller=' . $_GET['controller'] . '&action=viewQuestion&id=' . rawurlencode($question->getId()).'>'.htmlspecialchars($question->getIntitule()).'</a></li>';
+            echo '<li><a href=frontController.php?controller=question&action=read&id=' . rawurlencode($question->getId()).'>'.htmlspecialchars($question->getIntitule()).'</a></li>';
 
 
 
