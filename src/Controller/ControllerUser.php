@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Model\DataObject\User;
+use App\Model\Repository\UserRepository;
+
 class ControllerUser
 {
 
@@ -42,6 +45,45 @@ class ControllerUser
             "cheminVueBody" => 'user/connexion.php'
         ]);
     }
+
+    public static function inscrit() : void
+    {
+        $idUser = $_POST['identifiant'];
+        $mdp = $_POST['motDePasse'];
+        $cmdp = $_POST['confirmerMotDePasse'];
+
+        $user = new User($idUser,$mdp);
+
+
+
+        if((new UserRepository())->check($mdp,$cmdp))
+        {
+            (new UserRepository())->sauvegarder($user);
+
+            $parametres = array(
+                'pagetitle' => 'inscrit',
+                'cheminVueBody' => 'user/accueil.php',
+            );
+
+            self::afficheVue('view.php', $parametres);
+        }
+        else
+        {
+            $parametres = array(
+                'pagetitle' => 'erreur',
+                'cheminVueBody' => 'user/inscription.php',
+                'persistanceId' => $idUser,
+                'msgErreur' => 'Les mots de passes doivent être identiques'
+            );
+
+            self::afficheVue('view.php', $parametres);
+        }
+
+
+
+    }
+
+
 
 
 
