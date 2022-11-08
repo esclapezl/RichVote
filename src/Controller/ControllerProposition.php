@@ -90,7 +90,7 @@ class ControllerProposition
         $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, null));
 
         $parametres = array(
-            'pagetitle' => 'personnalisez votre question',
+            'pagetitle' => 'personnalisez votre proposition',
             'cheminVueBody' => 'proposition/update.php',
             'proposition' => $proposition
         );

@@ -7,7 +7,8 @@ use App\Model\DataObject\Question;
         <p>
             <?php
             echo '<a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '>modifier</a>' .
-            '<a href=frontController.php?controller=question&action=delete&id='. rawurlencode($question->getId()) . '>supprimer</a>';
+            '<a href=frontController.php?controller=question&action=delete&id='. rawurlencode($question->getId()) . '>supprimer</a>' .
+            '<a href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>créer proposition</a>';
             ?>
             </p>
     <p>

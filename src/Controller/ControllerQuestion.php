@@ -47,7 +47,7 @@ class ControllerQuestion
     {
         self::afficheVue('view.php',[
             "pagetitle" => "créer une question",
-            "cheminVueBody" => 'question/create.php'
+            "cheminVueBody" => 'question/update.php'
         ]);
     }
 
