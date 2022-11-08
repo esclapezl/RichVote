@@ -4,18 +4,13 @@ use App\Model\DataObject\Question;
 ?>
 <div class="block">
     <div class="text-box">
-        <h3>Liste des Questions :</h3>
-        <p>
-            <a href="frontController.php?controller=question&action=create">Créer une Question</a>
-        </p>
+        <div class="ligneExt"> <h1>Questions publiées :</h1> <div>Vous êtes connecté en tant que : <h3>Organisateur </h3></div></div>
+        <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
+        <div class="ligneExt"><a class="optQuestion" href="frontController.php?controller=question&action=create">Créer une Question</a><h3>Statut du Vote</h3></div>
     <ul>
         <?php
         foreach ($questions as $question){
-
-            echo '<li><a href=frontController.php?controller=question&action=read&id=' . rawurlencode($question->getId()).'>'.htmlspecialchars($question->getIntitule()).'</a></li>';
-
-
-
+            echo '<div class="ligneExt"><li class="ligneExt"><a href=frontController.php?controller=question&action=read&id=' . rawurlencode($question->getId()).'>'.ucfirst(htmlspecialchars($question->getIntitule())).'</a></li><h2>EN COURS</h2></div>';
         }
         ?>
     </ul>
