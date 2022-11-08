@@ -434,7 +434,7 @@ footer .vague#vague4{
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 15px;
 }
-.block .text-box li{
+.block .text-box li {
     display: flex;
     cursor: pointer;
 
