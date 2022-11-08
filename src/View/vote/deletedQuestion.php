@@ -4,7 +4,7 @@ use App\Model\DataObject\Question;
 ?>
 <div class="block">
     <div class="text-box">
-        <p> La question intitulée <?=$question->getIntitule()?> a bien été supprimée.</p>;
+        <p> La question intitulée <?=$question->getIntitule()?> a bien été supprimée.</p>
     </div>
 </div>
 <?php
