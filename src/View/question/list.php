@@ -10,7 +10,7 @@ use App\Model\DataObject\Question;
     <ul>
         <?php
         foreach ($questions as $question){
-            echo '<div class="ligneExt"><li class="ligneExt"><a href=frontController.php?controller=question&action=read&id=' . rawurlencode($question->getId()).'>'.ucfirst(htmlspecialchars($question->getIntitule())).'</a></li><h2>EN COURS</h2></div>';
+            echo '<div class="ligneExt"><li class="ligneExt"><a href=frontController.php?controller=question&action=read&id=' . rawurlencode($question->getId()).'>'.ucfirst(htmlspecialchars($question->getIntitule())).'</a><p>Auteur : <strong>Guest</strong></p></li><h2>EN COURS</h2></div>';
         }
         ?>
     </ul>
