@@ -14,7 +14,7 @@ class ControllerUser
     {
         self::afficheVue('view.php',[
             "pagetitle" => "Accueil",
-            "cheminVueBody" => 'accueil.php'
+            "cheminVueBody" => 'user/accueil.php'
         ]);
     }
 
@@ -42,4 +42,9 @@ class ControllerUser
             "cheminVueBody" => 'user/connexion.php'
         ]);
     }
+
+
+
+
+
 }

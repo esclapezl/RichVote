@@ -5,7 +5,7 @@ use App\Model\DataObject\Question;
 ?>
 <div class="block">
     <div class="text-box">
-    <form method="post" action="frontController.php?controller=<?= $_GET['controller']?>&action=questionModified&id=<?=$question->getId()?>">
+    <form method="post" action="frontController.php?controller=question&action=updated&id=<?=$question->getId()?>">
         <fieldset>
             <h3><legend>Modification de la question</legend></h3>
             <p>
@@ -18,7 +18,7 @@ use App\Model\DataObject\Question;
             for($i=0; $i<count($sections); $i++){
                 $section = $sections[$i];
                 echo '<p>'.$i + 1 .'</p>';
-                require 'modifySection.php';
+                require __DIR__ .'/../section/update.php';
             }
             ?>
 

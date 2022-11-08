@@ -13,11 +13,11 @@
                 sûr que l'on peut retrouver sur le web.
             </p>
             <p>
-                Suivez vos différents sujets en vous connectant <a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=connexion">ici</a>.
+                Suivez vos différents sujets en vous connectant <a href="frontController.php?controller=user&action=connexion">ici</a>.
             </p>
             <p>
                 Si vous n'êtes pas inscrit, ne tardez plus !
-                Vous pouvez être nommé à différents rôles, vous avez juste à cliquer <a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=inscription">ici</a>.
+                Vous pouvez être nommé à différents rôles, vous avez juste à cliquer <a href="frontController.php?controller=user&action=inscription">ici</a>.
             </p>
         </div>
 

@@ -5,9 +5,9 @@ use App\Model\DataObject\Proposition;
 
 <div class="block">
     <div class="text-box">
-        <form method="post" action="frontController.php?controller=<?= $_GET['controller']?>&action=propositionModified&id=<?=$proposition->getIdProposition()?>">
+        <form method="post" action="frontController.php?controller=proposition&action=updated&id=<?=$proposition->getIdProposition()?>">
             <fieldset>
-                <legend>modification de la proposition</legend>
+                <legend>Modification de la proposition</legend>
 
                 <?php
                 $sectionsText = $proposition->getSectionsTexte();

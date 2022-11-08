@@ -21,7 +21,6 @@
         <?php
         function erreurMdp()
         {
-
             echo '<p>'."Les mots de passe doivent être identiques. ".$_POST["confirmerMotDePasse"].'</p>';
         }
         if(isset($_POST['submit']))

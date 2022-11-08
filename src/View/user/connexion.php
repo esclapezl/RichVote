@@ -10,7 +10,7 @@
         <input type="submit" value="Se connecter">
 
         <p> pas de compte ?
-            <a href="frontController.php?controller=<?= $_GET['controller']?>&action=inscription"> Inscrivez vous </a>
+            <a href="frontController.php?controller=user&action=inscription"> Inscrivez vous </a>
         </p>
     </div>
 </div>
