@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="modifyQuestion, modifyQuestion -&gt; interface update">
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="liste des questions propre">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/vote/listQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/vote/listQuestion.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/vote/viewQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/vote/viewQuestion.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/user/inscription.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/user/inscription.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/frontController.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/frontController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +23,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -260,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667815171715</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="liste des questions propre">
+      <created>1667900318539</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1667900318539</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,6 +303,7 @@
     <MESSAGE value="listQuestion : modif ajouté" />
     <MESSAGE value="modifyQuestion" />
     <MESSAGE value="modifyQuestion, modifyQuestion -&gt; interface update" />
-    <option name="LAST_COMMIT_MESSAGE" value="modifyQuestion, modifyQuestion -&gt; interface update" />
+    <MESSAGE value="liste des questions propre" />
+    <option name="LAST_COMMIT_MESSAGE" value="liste des questions propre" />
   </component>
 </project>

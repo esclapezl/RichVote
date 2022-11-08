@@ -33,7 +33,6 @@ foreach ($class_methods as $key){
 
 if(isset($_GET['action']) && $check){
     $action = $_GET['action'];
-    // Appel de la méthode statique $action de ControllerVoiture
     $controllerClassName::$action();
 }
 else{
