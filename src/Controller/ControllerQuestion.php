@@ -57,17 +57,12 @@ class ControllerQuestion
         $nbSections = $_POST['nbSections'];
 
         $question = new Question(null, $intitule, 'description');
-        $question = (new QuestionRepository)->sauvegarder($question);
-
-        for($i=0; $i<$nbSections; $i++){
-            $section = new Section(null, $question->getId(), "section n°$i", 'description');
-            (new SectionRepository())->sauvegarder($section);
-        }
+        $question = (new QuestionRepository())->creerQuestion($question, $nbSections);
 
         $parametres = array(
             'pagetitle' => 'continuer la création de la question',
             'cheminVueBody' => 'question/update.php',
-            'question' => (new QuestionRepository())->select($question->getId())
+            'question' => $question
         );
 
         self::afficheVue('view.php', $parametres);
