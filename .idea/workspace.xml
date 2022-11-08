@@ -2,12 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="modifyQuestion, modifyQuestion -&gt; interface update">
+      <change afterPath="$PROJECT_DIR$/src/Controller/ControllerProposition.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/ControllerQuestion.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/ControllerSection.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerPresentation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ControllerPresentation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/PropositionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/PropositionRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/QuestionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/QuestionRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/SectionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/SectionRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Controller.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerAdmin.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerOrganisateur.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerPresentation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerReponsable.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ControllerUser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerVotant.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/accueil.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/user/accueil.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/user/connexion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/user/connexion.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/createQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/createdQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/created.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/deletedQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/deleted.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/listPropositionQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/proposition/list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/listQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/modifyProposition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/proposition/update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/modifyQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/modifySection.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/section/update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/viewProposition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/proposition/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/viewQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/detail.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +59,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sae-website/web/img&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sae-website/src/View/section&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -54,11 +72,11 @@
       <recent name="$PROJECT_DIR$/src/view" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\sae-website\web\img" />
-      <recent name="C:\xampp\htdocs\sae-website\web\trailer" />
       <recent name="C:\xampp\htdocs\sae-website\src\View\user" />
-      <recent name="C:\xampp\htdocs\sae-website\src\View" />
-      <recent name="C:\xampp\htdocs\sae-website\web\css" />
+      <recent name="C:\xampp\htdocs\sae-website\src\View\section" />
+      <recent name="C:\xampp\htdocs\sae-website\src\View\proposition" />
+      <recent name="C:\xampp\htdocs\sae-website\src\View\question" />
+      <recent name="C:\xampp\htdocs\sae-website\web\img" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -87,6 +105,9 @@
       <workItem from="1667665466238" duration="29661000" />
       <workItem from="1667813022638" duration="2729000" />
       <workItem from="1667824502417" duration="1280000" />
+      <workItem from="1667898951577" duration="30000" />
+      <workItem from="1667898983168" duration="4731000" />
+      <workItem from="1667904086723" duration="516000" />
     </task>
     <task id="LOCAL-00001" summary="structure">
       <created>1666707099608</created>

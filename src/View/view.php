@@ -12,13 +12,13 @@
     </head>
     <body>
             <nav class="navBar">
-                <a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=accueil"><img src="img/logo.png" alt="RichVote" id="logo"></a>
+                <a href="frontController.php?controller=user&action=accueil"><img src="img/logo.png" alt="RichVote" id="logo"></a>
                 <ul>
-                    <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=readAll">Questions</a></li>
-                    <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=readAll">Résulats</a></li>
-                    <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=about">Contributeurs</a></li>
+                    <li><a href="frontController.php?controller=question&action=readAll">Questions</a></li>
+                    <li><a href="frontController.php?controller=question&action=readAll">Résulats</a></li>
+                    <li><a href="frontController.php?controller=user&action=about">Contributeurs</a></li>
                 </ul>
-                <a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=connexion" id="btn-connexion"><?php if($_GET['controller']=='user'){echo "Connexion";} else{echo ucfirst(strtolower($_GET['controller']));}?></a>
+                <a href="frontController.php?controller=user&action=connexion" id="btn-connexion">Connexion</a>
                 <div class="btn">
                     <div class="line"></div>
                     <div class="line"></div>
@@ -40,22 +40,13 @@
 
             </div>
             <ul>
-                <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=accueil">Accueil</a></li>
-                <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=readAll">Questions</a></li>
-                <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=readAll">Résultats</a></li>
-                <li><a href="frontController.php?controller=<?php echo $_GET['controller']?>&action=about">Contributeurs</a></li>
+                <li><a href="frontController.php?controller=user&action=accueil">Accueil</a></li>
+                <li><a href="frontController.php?controller=question&action=readAll">Questions</a></li>
+                <li><a href="frontController.php?controller=question&action=readAll">Résultats</a></li>
+                <li><a href="frontController.php?controller=user&action=about">Contributeurs</a></li>
             </ul>
-            <?php
-            if(($_GET['controller']) == 'user'){
-                echo '<p><a href="frontController.php?controller=user&action=connexion" id="txtEffet">Connexion</a> |   Pas encore inscrit ? <a href="frontController.php?controller=user&action=inscription" id="txtEffet">Inscrivez vous</a></p>';
+            <p><a href="frontController.php?controller=user&action=connexion" id="txtEffet">Connexion</a> |   Pas encore inscrit ? <a href="frontController.php?controller=user&action=inscription" id="txtEffet">Inscrivez vous</a></p>;
 
-             }
-            else{
-                echo '<p><a href="frontController.php?controller=user&action='.$_GET['action'].'" id="txtEffet">Deconnexion</a>' ;
-
-            }
-
-            ?>
             <p>Copyright &copy; RichVote | Tous droits reserves</p>
         </footer>
     </body>

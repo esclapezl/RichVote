@@ -7,57 +7,58 @@ use App\Model\DataObject\Section;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\SectionRepository;
 
-class ControllerOrganisateur
+class ControllerQuestion
 {
-
     private static function afficheVue(string $cheminVue, array $parametres = []) : void {
         extract($parametres); // Crée des variables à partir du tableau $parametres
         require __DIR__ . "/../View/$cheminVue"; // Charge la vue
     }
 
-    public static function accueil()
+    public static function readAll() : void
     {
-        self::afficheVue('view.php',[
-            "pagetitle" => "Accueil",
-            "cheminVueBody" => 'accueil.php'
-        ]);
-    }
-
-    public static function error()
-    {
-        self::afficheVue('view.php',[
-            "pagetitle" => "Erreur",
-            "cheminVueBody" => 'error.php'
-        ]);
-    }
-
-    public static function readAll(){
         $arrayQuestion = (new QuestionRepository)->selectAll();
 
         $parametres = array(
             'pagetitle' => 'liste des questions',
-            'cheminVueBody' => 'vote/listQuestion.php',
+            'cheminVueBody' => 'question/list.php',
             'questions' => $arrayQuestion
-
         );
 
         self::afficheVue('view.php', $parametres);
     }
 
-    public static function createQuestion()
+    public static function read() : void
+    {
+        $idQuestion = $_GET['id'];
+
+        $question = (new QuestionRepository())->select($idQuestion);
+
+        $parametres = array(
+            'pagetitle' => 'Vue question',
+            'cheminVueBody' => 'question/detail.php',
+            'question' => $question
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
+
+    public static function create() : void
     {
         self::afficheVue('view.php',[
             "pagetitle" => "créer une question",
-            "cheminVueBody" => 'vote/createQuestion.php'
+            "cheminVueBody" => 'question/create.php'
         ]);
     }
 
-    public static function questionCreated(){
+    public static function created() : void
+    {
         $intitule = $_POST['titreQuestion'];
         $nbSections = $_POST['nbSections'];
 
         $question = new Question(null, $intitule, 'description');
         $question = (new QuestionRepository)->sauvegarder($question);
+
         for($i=0; $i<$nbSections; $i++){
             $section = new Section(null, $question->getId(), "section n°$i", 'description');
             (new SectionRepository())->sauvegarder($section);
@@ -65,26 +66,28 @@ class ControllerOrganisateur
 
         $parametres = array(
             'pagetitle' => 'continuer la création de la question',
-            'cheminVueBody' => 'vote/modifyQuestion.php',
+            'cheminVueBody' => 'question/update.php',
             'question' => (new QuestionRepository())->select($question->getId())
         );
 
         self::afficheVue('view.php', $parametres);
     }
 
-    public static function modifyQuestion(){
+    public static function update() : void
+    {
         $idQuestion = $_GET['id'];
 
         $parametres = array(
             'pagetitle' => 'modifier une question',
-            'cheminVueBody' => 'vote/modifyQuestion.php',
+            'cheminVueBody' => 'question/update.php',
             'question' => (new QuestionRepository())->select($idQuestion)
         );
 
         self::afficheVue('view.php', $parametres);
     }
 
-    public static function questionModified(){
+    public static function updated() : void
+    {
         $titreQuestion = $_POST['titreQuestion'];
         $descriptionQuestion = $_POST['descriptionQuestion'];
 
@@ -105,24 +108,15 @@ class ControllerOrganisateur
             (new SectionRepository())->update($section);
         }
 
-        self::readAll();
-    }
-
-    public static function viewQuestion(){
-        $idQuestion = $_GET['id'];
-
-        $question = (new QuestionRepository())->select($idQuestion);
-
-        $parametres = array(
-            'pagetitle' => 'Vue question',
-            'cheminVueBody' => 'vote/viewQuestion.php',
-            'question' => $question
+        static::afficheVue('view.php',[
+                "pagetitle"=> "Liste des questions",
+                "cheminVueBody" => "question/created.php",
+                "questions" => (new QuestionRepository())->selectAll()]
         );
 
-        self::afficheVue('view.php', $parametres);
     }
 
-    public static function deleteQuestion() : void
+    public static function delete() : void
     {
 
         $question = (new QuestionRepository())->select($_GET['id']);
@@ -133,9 +127,10 @@ class ControllerOrganisateur
             (new QuestionRepository())->delete($_GET['id']);
             static::afficheVue('view.php',[
                 "pagetitle"=> "Question supprimée",
-                "cheminVueBody" => "vote/deletedQuestion.php",
+                "cheminVueBody" => "question/deleted.php",
                 "question" => $question,
                 "questions" => (new QuestionRepository())->selectAll()]);
         }
     }
+
 }
