@@ -12,31 +12,30 @@ $loader->addNamespace('App', __DIR__ . '/../src');
 // register the autoloader
 $loader->register();
 
-/*
-if(isset($_GET['action'])) {
+
+$controllerClassName='App\Controller\ControllerUser';
+if(isset($_GET['controller'])) {
+    $controller = ucfirst($_GET['controller']);
+    $controllerClassName = "App\Controller\Controller" . $controller;
+}
+
+$action='accueil';
+if(isset($_GET['action'])){
     $action = $_GET['action'];
 }
-Controller::$action(); // Appel de la méthode statique $action de Controller
-*/
 
-
-$controller = ucfirst($_GET['controller']);
-$controllerClassName = "App\Controller\Controller" . $controller;
-//echo $controllerClassName;
 $check=false;
 $class_methods = get_class_methods($controllerClassName);
 foreach ($class_methods as $key){
-    if($key==$_GET['action']){
+    if($key==$action){
         $check=true;
     }
 }
 
-if(isset($_GET['action']) && $check){
-    $action = $_GET['action'];
+if($check){
     $controllerClassName::$action();
 }
 else{
-
     $controllerClassName::error();
 }
 
