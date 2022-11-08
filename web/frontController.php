@@ -2,6 +2,7 @@
 namespace App\web;
 use App\Controller\Controller as Controller;
 use App\Controller\ControllerAdmin;
+use App\Controller\ControllerUser;
 
 require_once __DIR__ . '/../src/Lib/Psr4AutoloaderClass.php';
 
@@ -36,7 +37,7 @@ if($check){
     $controllerClassName::$action();
 }
 else{
-    $controllerClassName::error();
+    ControllerUser::error();
 }
 
 ?>

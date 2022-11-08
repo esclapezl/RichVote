@@ -16,7 +16,7 @@ class PropositionRepository extends AbstractRepository
     {
         return new Proposition(
             $objetFormatTableau['IDPROPOSITION'],
-            $objetFormatTableau['IDPROPOSITION'],
+            $objetFormatTableau['IDQUESTION'],
             null
         );
     }

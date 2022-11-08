@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\DataObject\Proposition;
 use App\Model\Repository\PropositionRepository;
+use App\Model\Repository\QuestionRepository;
 
 class ControllerProposition
 {
@@ -94,6 +95,20 @@ class ControllerProposition
             'cheminVueBody' => 'proposition/update.php',
             'proposition' => $proposition
         );
+        self::afficheVue('view.php', $parametres);
+    }
+
+    public static function delete(){
+        $idProposition = $_GET['id'];
+        $proposition = (new PropositionRepository())->select($idProposition);
+
+        (new PropositionRepository())->delete($idProposition);
+        $parametres = array(
+            'pagetitle' => 'proposition supprimée',
+            'cheminVueBody' => 'question/detail.php',
+            'question' => (new QuestionRepository())->select($proposition->getIdQuestion())
+        );
+
         self::afficheVue('view.php', $parametres);
     }
 }
