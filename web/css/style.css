@@ -15,7 +15,10 @@ html{
 }
 
 body {
-    background: #272727;
+
+    background: rgb(9,4,84);
+    background: radial-gradient(circle, rgba(9,4,84,1) 0%, rgba(57,78,222,1) 54%, rgba(20,24,42,1) 100%);
+    height: 100%;
 }
 
 
@@ -45,8 +48,8 @@ header{
 }
 
 .navBar{
-    position: absolute;
-    padding: 50px;
+    position: relative;
+    padding: 50px 50px 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -325,13 +328,15 @@ footer .vague#vague4{
 }
 
 .block{
-    height: 100vh;
+    position: relative;
+    margin-bottom: 180px;
     /*background-image: url("../img/wallpaperLong.png");*/
-    background: rgb(249,249,249);
-    background: linear-gradient(345deg, rgba(249,249,249,1) 0%, rgba(6,6,6,1) 65%, rgba(0,0,0,1) 100%);
+    /*background: rgb(249,249,249);
+    background: linear-gradient(345deg, rgba(249,249,249,1) 0%, rgba(6,6,6,1) 65%, rgba(0,0,0,1) 100%);*/
     display: flex;
     align-items: center;
     justify-content: center;
+
     /*-webkit-background-size: cover; /* pour anciens Chrome et Safari
     background-size: cover; /* version standardisée */
 }
@@ -340,32 +345,108 @@ footer .vague#vague4{
 
 
 .block .text-box {
-    position: absolute;
+    position: relative;
     text-align: center;
     color: white;
-    padding:70px;
-    margin: 150px;
-    background: rgba( 0, 0, 0, 0.4 );
+    padding: 40px 70px 70px 70px;
+    width: 80%;
+
+    background: rgba( 0, 0, 0, 0.65 );
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 15.5px );
     -webkit-backdrop-filter: blur( 15.5px );
-    border-radius: 10px;
+    border-radius: 50px;
 
 }
-.block .text-box p,
-.block .text-box ul{
-    padding: 10px;
+
+.block .text-box .ligneExt{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.block .text-box .ligneExt .ligne{
+    height: 1px;
+    border-radius: 20px;
+    background: white;
+}
+
+.block .text-box .ligneExt .ligne:nth-child(1){
+    width: 50%;
+}
+
+.block .text-box .ligneExt .ligne:nth-child(2){
+    width: 25%;
+}
+
+
+.block .text-box .ligneExt .ligne{
+    margin: 10px 0 20px 0px;
+}
+
+.block .text-box .optQuestion{
+    width: 100%;
+    display: flex;
+    text-align: left;
+    background-color: white;
+    text-decoration: black;
+    font-weight: bold;
+    display: flex;
+    width: 15%;
+    height: 30%;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+    margin-bottom: 15px;
+}
+
+.block .text-box .optQuestion.active,
+.block .text-box .optQuestion:hover{
+    background-color: mediumblue;
+    color: white;
+}
+.block .text-box .ligneExt .stVote{
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+
+}
+.block .text-box h2{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 15px;
+}
+.block .text-box li a{
+    display: flex;
+    margin: 8px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.5);
+    backdrop-filter: blur(11px);
+    -webkit-backdrop-filter: blur(11px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 80%;
+}
+
+.block .text-box p{
     font-size: 1em;
 }
+
 .block .text-box img,
-.block .text-box h3{
-    font-size: 1.5em;
+.block .text-box h1{
+    font-size: 2.5em;
     margin-bottom: 10px;
 }
 .block .text-box a{
     padding: 10px;
     font-size: 1em;
-    color: dodgerblue;
+    color: mediumblue;
 }
 
 
