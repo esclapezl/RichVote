@@ -366,6 +366,13 @@ footer .vague#vague4{
     align-items: center;
 }
 
+.block .text-box .ligneExt div h3{
+    display: flex;
+    justify-content: end;
+}
+
+
+
 .block .text-box .ligneExt .ligne{
     height: 1px;
     border-radius: 20px;
