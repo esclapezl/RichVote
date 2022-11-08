@@ -18,7 +18,7 @@ use App\Model\DataObject\Question;
             for($i=0; $i<count($sections); $i++){
                 $section = $sections[$i];
                 echo '<p>'.$i + 1 .'</p>';
-                require '../section/update.php';
+                require __DIR__ .'/../section/update.php';
             }
             ?>
 

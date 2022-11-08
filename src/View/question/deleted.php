@@ -8,5 +8,5 @@ use App\Model\DataObject\Question;
     </div>
 </div>
 <?php
-require_once __DIR__ . "/../vote/list.php";
+require_once __DIR__ . "/../question/list.php";
 ?>
