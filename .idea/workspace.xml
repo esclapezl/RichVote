@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="modifyQuestion, modifyQuestion -&gt; interface update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerPresentation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ControllerPresentation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/PropositionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/PropositionRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/QuestionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/QuestionRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/SectionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/SectionRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/listQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/vote/listQuestion.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/viewQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/vote/viewQuestion.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
