@@ -5,7 +5,7 @@ use App\Model\DataObject\Proposition;
 
 <div class="block">
     <div class="text-box">
-        <form method="post" action="frontController.php?controller=question&action=updated&id=<?=$proposition->getIdProposition()?>">
+        <form method="post" action="frontController.php?controller=proposition&action=updated&id=<?=$proposition->getIdProposition()?>">
                 <div class="descP"></div>
                 <h1><legend>Votre Proposition</legend></h1>
                 <div class="ligneCent"><div class="ligne"></div></div>
