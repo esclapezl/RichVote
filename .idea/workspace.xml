@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="liste des questions propre">
-      <change afterPath="$PROJECT_DIR$/src/Model/DataObject/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Model/Repository/UserRepository.php" afterDir="false" />
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="l'entiereté des interfaces v1.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ControllerUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/user/inscription.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/user/inscription.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/proposition/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/proposition/detail.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +22,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -86,6 +82,9 @@
       <workItem from="1667665466238" duration="29661000" />
       <workItem from="1667813022638" duration="2729000" />
       <workItem from="1667824502417" duration="1280000" />
+      <workItem from="1667913163964" duration="299000" />
+      <workItem from="1667921345681" duration="882000" />
+      <workItem from="1667931075155" duration="18933000" />
     </task>
     <task id="LOCAL-00001" summary="structure">
       <created>1666707099608</created>
@@ -262,14 +261,56 @@
       <option name="project" value="LOCAL" />
       <updated>1667815171715</updated>
     </task>
-    <task id="LOCAL-00026" summary="liste des questions propre">
-      <created>1667900318539</created>
+    <task id="LOCAL-00026" summary="réglages creer/supprimer question">
+      <created>1667921997161</created>
       <option name="number" value="00026" />
       <option name="presentableId" value="LOCAL-00026" />
       <option name="project" value="LOCAL" />
-      <updated>1667900318539</updated>
+      <updated>1667921997161</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="css list des Questions">
+      <created>1667938685308</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1667938685308</updated>
+    </task>
+    <task id="LOCAL-00028" summary="css list des Questions">
+      <created>1667938965121</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1667938965121</updated>
+    </task>
+    <task id="LOCAL-00029" summary="css list des Questions">
+      <created>1667940394650</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1667940394650</updated>
+    </task>
+    <task id="LOCAL-00030" summary="css list des Questions conclu">
+      <created>1667941377216</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1667941377216</updated>
+    </task>
+    <task id="LOCAL-00031" summary="css list des Questions conclu">
+      <created>1667941949999</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1667941949999</updated>
+    </task>
+    <task id="LOCAL-00032" summary="l'entiereté des interfaces v1.0">
+      <created>1667951592069</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1667951592069</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,7 +347,10 @@
     <MESSAGE value="listQuestion : modif ajouté" />
     <MESSAGE value="modifyQuestion" />
     <MESSAGE value="modifyQuestion, modifyQuestion -&gt; interface update" />
-    <MESSAGE value="liste des questions propre" />
-    <option name="LAST_COMMIT_MESSAGE" value="liste des questions propre" />
+    <MESSAGE value="réglages creer/supprimer question" />
+    <MESSAGE value="css list des Questions" />
+    <MESSAGE value="css list des Questions conclu" />
+    <MESSAGE value="l'entiereté des interfaces v1.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="l'entiereté des interfaces v1.0" />
   </component>
 </project>

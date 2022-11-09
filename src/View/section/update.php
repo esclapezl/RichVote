@@ -8,7 +8,7 @@ $idSection = $section->getIdSection();
 ?>
 
         <p>
-            <input type="text" id=<?='i'.$idSection?> name=<?='intitule['.$idSection.']'?> value="<?=$intitule?>">
-            <input type="text" id=<?='d'.$idSection?> name=<?='description['.$idSection.']'?> value="<?=$description?>">
+            <input type="text" size="50"  id=<?='i'.$idSection?> name=<?='intitule['.$idSection.']'?> value="<?=$intitule?>">
+            <div class="descP"></div><h3>Description</h3><textarea type="text" rows="4" cols="100" id=<?='d'.$idSection?> name=<?='description['.$idSection.']'?>><?=$description?></textarea>
         </p>
 

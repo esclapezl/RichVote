@@ -93,7 +93,7 @@ header{
     left: 200px;
     background-color: rgba(0,0,0,0.8);
     border-radius: 5px;
-    height: 40px;
+    height: 50px;
     justify-content: center;
     align-items: center;
     font-size: 1.2em;
@@ -102,7 +102,8 @@ header{
 
 .navBar ul li{
     margin: 0 25px;
-    transition: 1s;
+    transition: 0.5s;
+
 }
 
 .navBar ul li.active,.navBar ul li:hover{
@@ -155,7 +156,7 @@ header{
     font-weight: bold;
     display: flex;
     width: 150px;
-    height: 40px;
+    height: 50px;
     border-radius: 5px;
     justify-content: center;
     align-items: center;
@@ -348,10 +349,11 @@ footer .vague#vague4{
 
 .block .text-box {
     position: relative;
-    text-align: center;
+
     color: white;
     padding: 40px 70px 70px 70px;
     width: 80%;
+
 
     background: rgba( 0, 0, 0, 0.65 );
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -373,13 +375,25 @@ footer .vague#vague4{
     justify-content: end;
 }
 
+.block .text-box .ligneCent {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-
-.block .text-box .ligneExt .ligne{
+.ligne{
     height: 1px;
     border-radius: 20px;
     background: white;
 }
+
+.block .text-box .ligne{
+    width: 10%;
+}
+
+
+
 
 .block .text-box .ligneExt .ligne:nth-child(1){
     width: 50%;
@@ -394,21 +408,50 @@ footer .vague#vague4{
     margin: 10px 0 20px 0px;
 }
 
-.block .text-box .optQuestion{
-    width: 100%;
+.block .text-box input{
+    cursor: pointer;
+}
+
+.block .text-box form legend{
+    text-align: center;
+}
+
+.block .text-box form
+{
+    align-content: center;
+    text-align: center;
+}
+
+.optQuestion{
     display: flex;
-    text-align: left;
     background-color: white;
-    text-decoration: black;
+    color: mediumblue;
     font-weight: bold;
-    display: flex;
-    width: 15%;
-    height: 30%;
-    border-radius: 15px;
     justify-content: center;
     align-items: center;
     transition: 1s;
     margin-bottom: 15px;
+    border-radius: 15px;
+}
+
+fieldset input{
+    height: 30px;
+    font-size: 1em;
+}
+fieldset input.optQuestion{
+    font-size: 1.5em;
+    width: 50%;
+    height: 50px;
+}
+textarea{
+    font-size: 1em;
+}
+
+
+
+.block .text-box div .optQuestion{
+    width: 25%;
+    height: 30%;
 }
 
 .block .text-box .optQuestion.active,
@@ -457,7 +500,6 @@ footer .vague#vague4{
     align-items: center;
     width: 85%;
     height: 70px;
-
 }
 
 .block .text-box li:hover,
@@ -482,6 +524,14 @@ footer .vague#vague4{
     padding: 10px;
     font-size: 1em;
     color: mediumblue;
+}
+
+.descG{
+    margin-bottom: 50px;
+}
+
+.descP{
+    margin-bottom: 25px;
 }
 
 
