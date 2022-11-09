@@ -15,7 +15,8 @@ use App\Model\DataObject\Proposition;
 
         <?php
         foreach ($proposition->getSectionsTexte() as $texte) {
-            echo '<p><h3>Section</h3><textarea type="text" rows="4" cols="100">' . $texte . '</textarea></p>';
+            echo '<div class="ligneExt"><h3>' . ucfirst($proposition->getIntitule()) . "</h3></div>";
+            echo "<div class='ligne'></div> <p class='descP'>" . $texte . "</p>";
         }?>
 
 

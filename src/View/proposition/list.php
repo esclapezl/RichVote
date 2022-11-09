@@ -11,7 +11,7 @@ use App\Model\DataObject\Proposition;
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <ul>
         <?php foreach ($propositions as $proposition) {
-            echo '<div class="ligneExt"><li class="ligneExt"><a href= frontController.php?controller=proposition&action=read&id=' . $proposition-->getIntitule() . '>' . $proposition->getIdProposition() . '</a></li></div>';
+            echo '<div class="ligneExt"><li class="ligneExt"><a href= frontController.php?controller=proposition&action=read&id=' . $proposition->getIdProposition() . '>' . $proposition->getIntitule() . '</a></li></div>';
         }?>
         </ul>
     </div>
