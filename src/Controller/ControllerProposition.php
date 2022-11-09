@@ -72,15 +72,10 @@ class ControllerProposition
         $proposition->setSectionsTexte($sectionsText);
         $proposition->setIntitule($_POST['intitule']);
 
-        (new PropositionRepository())->update($proposition);
-
-        // la je fais exactement ce qui est fait dans vueProposition sans passer par $_GET
-        $proposition = (new PropositionRepository())->select($idProposition);
-
         $parametres = array(
             'pagetitle' => 'vue proposition',
-            'cheminVueBody' => 'proposition/detail.php',
-            'proposition' => $proposition
+            'cheminVueBody' => 'question/detail.php',
+            'question' => (new QuestionRepository())->select($proposition->getIdQuestion())
         );
 
         self::afficheVue('view.php', $parametres);
