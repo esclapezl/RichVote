@@ -9,15 +9,18 @@ class Proposition extends AbstractDataObject
     private ?string $idProposition;
     private string $idQuestion;
     private ?array $sectionsTexte; // pour chaque idSection, une chaine de caractere sera associée
+    private ?string $intitule;
 
     public function __construct(
         ?string $idProposition,
         string $idQuestion,
-        ?array $sections
+        ?array $sections,
+        ?string $titre
     ){
         $this->idProposition = $idProposition;
         $this->idQuestion = $idQuestion;
         $this->sectionsTexte = $sections;
+        $this->intitule = $titre;
     }
 
     public function setTexte(string $idSection, string $texte){
@@ -33,6 +36,14 @@ class Proposition extends AbstractDataObject
         else{
             return null;
         }
+    }
+
+    public function getIntitule() :?string{
+        return $this->intitule;
+    }
+
+    public function setIntitule(string $intitule){
+        $this->intitule = $intitule;
     }
 
     /**

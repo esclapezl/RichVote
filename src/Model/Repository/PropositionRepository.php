@@ -17,7 +17,8 @@ class PropositionRepository extends AbstractRepository
         return new Proposition(
             $objetFormatTableau['IDPROPOSITION'],
             $objetFormatTableau['IDQUESTION'],
-            null
+            null,
+            $objetFormatTableau['INTITULE']
         );
     }
 
@@ -94,5 +95,12 @@ class PropositionRepository extends AbstractRepository
             );
             $pdoStatement->execute($params);
         }
+
+        $sql = "UPDATE SOUVIGNETN.PROPOSITIONS SET intitule = :intitule WHERE idProposition = :idProposition";
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute(array(
+            'intitule' => $proposition->getIntitule(),
+            'idProposition' => $proposition->getIdProposition()
+        ));
     }
 }

@@ -8,7 +8,8 @@ use App\Model\DataObject\Proposition;
         <form method="post" action="frontController.php?controller=proposition&action=updated&id=<?=$proposition->getIdProposition()?>">
             <fieldset>
                 <legend>Modification de la proposition</legend>
-
+                <label>Titre</label>
+                <input type="text" id="t" name="intitule" value='<?=$proposition->getIntitule()?>' >
                 <?php
                 $sectionsText = $proposition->getSectionsTexte();
                 foreach ($sectionsText as $idSection=>$text){

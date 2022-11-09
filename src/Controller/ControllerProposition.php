@@ -70,6 +70,7 @@ class ControllerProposition
         }
 
         $proposition->setSectionsTexte($sectionsText);
+        $proposition->setIntitule($_GET['intitule']);
 
         (new PropositionRepository())->update($proposition);
 
@@ -88,7 +89,7 @@ class ControllerProposition
     public static function create(){
         $idQuestion = $_GET['id'];
 
-        $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, null));
+        $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, null, null));
 
         $parametres = array(
             'pagetitle' => 'personnalisez votre proposition',

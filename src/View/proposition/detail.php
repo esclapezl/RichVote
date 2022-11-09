@@ -11,7 +11,7 @@ use App\Model\DataObject\Proposition;
             ?>
         </p>
         <p>
-        <h1><?=$proposition->getIdProposition()?></h1>
+        <h1><?=$proposition->getIntitule()?></h1>
         </p>
         <?php foreach ($proposition->getSectionsTexte() as $texte) {
             echo "<p>" . $texte . "</p>";
