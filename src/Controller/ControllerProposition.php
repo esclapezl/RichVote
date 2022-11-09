@@ -70,7 +70,7 @@ class ControllerProposition
         }
 
         $proposition->setSectionsTexte($sectionsText);
-        $proposition->setIntitule($_GET['intitule']);
+        $proposition->setIntitule($_POST['intitule']);
 
         (new PropositionRepository())->update($proposition);
 
