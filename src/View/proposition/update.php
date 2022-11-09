@@ -21,7 +21,7 @@ use App\Model\DataObject\Proposition;
                 <?php
                 $sectionsText = $proposition->getSectionsTexte();
                 foreach ($sectionsText as $idSection=>$text){
-                    echo ' <div class="descP"></div><h3>Description</h3><textarea type="texte" rows="4" cols="100" id=i' . $idSection . ' name=texte[' . $idSection . '] >' . $text . '</textarea>';
+                    echo ' <div class="descP"></div><h3>Description</h3><textarea type="texte" rows="4" cols="80" id=i' . $idSection . ' name=texte[' . $idSection . '] >' . $text . '</textarea>';
                 }
                 ?>
             <div class="descG"></div>

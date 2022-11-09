@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="detail proposition">
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="modifier">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/View/proposition/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/proposition/update.php" afterDir="false" />
     </list>
@@ -85,7 +85,6 @@
       <workItem from="1667824502417" duration="1280000" />
       <workItem from="1667913163964" duration="299000" />
       <workItem from="1667921345681" duration="882000" />
-      <workItem from="1667931075155" duration="21126000" />
     </task>
     <task id="LOCAL-00001" summary="structure">
       <created>1666707099608</created>
@@ -269,77 +268,7 @@
       <option name="project" value="LOCAL" />
       <updated>1667921997161</updated>
     </task>
-    <task id="LOCAL-00027" summary="css list des Questions">
-      <created>1667938685308</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1667938685308</updated>
-    </task>
-    <task id="LOCAL-00028" summary="css list des Questions">
-      <created>1667938965121</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1667938965121</updated>
-    </task>
-    <task id="LOCAL-00029" summary="css list des Questions">
-      <created>1667940394650</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1667940394650</updated>
-    </task>
-    <task id="LOCAL-00030" summary="css list des Questions conclu">
-      <created>1667941377216</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1667941377216</updated>
-    </task>
-    <task id="LOCAL-00031" summary="css list des Questions conclu">
-      <created>1667941949999</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1667941949999</updated>
-    </task>
-    <task id="LOCAL-00032" summary="l'entiereté des interfaces v1.0">
-      <created>1667951592069</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1667951592069</updated>
-    </task>
-    <task id="LOCAL-00033" summary="l'entiereté des interfaces v1.0">
-      <created>1667952130005</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1667952130005</updated>
-    </task>
-    <task id="LOCAL-00034" summary="detail proposition">
-      <created>1667952994752</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1667952994752</updated>
-    </task>
-    <task id="LOCAL-00035" summary="detail proposition">
-      <created>1667953049464</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1667953049464</updated>
-    </task>
-    <task id="LOCAL-00036" summary="detail proposition">
-      <created>1667954215209</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1667954215209</updated>
-    </task>
-    <option name="localTasksCounter" value="37" />
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -377,10 +306,6 @@
     <MESSAGE value="modifyQuestion" />
     <MESSAGE value="modifyQuestion, modifyQuestion -&gt; interface update" />
     <MESSAGE value="réglages creer/supprimer question" />
-    <MESSAGE value="css list des Questions" />
-    <MESSAGE value="css list des Questions conclu" />
-    <MESSAGE value="l'entiereté des interfaces v1.0" />
-    <MESSAGE value="detail proposition" />
-    <option name="LAST_COMMIT_MESSAGE" value="detail proposition" />
+    <option name="LAST_COMMIT_MESSAGE" value="réglages creer/supprimer question" />
   </component>
 </project>
