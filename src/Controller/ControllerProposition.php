@@ -72,6 +72,8 @@ class ControllerProposition
         $proposition->setSectionsTexte($sectionsText);
         $proposition->setIntitule($_POST['intitule']);
 
+        (new PropositionRepository())->update($proposition);
+
         $parametres = array(
             'pagetitle' => 'vue proposition',
             'cheminVueBody' => 'question/detail.php',
