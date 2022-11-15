@@ -73,7 +73,7 @@ class ControllerUser
                 'pagetitle' => 'erreur',
                 'cheminVueBody' => 'user/inscription.php',
                 'persistanceId' => $idUser,
-                'msgErreur' => 'Les mots de passes doivent être identiques'
+                'msgErreur' => 'Les mots de passes doivent être identiques.'
             );
 
             self::afficheVue('view.php', $parametres);

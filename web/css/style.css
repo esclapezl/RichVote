@@ -256,7 +256,7 @@ footer ul li a:hover{
 footer #txtEffet{
     margin: 0 10px;
     transition: 0.5s;
-    color: dodgerblue;
+    color: mediumslateblue;
 }
 
 footer #txtEffet:hover{
@@ -379,6 +379,17 @@ footer .vague#vague4{
     justify-content: end;
 }
 
+.block .text-box .ligneExt div h3 a{
+    color: white;
+    transition: 1s;
+}
+.block .text-box .ligneExt div h3 a.active,
+.block .text-box .ligneExt div h3 a:hover{
+    transform: scale(1.1);
+    color: mediumslateblue;
+
+}
+
 .block .text-box .ligneCent {
     width: 100%;
     display: flex;
@@ -438,11 +449,11 @@ footer .vague#vague4{
     border-radius: 15px;
 }
 
-fieldset input{
+form input{
     height: 30px;
     font-size: 1em;
 }
-fieldset input.optQuestion{
+form input.optQuestion{
     font-size: 1.5em;
     width: 50%;
     height: 50px;
@@ -524,10 +535,15 @@ textarea{
     font-size: 2.5em;
     margin-bottom: 10px;
 }
-.block .text-box a{
+.block .text-box a {
     padding: 10px;
     font-size: 1em;
     color: mediumblue;
+}
+.block .text-box p a {
+    padding: 10px;
+    font-size: 1em;
+    color: mediumslateblue;
 }
 
 .descG{

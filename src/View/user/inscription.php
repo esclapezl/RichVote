@@ -1,26 +1,35 @@
 <div class="block">
     <div class="text-box">
         <form action="frontController.php?controller=user&action=inscrit" method="post">
-            <label> identifiant :<br>
-                <input type="text" id="id" name="identifiant" placeholder="Identifiant" required
-                    <?php if(isset($persistanceId))
-                    {
+            <div class="ligneExt"> <h1>Inscription :</h1> <div>Vous êtes déjà inscrit ?<h3><a href="frontController.php?controller=user&action=connexion">Connectez-vous</a></h3></div></div>
+            <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
+            <p>
+            <div class="descG"></div>
+            <h3>Identifiant :</h3>
+            <input type="text" id="id" name="identifiant" placeholder="Identifiant" size="50"  required
+                <?php if(isset($persistanceId))
+                {
                     echo 'value="'.$persistanceId.'"';
-                    }
-                    ?>>
-            </label> <br>
-            <label> mot de passe :<br>
-                <input type="password" id="mpd" name="motDePasse" placeholder="********" required>
-            </label> <br>
-            <label> confirmer le mot de passe : <br>
-                <input type="password" id="confirmationMpd" name="confirmerMotDePasse" placeholder="********" required>
-            </label> <br>
-            <input type="submit" value="S'inscrire" name="submit">
+                }
+                ?>>
+            <div class="descP"></div>
+
+            <h3>Mot de passe :</h3>
+            <input type="password" id="mpd" name="motDePasse" placeholder="********" size="50" required>
+
+            <div class="descP"></div>
+
+            <h3>Confirmer le mot de passe :</h3>
+            <input type="password" id="confirmationMpd" name="confirmerMotDePasse" placeholder="********" size="50" required>
+            <div class="descG"></div>
+            </p>
+            <div class="ligneCent"> <input class="optQuestion" type="submit" name="submit" value="S'inscrire"/></div>
             <?php if(isset($msgErreur))
             {
                 echo '<p>'.$msgErreur.'</p>';
             }
             ?>
+
         </form>
 
     </div>
