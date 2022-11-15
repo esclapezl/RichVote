@@ -61,7 +61,7 @@ class ControllerUser
             (new UserRepository())->sauvegarder($user);
 
             $parametres = array(
-                'pagetitle' => 'inscrit',
+                'pagetitle' => 'Utilisateur Inscrit',
                 'cheminVueBody' => 'user/accueil.php',
             );
 
@@ -70,7 +70,7 @@ class ControllerUser
         else
         {
             $parametres = array(
-                'pagetitle' => 'erreur',
+                'pagetitle' => 'Erreur',
                 'cheminVueBody' => 'user/inscription.php',
                 'persistanceId' => $idUser,
                 'msgErreur' => 'Les mots de passes doivent être identiques.'

@@ -20,7 +20,7 @@ class ControllerProposition
         $listePropositions = (new PropositionRepository())->selectAllForQuestion($idQuestion);
 
         $parametres = array(
-            'pagetitle' => 'liste des propositions pour la question',
+            'pagetitle' => 'Liste Propositions',
             'cheminVueBody' => 'proposition/list.php',
             'propositions' => $listePropositions
         );
@@ -35,7 +35,7 @@ class ControllerProposition
         $proposition = (new PropositionRepository())->select($idProposition);
 
         $parametres = array(
-            'pagetitle' => 'vue proposition',
+            'pagetitle' => 'Détail Proposition',
             'cheminVueBody' => 'proposition/detail.php',
             'proposition' => $proposition
         );
@@ -49,7 +49,7 @@ class ControllerProposition
         $proposition = (new PropositionRepository())->select($idProposition);
 
         $parametres = array(
-            'pagetitle' => 'modifier proposition',
+            'pagetitle' => 'Modifier Proposition',
             'cheminVueBody' => 'proposition/update.php',
             'proposition' => $proposition
         );
@@ -75,7 +75,7 @@ class ControllerProposition
         (new PropositionRepository())->update($proposition);
 
         $parametres = array(
-            'pagetitle' => 'vue proposition',
+            'pagetitle' => 'Détail Proposition',
             'cheminVueBody' => 'question/detail.php',
             'question' => (new QuestionRepository())->select($proposition->getIdQuestion())
         );
@@ -89,7 +89,7 @@ class ControllerProposition
         $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, null, null));
 
         $parametres = array(
-            'pagetitle' => 'personnalisez votre proposition',
+            'pagetitle' => 'Créer Proposition',
             'cheminVueBody' => 'proposition/update.php',
             'proposition' => $proposition
         );
@@ -102,7 +102,7 @@ class ControllerProposition
 
         (new PropositionRepository())->delete($idProposition);
         $parametres = array(
-            'pagetitle' => 'proposition supprimée',
+            'pagetitle' => 'Proposition Supprimée',
             'cheminVueBody' => 'question/detail.php',
             'question' => (new QuestionRepository())->select($proposition->getIdQuestion())
         );

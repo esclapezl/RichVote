@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="icon" href="img/favicon.ico" />
         <title><?php
             /** @var $pagetitle string */
             echo $pagetitle;

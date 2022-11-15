@@ -19,7 +19,7 @@ class ControllerQuestion
         $arrayQuestion = (new QuestionRepository)->selectAll();
 
         $parametres = array(
-            'pagetitle' => 'liste des questions',
+            'pagetitle' => 'Liste Questions',
             'cheminVueBody' => 'question/list.php',
             'questions' => $arrayQuestion
         );
@@ -34,7 +34,7 @@ class ControllerQuestion
         $question = (new QuestionRepository())->select($idQuestion);
 
         $parametres = array(
-            'pagetitle' => 'Vue question',
+            'pagetitle' => 'Détail Question',
             'cheminVueBody' => 'question/detail.php',
             'question' => $question
         );
@@ -46,7 +46,7 @@ class ControllerQuestion
     public static function create() : void
     {
         self::afficheVue('view.php',[
-            "pagetitle" => "créer une question",
+            "pagetitle" => "Créer Question",
             "cheminVueBody" => 'question/create.php'
         ]);
     }
@@ -60,7 +60,7 @@ class ControllerQuestion
         $question = (new QuestionRepository())->creerQuestion($question, $nbSections);
 
         $parametres = array(
-            'pagetitle' => 'continuer la création de la question',
+            'pagetitle' => 'Ajuster Question',
             'cheminVueBody' => 'question/update.php',
             'question' => $question
         );
@@ -73,7 +73,7 @@ class ControllerQuestion
         $idQuestion = $_GET['id'];
 
         $parametres = array(
-            'pagetitle' => 'modifier une question',
+            'pagetitle' => 'Modifier Question',
             'cheminVueBody' => 'question/update.php',
             'question' => (new QuestionRepository())->select($idQuestion)
         );
@@ -104,7 +104,7 @@ class ControllerQuestion
         }
 
         static::afficheVue('view.php',[
-                "pagetitle"=> "Liste des questions",
+                "pagetitle"=> "Liste Questions",
                 "cheminVueBody" => "question/created.php",
                 "questions" => (new QuestionRepository())->selectAll()]
         );
@@ -121,7 +121,7 @@ class ControllerQuestion
         else{
             (new QuestionRepository())->delete($_GET['id']);
             static::afficheVue('view.php',[
-                "pagetitle"=> "Question supprimée",
+                "pagetitle"=> "Question Supprimée",
                 "cheminVueBody" => "question/deleted.php",
                 "question" => $question,
                 "questions" => (new QuestionRepository())->selectAll()]);
