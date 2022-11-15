@@ -30,6 +30,10 @@ header{
     background-size: cover; /* version standardisée */
 }
 
+header .ligne{
+    margin-top: 20px;
+}
+
 .blocvid{
     position: relative;
     height: 100vh;
