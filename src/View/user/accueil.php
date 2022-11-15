@@ -11,7 +11,7 @@
         <div class="text-box">
             <img src="img/logo.png" alt="RichVote" id="logo">
             <p>
-                RichVote est un site de vote. Il possède le système de vote le plus élaborée et le plus
+                RichVote est un site de vote. Il possède le système de vote le plus élaboré et le plus
                 sûr que l'on peut retrouver sur le web.
             </p>
             <p>
