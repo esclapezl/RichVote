@@ -77,4 +77,15 @@ class Proposition extends AbstractDataObject
     {
         return $this->idQuestion;
     }
+
+    public function formatTableau(): array
+    {
+        return array(
+            "idPropositionTag" => $this->getIdProposition(),
+            "idQuestionTag" => $this->getIdQuestion(),
+            "sectionsTag" => $this->getSectionsTexte(),
+            "intituleTag" => $this->getIntitule()
+        );
+    }
+
 }

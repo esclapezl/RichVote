@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="application cookies jusqu'a l'exercice 4 inclus" />
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="page connexion + page inscription -&gt; CSS">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/AbstractDataObject.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/AbstractDataObject.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/Proposition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/Proposition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/Question.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/Question.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/Section.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/Section.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Repository/PropositionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/PropositionRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Repository/QuestionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/QuestionRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Repository/SectionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/SectionRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/UserRepository.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,7 +31,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -34,7 +45,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sae-website&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sae-website/web/img&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -83,13 +94,7 @@
       <workItem from="1667913163964" duration="299000" />
       <workItem from="1667921345681" duration="882000" />
       <workItem from="1668085342240" duration="5000" />
-      <workItem from="1668521857882" duration="4359000" />
-      <workItem from="1668599145457" duration="127000" />
-      <workItem from="1668680695160" duration="875000" />
-      <workItem from="1668693915619" duration="25000" />
-      <workItem from="1668758530975" duration="38000" />
-      <workItem from="1668762484175" duration="37000" />
-      <workItem from="1668767383966" duration="140000" />
+      <workItem from="1668521857882" duration="4091000" />
     </task>
     <task id="LOCAL-00001" summary="structure">
       <created>1666707099608</created>
@@ -294,28 +299,7 @@
       <option name="project" value="LOCAL" />
       <updated>1668525433554</updated>
     </task>
-    <task id="LOCAL-00030" summary="ajustements Controller pagetitle + ajout icon">
-      <created>1668526012350</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1668526012350</updated>
-    </task>
-    <task id="LOCAL-00031" summary="debut cookies">
-      <created>1668798378267</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1668798378267</updated>
-    </task>
-    <task id="LOCAL-00032" summary="application cookies jusqu'a l'exercice 4 inclus">
-      <created>1668802704180</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1668802704180</updated>
-    </task>
-    <option name="localTasksCounter" value="33" />
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,6 +317,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="structure" />
     <MESSAGE value="view.php" />
     <MESSAGE value="accueil" />
     <MESSAGE value="configuration de la base pour les questions avec la classe abstraite repository et la classe Question&#10;la connexion avec la base de données marche" />
@@ -355,9 +340,6 @@
     <MESSAGE value="modifier" />
     <MESSAGE value="last" />
     <MESSAGE value="page connexion + page inscription -&gt; CSS" />
-    <MESSAGE value="ajustements Controller pagetitle + ajout icon" />
-    <MESSAGE value="debut cookies" />
-    <MESSAGE value="application cookies jusqu'a l'exercice 4 inclus" />
-    <option name="LAST_COMMIT_MESSAGE" value="application cookies jusqu'a l'exercice 4 inclus" />
+    <option name="LAST_COMMIT_MESSAGE" value="page connexion + page inscription -&gt; CSS" />
   </component>
 </project>

@@ -79,4 +79,16 @@ class Question extends AbstractDataObject
     public function ajouterSection(Section $section){
         $this->sections[] = $section;
     }
+
+    public function formatTableau(): array
+    {
+        return array(
+            "idTag" => $this->getId(),
+            "intituleTag" => $this->getIntitule(),
+            "descriptionTag" => $this->getDescription(),
+            "sectionsTag" => $this->getSections()
+        );
+
+
+    }
 }

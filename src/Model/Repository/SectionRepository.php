@@ -18,6 +18,16 @@ class SectionRepository extends AbstractRepository
         return 'idSection';
     }
 
+    protected function getNomsColonnes(): array
+    {
+        return [
+            "",
+            "",
+            ""
+        ];
+
+    }
+
     protected function construire(array $objetFormatTableau): AbstractDataObject
     {
         return new Section(

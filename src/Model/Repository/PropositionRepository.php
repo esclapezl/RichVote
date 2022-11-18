@@ -27,6 +27,16 @@ class PropositionRepository extends AbstractRepository
         return 'idProposition';
     }
 
+    protected function getNomsColonnes(): array
+    {
+        return [
+            "",
+            "",
+            ""
+        ];
+
+    }
+
 
     public function select(string $idProposition) : AbstractDataObject{
         $proposition = parent::select($idProposition);
@@ -64,7 +74,8 @@ class PropositionRepository extends AbstractRepository
     }
 
 
-    public function sauvegarder(Proposition $proposition){
+
+     public function sauvegarder(Proposition $proposition){
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $sql = 'INSERT INTO SOUVIGNETN.PROPOSITIONS(idQuestion) VALUES ('.$proposition->getIdQuestion().')';
@@ -103,4 +114,6 @@ class PropositionRepository extends AbstractRepository
             'idProposition' => $proposition->getIdProposition()
         ));
     }
+
+
 }

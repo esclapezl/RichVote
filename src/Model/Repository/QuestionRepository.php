@@ -17,6 +17,16 @@ class QuestionRepository extends AbstractRepository
         return 'idQuestion';
     }
 
+    protected function getNomsColonnes(): array
+    {
+        return [
+            "",
+            "",
+            ""
+        ];
+
+    }
+
     protected function construire(array $objetFormatTableau): AbstractDataObject
     {
         return new Question(
@@ -89,4 +99,6 @@ class QuestionRepository extends AbstractRepository
             )
         );
     }
+
+
 }

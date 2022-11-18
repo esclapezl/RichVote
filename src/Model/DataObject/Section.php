@@ -69,4 +69,14 @@ class Section extends AbstractDataObject
         $this->intitule = $intitule;
         $this->description = $description;
     }
+
+    public function formatTableau(): array
+    {
+        return array(
+            "intituleTag" => $this->getIntitule(),
+            "descriptionTag" => $this->getDescription(),
+            "idQuestionTag" => $this->getIdQuestion(),
+            "idSectionTag" => $this->getIdSection()
+        );
+    }
 }

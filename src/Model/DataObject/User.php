@@ -34,4 +34,11 @@ class User extends AbstractDataObject
     }
 
 
+    public function formatTableau(): array
+    {
+        return array(
+            "idTag" => $this->getId(),
+            "mdpTag" => $this->getMdp()
+        );
+    }
 }

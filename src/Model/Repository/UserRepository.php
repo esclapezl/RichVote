@@ -17,6 +17,16 @@ class UserRepository extends AbstractRepository
         return 'idUser';
     }
 
+    protected function getNomsColonnes(): array
+    {
+        return [
+            "",
+            "",
+            ""
+        ];
+
+    }
+
     protected function construire(array $objetFormatTableau): AbstractDataObject
     {
         return new User(

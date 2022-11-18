@@ -9,6 +9,8 @@ abstract class AbstractRepository{
 
     protected abstract function getNomClePrimaire() : string;
 
+    protected abstract function getNomsColonnes(): array;
+
     protected abstract function construire(array $objetFormatTableau) : AbstractDataObject;
 
     public function selectAll(): array{
