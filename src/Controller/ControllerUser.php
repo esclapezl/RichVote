@@ -52,12 +52,10 @@ class ControllerUser
         $mdp = $_POST['motDePasse'];
         $cmdp = $_POST['confirmerMotDePasse'];
 
-        $user = new User($idUser,$mdp);
+        $user = new User($idUser, $mdp);
 
 
-
-        if((new UserRepository())->check($mdp,$cmdp))
-        {
+        if ((new UserRepository())->check($mdp, $cmdp)) {
             (new UserRepository())->sauvegarder($user);
 
             $parametres = array(
@@ -66,9 +64,7 @@ class ControllerUser
             );
 
             self::afficheVue('view.php', $parametres);
-        }
-        else
-        {
+        } else {
             $parametres = array(
                 'pagetitle' => 'Erreur',
                 'cheminVueBody' => 'user/inscription.php',
@@ -78,10 +74,25 @@ class ControllerUser
 
             self::afficheVue('view.php', $parametres);
         }
-
-
-
     }
+
+        /*A FAIRE
+        fonctions update et updated
+        fonction delete
+        fonction readall ?
+        */
+
+    public static function deposerCookie(string $nomCookie, string $ValeurCookie,int $duree) : void
+    {
+        setcookie($nomCookie, $nomCookie, time() + $duree);
+    }
+
+    public static function lireCookie(string $nomCookie) : void
+    {
+        echo $_COOKIE[$nomCookie];
+    }
+
+
 
 
 
