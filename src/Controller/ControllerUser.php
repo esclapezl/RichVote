@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Model\DataObject\User;
+use App\Model\HTTP\Cookie;
 use App\Model\Repository\UserRepository;
+use App\Model\Repository\HTTP;
 
 class ControllerUser
 {
@@ -82,15 +84,18 @@ class ControllerUser
         fonction readall ?
         */
 
-    public static function deposerCookie(string $nomCookie, string $ValeurCookie,int $duree) : void
+
+    /*
+    public static function deposerCookie(string $nomCookie, string $valeurCookie,?int $duree = null) : void
     {
-        setcookie($nomCookie, $nomCookie, time() + $duree);
+        Cookie::enregistrer($nomCookie,$valeurCookie,$duree);
     }
 
     public static function lireCookie(string $nomCookie) : void
     {
-        echo $_COOKIE[$nomCookie];
+        echo Cookie::lire($nomCookie);
     }
+    */
 
 
 
