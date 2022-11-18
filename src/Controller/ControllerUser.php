@@ -64,8 +64,6 @@ class ControllerUser
                 'pagetitle' => 'Utilisateur Inscrit',
                 'cheminVueBody' => 'user/accueil.php',
             );
-
-            self::afficheVue('view.php', $parametres);
         } else {
             $parametres = array(
                 'pagetitle' => 'Erreur',
@@ -73,9 +71,8 @@ class ControllerUser
                 'persistanceId' => $idUser,
                 'msgErreur' => 'Les mots de passes doivent être identiques.'
             );
-
-            self::afficheVue('view.php', $parametres);
         }
+        elf::afficheVue('view.php', $parametres);
     }
 
         /*A FAIRE
