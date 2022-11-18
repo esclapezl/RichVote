@@ -52,4 +52,48 @@ abstract class AbstractRepository{
         );
         $pdoStatement->execute($values);
     }
+
+    /*
+     * FACTORISATION UPDATE ET SAVE
+
+    public function update(AbstractDataObject $object): void{
+        $txtsql="";
+        foreach ($this->getNomsColonnes() as $i){
+            if($i==$this->getNomsColonnes()[sizeof($this->getNomsColonnes())-1]){
+                $txtsql = $txtsql . $i . "=:" . $i . "Tag " ;
+            }
+            else{
+                $txtsql = $txtsql . $i . "=:" . $i . "Tag" .", ";
+            }
+        }
+        $sql = "UPDATE ".$this->getNomTable() ." SET ".$txtsql." WHERE " . $this->getNomClePrimaire() . '="'. $object->getClePrimaire() .'"';
+        $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
+        $values = $object->formatTableau();
+        $pdoStatement->execute($values);
+    }
+
+    public function sauvegarder(AbstractDataObject $object): bool
+    {
+        $txtsqlcol="";
+        $txtsqlvalues="";
+        foreach ($this->getNomsColonnes() as $i){
+            if($i==$this->getNomsColonnes()[sizeof($this->getNomsColonnes())-1]){
+                $txtsqlvalues = $txtsqlvalues . ":" . $i . "Tag " ;
+                $txtsqlcol = $txtsqlcol . $i . " ";
+
+            }
+            else{
+                $txtsqlvalues = $txtsqlvalues . ":" . $i . "Tag" .", ";
+                $txtsqlcol = $txtsqlcol . $i .", ";
+            }
+        }
+        $sql = "INSERT INTO ". $this->getNomTable() ." (".$txtsqlcol.") VALUES (".$txtsqlvalues.")";
+
+        $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
+        $values = $object->formatTableau();
+        return $pdoStatement->execute($values);
+
+
+
+    }*/
 }
