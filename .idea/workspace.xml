@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="debut cookies">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ControllerUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/HTTP/Cookie.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/HTTP/Cookie.php" afterDir="false" />
-    </list>
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="application cookies jusqu'a l'exercice 4 inclus" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -312,7 +308,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668798378267</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="application cookies jusqu'a l'exercice 4 inclus">
+      <created>1668802704180</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1668802704180</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -330,7 +333,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="structure" />
     <MESSAGE value="view.php" />
     <MESSAGE value="accueil" />
     <MESSAGE value="configuration de la base pour les questions avec la classe abstraite repository et la classe Question&#10;la connexion avec la base de données marche" />
@@ -355,6 +357,7 @@
     <MESSAGE value="page connexion + page inscription -&gt; CSS" />
     <MESSAGE value="ajustements Controller pagetitle + ajout icon" />
     <MESSAGE value="debut cookies" />
-    <option name="LAST_COMMIT_MESSAGE" value="debut cookies" />
+    <MESSAGE value="application cookies jusqu'a l'exercice 4 inclus" />
+    <option name="LAST_COMMIT_MESSAGE" value="application cookies jusqu'a l'exercice 4 inclus" />
   </component>
 </project>

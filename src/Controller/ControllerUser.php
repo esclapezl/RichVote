@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Model\DataObject\User;
 use App\Model\HTTP\Cookie;
 use App\Model\Repository\UserRepository;
-use App\Model\Repository\HTTP;
+
 
 class ControllerUser
 {
