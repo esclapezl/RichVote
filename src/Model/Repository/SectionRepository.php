@@ -29,7 +29,7 @@ class SectionRepository extends AbstractRepository
     }
 
     public function getSectionsQuestion(string $idQuestion): array{
-        $sql = "SELECT * FROM SOUVIGNETN.SECTIONS WHERE idQuestionConstitue = :id";
+        $sql = "SELECT * FROM SOUVIGNETN.SECTIONS WHERE idQuestion = :id";
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $pdoStatement = $pdo->prepare($sql);
@@ -42,7 +42,7 @@ class SectionRepository extends AbstractRepository
         foreach ($pdoStatement as $section){
             $sections[] = $this->construire(array(
                 'idSection' => $section['IDSECTION'],
-                'idQuestion' => $section['IDQUESTIONCONSTITUE'],
+                'idQuestion' => $section['IDQUESTION'],
                 'intitule' => $section['INTITULESECTION'],
                 'description' => $section['DESCRIPTIONSECTION']
             ));
@@ -51,7 +51,7 @@ class SectionRepository extends AbstractRepository
     }
 
     public function sauvegarder(Section $section){
-        $sql = "INSERT INTO Sections(idQuestionConstitue, intituleSection, descriptionSection) VALUES(:id, :intitule, :description)";
+        $sql = "INSERT INTO Sections(idQuestion, intituleSection, descriptionSection) VALUES(:id, :intitule, :description)";
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $pdoStatement = $pdo->prepare($sql);

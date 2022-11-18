@@ -70,7 +70,7 @@ class QuestionRepository extends AbstractRepository
     public function select(string $id) : AbstractDataObject
     {
         $question = parent::select($id);
-        $question->setSections((new SectionRepository)->getSectionsQuestion($question->getId()));
+        $question->setSections((new SectionRepository)->getSectionsQuestion($id));
         return $question;
     }
 
