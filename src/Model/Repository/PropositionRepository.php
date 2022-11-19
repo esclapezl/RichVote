@@ -78,19 +78,17 @@ class PropositionRepository extends AbstractRepository
      public function sauvegarder(Proposition $proposition){
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
-        $sql = 'INSERT INTO SOUVIGNETN.PROPOSITIONS(idQuestion) VALUES ('.$proposition->getIdQuestion().')';
-        $sql1 = 'SELECT MAX(idProposition) as maxi FROM SOUVIGNETN.PROPOSITIONS';
+        $sql = "CALL creerProposition(:idQuestion)";
 
-        $pdoStatement = $pdo->query($sql);
-        $pdoStatement1 = $pdo->query($sql1);
+        $pdoStatement = $pdo->prepare($sql);
 
-        $pdoStatement->execute(); // ajoute une nouvelle proposition
-        $idProposition = $pdoStatement1->fetch()['MAXI']; // récupère le dernier id de proposition ajouté
+        $params = ['idQuestion' => $proposition->getIdQuestion()];
 
-        $sqlCreerTextes = "call creerSectionReponse(" . $idProposition . ")";
-        $pdo->query($sqlCreerTextes);
+        $pdoStatement->execute($params);
 
-        return $this->select($idProposition);
+        $sqlIdP = "select propositions_seq.CURRVAL as id from DUAL";
+
+        return $this->select($pdo->query($sqlIdP)->fetch()['ID']);
     }
 
     public function update(Proposition $proposition){

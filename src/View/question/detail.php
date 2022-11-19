@@ -4,7 +4,7 @@ use App\Model\DataObject\Question;
 ?>
 <div class="block">
     <div class="text-box">
-        <div class="ligneExt"> <h1><?=$question->getIntitule()?></h1> <h3>Détail de la question</h3></div>
+        <div class="ligneExt"> <h1><?=htmlspecialchars($question->getIntitule())?></h1> <h3>Détail de la question</h3></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <div class="ligneExt"><?php
                 echo
@@ -20,11 +20,11 @@ use App\Model\DataObject\Question;
         <div class="descP"></div>
 
     <div class="ligneExt"><h3>Description :</h3></div>
-        <p class="descG"><?=$question->getDescription()?></p>
+        <p class="descG"><?=htmlspecialchars($question->getDescription())?></p>
 
         <?php foreach ($question->getSections() as $section) {
-            echo '<div class="ligneExt"><h3>' . ucfirst($section->getIntitule()) . "</h3></div>";
-            echo "<div class='ligne'></div> <p class='descP'>" . $section->getDescription() . "</p>";
+            echo '<div class="ligneExt"><h3>' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
+            echo "<div class='ligne'></div> <p class='descP'>" . htmlspecialchars($section->getDescription()) . "</p>";
         }?>
 
     </div>
