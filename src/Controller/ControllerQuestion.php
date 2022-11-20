@@ -87,7 +87,9 @@ class ControllerQuestion
         $titreQuestion = $_POST['titreQuestion'];
         $descriptionQuestion = $_POST['descriptionQuestion'];
 
-        $question = new Question($_GET['id'], $titreQuestion, $descriptionQuestion);
+        $question = (new QuestionRepository())->select($_GET['id']);
+        $question->setIntitule($titreQuestion);
+        $question->setDescription($descriptionQuestion);
         (new QuestionRepository())->update($question);
 
         $sections = array();
