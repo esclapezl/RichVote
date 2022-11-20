@@ -2,12 +2,33 @@
 
 namespace App\Model\DataObject;
 
+use Cassandra\Date;
+use DateTime;
+
 class Question extends AbstractDataObject
 {
     private ?string $id;
     private string $intitule;
     private string $description;
     private array $sections;
+    private DateTime $dateCreation;
+    private DateTime $dateFermeture;
+
+    /**
+     * @return DateTime
+     */
+    public function getDateCreation(): DateTime
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDateFermeture(): DateTime
+    {
+        return $this->dateFermeture;
+    }
 
     /**
      * @return array
@@ -68,12 +89,16 @@ class Question extends AbstractDataObject
     public function __construct(
         ?string $id,
         string $intitule,
-        string $description
+        string $description,
+        DateTime $dateCreation,
+        DateTime $dateFermeture
     )
     {
         $this->id = $id;
         $this->intitule = $intitule;
         $this->description = $description;
+        $this->dateCreation = $dateCreation;
+        $this->dateFermeture = $dateFermeture;
     }
 
     public function ajouterSection(Section $section){
@@ -86,7 +111,9 @@ class Question extends AbstractDataObject
             "idTag" => $this->getId(),
             "intituleTag" => $this->getIntitule(),
             "descriptionTag" => $this->getDescription(),
-            "sectionsTag" => $this->getSections()
+            "sectionsTag" => $this->getSections(),
+            "dateCreationTag" => $this->dateCreation,
+            "dateFermetureTag" => $this->dateFermeture
         );
 
 

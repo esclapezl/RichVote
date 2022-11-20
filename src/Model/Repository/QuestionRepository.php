@@ -20,9 +20,11 @@ class QuestionRepository extends AbstractRepository
     protected function getNomsColonnes(): array
     {
         return [
-            "",
-            "",
-            ""
+            "IDQUESTION",
+            "INTITULEQUESTION",
+            "DESCRIPTIONQUESTION",
+            "DATECREATION",
+            "DATEFERMETURE"
         ];
 
     }
@@ -32,11 +34,13 @@ class QuestionRepository extends AbstractRepository
         return new Question(
             $objetFormatTableau['IDQUESTION'],
             $objetFormatTableau['INTITULEQUESTION'],
-            $objetFormatTableau['DESCRIPTIONQUESTION']
+            $objetFormatTableau['DESCRIPTIONQUESTION'],
+            date_create_from_format('d/m/Y',$objetFormatTableau['DATECREATION']),
+            date_create_from_format('d/m/Y',$objetFormatTableau['DATEFERMETURE'])
         );
     }
 
-    public function sauvegarder(Question $question) : Question{
+    public function sauvegarder(Question $question) : Question{ // faudrait l'enlever
         $sql = "INSERT INTO souvignetn.Questions(intituleQuestion, descriptionQuestion) VALUES(:intitule, :description)";
         $sqlId = "SELECT MAX(idQuestion) FROM QUESTIONS"; // on récupère l'id de la question vu qu'on ne l'a pas
         // y a un risque pour qu'on récupère pas le bon id si les deux requetes ne sont pas éxécutées en meme temps (et qu'un autre créer une question en meme temps)
@@ -62,11 +66,22 @@ class QuestionRepository extends AbstractRepository
     public function creerQuestion(Question $question, int $nbSections){ // tentative pour réduire le temps d'attente apres la creatioin d'une question
         $intitule = $question->getIntitule();
         $description = $question->getDescription();
-        $sql = "call CREERQUESTION('$intitule', '$description', $nbSections)";
+        $dateCreation = $question->getDateCreation()->format('d/m/Y');
+        $dateFermeture = $question->getDateFermeture()->format('d/m/Y');
+        $sql = "call CREERQUESTION(:intitule, :description, :dateCreation, :dateFermeture, :nbSections)";
 
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
-        $pdo->query($sql);
+        $pdostatement = $pdo->prepare($sql);
+
+        $parametres = [
+            'intitule' => $intitule,
+            'description' => $description,
+            'dateCreation' => $dateCreation,
+            'dateFermeture' => $dateFermeture,
+            'nbSections' => $nbSections
+        ];
+        $pdostatement->execute($parametres);
 
         $sqlId = "SELECT MAX(idQuestion) FROM QUESTIONS";
         $pdoStatementId = $pdo->query($sqlId);

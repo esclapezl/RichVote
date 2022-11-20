@@ -55,8 +55,9 @@ class ControllerQuestion
     {
         $intitule = $_POST['titreQuestion'];
         $nbSections = $_POST['nbSections'];
-
-        $question = new Question(null, $intitule, 'description');
+        $dateCreation = date_create();
+        $dateFermeture = date_create($_POST['dateFermeture']);
+        $question = new Question(null, $intitule, 'description', $dateCreation, $dateFermeture);
         $question = (new QuestionRepository())->creerQuestion($question, $nbSections);
 
         $parametres = array(

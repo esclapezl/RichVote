@@ -14,6 +14,11 @@
             </p>
 
             <p>
+                <label for="dF">Date limite de la question</label>
+                <input type="date" id="dF" name="dateFermeture" required>
+            </p>
+
+            <p>
                 <h3><label for="nbSections"> Nombre de sections :</label></h3>
                 <input type="number" min="1" max="10" id="ns" name="nbSections" value="1" placeholder="1">
             <div class="descG"></div>
