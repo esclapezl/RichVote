@@ -69,10 +69,6 @@ abstract class AbstractRepository{
         $id = $object->getId();
         $sql = "UPDATE ".$this->getNomTable() ." SET ".$txtsql." WHERE " . $this->getNomClePrimaire() . "=$id";
 
-        var_dump($sql);
-        var_dump($object->formatTableau());
-        var_dump($txtsql);
-
         $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
         $values = $object->formatTableau();
         $pdoStatement->execute($values);
