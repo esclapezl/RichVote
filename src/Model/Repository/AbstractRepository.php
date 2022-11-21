@@ -55,47 +55,51 @@ abstract class AbstractRepository{
         $pdoStatement->execute($values);
     }
 
-    /*
-     * FACTORISATION UPDATE ET SAVE
 
     public function update(AbstractDataObject $object): void{
         $txtsql="";
-        foreach ($this->getNomsColonnes() as $i){
-            if($i==$this->getNomsColonnes()[sizeof($this->getNomsColonnes())-1]){
-                $txtsql = $txtsql . $i . "=:" . $i . "Tag " ;
+        $nomColonnes = $this->getNomsColonnes();
+        foreach ($nomColonnes as $nomColonne){
+            if($nomColonne!=$nomColonnes[0]){
+                $txtsql .= ', ';
             }
-            else{
-                $txtsql = $txtsql . $i . "=:" . $i . "Tag" .", ";
-            }
+            $txtsql .= "$nomColonne = :$nomColonne" . 'Tag';
         }
-        $sql = "UPDATE ".$this->getNomTable() ." SET ".$txtsql." WHERE " . $this->getNomClePrimaire() . '="'. $object->getClePrimaire() .'"';
+
+        $id = $object->getId();
+        $sql = "UPDATE ".$this->getNomTable() ." SET ".$txtsql." WHERE " . $this->getNomClePrimaire() . "=$id";
+
+        var_dump($sql);
+        var_dump($object->formatTableau());
+        var_dump($txtsql);
+
         $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
         $values = $object->formatTableau();
         $pdoStatement->execute($values);
     }
 
-    public function sauvegarder(AbstractDataObject $object): bool
-    {
-        $txtsqlcol="";
-        $txtsqlvalues="";
-        foreach ($this->getNomsColonnes() as $i){
-            if($i==$this->getNomsColonnes()[sizeof($this->getNomsColonnes())-1]){
-                $txtsqlvalues = $txtsqlvalues . ":" . $i . "Tag " ;
-                $txtsqlcol = $txtsqlcol . $i . " ";
-
-            }
-            else{
-                $txtsqlvalues = $txtsqlvalues . ":" . $i . "Tag" .", ";
-                $txtsqlcol = $txtsqlcol . $i .", ";
-            }
-        }
-        $sql = "INSERT INTO ". $this->getNomTable() ." (".$txtsqlcol.") VALUES (".$txtsqlvalues.")";
-
-        $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
-        $values = $object->formatTableau();
-        return $pdoStatement->execute($values);
-
-
-
-    }*/
+//    public function sauvegarder(AbstractDataObject $object): bool
+//    {
+//        $txtsqlcol="";
+//        $txtsqlvalues="";
+//        foreach ($this->getNomsColonnes() as $i){
+//            if($i==$this->getNomsColonnes()[sizeof($this->getNomsColonnes())-1]){
+//                $txtsqlvalues = $txtsqlvalues . ":" . $i . "Tag " ;
+//                $txtsqlcol = $txtsqlcol . $i . " ";
+//
+//            }
+//            else{
+//                $txtsqlvalues = $txtsqlvalues . ":" . $i . "Tag" .", ";
+//                $txtsqlcol = $txtsqlcol . $i .", ";
+//            }
+//        }
+//        $sql = "INSERT INTO ". $this->getNomTable() ." (".$txtsqlcol.") VALUES (".$txtsqlvalues.")";
+//
+//        $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
+//        $values = $object->formatTableau();
+//        return $pdoStatement->execute($values);
+//
+//
+//
+//    }
 }

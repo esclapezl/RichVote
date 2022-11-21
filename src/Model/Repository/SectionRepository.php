@@ -21,9 +21,10 @@ class SectionRepository extends AbstractRepository
     protected function getNomsColonnes(): array
     {
         return [
-            "",
-            "",
-            ""
+            "idSection",
+            "idQuestion",
+            "intituleSection",
+            "descriptionSection"
         ];
 
     }
@@ -73,19 +74,5 @@ class SectionRepository extends AbstractRepository
         );
 
         $pdoStatement->execute($values);
-    }
-
-    public function update(Section $section){
-        $sql = "update SOUVIGNETN.SECTIONS set descriptionSection = :description, intituleSection = :intitule where idSection = :id";
-
-        $pdo = DatabaseConnection::getInstance()::getPdo();
-
-        $pdoStatement = $pdo->prepare($sql);
-
-        $pdoStatement->execute(array(
-            'description' => $section->getDescription(),
-            'intitule' => $section->getIntitule(),
-            'id' => $section->getIdSection()
-        ));
     }
 }

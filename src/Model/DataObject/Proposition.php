@@ -23,6 +23,12 @@ class Proposition extends AbstractDataObject
         $this->intitule = $titre;
     }
 
+    public function getId(): ?string
+    {
+        return $this->idProposition;
+    }
+
+
     public function setTexte(string $idSection, string $texte){
         if(in_array($idSection, $this->sectionsTexte)){
             $this->sectionsTexte[$idSection] = $texte;
@@ -83,7 +89,6 @@ class Proposition extends AbstractDataObject
         return array(
             "idPropositionTag" => $this->getIdProposition(),
             "idQuestionTag" => $this->getIdQuestion(),
-            "sectionsTag" => $this->getSectionsTexte(),
             "intituleTag" => $this->getIntitule()
         );
     }

@@ -9,6 +9,11 @@ class Section extends AbstractDataObject
     private string $idQuestion;
     private ?string $idSection;
 
+    public function getId(): ?string
+    {
+        return $this->idSection;
+    }
+
     /**
      * @return string
      */
@@ -73,8 +78,8 @@ class Section extends AbstractDataObject
     public function formatTableau(): array
     {
         return array(
-            "intituleTag" => $this->getIntitule(),
-            "descriptionTag" => $this->getDescription(),
+            "intituleSectionTag" => $this->getIntitule(),
+            "descriptionSectionTag" => $this->getDescription(),
             "idQuestionTag" => $this->getIdQuestion(),
             "idSectionTag" => $this->getIdSection()
         );

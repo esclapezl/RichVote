@@ -63,9 +63,9 @@ class Question extends AbstractDataObject
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -108,14 +108,11 @@ class Question extends AbstractDataObject
     public function formatTableau(): array
     {
         return array(
-            "idTag" => $this->getId(),
-            "intituleTag" => $this->getIntitule(),
-            "descriptionTag" => $this->getDescription(),
-            "sectionsTag" => $this->getSections(),
-            "dateCreationTag" => $this->dateCreation,
-            "dateFermetureTag" => $this->dateFermeture
+            "idQuestionTag" => $this->getId(),
+            "intituleQuestionTag" => $this->getIntitule(),
+            "descriptionQuestionTag" => $this->getDescription(),
+            "dateCreationTag" => $this->dateCreation->format('d/m/Y'),
+            "dateFermetureTag" => $this->dateFermeture->format('d/m/Y')
         );
-
-
     }
 }
