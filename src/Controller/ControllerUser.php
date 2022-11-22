@@ -56,23 +56,60 @@ class ControllerUser
 
         $user = new User($idUser, $mdp);
 
+/*
+        if (true) {
+            if (!(new UserRepository())->checkId($idUser)) {
 
-        if ((new UserRepository())->check($mdp, $cmdp)) {
+                $parametres = array(
+                    'pagetitle' => 'Erreur',
+                    'cheminVueBody' => 'user/inscription.php',
+                    'msgErreur' =>  'L\'identifiant '.$idUser.' est déjà utilisé et ta mere est une pute (deja utilisée).'
+                );
+            }
+            else
+            {
+                $parametres = array(
+                    'pagetitle' => 'Erreur',
+                    'cheminVueBody' => 'user/inscription.php',
+                    'msgErreur' =>  'L\'identifiant '.$idUser.' est déjà utilisé.'
+                );
+            }
+
+        }
+*/
+
+
+        if ((new UserRepository())->checkMdp($mdp, $cmdp)          //check si aucune contrainte n'a été violée
+            && (new UserRepository())->checkId($idUser)) {
             (new UserRepository())->sauvegarder($user);
-
             $parametres = array(
                 'pagetitle' => 'Utilisateur Inscrit',
                 'cheminVueBody' => 'user/accueil.php',
             );
-        } else {
-            $parametres = array(
-                'pagetitle' => 'Erreur',
-                'cheminVueBody' => 'user/inscription.php',
-                'persistanceId' => $idUser,
-                'msgErreur' => 'Les mots de passes doivent être identiques.'
-            );
         }
-        elf::afficheVue('view.php', $parametres);
+        else
+        {
+            if (!(new UserRepository())->checkMdp($mdp, $cmdp)) {
+
+                $parametres = array(
+                    'pagetitle' => 'Erreur',
+                    'cheminVueBody' => 'user/inscription.php',
+                    'persistanceId' => $idUser,
+                    'msgErreur' =>  'Les mots de passes doivent être identiques.'
+                );
+
+            }
+            if (!(new UserRepository())->checkId($idUser)) {
+                $parametres = array(
+                    'pagetitle' => 'Erreur',
+                    'cheminVueBody' => 'user/inscription.php',
+                    'msgErreur' =>  'L\'identifiant '.$idUser.' est déjà utilisé.'
+                );
+            }
+
+        }
+
+        self::afficheVue('view.php', $parametres);
     }
 
         /*A FAIRE
