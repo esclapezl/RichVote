@@ -56,27 +56,6 @@ class ControllerUser
 
         $user = new User($idUser, $mdp);
 
-/*
-        if (true) {
-            if (!(new UserRepository())->checkId($idUser)) {
-
-                $parametres = array(
-                    'pagetitle' => 'Erreur',
-                    'cheminVueBody' => 'user/inscription.php',
-                    'msgErreur' =>  'L\'identifiant '.$idUser.' est déjà utilisé et ta mere est une pute (deja utilisée).'
-                );
-            }
-            else
-            {
-                $parametres = array(
-                    'pagetitle' => 'Erreur',
-                    'cheminVueBody' => 'user/inscription.php',
-                    'msgErreur' =>  'L\'identifiant '.$idUser.' est déjà utilisé.'
-                );
-            }
-
-        }
-*/
 
 
         if ((new UserRepository())->checkMdp($mdp, $cmdp)          //check si aucune contrainte n'a été violée
