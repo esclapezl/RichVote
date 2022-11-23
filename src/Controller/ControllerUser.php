@@ -57,7 +57,7 @@ class ControllerUser
         $prenom = $_POST['prenom'];
         $nom = $_POST['nom'];
 
-        $user = new User($idUser, $mdp,$prenom,$nom);
+        $user = new User($idUser, $mdp,$prenom,$nom,'invité');
 
         $userRepository = new UserRepository();
 
