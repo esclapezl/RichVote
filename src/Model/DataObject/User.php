@@ -8,6 +8,7 @@ class User extends AbstractDataObject
     private string $mdp;
     private string $prenom;
     private string $nom;
+    private string $role;
 
     /**
      * @param string $id
@@ -15,12 +16,13 @@ class User extends AbstractDataObject
      * @param string $prenom
      * @param string $nom
      */
-    public function __construct(string $id, string $mdp, string $prenom, string $nom)
+    public function __construct(string $id, string $mdp, string $prenom, string $nom, string $role)
     {
         $this->id = $id;
         $this->mdp = $mdp;
-        $this->prenom = "testPrenom" /*$prenom*/;
-        $this->nom = "testNom"/*$nom*/;
+        $this->prenom =$prenom;
+        $this->nom = $nom;
+        $this->role = $role;
 
     }
 
@@ -56,6 +58,11 @@ class User extends AbstractDataObject
         return $this->nom;
     }
 
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
 
 
 
@@ -65,7 +72,17 @@ class User extends AbstractDataObject
             "idTag" => $this->getId(),
             "mdpTag" => $this->getMdp(),
             "prenomTag" => $this->getPrenom(),
-            "nomTag" => $this->getNom()
+            "nomTag" => $this->getNom(),
         );
     }
+
+    /**
+     * @param string $role
+     */
+    public function setRole(string $role): void
+    {
+        $this->role = $role;
+    }
+
+
 }

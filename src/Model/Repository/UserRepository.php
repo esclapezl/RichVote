@@ -20,9 +20,11 @@ class UserRepository extends AbstractRepository
     protected function getNomsColonnes(): array
     {
         return [
-            "",
-            "",
-            ""
+            "idUser",
+            "MDP",
+            "PRENOMUSER",
+            "NOMUSER",
+            "role"
         ];
 
     }
@@ -31,14 +33,16 @@ class UserRepository extends AbstractRepository
     {
         return new User(
             $objetFormatTableau['idUser'],
-            $objetFormatTableau['mdp'],
-            $objetFormatTableau['nom'],
-            $objetFormatTableau['prenom']);
+            $objetFormatTableau['MDP'],
+            $objetFormatTableau['PRENOMUSER'],
+            $objetFormatTableau['NOMUSER'],
+            $objetFormatTableau['role']
+        );
     }
 
     public function sauvegarder(User $user):void
     {
-        $sql = 'INSERT INTO souvignetn.Users("idUser",MDP,PRENOMUSER,NOMUSER) VALUES(:idUser, :mdp, :prenom, :nom)';
+        $sql = 'INSERT INTO souvignetn.Users("idUser",MDP,PRENOMUSER,NOMUSER,"role") VALUES(:idUser, :mdp, :prenom, :nom,:role)';
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $pdoStatement = $pdo->prepare($sql);
@@ -47,7 +51,8 @@ class UserRepository extends AbstractRepository
             'idUser' => $user->getId(),
             'mdp' => $user->getMdp(),
             'prenom' => $user->getPrenom(),
-            'nom' => $user->getNom()
+            'nom' => $user->getNom(),
+            'role' => 'invité'
         ));
     }
 

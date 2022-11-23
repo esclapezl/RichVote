@@ -10,9 +10,10 @@ use App\Model\DataObject\User;
         <ul>
             <?php
             foreach ($users as $user){
-                echo '<div class="ligneExt"><li class="ligneExt"><a href=frontController.php?controller=user&action=read&id=' . rawurlencode($user->getId()).'>'.ucfirst(htmlspecialchars($user->getId())).'</a><p>Auteur : <strong>Guest</strong></p></li><h2>EN COURS</h2></div>';
+                echo '<div class="ligneExt"><li class="ligneExt"><a href=frontController.php?controller=user&action=read&id=' . rawurlencode($user->getId()).'>'.ucfirst(htmlspecialchars($user->getId())).'</a> <span>'.$user->getPrenom() .' '.$user->getNom() .'</span></span></li><h2>'.$user->getRole().'</h2></div>';
             }
             ?>
+
         </ul>
     </div>
 </div>
