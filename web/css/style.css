@@ -590,4 +590,8 @@ textarea{
         margin: 25px 0;
         font-size: 1.2em;
     }
+
+    conditionMdp:hover{
+        color:red;
+    }
 }

@@ -53,37 +53,61 @@ class ControllerUser
         $idUser = $_POST['identifiant'];
         $mdp = $_POST['motDePasse'];
         $cmdp = $_POST['confirmerMotDePasse'];
+        $prenom = $_POST['prenom'];
+        $nom = $_POST['nom'];
 
-        $user = new User($idUser, $mdp);
+        $user = new User($idUser, $mdp,$prenom,$nom);
+
+        $userRepository = new UserRepository();
 
 
 
-        if ((new UserRepository())->checkMdp($mdp, $cmdp)          //check si aucune contrainte n'a été violée
-            && (new UserRepository())->checkId($idUser)) {
-            (new UserRepository())->sauvegarder($user);
+        if ($userRepository->checkCmdp($mdp, $cmdp)          //check si aucune contrainte n'a été violée
+            && $userRepository->checkId($idUser)
+            && $userRepository->checkMdp($mdp) == 'true')
+        {
+            $userRepository->sauvegarder($user);
             $parametres = array(
-                'pagetitle' => 'Utilisateur Inscrit',
+                'pagetitle' => 'Inscription validée !',
                 'cheminVueBody' => 'user/accueil.php',
             );
         }
         else
         {
-            if (!(new UserRepository())->checkMdp($mdp, $cmdp)) {
+            if (!$userRepository->checkCmdp($mdp, $cmdp)) {
 
                 $parametres = array(
                     'pagetitle' => 'Erreur',
                     'cheminVueBody' => 'user/inscription.php',
-                    'persistanceId' => $idUser,
+                    'persistanceValeurs' => array('idUser' => $idUser,
+                                                    'nom' => $nom,
+                                                    'prenom' => $prenom),
                     'msgErreur' =>  'Les mots de passes doivent être identiques.'
                 );
 
             }
-            if (!(new UserRepository())->checkId($idUser)) {
+            if (!$userRepository->checkId($idUser)) {
                 $parametres = array(
                     'pagetitle' => 'Erreur',
                     'cheminVueBody' => 'user/inscription.php',
+                    'persistanceValeurs' => array('nom' => $nom,
+                                                    'prenom' => $prenom),
                     'msgErreur' =>  'L\'identifiant '.$idUser.' est déjà utilisé.'
                 );
+            }
+            if ($userRepository->checkMdp($mdp)  != 'true') {
+
+                $parametres = array(
+                    'pagetitle' => 'Erreur',
+                    'cheminVueBody' => 'user/inscription.php',
+                    'persistanceValeurs' => array('idUser' => $idUser,
+                                                    'nom' => $nom,
+                                                    'prenom' => $prenom),
+                    'msgErreurMdp' =>  $userRepository->checkMdp($mdp)
+                );
+
+
+
             }
 
         }
