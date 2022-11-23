@@ -63,8 +63,7 @@ class ControllerUser
 
 
         if ($userRepository->checkCmdp($mdp, $cmdp)          //check si aucune contrainte n'a été violée
-            && $userRepository->checkId($idUser)
-            && $userRepository->checkMdp($mdp) == 'true')
+            && $userRepository->checkId($idUser))
         {
             $userRepository->sauvegarder($user);
             $parametres = array(
@@ -95,6 +94,7 @@ class ControllerUser
                     'msgErreur' =>  'L\'identifiant '.$idUser.' est déjà utilisé.'
                 );
             }
+            /*
             if ($userRepository->checkMdp($mdp)  != 'true') {
 
                 $parametres = array(
@@ -105,10 +105,8 @@ class ControllerUser
                                                     'prenom' => $prenom),
                     'msgErreurMdp' =>  $userRepository->checkMdp($mdp)
                 );
-
-
-
             }
+            */
 
         }
 

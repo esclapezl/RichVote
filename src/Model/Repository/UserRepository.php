@@ -51,6 +51,7 @@ class UserRepository extends AbstractRepository
         ));
     }
 
+    /*
     public function checkMdp(string $mdp):string
     {
         $erreursMdp = '';
@@ -122,6 +123,7 @@ class UserRepository extends AbstractRepository
         }
 
     }
+    */
 
     public function checkCmdp(string $mdp, string $cmdp):bool
     {

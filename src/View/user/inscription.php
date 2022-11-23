@@ -15,7 +15,7 @@
             <div class="descP"></div>
 
             <h3>Mot de passe  <span >*</span> : </h3>
-            <input type="password" id="mpd" name="motDePasse" placeholder="********" size="50" required>
+            <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="mpd" name="motDePasse" placeholder="********" size="50" required>
             <?php if(isset($msgErreurMdp))
             {
                 echo '<div style="color:#5d58ff;">' .$msgErreurMdp.'</div>';
@@ -53,6 +53,8 @@
                 echo '<p>'.$msgErreur.'</p>';
             }
             ?>
+
+
 
         </form>
 

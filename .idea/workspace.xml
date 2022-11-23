@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="page connexion + page inscription -&gt; CSS">
+      <change afterPath="$PROJECT_DIR$/src/Model/HTTP/Session.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/AbstractDataObject.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/AbstractDataObject.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/Proposition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/Proposition.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/Question.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/Question.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/Section.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/Section.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/PropositionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/PropositionRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/QuestionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/QuestionRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/SectionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/SectionRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ControllerUser.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/user/inscription.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/user/inscription.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
