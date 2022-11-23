@@ -6,19 +6,22 @@ class User extends AbstractDataObject
 {
     private string $id;
     private string $mdp;
-    private string $nom;
     private string $prenom;
+    private string $nom;
 
     /**
      * @param string $id
      * @param string $mdp
+     * @param string $prenom
+     * @param string $nom
      */
-    public function __construct(string $id, string $mdp, string $nom, string $prenom)
+    public function __construct(string $id, string $mdp, string $prenom, string $nom)
     {
         $this->id = $id;
         $this->mdp = $mdp;
-        $this->nom = $nom;
-        $this->prenom = $prenom;
+        $this->prenom = "testPrenom" /*$prenom*/;
+        $this->nom = "testNom"/*$nom*/;
+
     }
 
     /**
@@ -40,18 +43,20 @@ class User extends AbstractDataObject
     /**
      * @return string
      */
-    public function getNom(): string
+    public function getPrenom(): string
     {
-        return $this->nom;
+        return $this->prenom;
     }
 
     /**
      * @return string
      */
-    public function getPrenom(): string
+    public function getNom(): string
     {
-        return $this->prenom;
+        return $this->nom;
     }
+
+
 
 
     public function formatTableau(): array
@@ -59,8 +64,8 @@ class User extends AbstractDataObject
         return array(
             "idTag" => $this->getId(),
             "mdpTag" => $this->getMdp(),
-            "nomTag" => $this->getNom(),
-            "prenomTag" => $this->getPrenom()
+            "prenomTag" => $this->getPrenom(),
+            "nomTag" => $this->getNom()
         );
     }
 }

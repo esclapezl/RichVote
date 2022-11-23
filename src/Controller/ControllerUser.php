@@ -115,11 +115,27 @@ class ControllerUser
         self::afficheVue('view.php', $parametres);
     }
 
-        /*A FAIRE
-        fonctions update et updated
-        fonction delete
-        fonction readall ?
-        */
+    public static function readAll() : void
+    {
+        $arrayUser = (new UserRepository())->selectAll();
+
+        $parametres = array(
+            'pagetitle' => 'Liste Utilisateurs',
+            'cheminVueBody' => 'user/list.php',
+            'questions' => $arrayUser
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
+
+
+
+    /*A FAIRE
+    fonctions update et updated
+    fonction delete
+    fonction readall ? Pour Admin et Organisateur quand il souhaite choisir ses votants
+    */
 
 
     /*
