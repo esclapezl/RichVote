@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="page connexion + page inscription -&gt; CSS">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/AbstractDataObject.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/AbstractDataObject.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/Proposition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/Proposition.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/Question.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/Question.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/Section.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/Section.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/PropositionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/PropositionRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/QuestionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/QuestionRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/SectionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/SectionRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/UserRepository.php" afterDir="false" />
-    </list>
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="update" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -299,7 +287,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668525433554</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Sessions">
+      <created>1669239884301</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1669239884301</updated>
+    </task>
+    <task id="LOCAL-00031" summary="user readall">
+      <created>1669242711411</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1669242711411</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -340,6 +342,8 @@
     <MESSAGE value="modifier" />
     <MESSAGE value="last" />
     <MESSAGE value="page connexion + page inscription -&gt; CSS" />
-    <option name="LAST_COMMIT_MESSAGE" value="page connexion + page inscription -&gt; CSS" />
+    <MESSAGE value="Sessions" />
+    <MESSAGE value="user readall" />
+    <option name="LAST_COMMIT_MESSAGE" value="user readall" />
   </component>
 </project>
