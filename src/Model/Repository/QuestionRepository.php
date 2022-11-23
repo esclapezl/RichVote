@@ -33,7 +33,6 @@ class QuestionRepository extends AbstractRepository
 
     protected function construire(array $objetFormatTableau): AbstractDataObject
     {
-        var_dump($objetFormatTableau);
         return new Question(
             $objetFormatTableau['IDQUESTION'],
             $objetFormatTableau['INTITULEQUESTION'],
