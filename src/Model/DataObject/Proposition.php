@@ -10,18 +10,30 @@ class Proposition extends AbstractDataObject
     private string $idQuestion;
     private ?array $sectionsTexte; // pour chaque idSection, une chaine de caractere sera associée
     private ?string $intitule;
+    private bool $archive;
 
     public function __construct(
         ?string $idProposition,
         string $idQuestion,
         ?array $sections,
-        ?string $titre
+        ?string $titre,
+        bool $archive
     ){
         $this->idProposition = $idProposition;
         $this->idQuestion = $idQuestion;
         $this->sectionsTexte = $sections;
         $this->intitule = $titre;
+        $this->archive = $archive;
     }
+
+    /**
+     * @return bool
+     */
+    public function isArchive(): bool
+    {
+        return $this->archive;
+    }
+
 
     public function getId(): ?string
     {

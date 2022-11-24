@@ -46,4 +46,8 @@ class PhaseRepository extends AbstractRepository
             return $type;
         }
     }
+
+    public function selectUnvaulted(string $idQuestion){
+
+    }
 }

@@ -28,7 +28,6 @@ class QuestionRepository extends AbstractRepository
             "dateCreation",
             "dateFermeture"
         ];
-
     }
 
     protected function construire(array $objetFormatTableau): AbstractDataObject

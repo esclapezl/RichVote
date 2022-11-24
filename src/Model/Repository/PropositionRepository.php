@@ -14,11 +14,14 @@ class PropositionRepository extends AbstractRepository
 
     protected function construire(array $objetFormatTableau): AbstractDataObject
     {
+        $archive = false;
+        if($objetFormatTableau['ARCHIVE'] == 'V'){$archive = true;}
         return new Proposition(
             $objetFormatTableau['IDPROPOSITION'],
             $objetFormatTableau['IDQUESTION'],
             null,
-            $objetFormatTableau['INTITULE']
+            $objetFormatTableau['INTITULE'],
+            $archive
         );
     }
 
