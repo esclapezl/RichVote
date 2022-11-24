@@ -3,6 +3,7 @@
 namespace App\Model\Repository;
 
 use App\Model\DataObject\AbstractDataObject;
+use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
 
@@ -37,31 +38,9 @@ class QuestionRepository extends AbstractRepository
             $objetFormatTableau['INTITULEQUESTION'],
             $objetFormatTableau['DESCRIPTIONQUESTION'],
             date_create_from_format('d/m/Y',$objetFormatTableau['DATECREATION']),
-            date_create_from_format('d/m/Y',$objetFormatTableau['DATEFERMETURE'])
+            date_create_from_format('d/m/Y',$objetFormatTableau['DATEFERMETURE']),
+            (new PhaseRepository())->getCurrentTypePhase($objetFormatTableau['IDQUESTION'])
         );
-    }
-
-    public function sauvegarder(Question $question) : Question{ // faudrait l'enlever
-        $sql = "INSERT INTO souvignetn.Questions(intituleQuestion, descriptionQuestion) VALUES(:intitule, :description)";
-        $sqlId = "SELECT MAX(idQuestion) FROM QUESTIONS"; // on récupère l'id de la question vu qu'on ne l'a pas
-        // y a un risque pour qu'on récupère pas le bon id si les deux requetes ne sont pas éxécutées en meme temps (et qu'un autre créer une question en meme temps)
-
-        $pdo = DatabaseConnection::getInstance()::getPdo();
-
-        $pdoStatement = $pdo -> prepare($sql);
-        $pdoStatementId = $pdo->prepare($sqlId);
-
-        $pdoStatement->execute(array(
-            'intitule' => $question->getIntitule(),
-            'description' => $question->getDescription()
-        ));
-
-        $pdoStatementId->execute();
-
-        $id = $pdoStatementId->fetch()[0];
-
-        $question = new Question($id, $question->getIntitule(), $question->getDescription());
-        return $question;
     }
 
     public function creerQuestion(Question $question, int $nbSections){ // tentative pour réduire le temps d'attente apres la creatioin d'une question

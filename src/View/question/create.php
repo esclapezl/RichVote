@@ -16,6 +16,9 @@
             <p>
                 <label for="dF">Date limite de la question</label>
                 <input type="date" id="dF" name="dateFermeture" required>
+
+                <label for="dDV">date debut dernier vote</label>
+                <input type="date" id="dDV" name="dateDebutVote" required>
             </p>
 
             <p>
