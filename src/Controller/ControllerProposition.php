@@ -6,13 +6,8 @@ use App\Model\DataObject\Proposition;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 
-class ControllerProposition
+class ControllerProposition extends GenericController
 {
-    private static function afficheVue(string $cheminVue, array $parametres = []) : void {
-        extract($parametres); // Crée des variables à partir du tableau $parametres
-        require __DIR__ . "/../View/$cheminVue"; // Charge la vue
-    }
-
     public static function readAll() : void
     {
         $idQuestion = $_GET['id'];

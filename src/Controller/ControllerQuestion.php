@@ -7,13 +7,8 @@ use App\Model\DataObject\Section;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\SectionRepository;
 
-class ControllerQuestion
+class ControllerQuestion extends GenericController
 {
-    private static function afficheVue(string $cheminVue, array $parametres = []) : void {
-        extract($parametres); // Crée des variables à partir du tableau $parametres
-        require __DIR__ . "/../View/$cheminVue"; // Charge la vue
-    }
-
     public static function readAll() : void
     {
         $arrayQuestion = (new QuestionRepository)->selectAll();
