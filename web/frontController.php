@@ -40,6 +40,53 @@ else{
     ControllerUser::error();
 }
 
+/* VERSION OPTI AVEC GENERIC CONTROLLER (A TRANSFORMER POUR SAE) :
+
+
+//GENERAL
+    if(\App\Covoiturage\Lib\PreferenceControleur::existe()){
+
+        $controller=ucfirst(\App\Covoiturage\Lib\PreferenceControleur::lire());
+    }
+    else {
+        $controller="Voiture";
+    }
+    $controllerClassName = "App\Covoiturage\Controller\Controller" . $controller;
+    $action="readAll";
+
+    //SPECIFICATION
+    if(isset($_GET['controller'])){
+        $controller = ucfirst($_GET['controller']);
+        $controllerClassName = "App\Covoiturage\Controller\Controller" . $controller;
+    }
+    elseif(isset($_GET['action'])){
+        $controllerClassName ="App\Covoiturage\Controller\GenericController";
+    }
+
+    $check=false;
+    $os = array("Utilisateur", "Voiture", "Generic", "Trajet");
+    $class_methods = get_class_methods($controllerClassName);
+    if(isset($_GET['action']) && in_array($controller, $os)) {
+        foreach ($class_methods as $key) {
+            if ($key == $_GET['action']) {
+                $action=$_GET['action'];
+                $check=true;
+            }
+        }
+    }
+    if($check || isset($_GET['controller']) || !isset($_GET['action'])){
+        $controllerClassName::$action();
+    }
+    else{
+        ControllerVoiture::error();
+        //GenericController::error();
+
+    }
+*/
+
+
+
+
 /* ANCIENNE VERSION
 $controllerClassName='App\Controller\ControllerUser';
 if(isset($_GET['controller'])) {

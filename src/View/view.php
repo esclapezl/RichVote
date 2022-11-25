@@ -20,8 +20,7 @@
                     <li><a href="frontController.php?controller=question&action=readAll">Résultats</a></li>
                     <li><a href="frontController.php?controller=user&action=about">Contributeurs</a></li>
                 </ul>
-                    <div id="btn-connexion"><a href="frontController.php?controller=user&action=connexion">Connexion </a> ⇄ <a href="frontController.php?controller=user&action=inscription"> Inscription</a></div>
-                <div class="btn">
+                    <a id="btn-connexion" href="frontController.php?controller=user&action=connexion">Connexion </a>                <div class="btn">
                     <div class="line"></div>
                     <div class="line"></div>
                     <div class="line"></div>
