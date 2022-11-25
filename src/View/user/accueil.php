@@ -22,5 +22,4 @@
                 Vous pouvez être nommé à différents rôles, vous avez juste à cliquer <a href="frontController.php?controller=user&action=inscription">ici</a>.
             </p>
         </div>
-
 </div>

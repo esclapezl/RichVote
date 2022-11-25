@@ -14,14 +14,14 @@ class UserRepository extends AbstractRepository
 
     protected function getNomClePrimaire(): string
     {
-        return 'idUser';
+        return '"idUser"';
     }
 
     protected function getNomsColonnes(): array
     {
         return [
             "idUser",
-            "MDP",
+            "MDPHache",
             "PRENOMUSER",
             "NOMUSER",
             "role"
@@ -49,7 +49,7 @@ class UserRepository extends AbstractRepository
 
         $pdoStatement->execute(array(
             'idUser' => $user->getId(),
-            'mdp' => $user->getMdp(),
+            'mdp' => $user->getMdpHache(),
             'prenom' => $user->getPrenom(),
             'nom' => $user->getNom(),
             'role' => 'invité'

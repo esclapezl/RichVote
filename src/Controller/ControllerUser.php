@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Model\DataObject\User;
 use App\Model\HTTP\Cookie;
 use App\Model\Repository\UserRepository;
+use App\Model\HTTP\Session;
 
 
 class ControllerUser
@@ -35,8 +36,8 @@ class ControllerUser
     public static function inscription()
     {
 
-        $identifiant = $_POST['identifiant'];
-        $mdp = $_POST['motDePasse'];
+        //$identifiant = $_POST['identifiant'];
+        //$mdp = $_POST['motDePasse'];
         self::afficheVue('view.php',[
             "pagetitle" => "Inscription",
             "cheminVueBody" => 'user/inscription.php'
@@ -152,6 +153,34 @@ class ControllerUser
         self::afficheVue('view.php', $parametres);
     }
 
+    public static function read():void
+    {
+
+        $user = (new UserRepository())->select($_GET['id']);
+
+        $parametres = array(
+            'pagetitle' => 'Détails user',
+            'cheminVueBody' => 'user/details.php',
+            'user' => $user
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
+    public static function update():void
+    {
+        $user = (new UserRepository())->select($_GET['id']);
+        $parametres = array(
+            'pagetitle' => 'Mettre à jour un utilisateur',
+            'cheminVueBody' => 'user/update.php',
+            'user' => $user
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
+
+
 
 
 
@@ -162,17 +191,7 @@ class ControllerUser
     */
 
 
-    /*
-    public static function deposerCookie(string $nomCookie, string $valeurCookie,?int $duree = null) : void
-    {
-        Cookie::enregistrer($nomCookie,$valeurCookie,$duree);
-    }
 
-    public static function lireCookie(string $nomCookie) : void
-    {
-        echo Cookie::lire($nomCookie);
-    }
-    */
 
 
 

@@ -18,7 +18,7 @@ abstract class AbstractRepository{
 
         $nomTable = $this->getNomTable();
 
-        $pdoStatement = $pdo->query('SELECT * FROM '.$nomTable);
+        $pdoStatement = $pdo->query('SELECT * FROM '. $nomTable);
 
         $tabRepo = array();
         foreach($pdoStatement as $objetFormatTab){
@@ -34,7 +34,7 @@ abstract class AbstractRepository{
         $nomTable = $this->getNomTable();
         $nomId = $this->getNomClePrimaire();
 
-        $sql = 'SELECT * FROM '.$nomTable.' WHERE '.$nomId.' = '.$id;
+        $sql = 'SELECT * FROM '.$nomTable.' WHERE '.$nomId." = '" . $id."'";
 
         $pdostatement = $pdo->query($sql);
 

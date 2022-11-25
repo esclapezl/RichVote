@@ -5,21 +5,22 @@ namespace App\Model\DataObject;
 class User extends AbstractDataObject
 {
     private string $id;
-    private string $mdp;
+    private string $mdpHache;
     private string $prenom;
     private string $nom;
     private string $role;
 
+
     /**
      * @param string $id
-     * @param string $mdp
+     * @param string $mdpHache
      * @param string $prenom
      * @param string $nom
      */
     public function __construct(string $id, string $mdp, string $prenom, string $nom, string $role)
     {
         $this->id = $id;
-        $this->mdp = $mdp;
+        $this->mdpHache = $this->setMdpHache($mdp);
         $this->prenom =$prenom;
         $this->nom = $nom;
         $this->role = $role;
@@ -37,9 +38,9 @@ class User extends AbstractDataObject
     /**
      * @return string
      */
-    public function getMdp(): string
+    public function getMdpHache(): string
     {
-        return $this->mdp;
+        return $this->mdpHache;
     }
 
     /**
@@ -63,6 +64,14 @@ class User extends AbstractDataObject
         return $this->role;
     }
 
+    /**
+     * @param string $mdpHache
+     */
+    public function setMdpHache(string $mdpClair): string
+    {
+        return hash('sha256', $mdpClair);
+    }
+
 
 
 
@@ -70,7 +79,7 @@ class User extends AbstractDataObject
     {
         return array(
             "idTag" => $this->getId(),
-            "mdpTag" => $this->getMdp(),
+            "mdpTag" => $this->getMdpHache(),
             "prenomTag" => $this->getPrenom(),
             "nomTag" => $this->getNom(),
         );

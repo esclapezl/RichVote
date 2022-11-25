@@ -553,11 +553,7 @@ textarea{
     font-size: 2.5em;
     margin-bottom: 10px;
 }
-.block .text-box a {
-    padding: 10px;
-    font-size: 1em;
-    color: mediumblue;
-}
+
 .block .text-box p a {
     padding: 10px;
     font-size: 1em;

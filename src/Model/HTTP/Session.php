@@ -1,7 +1,9 @@
 <?php
 namespace App\Model\HTTP;
 
+use App\Model\HTTP\Cookie;
 use Exception;
+use App\Covoiturage\Config\Conf;
 
 class Session
 {
@@ -20,7 +22,11 @@ class Session
     public static function getInstance(): Session
     {
         if (is_null(static::$instance))
+        {
             static::$instance = new Session();
+            static::$instance->verifierDerniereActivite();
+        }
+
         return static::$instance;
     }
 
@@ -55,5 +61,15 @@ class Session
         Cookie::supprimer(session_name()); // deletes the session cookie
         // Il faudra reconstruire la session au prochain appel de getInstance()
         $instance = null;
+    }
+
+    public function verifierDerniereActivite(): void
+    {
+        if (isset($_SESSION['derniereActivite']) && (time() - $_SESSION['derniereActivite'] > (Conf::$dureeExpiration)))
+            session_unset();     // unset $_SESSION variable for the run-time
+
+        $_SESSION['derniereActivite'] = time(); // update last activity time stamp
+
+
     }
 }
