@@ -112,4 +112,14 @@ class PropositionRepository extends AbstractRepository
             $pdoStatement->execute($params);
         }
     }
+
+    public function setScore(Proposition $proposition, int $score){
+        //$sql = 'CALL voter(' . $idProposition . ", $score)"; la procédure ne marche pas
+        $currentPhase = (new PhaseRepository())->getCurrentPhase($proposition->getIdQuestion());
+        $idProposition = $proposition->getId();
+        $sql = "UPDATE SESSIONVOTE sv set sv.score = $score where IDPROPOSITION = $idProposition AND sv.IDPHASEVOTE = "  . $currentPhase->getId();
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdo->query($sql);
+    }
 }

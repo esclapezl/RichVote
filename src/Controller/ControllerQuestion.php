@@ -126,4 +126,16 @@ class ControllerQuestion extends GenericController
         }
     }
 
+    public static function voter():void{
+        $question = (new QuestionRepository())->select($_GET['id']);
+        if($question->getCurrentPhase() == 'vote'){
+            $parametres = [
+                'pagetitle' => 'vote la con de toi',
+                'cheminVueBody' => 'vote/Vote.php',
+                'question' => $question
+            ];
+            self::afficheVue('view.php', $parametres);
+        }
+    }
+
 }

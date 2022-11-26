@@ -104,4 +104,9 @@ class ControllerProposition extends GenericController
 
         self::afficheVue('view.php', $parametres);
     }
+
+    public static function voter(){
+        $proposition = (new PropositionRepository())->select($_GET['idProposition']);
+        (new PropositionRepository())->setScore($proposition, $_GET['score']);
+    }
 }

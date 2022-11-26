@@ -32,13 +32,20 @@ class QuestionRepository extends AbstractRepository
 
     protected function construire(array $objetFormatTableau): AbstractDataObject
     {
+        $currentPhase = (new PhaseRepository())->getCurrentPhase($objetFormatTableau['IDQUESTION']);
+        if(gettype($currentPhase) == "NULL"){
+            $currentPhase = 'consultation';
+        }
+        else{
+            $currentPhase = $currentPhase->getType();
+        }
         return new Question(
             $objetFormatTableau['IDQUESTION'],
             $objetFormatTableau['INTITULEQUESTION'],
             $objetFormatTableau['DESCRIPTIONQUESTION'],
             date_create_from_format('d/m/Y',$objetFormatTableau['DATECREATION']),
             date_create_from_format('d/m/Y',$objetFormatTableau['DATEFERMETURE']),
-            (new PhaseRepository())->getCurrentTypePhase($objetFormatTableau['IDQUESTION'])
+            $currentPhase
         );
     }
 

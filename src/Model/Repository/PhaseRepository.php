@@ -19,35 +19,32 @@ class PhaseRepository extends AbstractRepository
 
     protected function getNomsColonnes(): array
     {
-        return ['idPhase',
-                'dateDebut',
-                'dateFin',
-                'typePhase'];
+        return ['IDPHASE',
+                'DATEDEBUT',
+                'DATEFIN',
+                'TYPEPHASE'];
     }
 
     protected function construire(array $objetFormatTableau): AbstractDataObject
     {
-        return new Phase($objetFormatTableau['idPhase'],
-                        $objetFormatTableau['dateDebut'],
-                        $objetFormatTableau['dateFin'],
-                        $objetFormatTableau['typePhase']);
+        return new Phase($objetFormatTableau['IDPHASE'],
+                        $objetFormatTableau['TYPEPHASE'],
+                        date_create_from_format('d/m/Y',$objetFormatTableau['DATEDEBUT']),
+                        date_create_from_format('d/m/Y',$objetFormatTableau['DATEFIN']));
     }
 
-    public function getCurrentTypePhase(string $idQuestion){
-        $sql = 'SELECT * FROM PHASES WHERE idQuestionConcerne=:idQuestion AND dateDebut<=SYSDATE AND dateFin>SYSDATE';
+    public function getCurrentPhase(string $idQuestion) : ?AbstractDataObject{
+        $sql = "SELECT * FROM PHASES
+	            WHERE IDQUESTIONCONCERNE = $idQuestion
+	            AND dateDebut<=SYSDATE AND dateFin>SYSDATE";
         $pdo = DatabaseConnection::getInstance()::getPdo();
-        $statement = $pdo->prepare($sql);
-        $statement->execute(['idQuestion' => $idQuestion]);
-        $type = $statement->fetch()['TYPEPHASE'];
-        if(!$type){
-            return 'consultation';
+        $statement = $pdo->query($sql);
+        $result = $statement->fetch();
+        if(!isset($result['TYPEPHASE'])){
+            return NULL;
         }
         else{
-            return $type;
+            return $this->construire($result);
         }
-    }
-
-    public function selectUnvaulted(string $idQuestion){
-
     }
 }

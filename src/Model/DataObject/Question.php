@@ -2,7 +2,6 @@
 
 namespace App\Model\DataObject;
 
-use Cassandra\Date;
 use DateTime;
 
 class Question extends AbstractDataObject
