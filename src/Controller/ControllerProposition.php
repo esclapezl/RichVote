@@ -103,12 +103,12 @@ class ControllerProposition extends GenericController
         $proposition = (new PropositionRepository())->select($idProposition);
 
         if($proposition==null){
-            MessageFlash::ajouter('danger', "La proposition n'existe pas");
+            MessageFlash::ajouter('warning', "La proposition n'existe pas");
             self::redirection('frontController.php?controller=question&action=readAll');
         }
         else {
             (new PropositionRepository())->delete($idProposition);
-            MessageFlash::ajouter('success', 'La proposition : "' . $proposition . '" a bien été suprimée');
+            MessageFlash::ajouter('info', 'La proposition : "' . $proposition . '" a bien été suprimée');
             self::redirection('frontController.php?controller=proposition&action=readAll&id='. $proposition->getIdQuestion());
         }
 //        $parametres = array(

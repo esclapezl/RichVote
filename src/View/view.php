@@ -33,15 +33,17 @@
             </nav>
         <main>
             <?php
-            require __DIR__ . "/{$cheminVueBody}";
+
 
             foreach(['danger', 'warning', 'info', 'success'] as $categorie){
                 if(MessageFlash::contientMessage($categorie)){
                     foreach(MessageFlash::lireMessages($categorie) as $message){
-                        echo '<div class="alert alert-' .$categorie.'">' . $message . '</div>';
+                        echo '<div class="ligneCent"><div class="alert alert-' .$categorie.'">' . $message . '</div></div>';
                     }
                 }
             }
+
+            require __DIR__ . "/{$cheminVueBody}";
             ?>
         </main>
         <footer>

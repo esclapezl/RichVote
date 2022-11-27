@@ -133,7 +133,7 @@ class ControllerQuestion extends GenericController
                 (new PhaseRepository())->update($p);
             }
 
-            MessageFlash::ajouter('success', 'La question : "' . $titreQuestion . '" est désormais en ligne');
+            MessageFlash::ajouter('success', 'La question : "' . $titreQuestion . '" est désormais en ligne.');
             self::redirection('frontController.php?controller=question&action=readAll');
         }
 
@@ -150,13 +150,13 @@ class ControllerQuestion extends GenericController
 
         $question = (new QuestionRepository())->select($_GET['id']);
         if($question==null){
-            MessageFlash::ajouter('danger', "La question avec l'id suivant : " . $_GET['id'] . "n'existe pas");
+            MessageFlash::ajouter('warning', "La question avec l'id suivant : " . $_GET['id'] . "n'existe pas.");
             self::redirection('frontController.php?controller=question&action=readAll');
         }
         else{
             (new QuestionRepository())->delete($_GET['id']);
 
-            MessageFlash::ajouter('success', 'La question a bien été suprimée');
+            MessageFlash::ajouter('info', 'La question a bien été suprimée.');
             self::redirection('frontController.php?controller=question&action=readAll');
         }
     }

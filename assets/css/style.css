@@ -396,7 +396,7 @@ footer .vague#vague4{
 
 }
 
-.block .text-box .ligneCent {
+.ligneCent {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -571,6 +571,46 @@ textarea{
 }
 
 
+
+.alert {
+    padding: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.25 );
+    backdrop-filter: blur( 14.5px );
+    -webkit-backdrop-filter: blur( 14.5px );
+    border-radius: 10px;
+    color: white;
+    width: 35%;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    transition: 1s;
+}
+
+.alert-success {
+    background: rgba( 134, 255, 0, 0.25 );
+}
+
+.alert-info {
+    background: rgba( 255, 255, 255, 0.25 );
+}
+
+.alert-warning {
+    background: rgba( 223, 140, 0, 0.25 );
+}
+
+.alert-danger {
+    background: rgba( 255, 0, 0, 0.25 );
+}
+
+
+
+
+/* FORMAT TEL */
 @media screen and (max-width: 900px) {
     .navBar{
         padding: 0;
