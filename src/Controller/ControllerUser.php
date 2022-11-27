@@ -18,14 +18,6 @@ class ControllerUser extends GenericController
         ]);
     }
 
-    public static function error()
-    {
-        self::afficheVue('view.php',[
-            "pagetitle" => "Erreur",
-            "cheminVueBody" => 'error.php'
-        ]);
-    }
-
     public static function inscription()
     {
 
