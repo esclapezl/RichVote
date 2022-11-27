@@ -33,12 +33,6 @@ class QuestionRepository extends AbstractRepository
     protected function construire(array $objetFormatTableau): AbstractDataObject
     {
         $currentPhase = (new PhaseRepository())->getCurrentPhase($objetFormatTableau['IDQUESTION']);
-        if(gettype($currentPhase) == "NULL"){
-            $currentPhase = 'consultation';
-        }
-        else{
-            $currentPhase = $currentPhase->getType();
-        }
         return new Question(
             $objetFormatTableau['IDQUESTION'],
             $objetFormatTableau['INTITULEQUESTION'],
@@ -49,12 +43,12 @@ class QuestionRepository extends AbstractRepository
         );
     }
 
-    public function creerQuestion(Question $question, int $nbSections){ // tentative pour réduire le temps d'attente apres la creatioin d'une question
+    public function creerQuestion(Question $question, int $nbSections, int $nbPhases){ // tentative pour réduire le temps d'attente apres la creatioin d'une question
         $intitule = $question->getIntitule();
         $description = $question->getDescription();
         $dateCreation = $question->getDateCreation()->format('d/m/Y');
         $dateFermeture = $question->getDateFermeture()->format('d/m/Y');
-        $sql = "call CREERQUESTION(:intitule, :description, :dateCreation, :dateFermeture, :nbSections)";
+        $sql = "call CREERQUESTION(:intitule, :description, :dateCreation, :dateFermeture, :nbSections, :nbPhases)";
 
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
@@ -65,11 +59,12 @@ class QuestionRepository extends AbstractRepository
             'description' => $description,
             'dateCreation' => $dateCreation,
             'dateFermeture' => $dateFermeture,
-            'nbSections' => $nbSections
+            'nbSections' => $nbSections,
+            'nbPhases' => $nbPhases
         ];
         $pdostatement->execute($parametres);
 
-        $sqlId = "SELECT MAX(idQuestion) FROM QUESTIONS";
+        $sqlId = "SELECT questions_seq.CURRVAL FROM DUAL";
         $pdoStatementId = $pdo->query($sqlId);
 
         $id = $pdoStatementId->fetch()[0];
