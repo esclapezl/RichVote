@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Lib\MessageFlash;
 use App\Model\DataObject\Proposition;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
@@ -39,6 +40,7 @@ class ControllerProposition extends GenericController
     }
 
     public static function update(){
+
         $idProposition = $_GET['id'];
 
         $proposition = (new PropositionRepository())->select($idProposition);
@@ -55,33 +57,38 @@ class ControllerProposition extends GenericController
     public static function updated() : void
     {
         $idProposition = $_GET['id'];
-
         $proposition = (new PropositionRepository())->select($idProposition);
-
-        $sectionsText = [];
-
-        foreach ($_POST['texte'] as $idSection=>$text){
-            $sectionsText[$idSection] = $text;
+        if($proposition==null){
+            MessageFlash::ajouter('danger', "La question avec l'id suivant : " . $_GET['id'] . "n'existe pas");
+            self::redirection('frontController.php?controller=question&action=readAll');
         }
+        else {
 
-        $proposition->setSectionsTexte($sectionsText);
-        $proposition->setIntitule($_POST['intitule']);
+            $sectionsText = [];
 
-        (new PropositionRepository())->update($proposition);
+            foreach ($_POST['texte'] as $idSection => $text) {
+                $sectionsText[$idSection] = $text;
+            }
 
-        $parametres = array(
-            'pagetitle' => 'Détail Proposition',
-            'cheminVueBody' => 'question/detail.php',
-            'question' => (new QuestionRepository())->select($proposition->getIdQuestion())
-        );
+            $proposition->setSectionsTexte($sectionsText);
+            $proposition->setIntitule($_POST['intitule']);
 
-        self::afficheVue('view.php', $parametres);
+            (new PropositionRepository())->update($proposition);
+
+            $parametres = array(
+                'pagetitle' => 'Détail Proposition',
+                'cheminVueBody' => 'question/detail.php',
+                'question' => (new QuestionRepository())->select($proposition->getIdQuestion())
+            );
+
+            self::afficheVue('view.php', $parametres);
+        }
     }
 
     public static function create(){
         $idQuestion = $_GET['id'];
 
-        $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, null, null));
+        $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, null, null, false));
 
         $parametres = array(
             'pagetitle' => 'Créer Proposition',
@@ -95,14 +102,22 @@ class ControllerProposition extends GenericController
         $idProposition = $_GET['id'];
         $proposition = (new PropositionRepository())->select($idProposition);
 
-        (new PropositionRepository())->delete($idProposition);
-        $parametres = array(
-            'pagetitle' => 'Proposition Supprimée',
-            'cheminVueBody' => 'question/detail.php',
-            'question' => (new QuestionRepository())->select($proposition->getIdQuestion())
-        );
-
-        self::afficheVue('view.php', $parametres);
+        if($proposition==null){
+            MessageFlash::ajouter('danger', "La proposition n'existe pas");
+            self::redirection('frontController.php?controller=question&action=readAll');
+        }
+        else {
+            (new PropositionRepository())->delete($idProposition);
+            MessageFlash::ajouter('success', 'La proposition : "' . $proposition . '" a bien été suprimée');
+            self::redirection('frontController.php?controller=proposition&action=readAll&id='. $proposition->getIdQuestion());
+        }
+//        $parametres = array(
+//            'pagetitle' => 'Proposition Supprimée',
+//            'cheminVueBody' => 'question/detail.php',
+//            'question' => (new QuestionRepository())->select($proposition->getIdQuestion())
+//        );
+//
+//        self::afficheVue('view.php', $parametres);
     }
 
     public static function voter(){

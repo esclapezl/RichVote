@@ -14,5 +14,12 @@ class GenericController
         $parametres = array("pagetitle" => "Erreur","cheminVueBody" => 'error.php');
         self::afficheVue('view.php',$parametres);
     }
+
+    public static function redirection(string $lienBase){
+        header("Location: $lienBase");
+        exit();
+    }
+
+
 }
 

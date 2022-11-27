@@ -36,5 +36,9 @@ class Conf {
     static public function getPassword(){
         return static::$databases['password'];
     }
+
+    static public function getDureeExpiration(): int{
+        return 100;
+    }
 }
 ?>

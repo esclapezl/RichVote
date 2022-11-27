@@ -10,7 +10,11 @@ use App\Model\DataObject\Question;
     <ul>
         <?php
         foreach ($questions as $question){
-            echo '<div class="ligneExt"><li class="ligneExt"><a href=frontController.php?controller=question&action=read&id=' . rawurlencode($question->getId()).'>'.ucfirst(htmlspecialchars($question->getIntitule())).'</a><p>Auteur : <strong>Guest</strong></p></li><h2>' . $question->getCurrentPhase() . '</h2></div>';
+            echo '<div class="ligneExt"><li class="ligneExt">
+            <a class="atxt" href=frontController.php?controller=question&action=read&id=' . rawurlencode($question->getId()).'>'
+            .ucfirst(htmlspecialchars($question->getIntitule())).'</a>
+            <a class="abis" href=http://localhost/sae-website/web/frontController.php?controller=user&action=read&id=' .
+           $question->getOrganisateur() . '>Auteur : <strong>' . $question->getOrganisateur() . '</strong></a></li><h2>' . $question->getCurrentPhase()->getType() . '</h2></div>';
         }
         ?>
     </ul>

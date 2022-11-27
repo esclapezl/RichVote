@@ -6,17 +6,35 @@ use DateTime;
 
 class Phase extends AbstractDataObject
 {
-    private string $id;
+    private ?string $id;
     private string $type;
     private DateTime $dateDebut;
     private DateTime $dateFin;
+    private ?int $nbDePlaces;
 
-    public function __construct(string $id, string $type, DateTime $dateDebut, DateTime $dateFin)
+    public function __construct(?string $id, string $type, DateTime $dateDebut, DateTime $dateFin, ?int $nbDePlaces)
     {
         $this->id = $id;
         $this->type = $type;
         $this->dateDebut = $dateDebut;
         $this->dateFin = $dateFin;
+        $this->nbDePlaces = $nbDePlaces;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getNbDePlaces(): ?int
+    {
+        return $this->nbDePlaces;
+    }
+
+    /**
+     * @param int|null $nbDePlaces
+     */
+    public function setNbDePlaces(?int $nbDePlaces): void
+    {
+        $this->nbDePlaces = $nbDePlaces;
     }
 
     /**
@@ -47,14 +65,23 @@ class Phase extends AbstractDataObject
     {
         return ['idPhaseTag' => $this->id,
             'dateDebutTag' => $this->dateDebut->format('d/m/Y'),
-            'dateFin' => $this->dateFin->format('d/m/Y'),
-            'typePhasetag' => $this->type];
+            'dateFinTag' => $this->dateFin->format('d/m/Y'),
+            'typePhaseTag' => $this->type,
+            'nbDePlacesTag' => $this->nbDePlaces];
+    }
+
+    public function exist():bool{
+        return $this->id == NULL;
     }
 
 
-    public function getId(): ?string
+    public function getId(): string
     {
         return $this->id;
+    }
+
+    public static function emptyPhase(){
+        return new Phase(null, 'consultation', date_create(), date_create(), null);
     }
 
 

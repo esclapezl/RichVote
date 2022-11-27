@@ -23,6 +23,15 @@ use App\Model\DataObject\Question;
             </p>
             <div class="descG"></div>
             <?php
+
+            $phases = (new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($question->getId());
+            for($i=0; $i<count($phases); $i++){
+                $phase = $phases[$i];
+                echo '<h3> Phase '.$i + 1 .'</h3>';
+                require __DIR__ .'/../phase/update.php';
+                echo '<div class="descP"></div>';
+            }
+
             $sections = $question->getSections();
             for($i=0; $i<count($sections); $i++){
                 $section = $sections[$i];
