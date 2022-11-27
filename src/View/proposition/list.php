@@ -1,8 +1,11 @@
 <?php
 //liste des propositions pour une question donnée
 
+use App\Model\DataObject\Phase;
 use App\Model\DataObject\Proposition;
-/** @var array $propositions */
+/** @var array $propositions
+ *  @var Phase $phase
+ */
 ?>
 
 <div class="block">
