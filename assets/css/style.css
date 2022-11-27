@@ -1,0 +1,609 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+
+    font-family: 'Poppins', sans-serif;
+}
+
+html{
+    scroll-behavior: smooth;
+    background: rgb(9,4,84);
+    background: radial-gradient(circle, rgba(9,4,84,1) 0%, rgba(57,78,222,1) 54%, rgba(20,24,42,1) 100%);
+}
+
+body {
+
+
+    height: 100%;
+}
+
+
+
+
+header:first-child{
+    margin-top: 20px;
+}
+
+
+.blocvid{
+    position: relative;
+    height: 85vh;
+    width: 100%;
+    z-index: -100;
+    overflow: hidden;
+}
+.blocvid video{
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    height: 50%;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+
+}
+nav{
+    width: 100%;
+}
+
+.navBar{
+    position: relative;
+    padding: 50px 50px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navBar a {
+    color: white;
+}
+
+.navBar #logo{
+    width: 90px;
+    height: 90px;
+    transition: 0.5s;
+    text-align: left;
+    border-radius: 100%;
+    background: white;
+    border: 5px solid white;
+}
+
+
+
+
+.text-box #logo{
+    width: 75px;
+    height: 75px;
+
+    transition: 0.5s;
+    border-radius: 100%;
+    background: white;
+    border: 5px solid white;
+}
+
+.navBar #logo:hover,
+.navBar #logo.active{
+    transform: rotate(360deg);
+}
+
+.navBar ul {
+    display: flex;
+    position: absolute;
+    left: 200px;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 5px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+
+}
+
+.navBar ul li{
+    margin: 0 25px;
+    transition: 0.5s;
+
+}
+
+.navBar ul li.active,.navBar ul li:hover{
+    transform: translateY(-5px);
+}
+
+.navBar .btn {
+    display: none;
+    position: absolute;
+    width: 50px;
+    height: 90px;
+    top:50px;
+    right: 50px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: end;
+    flex-direction: column;
+    transition: 1s;
+}
+
+.navBar .btn:hover,
+.navBar .btn.active{
+    transform: scaleY(1.2);
+}
+
+.navBar .btn .line {
+    height: 3px;
+    background: #fff;
+    border-radius: 30px;
+    position: relative;
+}
+.navBar .btn .line:nth-child(1){
+    bottom: 5px;
+    width: 60%;
+}
+.navBar .btn .line:nth-child(2){
+    width: 60%;
+}
+.navBar .btn .line:nth-child(3){
+    top: 5px;
+    width: 35%;
+}
+
+.navBar #btn-connexion,
+#formulaire{
+    background-color: white;
+    cursor: pointer;
+    color: black;
+    font-size: 1.2em;
+    font-weight: bold;
+    display: flex;
+    width: 220px;
+    height: 50px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+}
+
+.navBar #btn-connexion.active,
+.navBar #btn-connexion:hover,
+#formulaire input.active
+#formulaire input:hover{
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+}
+
+
+
+
+.scroll{
+    position: absolute;
+    right: 10px;
+    bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    color: #fff;
+}
+
+.scroll span{
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    animation-name: bounce-1;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes bounce-1 {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    50% {
+        -webkit-transform: translateY(-15px);
+        transform: translateY(-15px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+
+footer{
+
+    position: relative;
+    width: 100%;
+    background: black;
+    min-height: 100px;
+    margin-top: 50px;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+footer ul{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+footer ul li{
+    list-style: none;
+}
+
+footer ul li a{
+    font-size: 2em;
+    color: white;
+    margin: 0 10px;
+    display: inline-block;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+footer ul li a:hover{
+    transform: translateY(-10px);
+}
+
+footer #txtEffet{
+    margin: 0 10px;
+    transition: 0.5s;
+    color: mediumslateblue;
+}
+
+footer #txtEffet:hover{
+    color: white;
+}
+
+
+footer p{
+    color: white;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+footer .vague{
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url("../img/vague.png");
+    background-size: 1000px 100px;
+}
+
+footer .vague#vague1{
+    z-index: 1000;
+    opacity: 1;
+    bottom: 0;
+    animation: animateWave 4s linear infinite;
+}
+
+footer .vague#vague2{
+    z-index: 999;
+    opacity: 0.5;
+    bottom: 10px;
+    animation: animateWave_02 4s linear infinite;
+}
+
+footer .vague#vague3{
+    z-index: 1000;
+    opacity: 0.2;
+    bottom: 15px;
+    animation: animateWave 3s linear infinite;
+}
+
+footer .vague#vague4{
+    z-index: 999;
+    opacity: 0.7;
+    bottom: 20px;
+    animation: animateWave_02 3s linear infinite;
+}
+
+
+@keyframes animateWave {
+    0%
+    {
+        background-position: 1000px;
+    }
+    100%
+    {
+        background-position: 0px;
+    }
+}
+
+@keyframes animateWave_02 {
+    0%
+    {
+        background-position: 0px;
+    }
+    100%
+    {
+        background-position: 1000px;
+    }
+}
+
+.block{
+    position: relative;
+    margin-bottom: 180px;
+    /*background-image: url("../img/wallpaperLong.png");*/
+    /*background: rgb(249,249,249);
+    background: linear-gradient(345deg, rgba(249,249,249,1) 0%, rgba(6,6,6,1) 65%, rgba(0,0,0,1) 100%);*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+
+    /*-webkit-background-size: cover; /* pour anciens Chrome et Safari
+    background-size: cover; /* version standardisée */
+}
+
+
+
+
+.block .text-box {
+    position: relative;
+
+    color: white;
+    padding: 40px 70px 70px 70px;
+    width: 80%;
+
+
+    background: rgba( 0, 0, 0, 0.65 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 15.5px );
+    -webkit-backdrop-filter: blur( 15.5px );
+    border-radius: 50px;
+
+}
+
+.block .text-box .ligneExt{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.block .text-box .ligneExt div h3{
+    display: flex;
+    justify-content: end;
+}
+
+.block .text-box .ligneExt div h3 a{
+    color: white;
+    transition: 1s;
+}
+.block .text-box .ligneExt div h3 a.active,
+.block .text-box .ligneExt div h3 a:hover{
+    transform: scale(1.1);
+    color: mediumslateblue;
+
+}
+
+.block .text-box .ligneCent {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ligne{
+    height: 1px;
+    border-radius: 20px;
+    background: white;
+}
+
+.block .text-box .ligne{
+    width: 10%;
+}
+
+
+
+
+.block .text-box .ligneExt .ligne:nth-child(1){
+    width: 50%;
+}
+
+.block .text-box .ligneExt .ligne:nth-child(2){
+    width: 25%;
+}
+
+
+.block .text-box .ligneExt .ligne{
+    margin: 10px 0 20px 0px;
+}
+
+.block .text-box input{
+    cursor: pointer;
+}
+
+.block .text-box form legend{
+    text-align: center;
+}
+
+.block .text-box form
+{
+    align-content: center;
+    text-align: center;
+}
+
+.optQuestion{
+    display: flex;
+    background-color: white;
+    color: mediumblue;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+    margin-bottom: 15px;
+    border-radius: 15px;
+}
+
+form input{
+    height: 30px;
+    font-size: 1em;
+}
+form input.optQuestion{
+    font-size: 1.5em;
+    width: 50%;
+    height: 50px;
+}
+textarea{
+    font-size: 1em;
+}
+
+
+
+.block .text-box div .optQuestion{
+    width: 25%;
+    height: 30%;
+}
+
+.block .text-box .optQuestion.active,
+.block .text-box .optQuestion:hover
+{
+    background-color: mediumblue;
+    color: white;
+}
+.block .text-box .ligneExt .stVote{
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.block .text-box h2{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    margin-left: 50px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 15px;
+}
+.block .text-box li {
+    display: flex;
+    cursor: pointer;
+
+    padding: 20px;
+    color: mediumblue;
+    margin: 8px 50px 8px 0px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 60px 0 rgba(31, 38, 135, 0.5);
+    backdrop-filter: blur(11px);
+    -webkit-backdrop-filter: blur(11px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.block .text-box li a {
+    font-size: 1.3em;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 85%;
+    height: 70px;
+}
+
+.block .text-box li:hover,
+.block .text-box li .active{
+    backdrop-filter: blur( 5px );
+    -webkit-backdrop-filter: blur( 0px );
+    border-radius: 20px;
+    border: 8px solid rgba( 255, 255, 255, 0.8 );
+    font-weight: bold;
+}
+
+.block .text-box p{
+    font-size: 1em;
+}
+
+.block .text-box img,
+.block .text-box h1{
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.block .text-box p a {
+    padding: 10px;
+    font-size: 1em;
+    color: mediumslateblue;
+}
+
+.descG{
+    margin-bottom: 50px;
+}
+
+.descP{
+    margin-bottom: 25px;
+}
+
+
+@media screen and (max-width: 900px) {
+    .navBar{
+        padding: 0;
+    }
+
+    .navBar #logo{
+        position: absolute;
+        top:50px;
+        left: 50px;
+    }
+
+    .navBar .btn{
+        display: flex;
+    }
+
+    .navBar .btn-connexion{
+        display: none;
+    }
+    .navBar ul{
+        top:0;
+        left: 0;
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.299);
+        backdrop-filter: blur(5px);
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .navBar ul li{
+        margin: 25px 0;
+        font-size: 1.2em;
+    }
+
+    conditionMdp:hover{
+        color:red;
+    }
+
+    input:invalid {
+        animation: shake .3s;
+    }
+
+    @keyframes shake {
+        25% { transform: translateX(4px)}
+        50% { transform: translateX(-4px)}
+        75% { transform: translateX(4px)}
+    }
+}
