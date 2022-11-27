@@ -2,8 +2,8 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="icon" href="img/favicon.ico" />
+        <link rel="stylesheet" href="../assets/css/style.css">
+        <link rel="icon" href="../assets/img/favicon.ico" />
         <title><?php
             /** @var $pagetitle string */
             echo $pagetitle;
@@ -14,17 +14,18 @@
     <body>
             <nav>
                 <div class="navBar">
-                <a href="frontController.php?controller=user&action=accueil"><img src="img/logo.png" alt="RichVote" id="logo"></a>
+                <a href="frontController.php?controller=user&action=accueil"><img src="../assets/img/logo.png" alt="RichVote" id="logo"></a>
                 <ul>
                     <li><a href="frontController.php?controller=question&action=readAll">Questions</a></li>
                     <li><a href="frontController.php?controller=question&action=readAll">Résultats</a></li>
                     <li><a href="frontController.php?controller=user&action=about">Contributeurs</a></li>
                 </ul>
-                    <a id="btn-connexion" href="frontController.php?controller=user&action=connexion">Connexion </a>                <div class="btn">
+                    <a id="btn-connexion" href="frontController.php?controller=user&action=connexion">Connexion </a>
+                    <div class="btn">
                     <div class="line"></div>
                     <div class="line"></div>
                     <div class="line"></div>
-                </div>
+                    </div>
                 </div>
             </nav>
         <main>

@@ -3,13 +3,13 @@
     <div class="scroll"> <span>scroll &#10132</span></div>
     <div class="ligne"></div>
     <div class="blocvid">
-    <video autoplay="autoplay" muted="" loop="infinite" src="img/anim.webm"></video>
+    <video autoplay="autoplay" muted="" loop="infinite" src="../assets/img/anim.webm"></video>
     </div>
     <div class="ligne"></div>
 </header>
 <div class="block">
         <div class="text-box">
-            <img src="img/logo.png" alt="RichVote" id="logo">
+            <img src="../assets/img/logo.png" alt="RichVote" id="logo">
             <p>
                 RichVote est un site de vote. Il possède le système de vote le plus élaboré et le plus
                 sûr que l'on peut retrouver sur le web.
