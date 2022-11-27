@@ -9,7 +9,7 @@ class PhaseRepository extends AbstractRepository
 {
     protected function getNomTable(): string
     {
-        return 'Phases';
+        return 'vue_PhasesDetail';
     }
 
     protected function getNomClePrimaire(): string
@@ -22,7 +22,8 @@ class PhaseRepository extends AbstractRepository
         return ['IDPHASE',
                 'DATEDEBUT',
                 'DATEFIN',
-                'TYPEPHASE'];
+                'TYPEPHASE',
+                'NBDEPLACES'];
     }
 
     protected function construire(array $objetFormatTableau): AbstractDataObject
@@ -30,7 +31,8 @@ class PhaseRepository extends AbstractRepository
         return new Phase($objetFormatTableau['IDPHASE'],
                         $objetFormatTableau['TYPEPHASE'],
                         date_create_from_format('d/m/Y',$objetFormatTableau['DATEDEBUT']),
-                        date_create_from_format('d/m/Y',$objetFormatTableau['DATEFIN']));
+                        date_create_from_format('d/m/Y',$objetFormatTableau['DATEFIN']),
+                        $objetFormatTableau['NBDEPLACES']);
     }
 
     public function getCurrentPhase(string $idQuestion) : AbstractDataObject{
@@ -51,5 +53,18 @@ class PhaseRepository extends AbstractRepository
     public function endCurrentPhase(Phase $phase){ // à tester
         $sql = "CALL end_current_phase(" . $phase->getId() . ")";
         DatabaseConnection::getInstance()::getPdo()->query($sql);
+    }
+
+    public function getPhasesIdQuestion(string $idQuestion) : array{
+        $sql = "SELECT * FROM vue_PhasesDetail WHERE idQuestion = :idQuestion";
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute(['idQuestion' => $idQuestion]);
+
+        $result = [];
+        foreach ($pdoStatement as $formatTableau){
+            $result[] = $this->construire($formatTableau);
+        }
+        return $result;
     }
 }

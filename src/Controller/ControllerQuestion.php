@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
+use App\Model\Repository\PhaseRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\SectionRepository;
 
@@ -50,10 +52,11 @@ class ControllerQuestion extends GenericController
     {
         $intitule = $_POST['titreQuestion'];
         $nbSections = $_POST['nbSections'];
+        $nbPhases = $_POST['nbPhases'];
         $dateCreation = date_create();
         $dateFermeture = date_create($_POST['dateFermeture']);
-        $question = new Question(null, $intitule, 'description', $dateCreation, $dateFermeture);
-        $question = (new QuestionRepository())->creerQuestion($question, $nbSections);
+        $question = new Question(null, $intitule, 'description', $dateCreation, $dateFermeture, Phase::emptyPhase());
+        $question = (new QuestionRepository())->creerQuestion($question, $nbSections, $nbPhases);
 
         $parametres = array(
             'pagetitle' => 'Ajuster Question',
@@ -99,6 +102,29 @@ class ControllerQuestion extends GenericController
         foreach ($sections as $key=>$tabSection){
             $section = new Section($key, $_GET['id'], $tabSection['intitule'], $tabSection['description']);
             (new SectionRepository())->update($section);
+        }
+
+        $phases = [];
+        foreach ($_POST['dateDebut'] as $key=>$dateDebut){
+            $phases[$key]['dateDebut'] = $dateDebut;
+        }
+        foreach ($_POST['dateFin'] as $key=>$dateFin){
+            $phases[$key]['dateFin'] = $dateFin;
+        }
+        foreach ($_POST['type'] as $key=>$type){
+            $phases[$key]['type'] = $type;
+        }
+        foreach ($_POST['nbDePlaces'] as $key=>$nbDePlace){
+            $phases[$key]['nbDePlaces'] = $nbDePlace;
+        }
+        foreach ($phases as $id => $tabPhase){
+           $p = new Phase(
+               $id,
+               $tabPhase['type'],
+               date_create($tabPhase['dateDebut']),
+               date_create($tabPhase['dateFin']),
+               $tabPhase['nbDePlaces']);
+           (new PhaseRepository())->update($p);
         }
 
         static::afficheVue('view.php',[

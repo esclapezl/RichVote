@@ -14,17 +14,22 @@
             </p>
 
             <p>
-                <label for="dF">Date limite de la question</label>
-                <input type="date" id="dF" name="dateFermeture" required>
-
                 <label for="dDV">date debut dernier vote</label>
                 <input type="date" id="dDV" name="dateDebutVote" required>
+
+                <label for="dF">Date limite de la question</label>
+                <input type="date" id="dF" name="dateFermeture" required>
             </p>
 
             <p>
                 <h3><label for="nbSections"> Nombre de sections :</label></h3>
                 <input type="number" min="1" max="10" id="ns" name="nbSections" value="1" placeholder="1">
             <div class="descG"></div>
+            </p>
+
+            <p>
+                <h3><label for="nbPhases"> Nombre de phases :</label></h3>
+                <input type="number" min="1" max="10" id="np" name="nbPhases" value="1" placeholder="1">
             </p>
 
 
