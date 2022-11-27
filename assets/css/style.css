@@ -25,7 +25,8 @@ body {
 
 
 
-header:first-child{
+header:first-child,
+body:first-child{
     margin-top: 20px;
 }
 
@@ -446,6 +447,7 @@ footer .vague#vague4{
 
 .optQuestion{
     display: flex;
+    padding: 20px;
     background-color: white;
     color: mediumblue;
     font-weight: bold;
@@ -493,11 +495,11 @@ textarea{
 
 .block .text-box h2{
     width: 100%;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 70px;
-    margin-left: 50px;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 15px;
@@ -529,12 +531,10 @@ textarea{
 }
 
 .block .text-box li .atxt {
-    font-size: 1.3em;
+    font-size: 1.2em;
     display: flex;
     justify-content: start;
     align-items: center;
-    width: 85%;
-    height: 70px;
     transition: 0.2s;
 }
 
@@ -626,26 +626,54 @@ textarea{
 @media screen and (max-width: 900px) {
     .navBar{
         padding: 0;
+        margin-bottom: 50px;
+    }
+
+    .text-box{
+        margin-top: 100px;
+    }
+
+
+    .block .text-box li,
+    .block .text-box a h2,
+    .optQuestion{
+        font-size: 0.7em;
+        height: 120%;
+    }
+
+
+
+
+
+    a.abis,
+    .ligneExt div{
+        display: none;
+
     }
 
     .navBar #logo{
         position: absolute;
         top:50px;
         left: 50px;
+        z-index: 2;
+    }
+    .navBar #btn-connexion{
+        display: none;
     }
 
     .navBar .btn{
+        z-index: 1;
         display: flex;
     }
 
-    .navBar .btn-connexion{
-        display: none;
-    }
+
     .navBar ul{
+        z-index: 1;
+
         top:0;
         left: 0;
         position: absolute;
-        background-color: rgba(255, 255, 255, 0.299);
+        background-color: rgba(0, 0, 0, 0.8);
         backdrop-filter: blur(5px);
         width: 100%;
         height: 100vh;
@@ -653,23 +681,28 @@ textarea{
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-left: -100%;
+    }
+
+    .navBar .mobile-menu {
+        margin-left: 0;
     }
     .navBar ul li{
         margin: 25px 0;
         font-size: 1.2em;
     }
 
-    conditionMdp:hover{
-        color:red;
-    }
+    /*conditionMdp:hover{*/
+    /*    color:red;*/
+    /*}*/
 
-    input:invalid {
-        animation: shake .3s;
-    }
+    /*input:invalid {*/
+    /*    animation: shake .3s;*/
+    /*}*/
 
-    @keyframes shake {
-        25% { transform: translateX(4px)}
-        50% { transform: translateX(-4px)}
-        75% { transform: translateX(4px)}
-    }
+    /*@keyframes shake {*/
+    /*    25% { transform: translateX(4px)}*/
+    /*    50% { transform: translateX(-4px)}*/
+    /*    75% { transform: translateX(4px)}*/
+    /*}*/
 }

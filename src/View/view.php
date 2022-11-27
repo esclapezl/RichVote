@@ -32,6 +32,7 @@
                 </div>
             </nav>
         <main>
+
             <?php
 
 
@@ -43,8 +44,17 @@
                 }
             }
 
+            /** @var $cheminVueBody string */
             require __DIR__ . "/{$cheminVueBody}";
             ?>
+            <script>
+                const menuHamburger = document.querySelector(".btn")
+                const navLinks = document.querySelector(".navBar ul")
+
+                menuHamburger.addEventListener('click',()=>{
+                    navLinks.classList.toggle('mobile-menu')
+                })
+            </script>
         </main>
         <footer>
             <div class="vagues">
