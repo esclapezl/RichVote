@@ -1,9 +1,10 @@
 <?php
 namespace App\Model\HTTP;
 
+use App\Config\Conf;
 use App\Model\HTTP\Cookie;
 use Exception;
-use App\Covoiturage\Config\Conf;
+
 
 class Session
 {
@@ -65,7 +66,7 @@ class Session
 
     public function verifierDerniereActivite(): void
     {
-        if (isset($_SESSION['derniereActivite']) && (time() - $_SESSION['derniereActivite'] > (Conf::$dureeExpiration)))
+        if (isset($_SESSION['derniereActivite']) && (time() - $_SESSION['derniereActivite'] > (Conf::getDureeExpiration())))
             session_unset();     // unset $_SESSION variable for the run-time
 
         $_SESSION['derniereActivite'] = time(); // update last activity time stamp

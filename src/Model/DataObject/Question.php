@@ -102,6 +102,12 @@ class Question extends AbstractDataObject
         $this->currentPhase = $currentPhase;
     }
 
+
+    public function getOrganisateur(): string
+    {
+        return "vidalo";
+    }
+
     public function __construct(
         ?string $id,
         string $intitule,

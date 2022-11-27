@@ -6,6 +6,9 @@
         <link rel="icon" href="../assets/img/favicon.ico" />
         <title><?php
             /** @var $pagetitle string */
+
+            use App\Lib\MessageFlash;
+
             echo $pagetitle;
             ?>
         </title>
@@ -18,7 +21,7 @@
                 <ul>
                     <li><a href="frontController.php?controller=question&action=readAll">Questions</a></li>
                     <li><a href="frontController.php?controller=question&action=readAll">Résultats</a></li>
-                    <li><a href="frontController.php?controller=user&action=about">Contributeurs</a></li>
+                    <li><a href="frontController.php?controller=user&action=readAll">Contributeurs</a></li>
                 </ul>
                     <a id="btn-connexion" href="frontController.php?controller=user&action=connexion">Connexion </a>
                     <div class="btn">
@@ -30,8 +33,15 @@
             </nav>
         <main>
             <?php
-            /** @var $cheminVueBody string */
             require __DIR__ . "/{$cheminVueBody}";
+
+            foreach(['danger', 'warning', 'info', 'success'] as $categorie){
+                if(MessageFlash::contientMessage($categorie)){
+                    foreach(MessageFlash::lireMessages($categorie) as $message){
+                        echo '<div class="alert alert-' .$categorie.'">' . $message . '</div>';
+                    }
+                }
+            }
             ?>
         </main>
         <footer>
