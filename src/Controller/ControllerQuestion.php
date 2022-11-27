@@ -8,6 +8,7 @@ use App\Model\DataObject\Section;
 use App\Model\Repository\PhaseRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\SectionRepository;
+use App\Lib\MessageFlash;
 
 class ControllerQuestion extends GenericController
 {
@@ -82,56 +83,65 @@ class ControllerQuestion extends GenericController
 
     public static function updated() : void
     {
-        $titreQuestion = $_POST['titreQuestion'];
-        $descriptionQuestion = $_POST['descriptionQuestion'];
+        if($_POST['titreQuestion']==null || $_POST['descriptionQuestion']==null) {
+            MessageFlash::ajouter('danger', 'Veuillez remplir les éléments manquants');
+            self::redirection('frontController.php?controller=question&action=update&id='. $_GET['id']);
+        }
+        else {
+            $titreQuestion = $_POST['titreQuestion'];
+            $descriptionQuestion = $_POST['descriptionQuestion'];
 
-        $question = (new QuestionRepository())->select($_GET['id']);
-        $question->setIntitule($titreQuestion);
-        $question->setDescription($descriptionQuestion);
-        (new QuestionRepository())->update($question);
+            $question = (new QuestionRepository())->select($_GET['id']);
+            $question->setIntitule($titreQuestion);
+            $question->setDescription($descriptionQuestion);
+            (new QuestionRepository())->update($question);
 
-        $sections = array();
-        foreach($_POST['intitule'] as $key=>$intitule){
-            $sections[$key]['intitule'] = $intitule;
+            $sections = array();
+            foreach ($_POST['intitule'] as $key => $intitule) {
+                $sections[$key]['intitule'] = $intitule;
+            }
+
+            foreach ($_POST['description'] as $key => $description) {
+                $sections[$key]['description'] = $description;
+            }
+
+            foreach ($sections as $key => $tabSection) {
+                $section = new Section($key, $_GET['id'], $tabSection['intitule'], $tabSection['description']);
+                (new SectionRepository())->update($section);
+            }
+
+            $phases = [];
+            foreach ($_POST['dateDebut'] as $key => $dateDebut) {
+                $phases[$key]['dateDebut'] = $dateDebut;
+            }
+            foreach ($_POST['dateFin'] as $key => $dateFin) {
+                $phases[$key]['dateFin'] = $dateFin;
+            }
+            foreach ($_POST['type'] as $key => $type) {
+                $phases[$key]['type'] = $type;
+            }
+            foreach ($_POST['nbDePlaces'] as $key => $nbDePlace) {
+                $phases[$key]['nbDePlaces'] = $nbDePlace;
+            }
+            foreach ($phases as $id => $tabPhase) {
+                $p = new Phase(
+                    $id,
+                    $tabPhase['type'],
+                    date_create($tabPhase['dateDebut']),
+                    date_create($tabPhase['dateFin']),
+                    $tabPhase['nbDePlaces']);
+                (new PhaseRepository())->update($p);
+            }
+
+            MessageFlash::ajouter('success', 'La question : "' . $titreQuestion . '" est désormais en ligne');
+            self::redirection('frontController.php?controller=question&action=readAll');
         }
 
-        foreach($_POST['description'] as $key=>$description){
-            $sections[$key]['description'] = $description;
-        }
-
-        foreach ($sections as $key=>$tabSection){
-            $section = new Section($key, $_GET['id'], $tabSection['intitule'], $tabSection['description']);
-            (new SectionRepository())->update($section);
-        }
-
-        $phases = [];
-        foreach ($_POST['dateDebut'] as $key=>$dateDebut){
-            $phases[$key]['dateDebut'] = $dateDebut;
-        }
-        foreach ($_POST['dateFin'] as $key=>$dateFin){
-            $phases[$key]['dateFin'] = $dateFin;
-        }
-        foreach ($_POST['type'] as $key=>$type){
-            $phases[$key]['type'] = $type;
-        }
-        foreach ($_POST['nbDePlaces'] as $key=>$nbDePlace){
-            $phases[$key]['nbDePlaces'] = $nbDePlace;
-        }
-        foreach ($phases as $id => $tabPhase){
-           $p = new Phase(
-               $id,
-               $tabPhase['type'],
-               date_create($tabPhase['dateDebut']),
-               date_create($tabPhase['dateFin']),
-               $tabPhase['nbDePlaces']);
-           (new PhaseRepository())->update($p);
-        }
-
-        static::afficheVue('view.php',[
-                "pagetitle"=> "Liste Questions",
-                "cheminVueBody" => "question/created.php",
-                "questions" => (new QuestionRepository())->selectAll()]
-        );
+//        static::afficheVue('view.php',[
+//                "pagetitle"=> "Liste Questions",
+//                "cheminVueBody" => "question/created.php",
+//                "questions" => (new QuestionRepository())->selectAll()]
+//        );
 
     }
 
@@ -140,15 +150,14 @@ class ControllerQuestion extends GenericController
 
         $question = (new QuestionRepository())->select($_GET['id']);
         if($question==null){
-            self::error();
+            MessageFlash::ajouter('danger', "La question avec l'id suivant : " . $_GET['id'] . "n'existe pas");
+            self::redirection('frontController.php?controller=question&action=readAll');
         }
         else{
             (new QuestionRepository())->delete($_GET['id']);
-            static::afficheVue('view.php',[
-                "pagetitle"=> "Question Supprimée",
-                "cheminVueBody" => "question/deleted.php",
-                "question" => $question,
-                "questions" => (new QuestionRepository())->selectAll()]);
+
+            MessageFlash::ajouter('success', 'La question a bien été suprimée');
+            self::redirection('frontController.php?controller=question&action=readAll');
         }
     }
 
