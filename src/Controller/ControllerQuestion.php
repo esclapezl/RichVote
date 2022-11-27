@@ -166,7 +166,7 @@ class ControllerQuestion extends GenericController
         if($question->getCurrentPhase()->getType() == 'vote'){
             $parametres = [
                 'pagetitle' => 'vote la con de toi',
-                'cheminVueBody' => 'vote/Vote.php',
+                'cheminVueBody' => 'vote/vote.php',
                 'question' => $question
             ];
             self::afficheVue('view.php', $parametres);
