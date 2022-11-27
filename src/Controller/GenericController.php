@@ -11,10 +11,8 @@ class GenericController
 
     public static function error()
     {
-        self::afficheVue('view.php',[
-            "pagetitle" => "Erreur",
-            "cheminVueBody" => 'error.php'
-        ]);
+        $parametres = array("pagetitle" => "Erreur","cheminVueBody" => 'error.php');
+        self::afficheVue('view.php',$parametres);
     }
 }
 
