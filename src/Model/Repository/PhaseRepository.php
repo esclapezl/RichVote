@@ -33,7 +33,7 @@ class PhaseRepository extends AbstractRepository
                         date_create_from_format('d/m/Y',$objetFormatTableau['DATEFIN']));
     }
 
-    public function getCurrentPhase(string $idQuestion) : ?AbstractDataObject{
+    public function getCurrentPhase(string $idQuestion) : AbstractDataObject{
         $sql = "SELECT * FROM PHASES
 	            WHERE IDQUESTIONCONCERNE = $idQuestion
 	            AND dateDebut<=SYSDATE AND dateFin>SYSDATE";
@@ -41,10 +41,15 @@ class PhaseRepository extends AbstractRepository
         $statement = $pdo->query($sql);
         $result = $statement->fetch();
         if(!isset($result['TYPEPHASE'])){
-            return NULL;
+            return Phase::emptyPhase();
         }
         else{
             return $this->construire($result);
         }
+    }
+
+    public function endCurrentPhase(Phase $phase){ // à tester
+        $sql = "CALL end_current_phase(" . $phase->getId() . ")";
+        DatabaseConnection::getInstance()::getPdo()->query($sql);
     }
 }

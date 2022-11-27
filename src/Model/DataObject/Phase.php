@@ -6,12 +6,12 @@ use DateTime;
 
 class Phase extends AbstractDataObject
 {
-    private string $id;
+    private ?string $id;
     private string $type;
     private DateTime $dateDebut;
     private DateTime $dateFin;
 
-    public function __construct(string $id, string $type, DateTime $dateDebut, DateTime $dateFin)
+    public function __construct(?string $id, string $type, DateTime $dateDebut, DateTime $dateFin)
     {
         $this->id = $id;
         $this->type = $type;
@@ -51,10 +51,18 @@ class Phase extends AbstractDataObject
             'typePhasetag' => $this->type];
     }
 
+    public function exist():bool{
+        return $this->id == NULL;
+    }
 
-    public function getId(): ?string
+
+    public function getId(): string
     {
         return $this->id;
+    }
+
+    public static function emptyPhase(){
+        return new Phase(null, 'consultation', date_create(), date_create());
     }
 
 

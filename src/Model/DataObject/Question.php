@@ -12,7 +12,7 @@ class Question extends AbstractDataObject
     private array $sections;
     private DateTime $dateCreation;
     private DateTime $dateFermeture;
-    private ?string $currentPhase;
+    private Phase $currentPhase;
 
     /**
      * @return DateTime
@@ -87,17 +87,17 @@ class Question extends AbstractDataObject
     }
 
     /**
-     * @return String|null
+     * @return Phase
      */
-    public function getCurrentPhase(): ?String
+    public function getCurrentPhase(): Phase
     {
         return $this->currentPhase;
     }
 
     /**
-     * @param String|null $currentPhase
+     * @param Phase $currentPhase
      */
-    public function setCurrentPhase(?string $currentPhase): void
+    public function setCurrentPhase(Phase $currentPhase): void
     {
         $this->currentPhase = $currentPhase;
     }
@@ -108,7 +108,7 @@ class Question extends AbstractDataObject
         string $description,
         DateTime $dateCreation,
         DateTime $dateFermeture,
-        ?string $currentPhase
+        Phase $currentPhase
     )
     {
         $this->id = $id;
