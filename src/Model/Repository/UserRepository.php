@@ -19,11 +19,6 @@ class UserRepository extends AbstractRepository
         return '"idUser"';
     }
 
-    public function setMdpHache(string $mdpClair): string
-    {
-        return hash('sha256', $mdpClair);
-    }
-
     protected function getNomsColonnes(): array
     {
         return [
@@ -47,22 +42,10 @@ class UserRepository extends AbstractRepository
         );
     }
 
-    public function sauvegarder(User $user):void
+    public function setMdpHache(string $mdpClair): string
     {
-        $sql = 'INSERT INTO souvignetn.Users("idUser",MDP,PRENOMUSER,NOMUSER,"role") VALUES(:idUser, :mdp, :prenom, :nom,:role)';
-        $pdo = DatabaseConnection::getInstance()::getPdo();
-
-        $pdoStatement = $pdo->prepare($sql);
-
-        $pdoStatement->execute(array(
-            'idUser' => $user->getId(),
-            'mdp' => $user->getMdpHache(),
-            'prenom' => $user->getPrenom(),
-            'nom' => $user->getNom(),
-            'role' => 'invité'
-        ));
+        return hash('sha256', $mdpClair);
     }
-
 
 
     public function checkCmdp(string $mdp, string $cmdp):bool
@@ -87,8 +70,11 @@ class UserRepository extends AbstractRepository
             return false;
         }
         return true;
-    }
 
+        //return var_dump($pdoStatement->fetch());
+
+
+    }
 
     public function getRoleQuestion(string $user, string $question) : string{
         $sql = 'SELECT getRoleQuestion(:idUser, :idQuestion) FROM DUAL';
