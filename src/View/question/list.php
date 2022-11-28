@@ -6,14 +6,28 @@ use App\Model\DataObject\Question;
     <div class="text-box">
         <div class="ligneExt"> <h1>Questions publiées :</h1> <div>Vous êtes connecté en tant que : <h3>Organisateur </h3></div></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
-        <div class="ligneExt"><a class="optQuestion" href="frontController.php?controller=question&action=create">Créer une Question</a><h3>Phase</h3></div>
+        <div class="ligneExt"><a class="optQuestion" href="frontController.php?controller=question&action=create">Créer une Question</a></div>
         <div class="ligneAlign"><input type="texte" class="opt" placeholder="Rechercher un Auteur">
             <button class="opt"><img src="../assets/img/icon-chercher.svg"></button>
             <button class="opt">Trier Par</button>
         </div>
         <ul>
         <?php
+
+
         foreach ($questions as $question){
+            $typePhase= $question->getCurrentPhase()->getType();
+            switch ($typePhase) {
+                case 'consultation':
+                    $typePhase= 'En cours de consultation';
+                    break;
+                case 'scrutinMajoritaire':
+                    $typePhase= 'En cours de vote';
+                    break;
+                case 'termine':
+                    echo "Vote(s) terminé(s)";
+                    break;
+            }
             echo '<div class="ligneExt">
         <li class="ligneExt">
             <div>
@@ -37,7 +51,7 @@ use App\Model\DataObject\Question;
             </li>
             <a href=frontController.php?controller=vote&action='. $question->getCurrentPhase()->getType() .'>
             <h2>'
-                . ucfirst($question->getCurrentPhase()->getType()) . '</h2>
+                . $typePhase . '</h2>
             </a>
             </div>';
         }
