@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="fonction error dans le generic controller">
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="Responsive très propre sur tout le site">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/frontController.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/frontController.php" afterDir="false" />
     </list>
@@ -22,7 +22,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -356,7 +355,28 @@
       <option name="project" value="LOCAL" />
       <updated>1669583950118</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Ajout améliorations listQuestion + infos scrutinMajoritaire + controllerVote">
+      <created>1669586699309</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1669586699309</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Responsive très propre sur tout le site">
+      <created>1669589483599</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1669589483599</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Responsive très propre sur tout le site">
+      <created>1669589706880</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1669589706880</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -374,8 +394,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="creation fichier css" />
-    <MESSAGE value="ajustement interface (début header)" />
     <MESSAGE value="navbar responsive validée (manque javascript)" />
     <MESSAGE value="footer responsive + ajustements graphiques + ajustements archietcture dossiers" />
     <MESSAGE value="ajout animation accueil" />
@@ -399,6 +417,8 @@
     <MESSAGE value="modif" />
     <MESSAGE value="Ajout notifications MessageFlash (CSS)" />
     <MESSAGE value="Ajout notifications MessageFlash" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout notifications MessageFlash" />
+    <MESSAGE value="Ajout améliorations listQuestion + infos scrutinMajoritaire + controllerVote" />
+    <MESSAGE value="Responsive très propre sur tout le site" />
+    <option name="LAST_COMMIT_MESSAGE" value="Responsive très propre sur tout le site" />
   </component>
 </project>
