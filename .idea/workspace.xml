@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="maj mdp&#10;(abstract update a changer)">
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="update CSS">
+      <change afterPath="$PROJECT_DIR$/src/View/vote/consultation.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/Question.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/Question.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/proposition/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/proposition/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/proposition/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/proposition/list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/question/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/question/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/vote/scrutinMajoritaire.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/vote/scrutinMajoritaire.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +28,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -36,26 +43,25 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sae-website/assets/img&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sae-website/web/img&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\sae-website\assets\img" />
-      <recent name="C:\xampp\htdocs\sae-website\assets" />
       <recent name="C:\xampp\htdocs\sae-website\web\img" />
       <recent name="C:\xampp\htdocs\sae-website\src\View\images" />
       <recent name="$PROJECT_DIR$/src/view" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\sae-website\assets" />
       <recent name="C:\xampp\htdocs\sae-website\web\img" />
       <recent name="C:\xampp\htdocs\sae-website\web\trailer" />
       <recent name="C:\xampp\htdocs\sae-website\src\View\user" />
       <recent name="C:\xampp\htdocs\sae-website\src\View" />
+      <recent name="C:\xampp\htdocs\sae-website\web\css" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -88,8 +94,7 @@
       <workItem from="1667921345681" duration="882000" />
       <workItem from="1668085342240" duration="5000" />
       <workItem from="1668521857882" duration="4091000" />
-      <workItem from="1669628515602" duration="2121000" />
-      <workItem from="1669639780301" duration="1967000" />
+      <workItem from="1669668878331" duration="3869000" />
     </task>
     <task id="LOCAL-00001" summary="structure">
       <created>1666707099608</created>
@@ -308,112 +313,7 @@
       <option name="project" value="LOCAL" />
       <updated>1669242711411</updated>
     </task>
-    <task id="LOCAL-00032" summary="Adaptation architecture">
-      <created>1669573662810</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1669573662810</updated>
-    </task>
-    <task id="LOCAL-00033" summary="Adaptation architecture">
-      <created>1669574365179</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1669574365179</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Implémentation MessageFlash + corrections CSS">
-      <created>1669579414446</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1669579414446</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;src/Controller/ControllerQuestion.php&#10;#&#9;src/View/question/list.php">
-      <created>1669579797240</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1669579797240</updated>
-    </task>
-    <task id="LOCAL-00036" summary="modif">
-      <created>1669580957557</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1669580957557</updated>
-    </task>
-    <task id="LOCAL-00037" summary="modif">
-      <created>1669581304074</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1669581304074</updated>
-    </task>
-    <task id="LOCAL-00038" summary="Ajout notifications MessageFlash">
-      <created>1669583950118</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1669583950118</updated>
-    </task>
-    <task id="LOCAL-00039" summary="Ajout améliorations listQuestion + infos scrutinMajoritaire + controllerVote">
-      <created>1669586699309</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1669586699309</updated>
-    </task>
-    <task id="LOCAL-00040" summary="Responsive très propre sur tout le site">
-      <created>1669589483599</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1669589483599</updated>
-    </task>
-    <task id="LOCAL-00041" summary="Responsive très propre sur tout le site">
-      <created>1669589706880</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1669589706880</updated>
-    </task>
-    <task id="LOCAL-00042" summary="modif frontController.php">
-      <created>1669621180910</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1669621180910</updated>
-    </task>
-    <task id="LOCAL-00043" summary="dateToString">
-      <created>1669622370519</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1669622370519</updated>
-    </task>
-    <task id="LOCAL-00044" summary="listQuestions update">
-      <created>1669628388096</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1669628388096</updated>
-    </task>
-    <task id="LOCAL-00045" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
-      <created>1669628424076</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1669628424076</updated>
-    </task>
-    <task id="LOCAL-00046" summary="maj mdp&#10;(abstract update a changer)">
-      <created>1669630635148</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1669630635148</updated>
-    </task>
-    <option name="localTasksCounter" value="47" />
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -431,6 +331,19 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="structure" />
+    <MESSAGE value="view.php" />
+    <MESSAGE value="accueil" />
+    <MESSAGE value="configuration de la base pour les questions avec la classe abstraite repository et la classe Question&#10;la connexion avec la base de données marche" />
+    <MESSAGE value="je test le .gitignore pour plus mettre mes identifiants dans le Conf" />
+    <MESSAGE value="test du gitignore sans la faute" />
+    <MESSAGE value="creation fichier css" />
+    <MESSAGE value="ajustement interface (début header)" />
+    <MESSAGE value="navbar responsive validée (manque javascript)" />
+    <MESSAGE value="footer responsive + ajustements graphiques + ajustements archietcture dossiers" />
+    <MESSAGE value="ajout animation accueil" />
+    <MESSAGE value="accueil v1.0" />
+    <MESSAGE value="ajout des ControllerAdmin, controllerOrganisateur, controllerReponsable, controllerVotant, controllerVotant, ajout des v0.1 interfaces utilisateurs" />
     <MESSAGE value="test" />
     <MESSAGE value="Affichage sur toutes les vues actuelles" />
     <MESSAGE value="vue connexion" />
@@ -443,19 +356,6 @@
     <MESSAGE value="page connexion + page inscription -&gt; CSS" />
     <MESSAGE value="Sessions" />
     <MESSAGE value="user readall" />
-    <MESSAGE value="Adaptation architecture" />
-    <MESSAGE value="Implémentation MessageFlash + corrections CSS" />
-    <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;src/Controller/ControllerQuestion.php&#10;#&#9;src/View/question/list.php" />
-    <MESSAGE value="modif" />
-    <MESSAGE value="Ajout notifications MessageFlash (CSS)" />
-    <MESSAGE value="Ajout notifications MessageFlash" />
-    <MESSAGE value="Ajout améliorations listQuestion + infos scrutinMajoritaire + controllerVote" />
-    <MESSAGE value="Responsive très propre sur tout le site" />
-    <MESSAGE value="modif frontController.php" />
-    <MESSAGE value="dateToString" />
-    <MESSAGE value="listQuestions update" />
-    <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
-    <MESSAGE value="maj mdp&#10;(abstract update a changer)" />
-    <option name="LAST_COMMIT_MESSAGE" value="maj mdp&#10;(abstract update a changer)" />
+    <option name="LAST_COMMIT_MESSAGE" value="user readall" />
   </component>
 </project>

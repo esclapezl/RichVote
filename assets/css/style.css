@@ -483,6 +483,7 @@ button.opt img{
 .ligneAlign{
     display: flex;
     align-items: initial;
+
 }
 
 form input{
@@ -503,6 +504,10 @@ textarea{
 .block .text-box div .optQuestion{
     width: 25%;
     height: 30%;
+}
+
+.block .text-box .ligneExt div .optQuestion{
+    width: 100px;
 }
 
 .block .text-box .optQuestion.active,
@@ -532,6 +537,22 @@ textarea{
     color: white;
     transition: 1s;
 }
+
+.block .text-box .ligneAlign a h2{
+    padding: 10px;
+    height: 80px;
+    margin: 0 20px 0 20px;
+
+}
+.block .text-box .ligneExt div .ligneAlign{
+    margin-top: 10px;
+}
+.block .text-box .ligneExt div .ligneAlign h3{
+    display: flex;
+    align-items: center;
+    height: 80px;
+}
+
 .block .text-box a h2.active,
 .block .text-box a h2:hover {
     transform: scale(0.9);
@@ -545,7 +566,6 @@ textarea{
     padding: 20px;
     color: mediumblue;
     margin: 8px 50px 8px 0;
-    height: 190px;
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 8px 60px 0 rgba(31, 38, 135, 0.5);
     backdrop-filter: blur(11px);
@@ -554,15 +574,16 @@ textarea{
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.block .text-box li div.atxt {
+.block .text-box li .atxt {
     font-size: 1.8em;
     display: flex;
     justify-content: start;
     align-items: center;
     transition: 0.2s;
+    width: 100%;
 }
-.block .text-box ul li.ligneExt div a {
-    height: 190px;
+.block .text-box ul div li.ligneExt div a {
+    height: 100%;
 }
 #date {
     color: black;
