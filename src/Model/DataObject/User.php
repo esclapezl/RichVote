@@ -32,7 +32,7 @@ class User extends AbstractDataObject
      */
     public function getId(): string
     {
-        return $this->id;
+        return htmlspecialchars($this->id);
     }
 
     /**
@@ -40,7 +40,7 @@ class User extends AbstractDataObject
      */
     public function getMdpHache(): string
     {
-        return $this->mdpHache;
+        return htmlspecialchars($this->mdpHache);
     }
 
     /**
@@ -48,7 +48,7 @@ class User extends AbstractDataObject
      */
     public function getPrenom(): string
     {
-        return $this->prenom;
+        return htmlspecialchars($this->prenom);
     }
 
     /**
@@ -56,12 +56,12 @@ class User extends AbstractDataObject
      */
     public function getNom(): string
     {
-        return $this->nom;
+        return htmlspecialchars($this->nom);
     }
 
     public function getRole(): string
     {
-        return $this->role;
+        return htmlspecialchars($this->role);
     }
 
     /**
