@@ -522,13 +522,17 @@ textarea{
     justify-content: space-between;
 }
 
+.block .text-box ul div.ligneExt a h2{
+    height: 150px;
+}
+
 .block .text-box h2{
     width: 100%;
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 150px;
+    height: 100%;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 15px;

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
-      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerVote.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ControllerVote.php" afterDir="false" />
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="consultation.php">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +87,7 @@
       <workItem from="1667921345681" duration="882000" />
       <workItem from="1668085342240" duration="5000" />
       <workItem from="1668521857882" duration="4091000" />
-      <workItem from="1669668878331" duration="4042000" />
+      <workItem from="1669668878331" duration="4806000" />
     </task>
     <task id="LOCAL-00001" summary="structure">
       <created>1666707099608</created>
@@ -319,7 +320,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669672834716</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="consultation.php">
+      <created>1669672980858</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1669672980858</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,7 +345,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="accueil" />
     <MESSAGE value="configuration de la base pour les questions avec la classe abstraite repository et la classe Question&#10;la connexion avec la base de données marche" />
     <MESSAGE value="je test le .gitignore pour plus mettre mes identifiants dans le Conf" />
     <MESSAGE value="test du gitignore sans la faute" />
@@ -362,6 +369,7 @@
     <MESSAGE value="user readall" />
     <MESSAGE value="Update Interface Web" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <MESSAGE value="consultation.php" />
+    <option name="LAST_COMMIT_MESSAGE" value="consultation.php" />
   </component>
 </project>
