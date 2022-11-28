@@ -3,6 +3,7 @@
 namespace App\Model\Repository;
 
 use App\Model\DataObject\AbstractDataObject;
+use App\Model\DataObject\Question;
 use App\Model\DataObject\User;
 
 class UserRepository extends AbstractRepository
@@ -87,6 +88,20 @@ class UserRepository extends AbstractRepository
         return true;
     }
 
+
+    public function getRoleQuestion(string $user, string $question) : string{
+        $sql = 'SELECT getRoleQuestion(:idUser, :idQuestion) FROM DUAL';
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute(
+                ['idUser' => $user,
+                'idQuestion' => $question]
+        );
+
+        $result = $pdoStatement->fetch()[0];
+        return $result;
+    }
 
 
 
