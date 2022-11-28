@@ -2,6 +2,8 @@
 
 namespace App\Model\DataObject;
 
+use App\Model\Repository\UserRepository;
+
 class User extends AbstractDataObject
 {
     private string $id;
@@ -71,7 +73,7 @@ class User extends AbstractDataObject
 
     public function setMdp(string $mdp): void
     {
-        $this->mdpHache = $this->setMdpHache($mdp);
+        $this->mdpHache = (new UserRepository())->setMdpHache($mdp);
     }
 
 
@@ -80,10 +82,11 @@ class User extends AbstractDataObject
     public function formatTableau(): array
     {
         return array(
-            "idTag" => $this->getId(),
-            "mdpTag" => $this->getMdpHache(),
-            "prenomTag" => $this->getPrenom(),
-            "nomTag" => $this->getNom(),
+            '"idUser"' => $this->getId(),
+            'MDP' => $this->getMdpHache(),
+            'PRENOMUSER' => $this->getPrenom(),
+            'NOMUSER' => $this->getNom(),
+            '"role"' => 'invité'
         );
     }
 
