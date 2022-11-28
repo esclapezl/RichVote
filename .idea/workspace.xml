@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="Responsive très propre sur tout le site">
-      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ControllerUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/user/inscription.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/user/inscription.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/user/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/user/update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/frontController.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/frontController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
