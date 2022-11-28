@@ -28,6 +28,7 @@ use App\Model\DataObject\Question;
             for($i=0; $i<count($phases); $i++){
                 $phase = $phases[$i];
                 echo '<h3> Phase '.$i + 1 .'</h3>';
+                echo '<div class="descP"></div>';
                 require __DIR__ .'/../phase/update.php';
                 echo '<div class="descP"></div>';
             }
