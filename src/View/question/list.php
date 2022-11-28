@@ -54,8 +54,7 @@ use App\Model\DataObject\Question;
                 . $typePhase . '</h2>
             </a>
             </div>';
-        }
-        ?>
+        }?>
     </ul>
     </div>
 </div>
