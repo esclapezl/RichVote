@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="Responsive très propre sur tout le site">
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="modif frontController.php">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/frontController.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/frontController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/Question.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/Question.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/question/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/list.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -376,7 +377,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669589706880</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="modif frontController.php">
+      <created>1669621180910</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1669621180910</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -394,7 +402,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="navbar responsive validée (manque javascript)" />
     <MESSAGE value="footer responsive + ajustements graphiques + ajustements archietcture dossiers" />
     <MESSAGE value="ajout animation accueil" />
     <MESSAGE value="accueil v1.0" />
@@ -419,6 +426,7 @@
     <MESSAGE value="Ajout notifications MessageFlash" />
     <MESSAGE value="Ajout améliorations listQuestion + infos scrutinMajoritaire + controllerVote" />
     <MESSAGE value="Responsive très propre sur tout le site" />
-    <option name="LAST_COMMIT_MESSAGE" value="Responsive très propre sur tout le site" />
+    <MESSAGE value="modif frontController.php" />
+    <option name="LAST_COMMIT_MESSAGE" value="modif frontController.php" />
   </component>
 </project>
