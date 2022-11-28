@@ -22,7 +22,6 @@ $nbPlaces = $phase->getNbDePlaces();
         <option value="scrutinMajoritaire">Vote par scrutin majoritaire
     </select>
     <input type="submit" value="Valider" />
-<br>
 
 
     <label for="consultation"> Consultation </label>
