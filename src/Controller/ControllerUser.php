@@ -68,9 +68,10 @@ class ControllerUser extends GenericController
         $prenom = $_POST['prenom'];
         $nom = $_POST['nom'];
 
-        $user = new User($idUser, $mdp,$prenom,$nom,'invité');
-
         $userRepository = new UserRepository();
+        $user = new User($idUser, $userRepository->setMdpHache($mdp),$prenom,$nom,'invité');
+
+
 
 
 
@@ -106,24 +107,13 @@ class ControllerUser extends GenericController
                     'msgErreur' =>  'L\'identifiant '.$idUser.' est déjà utilisé.'
                 );
             }
-            /*
-            if ($userRepository->checkMdp($mdp)  != 'true') {
-
-                $parametres = array(
-                    'pagetitle' => 'Erreur',
-                    'cheminVueBody' => 'user/inscription.php',
-                    'persistanceValeurs' => array('idUser' => $idUser,
-                                                    'nom' => $nom,
-                                                    'prenom' => $prenom),
-                    'msgErreurMdp' =>  $userRepository->checkMdp($mdp)
-                );
-            }
-            */
 
         }
 
         self::afficheVue('view.php', $parametres);
     }
+
+
 
     public static function readAll() : void
     {
@@ -161,6 +151,50 @@ class ControllerUser extends GenericController
             'user' => $user
         );
 
+        self::afficheVue('view.php', $parametres);
+    }
+
+    public static function updated() : void
+    {
+        $aMdp = $_POST['aMdp'];
+        $nMdp = $_POST['nMdp'];
+        $cNMdp = $_POST['cNMdp'];
+
+        $userRepository = new UserRepository();
+        $user = $userRepository->select($_GET['id']);
+
+
+        if ($userRepository->checkCmdp($nMdp, $cNMdp) &&
+            $userRepository->checkCmdp($userRepository->setMdpHache($aMdp), $user->getMdpHache()))
+        {
+            $userRepository->update($user);
+            $parametres = array(
+                'pagetitle' => 'Mot de passe mis à jour.',
+                'cheminVueBody' => 'user/accueil.php',
+            );
+        }
+        else
+        {
+            if (!$userRepository->checkCmdp($nMdp, $cNMdp)) {
+
+                $parametres = array(
+                    'pagetitle' => 'Erreur',
+                    'cheminVueBody' => 'user/update.php',
+                    'msgErreur' =>  'Les mots de passes doivent être identiques.',
+
+                    'user' => $user
+                );
+
+            }
+            if (!$userRepository->checkCmdp($user->setMdpHache($aMdp), $user->getMdpHache())) {
+                $parametres = array(
+                    'pagetitle' => 'Erreur',
+                    'cheminVueBody' => 'user/update.php',
+                    'msgErreur' =>  'L\'ancien mot de passe ne correspond pas.',
+                    'user' => $user,
+                    'mdp' => $user->setMdpHache($aMdp).'    :    '. $user->getMdpHache());
+            }
+        }
         self::afficheVue('view.php', $parametres);
     }
 

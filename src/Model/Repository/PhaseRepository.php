@@ -36,8 +36,8 @@ class PhaseRepository extends AbstractRepository
     }
 
     public function getCurrentPhase(string $idQuestion) : AbstractDataObject{
-        $sql = "SELECT * FROM PHASES
-	            WHERE IDQUESTIONCONCERNE = $idQuestion
+        $sql = "SELECT * FROM vue_PhasesDetail
+	            WHERE idQuestion = $idQuestion
 	            AND dateDebut<=SYSDATE AND dateFin>SYSDATE";
         $pdo = DatabaseConnection::getInstance()::getPdo();
         $statement = $pdo->query($sql);

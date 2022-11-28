@@ -25,7 +25,8 @@ body {
 
 
 
-header:first-child{
+header:first-child,
+body:first-child{
     margin-top: 20px;
 }
 
@@ -54,7 +55,7 @@ nav{
 
 .navBar{
     position: relative;
-    padding: 50px 50px 0px;
+    padding: 50px 50px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -82,6 +83,7 @@ nav{
 .text-box #logo{
     width: 75px;
     height: 75px;
+    margin-bottom: 20px;
 
     transition: 0.5s;
     border-radius: 100%;
@@ -162,7 +164,7 @@ nav{
     font-size: 1.2em;
     font-weight: bold;
     display: flex;
-    width: 220px;
+    width: 160px;
     height: 50px;
     border-radius: 5px;
     justify-content: center;
@@ -172,7 +174,7 @@ nav{
 
 .navBar #btn-connexion.active,
 .navBar #btn-connexion:hover,
-#formulaire input.active
+#formulaire input.active,
 #formulaire input:hover{
     background-color: rgba(0,0,0,0.5);
     color: white;
@@ -324,14 +326,14 @@ footer .vague#vague4{
     }
     100%
     {
-        background-position: 0px;
+        background-position: 0;
     }
 }
 
 @keyframes animateWave_02 {
     0%
     {
-        background-position: 0px;
+        background-position: 0;
     }
     100%
     {
@@ -396,7 +398,7 @@ footer .vague#vague4{
 
 }
 
-.block .text-box .ligneCent {
+.ligneCent {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -426,7 +428,7 @@ footer .vague#vague4{
 
 
 .block .text-box .ligneExt .ligne{
-    margin: 10px 0 20px 0px;
+    margin: 10px 0 20px 0;
 }
 
 .block .text-box input{
@@ -443,7 +445,26 @@ footer .vague#vague4{
     text-align: center;
 }
 
+.ligneExt h3:nth-child(2){
+    font-size: 1.8em;
+}
+
 .optQuestion{
+    padding: 20px;
+}
+a.optQuestion,
+.opt{
+    padding: 10px;
+}
+input.opt{
+    width: 30%;
+}
+.opt{
+    margin-right: 10px;
+}
+.opt,
+.optQuestion{
+
     display: flex;
     background-color: white;
     color: mediumblue;
@@ -454,8 +475,14 @@ footer .vague#vague4{
     margin-bottom: 15px;
     border-radius: 15px;
 }
-a.optQuestion{
-    padding: 10px;
+
+button.opt img{
+    margin: 0;
+}
+
+.ligneAlign{
+    display: flex;
+    align-items: initial;
 }
 
 form input{
@@ -491,24 +518,34 @@ textarea{
 }
 
 .block .text-box h2{
-    width: 40%;
+    width: 100%;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70px;
-    margin-left: 50px;
+    height: 150px;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 15px;
 }
+.block .text-box a h2{
+    color: white;
+    transition: 1s;
+}
+.block .text-box a h2.active,
+.block .text-box a h2:hover {
+    transform: scale(0.9);
+}
+
+
 .block .text-box li {
     display: flex;
     cursor: pointer;
 
     padding: 20px;
     color: mediumblue;
-    margin: 8px 50px 8px 0px;
-    height: 70px;
+    margin: 8px 50px 8px 0;
+    height: 190px;
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 8px 60px 0 rgba(31, 38, 135, 0.5);
     backdrop-filter: blur(11px);
@@ -517,14 +554,19 @@ textarea{
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.block .text-box li .atxt {
-    font-size: 1.3em;
+.block .text-box li div.atxt {
+    font-size: 1.8em;
     display: flex;
     justify-content: start;
     align-items: center;
-    width: 85%;
-    height: 70px;
     transition: 0.2s;
+}
+.block .text-box ul li.ligneExt div a {
+    height: 190px;
+}
+#date {
+    color: black;
+
 }
 
 .block .text-box li:hover,
@@ -535,17 +577,35 @@ textarea{
     border: 8px solid rgba( 255, 255, 255, 0.8 );
     font-weight: bold;
 }
-.block .text-box a{
+.block .text-box a.optQuestion,
+.atxt, .abis{
     color: mediumblue;
 }
 
-.block .text-box a:hover,
-.block .text-box a.active {
+.block .text-box .atxt:hover,
+.block .text-box .atxt.active,
+.block .text-box .abis:hover,
+.block .text-box .abis.active{
     color: white;
 }
 
-.block .text-box p,
-.block .text-box li .abis{
+.abis {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 160px;
+    flex-direction: column;
+    position: relative;
+    font-size: 0.8em;
+}
+.block .text-box .ligneExt p{
+    color: mediumblue;
+}
+
+.block .text-box p
+{
+
     font-size: 1em;
     transition: 0.2s;
 }
@@ -553,7 +613,6 @@ textarea{
 .block .text-box img,
 .block .text-box h1{
     font-size: 2.5em;
-    margin-bottom: 10px;
 }
 
 .block .text-box p a {
@@ -571,29 +630,104 @@ textarea{
 }
 
 
+
+.alert {
+    padding: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.25 );
+    backdrop-filter: blur( 14.5px );
+    -webkit-backdrop-filter: blur( 14.5px );
+    border-radius: 10px;
+    color: white;
+    width: 35%;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    transition: 1s;
+}
+
+.alert-success {
+    background: rgba( 134, 255, 0, 0.25 );
+}
+
+.alert-info {
+    background: rgba( 255, 255, 255, 0.25 );
+}
+
+.alert-warning {
+    background: rgba( 223, 140, 0, 0.25 );
+}
+
+.alert-danger {
+    background: rgba( 255, 0, 0, 0.25 );
+}
+
+
+
+
+/* FORMAT TEL */
 @media screen and (max-width: 900px) {
     .navBar{
         padding: 0;
+        margin-bottom: 50px;
+    }
+
+    .text-box{
+        margin-top: 100px;
+    }
+
+
+    .block .text-box li,
+    .block .text-box a h2,
+    .optQuestion,
+    .opt{
+        font-size: 0.7em;
+        height: 120%;
+    }
+    .ligneExt h3:nth-child(2){
+        font-size: 1.2em;
+    }
+    button.opt img{
+        height: 18px;
+    }
+
+
+
+
+
+    a.abis,
+    .ligneExt div{
+        display: none;
+
     }
 
     .navBar #logo{
         position: absolute;
         top:50px;
         left: 50px;
+        z-index: 2;
+    }
+    .navBar #btn-connexion{
+        display: none;
     }
 
     .navBar .btn{
+        z-index: 1;
         display: flex;
     }
 
-    .navBar .btn-connexion{
-        display: none;
-    }
+
     .navBar ul{
+        z-index: 1;
+
         top:0;
         left: 0;
         position: absolute;
-        background-color: rgba(255, 255, 255, 0.299);
+        background-color: rgba(0, 0, 0, 0.8);
         backdrop-filter: blur(5px);
         width: 100%;
         height: 100vh;
@@ -601,23 +735,28 @@ textarea{
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-left: -100%;
+    }
+
+    .navBar .mobile-menu {
+        margin-left: 0;
     }
     .navBar ul li{
         margin: 25px 0;
         font-size: 1.2em;
     }
 
-    conditionMdp:hover{
-        color:red;
-    }
+    /*conditionMdp:hover{*/
+    /*    color:red;*/
+    /*}*/
 
-    input:invalid {
-        animation: shake .3s;
-    }
+    /*input:invalid {*/
+    /*    animation: shake .3s;*/
+    /*}*/
 
-    @keyframes shake {
-        25% { transform: translateX(4px)}
-        50% { transform: translateX(-4px)}
-        75% { transform: translateX(4px)}
-    }
+    /*@keyframes shake {*/
+    /*    25% { transform: translateX(4px)}*/
+    /*    50% { transform: translateX(-4px)}*/
+    /*    75% { transform: translateX(4px)}*/
+    /*}*/
 }

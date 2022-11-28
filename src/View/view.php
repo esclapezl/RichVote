@@ -32,17 +32,29 @@
                 </div>
             </nav>
         <main>
+
             <?php
-            require __DIR__ . "/{$cheminVueBody}";
+
 
             foreach(['danger', 'warning', 'info', 'success'] as $categorie){
                 if(MessageFlash::contientMessage($categorie)){
                     foreach(MessageFlash::lireMessages($categorie) as $message){
-                        echo '<div class="alert alert-' .$categorie.'">' . $message . '</div>';
+                        echo '<div class="ligneCent"><div class="alert alert-' .$categorie.'">' . $message . '</div></div>';
                     }
                 }
             }
+
+            /** @var $cheminVueBody string */
+            require __DIR__ . "/{$cheminVueBody}";
             ?>
+            <script>
+                const menuHamburger = document.querySelector(".btn")
+                const navLinks = document.querySelector(".navBar ul")
+
+                menuHamburger.addEventListener('click',()=>{
+                    navLinks.classList.toggle('mobile-menu')
+                })
+            </script>
         </main>
         <footer>
             <div class="vagues">

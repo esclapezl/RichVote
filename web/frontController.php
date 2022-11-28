@@ -31,7 +31,7 @@ if(isset($_GET['controller'])) //si le controller est indiqué dans l'URL
                 GenericController::error();
             }
         } else {
-            $action = "accueil";
+            $action = "readAll";
             $controllerClassName::$action();
         }
     } else {                                //sinon on renvoit une erreur
@@ -41,7 +41,7 @@ if(isset($_GET['controller'])) //si le controller est indiqué dans l'URL
 }
 else //si il n'y a pas de controller dans l'URL
 {
-    $controller = "user"; //le controlleur "user" est choisi par défaut
+    $controller = "User"; //le controlleur "user" est choisi par défaut
     $controllerClassName = "App\Controller\Controller" . $controller;
 
     if(isset($_GET['action'])) {
