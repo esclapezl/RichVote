@@ -17,14 +17,19 @@ class UserRepository extends AbstractRepository
         return '"idUser"';
     }
 
+    public function setMdpHache(string $mdpClair): string
+    {
+        return hash('sha256', $mdpClair);
+    }
+
     protected function getNomsColonnes(): array
     {
         return [
-            "idUser",
-            "MDPHache",
+            '"idUser"',
+            "MDP",
             "PRENOMUSER",
             "NOMUSER",
-            "role"
+            '"role"'
         ];
 
     }

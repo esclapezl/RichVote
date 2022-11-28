@@ -68,9 +68,10 @@ class ControllerUser extends GenericController
         $prenom = $_POST['prenom'];
         $nom = $_POST['nom'];
 
-        $user = new User($idUser, $mdp,$prenom,$nom,'invité');
-
         $userRepository = new UserRepository();
+        $user = new User($idUser, $userRepository->setMdpHache($mdp),$prenom,$nom,'invité');
+
+
 
 
 
@@ -163,9 +164,8 @@ class ControllerUser extends GenericController
         $user = $userRepository->select($_GET['id']);
 
 
-
         if ($userRepository->checkCmdp($nMdp, $cNMdp) &&
-            $userRepository->checkCmdp($user->setMdpHache($aMdp), $user->getMdpHache()))
+            $userRepository->checkCmdp($userRepository->setMdpHache($aMdp), $user->getMdpHache()))
         {
             $userRepository->update($user);
             $parametres = array(

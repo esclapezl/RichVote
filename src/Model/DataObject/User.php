@@ -13,18 +13,18 @@ class User extends AbstractDataObject
 
     /**
      * @param string $id
-     * @param string $mdpHache
+     * @param string $mdp
      * @param string $prenom
      * @param string $nom
+     * @param string $role
      */
     public function __construct(string $id, string $mdp, string $prenom, string $nom, string $role)
     {
         $this->id = $id;
-        $this->mdpHache = $this->setMdpHache($mdp);
+        $this->mdpHache = $mdp;
         $this->prenom =$prenom;
         $this->nom = $nom;
         $this->role = $role;
-
     }
 
     /**
@@ -67,10 +67,7 @@ class User extends AbstractDataObject
     /**
      * @param string $mdpHache
      */
-    public function setMdpHache(string $mdpClair): string
-    {
-        return hash('sha256', $mdpClair);
-    }
+
 
     public function setMdp(string $mdp): void
     {
