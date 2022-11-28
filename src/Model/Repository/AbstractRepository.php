@@ -73,29 +73,4 @@ abstract class AbstractRepository{
         $values = $object->formatTableau();
         $pdoStatement->execute($values);
     }
-
-//    public function sauvegarder(AbstractDataObject $object): bool
-//    {
-//        $txtsqlcol="";
-//        $txtsqlvalues="";
-//        foreach ($this->getNomsColonnes() as $i){
-//            if($i==$this->getNomsColonnes()[sizeof($this->getNomsColonnes())-1]){
-//                $txtsqlvalues = $txtsqlvalues . ":" . $i . "Tag " ;
-//                $txtsqlcol = $txtsqlcol . $i . " ";
-//
-//            }
-//            else{
-//                $txtsqlvalues = $txtsqlvalues . ":" . $i . "Tag" .", ";
-//                $txtsqlcol = $txtsqlcol . $i .", ";
-//            }
-//        }
-//        $sql = "INSERT INTO ". $this->getNomTable() ." (".$txtsqlcol.") VALUES (".$txtsqlvalues.")";
-//
-//        $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
-//        $values = $object->formatTableau();
-//        return $pdoStatement->execute($values);
-//
-//
-//
-//    }
 }

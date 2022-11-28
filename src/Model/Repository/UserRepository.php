@@ -56,79 +56,7 @@ class UserRepository extends AbstractRepository
         ));
     }
 
-    /*
-    public function checkMdp(string $mdp):string
-    {
-        $erreursMdp = '';
 
-        $mdpLong = false;
-        if(strlen($mdp) >= 8)
-        {
-            $mdpLong = true;
-        }
-        else
-        {
-            $erreursMdp .= 'Longueur de 8 caractères minimum requise <br>';
-        }
-
-
-        $alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-        $contientMaj = false;
-        foreach ($alphabet as &$lettre)
-        {
-            if(strpos($mdp, $lettre) !== false)
-            {
-                $contientMaj = true;
-            }
-        }
-
-        if(!$contientMaj) {
-            $erreursMdp .= 'Au moins une majuscule requise <br>';
-        }
-
-        $chiffres = [0,1,2,3,4,5,6,7,8,9];
-        $contientChiffre = false;
-        foreach ($chiffres as &$chiffre)
-        {
-            if(strpos($mdp, $chiffre) !== false)
-            {
-                $contientChiffre = true;
-            }
-        }
-
-        if(!$contientChiffre)
-        {
-            $erreursMdp .= 'Au moins un chiffre requis <br>';
-        }
-
-        $specialChars = ['&','"','#','~','\'','{','(','[','-','|','è','`','_','^','à','@',')',']','=','}','+','°','^','$','*','¨','$','£','€','µ','%','ù','!','§','/',';','.',',','?'];
-
-        $contientSpecialChar = false;
-        foreach ($specialChars as &$speChar)
-        {
-            if(strpos($mdp, $speChar) !== false)
-            {
-                $contientChiffre = true;
-            }
-        }
-
-        if(!$contientSpecialChar)
-        {
-            $erreursMdp .= 'Au moins un caractère special requis <br>';
-        }
-
-
-        if($mdpLong && $contientMaj && $contientChiffre && $contientSpecialChar)
-        {
-            return 'true';
-        }
-        else
-        {
-            return $erreursMdp;
-        }
-
-    }
-    */
 
     public function checkCmdp(string $mdp, string $cmdp):bool
     {
@@ -152,10 +80,6 @@ class UserRepository extends AbstractRepository
             return false;
         }
         return true;
-
-        //return var_dump($pdoStatement->fetch());
-
-
     }
 
 
