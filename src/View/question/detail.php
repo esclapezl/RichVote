@@ -4,7 +4,7 @@ use App\Model\DataObject\Question;
 ?>
 <div class="block">
     <div class="text-box">
-        <div class="ligneExt"> <h1><?=htmlspecialchars($question->getIntitule())?></h1> <h3>Détail de la question</h3></div>
+        <div class="ligneExt"> <div><a class="optQuestion" href=frontController.php?controller=question&action=readAll>↩</a><h1><?=htmlspecialchars($question->getIntitule())?></h1></div> <div><h3>Détail de la question</h3><div class="ligneAlign"> <h3>Type :</h3><a href=frontController.php?controller=vote&action=<?= rawurlencode($question->getCurrentPhase()->getType())?>><h2><?=htmlspecialchars(ucfirst($question->getCurrentPhase()->getType()))?></h2></a></div></div></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <div class="ligneExt"><?php
                 echo
