@@ -445,9 +445,27 @@ footer .vague#vague4{
     text-align: center;
 }
 
+.ligneExt h3:nth-child(2){
+    font-size: 1.8em;
+}
+
 .optQuestion{
-    display: flex;
     padding: 20px;
+}
+a.optQuestion,
+.opt{
+    padding: 10px;
+}
+input.opt{
+    width: 30%;
+}
+.opt{
+    margin-right: 10px;
+}
+.opt,
+.optQuestion{
+
+    display: flex;
     background-color: white;
     color: mediumblue;
     font-weight: bold;
@@ -457,8 +475,14 @@ footer .vague#vague4{
     margin-bottom: 15px;
     border-radius: 15px;
 }
-a.optQuestion{
-    padding: 10px;
+
+button.opt img{
+    margin: 0;
+}
+
+.ligneAlign{
+    display: flex;
+    align-items: initial;
 }
 
 form input{
@@ -565,7 +589,6 @@ textarea{
 .block .text-box img,
 .block .text-box h1{
     font-size: 2.5em;
-    margin-bottom: 10px;
 }
 
 .block .text-box p a {
@@ -636,9 +659,16 @@ textarea{
 
     .block .text-box li,
     .block .text-box a h2,
-    .optQuestion{
+    .optQuestion,
+    .opt{
         font-size: 0.7em;
         height: 120%;
+    }
+    .ligneExt h3:nth-child(2){
+        font-size: 1.2em;
+    }
+    button.opt img{
+        height: 18px;
     }
 
 
