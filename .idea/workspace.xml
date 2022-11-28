@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="Responsive très propre sur tout le site">
-      <change afterPath="$PROJECT_DIR$/assets/img/icon-chercher.svg" afterDir="false" />
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="fonction error dans le generic controller">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/img/logoVote.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/img/trailer.webm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/img/wallpaper.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/img/wallpaperLong.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/question/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/frontController.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/frontController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +22,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -37,17 +32,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/xampp/htdocs/sae-website/assets/img",
-    "list.type.of.created.stylesheet": "CSS",
-    "php.override.implement.member.chooser.php.doc": "NONE",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sae-website/assets/img&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\sae-website\assets\img" />
@@ -361,28 +356,7 @@
       <option name="project" value="LOCAL" />
       <updated>1669583950118</updated>
     </task>
-    <task id="LOCAL-00039" summary="Ajout améliorations listQuestion + infos scrutinMajoritaire + controllerVote">
-      <created>1669586699309</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1669586699309</updated>
-    </task>
-    <task id="LOCAL-00040" summary="Responsive très propre sur tout le site">
-      <created>1669589483599</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1669589483599</updated>
-    </task>
-    <task id="LOCAL-00041" summary="Responsive très propre sur tout le site">
-      <created>1669589706880</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1669589706880</updated>
-    </task>
-    <option name="localTasksCounter" value="42" />
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -400,6 +374,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="creation fichier css" />
+    <MESSAGE value="ajustement interface (début header)" />
     <MESSAGE value="navbar responsive validée (manque javascript)" />
     <MESSAGE value="footer responsive + ajustements graphiques + ajustements archietcture dossiers" />
     <MESSAGE value="ajout animation accueil" />
@@ -423,8 +399,6 @@
     <MESSAGE value="modif" />
     <MESSAGE value="Ajout notifications MessageFlash (CSS)" />
     <MESSAGE value="Ajout notifications MessageFlash" />
-    <MESSAGE value="Ajout améliorations listQuestion + infos scrutinMajoritaire + controllerVote" />
-    <MESSAGE value="Responsive très propre sur tout le site" />
-    <option name="LAST_COMMIT_MESSAGE" value="Responsive très propre sur tout le site" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout notifications MessageFlash" />
   </component>
 </project>

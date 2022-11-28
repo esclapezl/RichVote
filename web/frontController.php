@@ -31,7 +31,7 @@ if(isset($_GET['controller'])) //si le controller est indiqué dans l'URL
                 GenericController::error();
             }
         } else {
-            $action = "accueil";
+            $action = "readAll";
             $controllerClassName::$action();
         }
     } else {                                //sinon on renvoit une erreur
