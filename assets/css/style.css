@@ -566,7 +566,7 @@ textarea{
 .block .text-box li {
     display: flex;
     cursor: pointer;
-
+    transition: 0.2s;
     padding: 20px;
     color: mediumblue;
     margin: 8px 50px 8px 0;
