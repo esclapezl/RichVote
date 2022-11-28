@@ -40,7 +40,7 @@ class User extends AbstractDataObject
      */
     public function getMdpHache(): string
     {
-        return htmlspecialchars($this->mdpHache);
+        return $this->mdpHache;
     }
 
     /**
@@ -70,6 +70,11 @@ class User extends AbstractDataObject
     public function setMdpHache(string $mdpClair): string
     {
         return hash('sha256', $mdpClair);
+    }
+
+    public function setMdp(string $mdp): void
+    {
+        $this->mdpHache = $this->setMdpHache($mdp);
     }
 
 

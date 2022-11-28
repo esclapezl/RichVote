@@ -53,11 +53,6 @@
                 echo '<p>'.$msgErreur.'</p>';
             }
             ?>
-
-
-
         </form>
-
     </div>
-
 </div>
