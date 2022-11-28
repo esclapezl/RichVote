@@ -14,6 +14,8 @@ class Question extends AbstractDataObject
     private DateTime $dateFermeture;
     private Phase $currentPhase;
 
+
+
     /**
      * @return DateTime
      */
@@ -88,6 +90,16 @@ class Question extends AbstractDataObject
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function getApercuDescription() : string{
+        $nbmots=15;
+            $txt=strip_tags($this->getDescription());
+            $words = explode(' ', $txt, ($nbmots + 1));
+            if(count($words) > $nbmots){
+                array_pop($words);
+            }
+            return implode(' ', $words).' ';
     }
 
     /**

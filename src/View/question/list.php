@@ -14,15 +14,32 @@ use App\Model\DataObject\Question;
         <ul>
         <?php
         foreach ($questions as $question){
-            echo '<div class="ligneExt"><li class="ligneExt"><div>
-            <a class="atxt" href=frontController.php?controller=question&action=read&id=' .
-                rawurlencode($question->getId()).'>'
-            .ucfirst(htmlspecialchars($question->getIntitule())).'</a>
+            echo '<div class="ligneExt">
+        <li class="ligneExt">
+            <div>
+                    <a href=frontController.php?controller=question&action=read&id=' .
+                    rawurlencode($question->getId()).'><div class="atxt">'
+                    .ucfirst(htmlspecialchars($question->getIntitule())).'
+                    </div><div class="descP"></div>
+                    <p>'.
+                htmlspecialchars($question->getApercuDescription()).'</p>
+                    <p id="date">
+                    Du '. htmlspecialchars($question->dateToString($question->getDateCreation())) .' au ' .
+                    htmlspecialchars($question->dateToString($question->getDateFermeture())) .'</p></a>
+                    
+            </div>
+            <div>
             <a class="abis" href=frontController.php?controller=user&action=read&id=' .
-           $question->getOrganisateur() . '>Auteur : <strong>' . $question->getOrganisateur() . '</strong></a>
-            </div><div>'. $question->dateToString($question->getDateCreation()) .'</div></li>
-            <a href=frontController.php?controller=vote&action='. $question->getCurrentPhase()->getType() .'><h2>'
-                . ucfirst($question->getCurrentPhase()->getType()) . '</h2></a></div>';
+                $question->getOrganisateur() . '>Organisateur<strong>' . $question->getOrganisateur() . '</strong></a>
+            
+            
+            </div>
+            </li>
+            <a href=frontController.php?controller=vote&action='. $question->getCurrentPhase()->getType() .'>
+            <h2>'
+                . ucfirst($question->getCurrentPhase()->getType()) . '</h2>
+            </a>
+            </div>';
         }
         ?>
     </ul>

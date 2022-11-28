@@ -523,7 +523,7 @@ textarea{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70px;
+    height: 150px;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 15px;
@@ -545,7 +545,7 @@ textarea{
     padding: 20px;
     color: mediumblue;
     margin: 8px 50px 8px 0;
-    height: 70px;
+    height: 190px;
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 8px 60px 0 rgba(31, 38, 135, 0.5);
     backdrop-filter: blur(11px);
@@ -554,12 +554,19 @@ textarea{
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.block .text-box li .atxt {
-    font-size: 1.2em;
+.block .text-box li div.atxt {
+    font-size: 1.8em;
     display: flex;
     justify-content: start;
     align-items: center;
     transition: 0.2s;
+}
+.block .text-box ul li.ligneExt div a {
+    height: 190px;
+}
+#date {
+    color: black;
+
 }
 
 .block .text-box li:hover,
@@ -575,13 +582,30 @@ textarea{
     color: mediumblue;
 }
 
-.block .text-box a:hover,
-.block .text-box a.active {
+.block .text-box .atxt:hover,
+.block .text-box .atxt.active,
+.block .text-box .abis:hover,
+.block .text-box .abis.active{
     color: white;
 }
 
-.block .text-box p,
-.block .text-box li .abis{
+.abis {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 160px;
+    flex-direction: column;
+    position: relative;
+    font-size: 0.8em;
+}
+.block .text-box .ligneExt p{
+    color: mediumblue;
+}
+
+.block .text-box p
+{
+
     font-size: 1em;
     transition: 0.2s;
 }
