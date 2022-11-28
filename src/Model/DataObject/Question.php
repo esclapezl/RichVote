@@ -92,14 +92,18 @@ class Question extends AbstractDataObject
         return $this->description;
     }
 
-    public function getApercuDescription() : string{
-        $nbmots=15;
-            $txt=strip_tags($this->getDescription());
-            $words = explode(' ', $txt, ($nbmots + 1));
-            if(count($words) > $nbmots){
-                array_pop($words);
-            }
-            return implode(' ', $words).' ';
+    public function getApercuDescription() : string
+    {
+        $nbmots = 15;
+        $txt = strip_tags($this->getDescription());
+        $words = explode(' ', $txt, ($nbmots + 1));
+        if (count($words) > $nbmots) {
+            array_pop($words);
+            $fin = '... [Lire la suite]';
+        } else{
+            $fin = ' ';
+    }
+        return implode(' ', $words).$fin;
     }
 
     /**
