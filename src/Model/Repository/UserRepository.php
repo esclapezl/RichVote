@@ -3,6 +3,7 @@
 namespace App\Model\Repository;
 
 use App\Model\DataObject\AbstractDataObject;
+use App\Model\DataObject\Proposition;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\User;
 
@@ -103,6 +104,19 @@ class UserRepository extends AbstractRepository
         return $result;
     }
 
+    public function voter(User $user, Proposition $proposition, int $score){
+        $sql = "CALL voter(:idVotant, :idProposition, :scoreVote)";
+        $pdo = DatabaseConnection::getInstance()::getPdo();
 
+        $pdoStatement = $pdo->prepare($sql);
+
+        $parametres = [
+            'scoreVote' => $score,
+            'idVotant' => $user->getId(),
+            'idProposition' => $proposition->getId()
+        ];
+
+        $pdoStatement->execute($parametres);
+    }
 
 }
