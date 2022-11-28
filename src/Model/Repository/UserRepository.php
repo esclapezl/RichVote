@@ -41,6 +41,12 @@ class UserRepository extends AbstractRepository
         );
     }
 
+    public function setMdpHache(string $mdpClair): string
+    {
+        return hash('sha256', $mdpClair);
+    }
+
+
     public function checkCmdp(string $mdp, string $cmdp):bool
     {
         if($mdp != $cmdp)

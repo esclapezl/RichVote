@@ -167,6 +167,7 @@ class ControllerUser extends GenericController
         if ($userRepository->checkCmdp($nMdp, $cNMdp) &&
             $userRepository->checkCmdp($userRepository->setMdpHache($aMdp), $user->getMdpHache()))
         {
+            $user->setMdp($nMdp);
             $userRepository->update($user);
             $parametres = array(
                 'pagetitle' => 'Mot de passe mis à jour.',
@@ -181,18 +182,16 @@ class ControllerUser extends GenericController
                     'pagetitle' => 'Erreur',
                     'cheminVueBody' => 'user/update.php',
                     'msgErreur' =>  'Les mots de passes doivent être identiques.',
-
                     'user' => $user
                 );
 
             }
-            if (!$userRepository->checkCmdp($user->setMdpHache($aMdp), $user->getMdpHache())) {
+            if (!$userRepository->checkCmdp($userRepository->setMdpHache($aMdp), $user->getMdpHache())) {
                 $parametres = array(
                     'pagetitle' => 'Erreur',
                     'cheminVueBody' => 'user/update.php',
                     'msgErreur' =>  'L\'ancien mot de passe ne correspond pas.',
-                    'user' => $user,
-                    'mdp' => $user->setMdpHache($aMdp).'    :    '. $user->getMdpHache());
+                    'user' => $user);
             }
         }
         self::afficheVue('view.php', $parametres);

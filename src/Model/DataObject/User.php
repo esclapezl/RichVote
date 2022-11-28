@@ -2,6 +2,8 @@
 
 namespace App\Model\DataObject;
 
+use App\Model\Repository\UserRepository;
+
 class User extends AbstractDataObject
 {
     private string $id;
@@ -71,7 +73,7 @@ class User extends AbstractDataObject
 
     public function setMdp(string $mdp): void
     {
-        $this->mdpHache = $this->setMdpHache($mdp);
+        $this->mdpHache = (new UserRepository())->setMdpHache($mdp);
     }
 
 

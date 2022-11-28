@@ -34,7 +34,11 @@ abstract class AbstractRepository{
         $nomTable = $this->getNomTable();
         $nomId = $this->getNomClePrimaire();
 
+
+
         $sql = 'SELECT * FROM '.$nomTable.' WHERE '.$nomId." = '" . $id."'";
+
+
 
         $pdostatement = $pdo->query($sql);
 
@@ -63,16 +67,14 @@ abstract class AbstractRepository{
             if($nomColonne!=$nomColonnes[0]){
                 $txtsql .= ', ';
             }
-            $txtsql .= "$nomColonne = :$nomColonne" . 'Tag';
+            $txtsql .= "$nomColonne = :$nomColonne";
         }
 
-        $id = $object->getId();
-        $sql = "UPDATE ".$this->getNomTable() ." SET ".$txtsql." WHERE " . $this->getNomClePrimaire() . "=$id";
-
+        $sql = "UPDATE ".$this->getNomTable() ." SET ".$txtsql." WHERE " . $this->getNomClePrimaire() . "='".$object->getId()."'";
         $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
-        $values = $object->formatTableau();
-        $pdoStatement->execute($values);
+        $pdoStatement->execute($object->formatTableau());
     }
+
 
     public function sauvegarder(AbstractDataObject $object): void
     {
@@ -100,28 +102,4 @@ abstract class AbstractRepository{
         $pdoStatement->execute($object->formatTableau());
     }
 
-//    public function sauvegarder(AbstractDataObject $object): bool
-//    {
-//        $txtsqlcol="";
-//        $txtsqlvalues="";
-//        foreach ($this->getNomsColonnes() as $i){
-//            if($i==$this->getNomsColonnes()[sizeof($this->getNomsColonnes())-1]){
-//                $txtsqlvalues = $txtsqlvalues . ":" . $i . "Tag " ;
-//                $txtsqlcol = $txtsqlcol . $i . " ";
-//
-//            }
-//            else{
-//                $txtsqlvalues = $txtsqlvalues . ":" . $i . "Tag" .", ";
-//                $txtsqlcol = $txtsqlcol . $i .", ";
-//            }
-//        }
-//        $sql = "INSERT INTO ". $this->getNomTable() ." (".$txtsqlcol.") VALUES (".$txtsqlvalues.")";
-//
-//        $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
-//        $values = $object->formatTableau();
-//        return $pdoStatement->execute($values);
-//
-//
-//
-//    }
 }
