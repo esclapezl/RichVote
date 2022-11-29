@@ -75,4 +75,9 @@ class SectionRepository extends AbstractRepository
 
         $pdoStatement->execute($values);
     }
+
+    protected function getIntitule(): string
+    {
+        return "intituleSection";
+    }
 }

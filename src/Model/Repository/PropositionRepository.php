@@ -122,4 +122,9 @@ class PropositionRepository extends AbstractRepository
 
         $pdo->query($sql);
     }
+
+    protected function getIntitule(): string
+    {
+        return "intitule";
+    }
 }

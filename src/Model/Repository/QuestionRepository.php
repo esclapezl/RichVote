@@ -89,4 +89,8 @@ class QuestionRepository extends AbstractRepository
     }
 
 
+    protected function getIntitule(): string
+    {
+        return "intituleQuestion";
+    }
 }

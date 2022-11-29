@@ -14,15 +14,29 @@ class ControllerQuestion extends GenericController
 {
     public static function readAll() : void
     {
-        $arrayQuestion = (new QuestionRepository)->selectAll();
+        $questions=array();
+
+        if (isset($_POST['title']) AND !empty($_POST['title'])){
+            $recherche= htmlspecialchars($_POST['title']);
+            echo $recherche;
+            $arrayQuestion = (new QuestionRepository)->search($recherche);
+        }
+        else{
+            $questions = (new QuestionRepository)->selectAll();
+        }
 
         $parametres = array(
             'pagetitle' => 'Liste Questions',
             'cheminVueBody' => 'question/list.php',
-            'questions' => $arrayQuestion
+            'questions' => $questions
         );
-
         self::afficheVue('view.php', $parametres);
+    }
+
+    public static function search() : void
+    {
+        MessageFlash::ajouter('success', 'La question est désormais en ligne.');
+        self::redirection('frontController.php?controller=question&action=readAll');
     }
 
     public static function read() : void

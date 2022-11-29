@@ -104,5 +104,8 @@ class UserRepository extends AbstractRepository
     }
 
 
-
+    protected function getIntitule(): string
+    {
+        return "";
+    }
 }

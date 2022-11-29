@@ -9,6 +9,8 @@ abstract class AbstractRepository{
 
     protected abstract function getNomClePrimaire() : string;
 
+    protected abstract function getIntitule() : string;
+
     protected abstract function getNomsColonnes(): array;
 
     protected abstract function construire(array $objetFormatTableau) : AbstractDataObject;
@@ -27,6 +29,23 @@ abstract class AbstractRepository{
 
         return $tabRepo;
     }
+
+    public function search(string $recherche): array{
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $nomTable = $this->getNomTable();
+
+        $pdoStatement = $pdo->query('SELECT * FROM '. $nomTable . ' WHERE '. $this->getIntitule() .' LIKE "%'.$recherche.'%" ORDER BY DESC');
+
+        $tabRepo = array();
+        foreach($pdoStatement as $objetFormatTab){
+            $tabRepo[] = $this->construire($objetFormatTab);
+        }
+
+        return $tabRepo;
+    }
+
+
 
     public function select(string $id) : AbstractDataObject{
         $pdo = DatabaseConnection::getInstance()::getPdo();

@@ -67,4 +67,9 @@ class PhaseRepository extends AbstractRepository
         }
         return $result;
     }
+
+    protected function getIntitule(): string
+    {
+        return "";
+    }
 }
