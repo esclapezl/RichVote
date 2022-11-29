@@ -4,7 +4,8 @@
         /** @var Proposition[] $propositions */
         foreach ($propositions as $proposition){
             $idProposition = $proposition->getId();
-            echo"<input type='radio' id='p$idProposition' name='idProposition' value='$idProposition'> $idProposition </input>";
+            $intituleProposition = $proposition->getIntitule();
+            echo"<input type='radio' id='p$idProposition' name='idProposition' value='$idProposition'> $intituleProposition </input>";
         }
 
         ?>
