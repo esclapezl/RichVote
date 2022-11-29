@@ -228,7 +228,7 @@ class ControllerUser extends GenericController
             $user = (new UserRepository())->select($_GET['id']);
 
 
-            if(!(new ConnexionUtilisateur())->estUtilisateur($user->getId()))
+            if(!(new ConnexionUtilisateur())->estUtilisateur($user->getId()) && !(new ConnexionUtilisateur())->estAdministrateur())
             {
                 MessageFlash::ajouter('danger', "Vous n'êtes pas autorisé à acceder à cette page.");
                 self::redirection('frontController.php?controller=user&action=readAll');
@@ -251,43 +251,83 @@ class ControllerUser extends GenericController
 
     public static function updated() : void
     {
-        $aMdp = $_POST['aMdp'];
-        $nMdp = $_POST['nMdp'];
-        $cNMdp = $_POST['cNMdp'];
-
         $userRepository = new UserRepository();
         $user = $userRepository->select($_GET['id']);
 
-
-        if ($userRepository->checkCmdp($nMdp, $cNMdp) &&
-            $userRepository->checkCmdp($userRepository->setMdpHache($aMdp), $user->getMdpHache()))
+        if(isset($_POST['aMdp']))
         {
-            $user->setMdp($nMdp);
-            $userRepository->update($user);
-            $parametres = array(
-                'pagetitle' => 'Mot de passe mis à jour.',
-                'cheminVueBody' => 'user/accueil.php',
-            );
-        }
-        else
-        {
-            if (!$userRepository->checkCmdp($nMdp, $cNMdp)) {
+            $aMdp = $_POST['aMdp'];
+            $nMdp = $_POST['nMdp'];
+            $cNMdp = $_POST['cNMdp'];
 
+            if ($userRepository->checkCmdp($nMdp, $cNMdp) &&
+                $userRepository->checkCmdp($userRepository->setMdpHache($aMdp), $user->getMdpHache()))
+            {
+                $user->setMdp($nMdp);
+                $userRepository->update($user);
                 $parametres = array(
-                    'pagetitle' => 'Erreur',
-                    'cheminVueBody' => 'user/update.php',
-                    'msgErreur' =>  'Les mots de passes doivent être identiques.',
-                    'user' => $user
+                    'pagetitle' => 'Mot de passe mis à jour.',
+                    'cheminVueBody' => 'user/accueil.php',
                 );
+            }
+            else
+            {
+                if (!$userRepository->checkCmdp($nMdp, $cNMdp)) {
 
+                    $parametres = array(
+                        'pagetitle' => 'Erreur',
+                        'cheminVueBody' => 'user/update.php',
+                        'msgErreur' =>  'Les mots de passes doivent être identiques.',
+                        'user' => $user
+                    );
+
+                }
+                if (!$userRepository->checkCmdp($userRepository->setMdpHache($aMdp), $user->getMdpHache())) {
+                    $parametres = array(
+                        'pagetitle' => 'Erreur',
+                        'cheminVueBody' => 'user/update.php',
+                        'msgErreur' =>  'L\'ancien mot de passe ne correspond pas.',
+                        'user' => $user);
+                }
             }
-            if (!$userRepository->checkCmdp($userRepository->setMdpHache($aMdp), $user->getMdpHache())) {
-                $parametres = array(
-                    'pagetitle' => 'Erreur',
-                    'cheminVueBody' => 'user/update.php',
-                    'msgErreur' =>  'L\'ancien mot de passe ne correspond pas.',
-                    'user' => $user);
+        }
+        else if(isset($_POST['identifiant']))
+        {
+            if($userRepository->checkId($_POST['identifiant']))
+            {
+
+                $user->setId($_POST['identifiant']);
+
+                $userRepository->update($user);
+                MessageFlash::ajouter('info', 'Identifiant mis à jour.');
+                self::redirection('frontController.php?controller=user&action=read&id='.$user->getId());
             }
+            else
+            {
+                MessageFlash::ajouter('danger', 'Identifiant déjà utilisé.');
+                self::redirection('frontController.php?controller=user&action=read&id='.$user->getId().'&modif=identifiant');
+            }
+        }
+        else if(isset($_POST['nom']))
+        {
+            $user->setNom($_POST['nom']);
+            $userRepository->update($user);
+            MessageFlash::ajouter('info', 'Nom mis à jour.');
+            self::redirection('frontController.php?controller=user&action=read&id='.$user->getId());
+        }
+        else if(isset($_POST['prenom']))
+        {
+            $user->setPrenom($_POST['prenom']);
+            $userRepository->update($user);
+            MessageFlash::ajouter('info', 'Prenom mis à jour.');
+            self::redirection('frontController.php?controller=user&action=read&id='.$user->getId());
+        }
+        else if(isset($_POST['email']))
+        {
+            $user->setEmail($_POST['email']);
+            $userRepository->update($user);
+            MessageFlash::ajouter('info', 'Prenom mis à jour.');
+            self::redirection('frontController.php?controller=user&action=read&id='.$user->getId());
         }
         self::afficheVue('view.php', $parametres);
     }
@@ -304,7 +344,7 @@ class ControllerUser extends GenericController
         if((new UserRepository())->select($_GET['id']) != null)
         {
             $user = (new UserRepository())->select($_GET['id']);
-            if(!(new ConnexionUtilisateur())->estUtilisateur($user->getId()))
+            if(!(new ConnexionUtilisateur())->estUtilisateur($user->getId()) && !(new ConnexionUtilisateur())->estAdministrateur())
             {
                 MessageFlash::ajouter('danger', "Vous n'êtes pas autorisé à acceder à cette page.");
                 self::redirection('frontController.php?controller=user&action=readAll');
@@ -325,17 +365,19 @@ class ControllerUser extends GenericController
 
     public static function deleted()
     {
-        $mdp = $_POST['mdp'];
-        $cMdp = $_POST['cMdp'];
-
+        if(!(new ConnexionUtilisateur())->estAdministrateur())
+        {
+            $mdp = $_POST['mdp'];
+            $cMdp = $_POST['cMdp'];
+        }
         $userRepository = new UserRepository();
         $user = $userRepository->select($_GET['id']);
 
-
-        if ($userRepository->checkCmdp($mdp, $cMdp)
-        &&$userRepository->checkCmdp($user->getMdpHache(), $userRepository->setMdpHache($mdp)))
+        if ((new ConnexionUtilisateur())->estAdministrateur()||($userRepository->checkCmdp($mdp, $cMdp)
+        &&$userRepository->checkCmdp($user->getMdpHache(), $userRepository->setMdpHache($mdp))))
         {
             $userRepository->delete($user->getId());
+            if((new ConnexionUtilisateur())->getLoginUtilisateurConnecte() == $user->getId())
             (new ConnexionUtilisateur())->deconnecter();
             MessageFlash::ajouter('info', 'Profil supprimé.');
             self::redirection('frontController.php?controller=user&action=accueil');

@@ -1,5 +1,13 @@
+<?php
+use App\Lib\ConnexionUtilisateur;
+
+$htmlclass = "invité";
+if((new ConnexionUtilisateur())->estAdministrateur())
+{$htmlclass="admin";}
+?>
+
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" <?php echo 'class ="'.$htmlclass.'"'?> >
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../assets/css/style.css">
@@ -8,8 +16,6 @@
             /** @var $pagetitle string */
 
             use App\Lib\MessageFlash;
-            use App\Lib\ConnexionUtilisateur;
-
             echo $pagetitle;
             ?>
         </title>
@@ -19,6 +25,7 @@
             <nav>
                 <div class="navBar">
                 <a href="frontController.php?controller=user&action=accueil"><img src="../assets/img/logo.png" alt="RichVote" id="logo"></a>
+
                 <ul>
                     <li><a href="frontController.php?controller=question&action=readAll">Questions</a></li>
                     <li><a href="frontController.php?controller=question&action=readAll">Résultats</a></li>
@@ -26,8 +33,9 @@
                 </ul>
                     <?php
                     if((new ConnexionUtilisateur())->estConnecte()) {
-                        echo  '<div class="ligneAlign"><a id="btn-connexion" href="frontController.php?controller=user&action=read&id='.(new ConnexionUtilisateur())->getLoginUtilisateurConnecte().'">'. (new ConnexionUtilisateur())->getLoginUtilisateurConnecte().' </a>
+                        echo  '<div class="ligneAlign"><a id="btn-connexion" href="frontController.php?controller=user&action=read&id='.(new ConnexionUtilisateur())->getLoginUtilisateurConnecte() .'">'. (new ConnexionUtilisateur())->getLoginUtilisateurConnecte().' </a>
                                 <a id="btn-connexion" href="frontController.php?controller=user&action=deconnexion">Deconnexion </a></div>';
+
                     }
                     else {echo  '<a id="btn-connexion" href="frontController.php?controller=user&action=connexion">Connexion </a>';}
                     ?>

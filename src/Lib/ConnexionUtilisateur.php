@@ -3,6 +3,7 @@
 namespace App\Lib;
 
 use App\Model\HTTP\Session;
+use App\Model\Repository\UserRepository;
 
 class ConnexionUtilisateur
 {
@@ -34,5 +35,19 @@ class ConnexionUtilisateur
     public static function estUtilisateur($id):bool
     {
         return ((new ConnexionUtilisateur())->estConnecte() && (new ConnexionUtilisateur())->getLoginUtilisateurConnecte() == $id);
+    }
+
+    public static function estAdministrateur() : bool
+    {
+        if((new ConnexionUtilisateur())->estConnecte())
+        {
+            $userRepository = new UserRepository;
+            $user = $userRepository->select(self::getLoginUtilisateurConnecte());
+            return $user->isAdmin();
+        }
+        else
+        {
+            return false;
+        }
     }
 }

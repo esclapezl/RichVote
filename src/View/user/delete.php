@@ -1,6 +1,7 @@
 
 <?php
 use App\Model\DataObject\User;
+use App\Lib\ConnexionUtilisateur;
 
 /** @var User $user */
 ?>
@@ -8,7 +9,17 @@ use App\Model\DataObject\User;
 <div class="block">
     <div class="text-box">
         <div class="ligneExt"> <h1>Suppresion du compte</h1></div>
-        <form method="post" action="frontController.php?controller=user&action=deleted&id=<?=$user->getId()?>">
+        <?php
+        if((new ConnexionUtilisateur())->estAdministrateur())
+        {
+            echo '<form method="post" action="frontController.php?controller=user&action=deleted&id='.$user->getId().'">
+           <div class="ligneExt"><div class="ligne"></div></div>
+            <div class="ligneCent"> <input class="optQuestion" type="submit" value="Supprimer"/></div>
+        </form>';
+        }
+        else
+        {
+            echo '<form method="post" action="frontController.php?controller=user&action=deleted&id='.$user->getId().'">
            <div class="ligneExt"><div class="ligne"></div></div>
             <div class="descG"></div>
             <p>
@@ -20,8 +31,11 @@ use App\Model\DataObject\User;
             <input type="password" id="cMdp" name="cMdp" placeholder="********" size="50" required>
             <div class="descG"></div>
             </p>
-            <div class="ligneCent"> <input class="optQuestion" type="submit" value="Valider la suppression du compte"/></div>
-        </form>
+            <div class="ligneCent"> <input class="optQuestion" type="submit" value="Supprimer"/></div>
+        </form>';
+        }
+        ?>
+
 
     </div>
 </div>
