@@ -15,7 +15,8 @@ use App\Lib\ConnexionUtilisateur;
 
               if((new ConnexionUtilisateur())->estUtilisateur($user->getId()))
                   {
-                      echo ' <a href="frontController.php?controller=user&action=update&id='.$user->getId(). '" style="color: #aca9ff">Modifier le mot de passe </a>';
+                      echo ' <a href="frontController.php?controller=user&action=update&id='.$user->getId(). '" style="color: #aca9ff">Modifier le mot de passe </a> <div class="descG"></div>
+                          <a href="frontController.php?controller=user&action=delete&id='.$user->getId(). '" style="color: #ffa9a9">Supprimer le compte </a>';
 
                   }
 

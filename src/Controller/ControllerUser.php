@@ -180,13 +180,12 @@ class ControllerUser extends GenericController
 
     public static function update():void
     {
-
-        if((new UserRepository())->select($_GET['id'] != null))
+        if((new UserRepository())->select($_GET['id']) != null)
         {
             $user = (new UserRepository())->select($_GET['id']);
 
 
-            if((new ConnexionUtilisateur())->estUtilisateur($user->getId()))
+            if(!(new ConnexionUtilisateur())->estUtilisateur($user->getId()))
             {
                 MessageFlash::ajouter('danger', "Vous n'êtes pas autorisé à acceder à cette page.");
                 self::redirection('frontController.php?controller=user&action=readAll');
@@ -202,7 +201,7 @@ class ControllerUser extends GenericController
         }
         else
         {
-            essageFlash::ajouter('warning', "Cet utilisateur n'existe pas.");
+            MessageFlash::ajouter('warning', "Cet utilisateur n'existe pas.");
             self::redirection('frontController.php?controller=user&action=readAll');
         }
 
@@ -262,6 +261,63 @@ class ControllerUser extends GenericController
         (new ConnexionUtilisateur())->deconnecter();
         MessageFlash::ajouter('info', 'Deconnecté.');
         self::redirection('frontController.php?controller=user&action=accueil');
+    }
+
+    public static function delete()
+    {
+        if((new UserRepository())->select($_GET['id']) != null)
+        {
+            $user = (new UserRepository())->select($_GET['id']);
+            if(!(new ConnexionUtilisateur())->estUtilisateur($user->getId()))
+            {
+                MessageFlash::ajouter('danger', "Vous n'êtes pas autorisé à acceder à cette page.");
+                self::redirection('frontController.php?controller=user&action=readAll');
+            }
+
+            $parametres = array(
+                'pagetitle' => 'Suppression du compte',
+                'cheminVueBody' => 'user/delete.php',
+                'user' => $user);
+            self::afficheVue('view.php', $parametres);
+        }
+        else
+        {
+            MessageFlash::ajouter('warning', "Cet utilisateur n'existe pas.");
+            self::redirection('frontController.php?controller=user&action=readAll');
+        }
+    }
+
+    public static function deleted()
+    {
+        $mdp = $_POST['mdp'];
+        $cMdp = $_POST['cMdp'];
+
+        $userRepository = new UserRepository();
+        $user = $userRepository->select($_GET['id']);
+
+
+        if ($userRepository->checkCmdp($mdp, $cMdp)
+        &&$userRepository->checkCmdp($user->getMdpHache(), $userRepository->setMdpHache($mdp)))
+        {
+            $userRepository->delete($user->getId());
+            (new ConnexionUtilisateur())->deconnecter();
+            MessageFlash::ajouter('info', 'Profil supprimé.');
+            self::redirection('frontController.php?controller=user&action=accueil');
+        }
+        else
+        {
+            if(!$userRepository->checkCmdp($mdp, $cMdp))
+            {
+                MessageFlash::ajouter('danger', 'Les mots de passe ne correspondent pas.');
+                self::redirection('frontController.php?controller=user&action=delete&id='.$user->getId());
+            }
+            else if(!$userRepository->checkCmdp($user->getMdpHache(), $userRepository->setMdpHache($mdp)))
+            {
+                MessageFlash::ajouter('danger', 'Mot de passe incorrect.');
+                self::redirection('frontController.php?controller=user&action=delete&id='.$user->getId());
+            }
+
+        }
     }
 
 
