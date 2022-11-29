@@ -94,7 +94,7 @@ class Question extends AbstractDataObject
 
     public function getApercuDescription() : string
     {
-        $nbmots = 15;
+        $nbmots = 11;
         $txt = strip_tags($this->getDescription());
         $words = explode(' ', $txt, ($nbmots + 1));
         if (count($words) > $nbmots) {

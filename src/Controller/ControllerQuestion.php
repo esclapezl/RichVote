@@ -14,12 +14,10 @@ class ControllerQuestion extends GenericController
 {
     public static function readAll() : void
     {
-        $questions=array();
 
         if (isset($_POST['title']) AND !empty($_POST['title'])){
             $recherche= htmlspecialchars($_POST['title']);
-            echo $recherche;
-            $arrayQuestion = (new QuestionRepository)->search($recherche);
+            $questions = (new QuestionRepository)->search($recherche);
         }
         else{
             $questions = (new QuestionRepository)->selectAll();

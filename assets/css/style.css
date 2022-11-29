@@ -13,7 +13,7 @@
 html{
     scroll-behavior: smooth;
     background: rgb(9,4,84);
-    background: radial-gradient(circle, rgba(9,4,84,1) 0%, rgba(57,78,222,1) 54%, rgba(20,24,42,1) 100%);
+    background: linear-gradient( rgb(113, 117, 213) 0%, rgba(57,78,222,1) 54%, rgb(30, 39, 89) 100%);
 }
 
 body {
@@ -462,7 +462,7 @@ input.opt{
 .opt{
     margin-right: 10px;
 }
-.opt,
+
 .optQuestion{
 
     display: flex;
@@ -478,7 +478,26 @@ input.opt{
 
 button.opt img{
     margin: 0;
+
 }
+.opt{
+    border-radius: 20px;
+    color: mediumblue;
+    margin-bottom: 15px;
+}
+button.opt{
+    cursor: pointer;
+    border-color: white;
+    background: none;
+    border-width: 1px;
+    transition: 1s;
+}
+
+button.opt:hover,
+button.opt.active {
+    transform: rotate(360deg);
+}
+
 
 .ligneAlign{
     display: flex;
@@ -487,7 +506,7 @@ button.opt img{
 }
 
 form input{
-    height: 30px;
+
     font-size: 1em;
 }
 form input.optQuestion{

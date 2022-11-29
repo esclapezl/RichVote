@@ -78,21 +78,21 @@ class PropositionRepository extends AbstractRepository
 
 
 
-     public function sauvegarder(Proposition $proposition){
-        $pdo = DatabaseConnection::getInstance()::getPdo();
-
-        $sql = "CALL creerProposition(:idQuestion)";
-
-        $pdoStatement = $pdo->prepare($sql);
-
-        $params = ['idQuestion' => $proposition->getIdQuestion()];
-
-        $pdoStatement->execute($params);
-
-        $sqlIdP = "select propositions_seq.CURRVAL as id from DUAL";
-
-        return $this->select($pdo->query($sqlIdP)->fetch()['ID']);
-    }
+//     public function sauvegarder(Proposition $proposition){
+//        $pdo = DatabaseConnection::getInstance()::getPdo();
+//
+//        $sql = "CALL creerProposition(:idQuestion)";
+//
+//        $pdoStatement = $pdo->prepare($sql);
+//
+//        $params = ['idQuestion' => $proposition->getIdQuestion()];
+//
+//        $pdoStatement->execute($params);
+//
+//        $sqlIdP = "select propositions_seq.CURRVAL as id from DUAL";
+//
+//        return $this->select($pdo->query($sqlIdP)->fetch()['ID']);
+//    }
 
     public function update(AbstractDataObject $object): void
     {

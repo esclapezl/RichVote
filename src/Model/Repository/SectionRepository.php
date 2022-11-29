@@ -61,20 +61,20 @@ class SectionRepository extends AbstractRepository
         return $sections;
     }
 
-    public function sauvegarder(Section $section){
-        $sql = "INSERT INTO Sections(idQuestion, intituleSection, descriptionSection) VALUES(:id, :intitule, :description)";
-        $pdo = DatabaseConnection::getInstance()::getPdo();
-
-        $pdoStatement = $pdo->prepare($sql);
-
-        $values = array(
-            'id' => $section->getIdQuestion(),
-            'intitule' => $section->getIntitule(),
-            'description' => $section->getDescription()
-        );
-
-        $pdoStatement->execute($values);
-    }
+//    public function sauvegarder(Section $section){
+//        $sql = "INSERT INTO Sections(idQuestion, intituleSection, descriptionSection) VALUES(:id, :intitule, :description)";
+//        $pdo = DatabaseConnection::getInstance()::getPdo();
+//
+//        $pdoStatement = $pdo->prepare($sql);
+//
+//        $values = array(
+//            'id' => $section->getIdQuestion(),
+//            'intitule' => $section->getIntitule(),
+//            'description' => $section->getDescription()
+//        );
+//
+//        $pdoStatement->execute($values);
+//    }
 
     protected function getIntitule(): string
     {

@@ -34,8 +34,7 @@ abstract class AbstractRepository{
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $nomTable = $this->getNomTable();
-
-        $pdoStatement = $pdo->query('SELECT * FROM '. $nomTable . ' WHERE '. $this->getIntitule() .' LIKE "%'.$recherche.'%" ORDER BY DESC');
+        $pdoStatement = $pdo->query('SELECT * FROM '. $nomTable . ' WHERE '. $this->getIntitule() ." LIKE '%".$recherche."%' ORDER BY ". $this->getIntitule(). " DESC");
 
         $tabRepo = array();
         foreach($pdoStatement as $objetFormatTab){
