@@ -19,25 +19,27 @@ switch ($typePhase) {
 <div class="block">
     <div class="text-box">
         <div class="ligneExt"> <div><a class="optQuestion" href=frontController.php?controller=question&action=readAll>↩</a>
-                <h1><?=htmlspecialchars($question->getIntitule())?></h1></div> <div><h3>Détail de la question</h3><div class="ligneAlign">
-                    <a href=frontController.php?controller=vote&action=<?= rawurlencode($question->getCurrentPhase()->getType())?>>
+                <h1><?=htmlspecialchars($question->getIntitule())?></h1></div> <div><h3>Détail de la question</h3>
+                <div class="ligneAlign">
+                    <?php use \App\Lib\ConnexionUtilisateur;
+use App\Model\Repository\VoteRepository;
+if(ConnexionUtilisateur::estConnecte()){
+    $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+    if(VoteRepository::peutVoter($idUser, $question->getId())) {
+        echo "<a href=frontController.php?controller=vote&action=voterScrutinMajoritaire&idQuestion=" .$question->getId() ."><h2>$typePhase</h2></a>";
+    }
 
-                        <h2><?=$typePhase?></h2></a></div></div></div>
+}else{
+    echo "<a><h2>Vous n'avez pas le droit de voter</h2></a>";
+}?>
+
+                        </div></div></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <div class="ligneExt"><?php
             echo
                 '<a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Liste des propositions</a>'
                 .
                 '<a class="optQuestion" href=frontController.php?controller=question&action=delete&id='. rawurlencode($question->getId()) . '>Supprimer</a>';
-
-use \App\Lib\ConnexionUtilisateur;
-use App\Model\Repository\VoteRepository;
-if(ConnexionUtilisateur::estConnecte()){
-    $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-    if(VoteRepository::peutVoter($idUser, $question->getId())) {
-        echo '<a href="frontController.php?controller=vote&action=voterScrutinMajoritaire&idQuestion=' . $question->getId() . '">voter</a>';
-    }
-}
 
             ?>
         </div>
