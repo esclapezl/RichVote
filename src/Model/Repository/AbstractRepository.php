@@ -86,14 +86,39 @@ abstract class AbstractRepository{
             if($nomColonne!=$nomColonnes[0]){
                 $txtsql .= ', ';
             }
-            $txtsql .= "$nomColonne = :$nomColonne" . 'Tag';
+            $txtsql .= "$nomColonne = :$nomColonne";
         }
 
-        $id = $object->getId();
-        $sql = "UPDATE ".$this->getNomTable() ." SET ".$txtsql." WHERE " . $this->getNomClePrimaire() . "=$id";
-
+        $sql = "UPDATE ".$this->getNomTable() ." SET ".$txtsql." WHERE " . $this->getNomClePrimaire() . "='".$object->getId()."'";
         $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
-        $values = $object->formatTableau();
-        $pdoStatement->execute($values);
+        $pdoStatement->execute($object->formatTableau());
     }
+
+
+    public function sauvegarder(AbstractDataObject $object): void
+    {
+        $colonnes = "";
+        foreach ($this->getNomsColonnes() as $colonne) {
+            if(!$colonnes =="") {
+                $colonnes .= ',';
+            }
+            $colonnes .= $colonne;
+        }
+
+        $values = "";
+        foreach ($this->getNomsColonnes() as $value) {
+            if(!$values =="") {
+                $values .= ',';
+            }
+            $values .= ":".$value;
+        }
+
+        $sql = 'INSERT INTO '.$this->getNomTable().'('.$colonnes.') VALUES('.$values.')';
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute($object->formatTableau());
+    }
+
 }
