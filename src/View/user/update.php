@@ -3,7 +3,6 @@
 use App\Model\DataObject\User;
 
 /** @var User $user */
-/** @var string $mdp */
 ?>
 
 <div class="block">
@@ -30,7 +29,6 @@ use App\Model\DataObject\User;
             <?php if(isset($msgErreur))
             {
                 echo '<p>'.$msgErreur.'</p>';
-                echo $mdp;
             }
             ?>
         </form>
