@@ -3,6 +3,7 @@
 namespace App\Model\DataObject;
 
 use App\Model\Repository\UserRepository;
+use http\QueryString;
 
 class User extends AbstractDataObject
 {
@@ -37,19 +38,53 @@ class User extends AbstractDataObject
     /**
      * @return bool
      */
-    public function isEstAdmin(): bool
+    public function isAdmin(): bool
     {
         return $this->estAdmin;
     }
 
 
     /**
-     * @param bool $estAdmin
+     * @param string $id
      */
-    public function setEstAdmin(bool $estAdmin): void
+    public function setId(string $id): void
     {
-        $this->estAdmin = $estAdmin;
+        $this->id = $id;
     }
+
+    /**
+     * @param string $prenom
+     */
+    public function setPrenom(string $prenom): void
+    {
+        $this->prenom = $prenom;
+    }
+
+    /**
+     * @param string $nom
+     */
+    public function setNom(string $nom): void
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function setAdmin(bool $admin)
+    {
+        $this->estAdmin = $admin;
+        if($admin)$admin=1;
+        else $admin=0;
+        query('UPDATE SOUVIGNETN.USERS SET ESTADMIN='.$admin.'WHERE "idUser"='.$this->getId().';');
+    }
+
+
 
     /**
      * @return string
@@ -103,7 +138,7 @@ class User extends AbstractDataObject
 
     public function formatTableau(): array
     {
-        if($this->isEstAdmin()) {$bool = 1;}
+        if($this->isAdmin()) {$bool = 1;}
         else{$bool = 0;}
 
         return array(
@@ -134,6 +169,8 @@ class User extends AbstractDataObject
     {
         $this->role = $role;
     }
+
+
 
 
 }

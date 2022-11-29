@@ -170,4 +170,37 @@ class UserRepository extends AbstractRepository
         $pdoStatement->execute($object->formatTableau());
     }
 
+    public function update(AbstractDataObject $object): void{
+        $txtsql="";
+        $nomColonnes = $this->getNomsColonnes();
+        foreach ($nomColonnes as $nomColonne){
+            if($nomColonne!=$nomColonnes[0]){
+                $txtsql .= ', ';
+            }
+            if($this->getNomTable()=='SOUVIGNETN.USERS')
+            {
+                $txtsql .= "$nomColonne = :$nomColonne";
+            }
+            else
+            {
+                $txtsql .= "$nomColonne = :$nomColonne".'Tag';
+            }
+
+        }
+
+        if($this->select($object->getId()) != null)
+        {
+            $sql = "UPDATE ".$this->getNomTable() ." SET ".$txtsql." WHERE " . $this->getNomClePrimaire() . "='".$object->getId()."'";
+        }
+        else
+        {
+            $sql = "UPDATE ".$this->getNomTable() ." SET ".$txtsql." WHERE EMAIL='".$object->getEmail()."'";
+        }
+
+        $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
+        $pdoStatement->execute($object->formatTableau());
+    }
+
+
+
 }
