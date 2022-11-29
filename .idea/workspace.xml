@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="session + fix sauvegarde">
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="changer mdp">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/ControllerUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ControllerUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/user/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/user/delete.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/user/details.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/user/details.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/user/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/user/update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/DataObject/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/user/inscription.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/user/inscription.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,11 +55,11 @@
       <recent name="$PROJECT_DIR$/src/view" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\sae-website\assets\img" />
       <recent name="C:\xampp\htdocs\sae-website\assets" />
       <recent name="C:\xampp\htdocs\sae-website\web\img" />
       <recent name="C:\xampp\htdocs\sae-website\web\trailer" />
       <recent name="C:\xampp\htdocs\sae-website\src\View\user" />
+      <recent name="C:\xampp\htdocs\sae-website\src\View" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -417,19 +417,19 @@
       <option name="project" value="LOCAL" />
       <updated>1669630635148</updated>
     </task>
-    <task id="LOCAL-00047" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/Model/Repository/UserRepository.php&#10;#&#9;src/View/question/list.php">
-      <created>1669680623548</created>
+    <task id="LOCAL-00047" summary="changer mdp">
+      <created>1669676968457</created>
       <option name="number" value="00047" />
       <option name="presentableId" value="LOCAL-00047" />
       <option name="project" value="LOCAL" />
-      <updated>1669680623548</updated>
+      <updated>1669676968457</updated>
     </task>
-    <task id="LOCAL-00048" summary="session + fix sauvegarde">
-      <created>1669733069612</created>
+    <task id="LOCAL-00048" summary="changer mdp">
+      <created>1669677248320</created>
       <option name="number" value="00048" />
       <option name="presentableId" value="LOCAL-00048" />
       <option name="project" value="LOCAL" />
-      <updated>1669733069612</updated>
+      <updated>1669677248320</updated>
     </task>
     <option name="localTasksCounter" value="49" />
     <servers />
@@ -449,6 +449,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Affichage sur toutes les vues actuelles" />
+    <MESSAGE value="vue connexion" />
     <MESSAGE value="listQuestion : modif ajouté" />
     <MESSAGE value="modifyQuestion" />
     <MESSAGE value="modifyQuestion, modifyQuestion -&gt; interface update" />
@@ -471,9 +473,7 @@
     <MESSAGE value="listQuestions update" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="maj mdp&#10;(abstract update a changer)" />
-    <MESSAGE value="Commit barre Recherche v0.9" />
-    <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/Model/Repository/UserRepository.php&#10;#&#9;src/View/question/list.php" />
-    <MESSAGE value="session + fix sauvegarde" />
-    <option name="LAST_COMMIT_MESSAGE" value="session + fix sauvegarde" />
+    <MESSAGE value="changer mdp" />
+    <option name="LAST_COMMIT_MESSAGE" value="changer mdp" />
   </component>
 </project>
