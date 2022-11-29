@@ -124,19 +124,6 @@ class PropositionRepository extends AbstractRepository
         $pdo->query($sql);
     }
 
-    public function voter(Proposition $proposition, User $user, int $score){
-        $sql = "CALL voter(:idUser, :idProposition, :score)";
-        $pdo = DatabaseConnection::getInstance()::getPdo();
-
-        $pdoStatement = $pdo->prepare($sql);
-
-        $pdoStatement->execute(
-            ['idUser' => $user->getId(),
-                'idProposition' => $proposition->getId(),
-                'score' => $score]
-        );
-    }
-
     protected function getIntitule(): string
     {
         return "intitule";

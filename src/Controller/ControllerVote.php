@@ -8,6 +8,7 @@ use App\Model\HTTP\Session;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\UserRepository;
+use App\Model\Repository\VoteRepository;
 
 class ControllerVote extends GenericController
 {
@@ -33,17 +34,19 @@ class ControllerVote extends GenericController
     }
 
     public static function scrutinMajoritaireVoted(){
-        $proposition = (new PropositionRepository())->select($_POST['idProposition']);
         $user = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         if($user == null){
             MessageFlash::ajouter('danger', 'vote refusé, vous n\'êtes pas connecté');
         }
-        else{
+        else if(isset($_POST['idProposition'])){
             $scoreVote = 1;
 
-            (new PropositionRepository())->voter($proposition, $user, $scoreVote);
+            VoteRepository::voter($_POST['idProposition'], $user, $scoreVote);
 
             MessageFlash::ajouter('success', 'Vous avez voté !');
+        }
+        else{
+            MessageFlash::ajouter('danger', 'ca passe pas');
         }
 
         ControllerQuestion::readAll();

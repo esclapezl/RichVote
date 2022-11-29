@@ -30,6 +30,15 @@ switch ($typePhase) {
                 .
                 '<a class="optQuestion" href=frontController.php?controller=question&action=delete&id='. rawurlencode($question->getId()) . '>Supprimer</a>';
 
+use \App\Lib\ConnexionUtilisateur;
+use App\Model\Repository\VoteRepository;
+if(ConnexionUtilisateur::estConnecte()){
+    $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+    if(VoteRepository::peutVoter($idUser, $question->getId())) {
+        echo '<a href="frontController.php?controller=vote&action=voterScrutinMajoritaire&idQuestion=' . $question->getId() . '">voter</a>';
+    }
+}
+
             ?>
         </div>
         <div class="ligneExt"><?php echo '<a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>Créer proposition</a>' .
