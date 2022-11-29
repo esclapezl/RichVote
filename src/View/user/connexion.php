@@ -7,12 +7,16 @@
             <p>
             <div class="descG"></div>
             <h3>Identifiant :</h3>
-            <input type="text" id="id" name="identifiant" placeholder="Identifiant" size="50"  required>
+            <input type="text" id="id" name="id" placeholder="Identifiant" size="50"  required>
+            <?php if(isset($msgErreurId)) {echo '<div style="color:#5d58ff;">' .$msgErreurId.'</div>';}?>
             <div class="descP"></div>
 
+
             <h3>Mot de passe :</h3>
-            <input type="password" id="mpd" name="motDePasse" placeholder="********" size="50" required>
+            <input type="password" id="mdp" name="mdp" placeholder="********" size="50" required>
+            <?php if(isset($msgErreurMdp)) {echo '<div style="color:#5d58ff;">' .$msgErreurMdp.'</div>';}?>
             <div class="descG"></div>
+
 
             </p>
             <div class="ligneCent"> <input class="optQuestion" type="submit" value="Se connecter"/></div>

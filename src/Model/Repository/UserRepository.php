@@ -105,4 +105,8 @@ class UserRepository extends AbstractRepository
         $pdoStatement->execute($parametres);
     }
 
+    protected function getIntitule(): string
+    {
+        return '"idUser"';
+    }
 }

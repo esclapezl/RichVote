@@ -8,6 +8,7 @@
             /** @var $pagetitle string */
 
             use App\Lib\MessageFlash;
+            use App\Lib\ConnexionUtilisateur;
 
             echo $pagetitle;
             ?>
@@ -23,7 +24,14 @@
                     <li><a href="frontController.php?controller=question&action=readAll">Résultats</a></li>
                     <li><a href="frontController.php?controller=user&action=readAll">Contributeurs</a></li>
                 </ul>
-                    <a id="btn-connexion" href="frontController.php?controller=user&action=connexion">Connexion </a>
+                    <?php
+                    if((new ConnexionUtilisateur())->estConnecte()) {
+                        echo  '<div class="ligneAlign"><a id="btn-connexion" href="frontController.php?controller=user&action=read&id='.(new ConnexionUtilisateur())->getLoginUtilisateurConnecte().'">'. (new ConnexionUtilisateur())->getLoginUtilisateurConnecte().' </a>
+                                <a id="btn-connexion" href="frontController.php?controller=user&action=deconnexion">Deconnexion </a></div>';
+                    }
+                    else {echo  '<a id="btn-connexion" href="frontController.php?controller=user&action=connexion">Connexion </a>';}
+                    ?>
+
                     <div class="btn">
                     <div class="line"></div>
                     <div class="line"></div>
@@ -70,7 +78,6 @@
                 <li><a href="frontController.php?controller=question&action=readAll">Résultats</a></li>
                 <li><a href="frontController.php?controller=user&action=about">Contributeurs</a></li>
             </ul>
-            <p><a href="frontController.php?controller=user&action=connexion" id="txtEffet">Connexion</a> |   Pas encore inscrit ? <a href="frontController.php?controller=user&action=inscription" id="txtEffet">Inscrivez vous</a></p>;
 
             <p>Copyright &copy; RichVote | Tous droits réservés</p>
         </footer>

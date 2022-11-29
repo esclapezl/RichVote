@@ -12,8 +12,10 @@
 
 html{
     scroll-behavior: smooth;
-    background: rgb(9,4,84);
-    background: radial-gradient(circle, rgba(9,4,84,1) 0%, rgba(57,78,222,1) 54%, rgba(20,24,42,1) 100%);
+    background: rgba(56,77,220,255);
+    background: linear-gradient( rgb(113, 117, 213) 0%, rgba(57,78,222,1) 54%, rgb(30, 39, 89) 100%);
+
+
 }
 
 body {
