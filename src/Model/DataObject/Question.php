@@ -7,6 +7,7 @@ use DateTime;
 class Question extends AbstractDataObject
 {
     private ?string $id;
+    private string $idOrganisateur;
     private string $intitule;
     private string $description;
     private array $sections;
@@ -123,13 +124,14 @@ class Question extends AbstractDataObject
     }
 
 
-    public function getOrganisateur(): string
+    public function getIdOrganisateur(): string
     {
-        return "vidalo";
+        return $this->idOrganisateur;
     }
 
     public function __construct(
         ?string $id,
+        string $idOrganisateur,
         string $intitule,
         string $description,
         DateTime $dateCreation,
@@ -138,6 +140,7 @@ class Question extends AbstractDataObject
     )
     {
         $this->id = $id;
+        $this->idOrganisateur = $idOrganisateur;
         $this->intitule = $intitule;
         $this->description = $description;
         $this->dateCreation = $dateCreation;
@@ -153,6 +156,7 @@ class Question extends AbstractDataObject
     {
         return array(
             "idQuestionTag" => $this->getId(),
+            "idOrganisateurTag" => $this->getIdOrganisateur(),
             "intituleQuestionTag" => $this->getIntitule(),
             "descriptionQuestionTag" => $this->getDescription(),
             "dateCreationTag" => $this->dateCreation->format('d/m/Y'),

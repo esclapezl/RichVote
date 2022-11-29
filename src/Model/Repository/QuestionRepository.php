@@ -23,8 +23,8 @@ class QuestionRepository extends AbstractRepository
     protected function getNomsColonnes(): array
     {
         return [
-            "idUser",
             "idQuestion",
+            "idOrganisateur",
             "intituleQuestion",
             "descriptionQuestion",
             "dateCreation",
@@ -37,6 +37,7 @@ class QuestionRepository extends AbstractRepository
         $currentPhase = (new PhaseRepository())->getCurrentPhase($objetFormatTableau['IDQUESTION']);
         return new Question(
             $objetFormatTableau['IDQUESTION'],
+            $objetFormatTableau['IDORGANISATEUR'],
             $objetFormatTableau['INTITULEQUESTION'],
             $objetFormatTableau['DESCRIPTIONQUESTION'],
             date_create_from_format('d/m/Y',$objetFormatTableau['DATECREATION']),
@@ -45,20 +46,21 @@ class QuestionRepository extends AbstractRepository
         );
     }
 
-    public function creerQuestion(Question $question, string $idUser, $nbSections, int $nbPhases)
+    public function creerQuestion(Question $question, $nbSections, int $nbPhases)
     { // tentative pour réduire le temps d'attente apres la creatioin d'une question
         $intitule = $question->getIntitule();
+        $idOganisateur = $question->getIdOrganisateur();
         $description = $question->getDescription();
         $dateCreation = $question->getDateCreation()->format('d/m/Y');
         $dateFermeture = $question->getDateFermeture()->format('d/m/Y');
-        $sql = "call CREERQUESTION(:idUser, :intitule, :description, :dateCreation, :dateFermeture, :nbSections, :nbPhases)";
+        $sql = "call CREERQUESTION(:idOrganisateur, :intitule, :description, :dateCreation, :dateFermeture, :nbSections, :nbPhases)";
 
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $pdostatement = $pdo->prepare($sql);
 
         $parametres = [
-            'idUser' => $idUser,
+            'idOrganisateur' => $idOganisateur,
             'intitule' => $intitule,
             'description' => $description,
             'dateCreation' => $dateCreation,

@@ -38,7 +38,7 @@ class Conf {
     }
 
     static public function getDureeExpiration(): int{
-        return 100;
+        return 3600;
     }
 }
 ?>

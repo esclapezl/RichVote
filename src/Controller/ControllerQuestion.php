@@ -69,8 +69,8 @@ class ControllerQuestion extends GenericController
         $nbPhases = $_POST['nbPhases'];
         $dateCreation = date_create();
         $dateFermeture = date_create($_POST['dateFermeture']);
-        $question = new Question(null, $intitule, 'description', $dateCreation, $dateFermeture, Phase::emptyPhase());
-        $question = (new QuestionRepository())->creerQuestion($question, ConnexionUtilisateur::getLoginUtilisateurConnecte(), $nbSections, $nbPhases);
+        $question = new Question(null, ConnexionUtilisateur::getLoginUtilisateurConnecte() , $intitule, 'description', $dateCreation, $dateFermeture, Phase::emptyPhase());
+        $question = (new QuestionRepository())->creerQuestion($question, $nbSections, $nbPhases);
 
         $parametres = array(
             'pagetitle' => 'Ajuster Question',
