@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/Model/Repository/UserRepository.php&#10;#&#9;src/View/question/list.php">
-      <change afterPath="$PROJECT_DIR$/assets/img/icon-refresh.svg" afterDir="false" />
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="detail User">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/img/icon-refresh.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/View/question/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/list.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,31 +33,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sae-website/assets/img&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/xampp/htdocs/sae-website/src/View/infosVote",
+    "list.type.of.created.stylesheet": "CSS",
+    "php.override.implement.member.chooser.php.doc": "NONE",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\sae-website\src\View\infosVote" />
       <recent name="C:\xampp\htdocs\sae-website\assets\img" />
       <recent name="C:\xampp\htdocs\sae-website\assets" />
       <recent name="C:\xampp\htdocs\sae-website\web\img" />
       <recent name="C:\xampp\htdocs\sae-website\src\View\images" />
-      <recent name="$PROJECT_DIR$/src/view" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\sae-website\assets\img" />
+      <recent name="C:\xampp\htdocs\sae-website\src\View\vote" />
+      <recent name="C:\xampp\htdocs\sae-website\src\View\infosVote" />
       <recent name="C:\xampp\htdocs\sae-website\assets" />
       <recent name="C:\xampp\htdocs\sae-website\web\img" />
       <recent name="C:\xampp\htdocs\sae-website\web\trailer" />
-      <recent name="C:\xampp\htdocs\sae-website\src\View\user" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -94,20 +92,6 @@
       <workItem from="1668521857882" duration="4091000" />
       <workItem from="1669628515602" duration="2121000" />
       <workItem from="1669639780301" duration="1967000" />
-    </task>
-    <task id="LOCAL-00001" summary="structure">
-      <created>1666707099608</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1666707099608</updated>
-    </task>
-    <task id="LOCAL-00002" summary="structure">
-      <created>1666707133573</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1666707133573</updated>
     </task>
     <task id="LOCAL-00003" summary="structure">
       <created>1666707181712</created>
@@ -417,14 +401,42 @@
       <option name="project" value="LOCAL" />
       <updated>1669630635148</updated>
     </task>
-    <task id="LOCAL-00047" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/Model/Repository/UserRepository.php&#10;#&#9;src/View/question/list.php">
-      <created>1669680623548</created>
+    <task id="LOCAL-00047" summary="changer mdp">
+      <created>1669676968457</created>
       <option name="number" value="00047" />
       <option name="presentableId" value="LOCAL-00047" />
       <option name="project" value="LOCAL" />
-      <updated>1669680623548</updated>
+      <updated>1669676968457</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="changer mdp">
+      <created>1669677248320</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1669677248320</updated>
+    </task>
+    <task id="LOCAL-00049" summary="BarreDeRecherche v1.1">
+      <created>1669750224483</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1669750224483</updated>
+    </task>
+    <task id="LOCAL-00050" summary="BarreDeRecherche v1.2 &amp; Detail Question">
+      <created>1669753618363</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1669753618364</updated>
+    </task>
+    <task id="LOCAL-00051" summary="detail User">
+      <created>1669754180590</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1669754180590</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -442,8 +454,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="vue connexion" />
-    <MESSAGE value="listQuestion : modif ajouté" />
     <MESSAGE value="modifyQuestion" />
     <MESSAGE value="modifyQuestion, modifyQuestion -&gt; interface update" />
     <MESSAGE value="réglages creer/supprimer question" />
@@ -465,8 +475,10 @@
     <MESSAGE value="listQuestions update" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="maj mdp&#10;(abstract update a changer)" />
-    <MESSAGE value="Commit barre Recherche v0.9" />
-    <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/Model/Repository/UserRepository.php&#10;#&#9;src/View/question/list.php" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/Model/Repository/UserRepository.php&#10;#&#9;src/View/question/list.php" />
+    <MESSAGE value="changer mdp" />
+    <MESSAGE value="BarreDeRecherche v1.1" />
+    <MESSAGE value="BarreDeRecherche v1.2 &amp; Detail Question" />
+    <MESSAGE value="detail User" />
+    <option name="LAST_COMMIT_MESSAGE" value="detail User" />
   </component>
 </project>

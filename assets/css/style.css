@@ -457,10 +457,11 @@ a.optQuestion,
     padding: 10px;
 }
 input.opt{
-    width: 30%;
+    width: 100%;
 }
 .opt{
     margin-right: 10px;
+
 }
 
 .optQuestion{
@@ -495,7 +496,6 @@ button.opt{
 
     background: none;
     border: 1px solid white;
-    transition: 1s;
 }
 #refresh img{
     height: 50%;
@@ -506,8 +506,9 @@ button.opt{
     align-items: center;
     justify-content: center;
     border: 1px solid white;
-    transition: 1s;
+    margin-right: 10px;
 }
+
 a > #refresh,
 button.opt{
     height: 100%;
@@ -529,7 +530,9 @@ button.opt.active,
     align-items: initial;
 
 }
-
+form.ligneAlign{
+    width: 70vh;
+}
 form input{
 
     font-size: 1em;
@@ -566,17 +569,20 @@ textarea{
     justify-content: space-between;
 }
 
-.block .text-box ul div.ligneExt a h2{
-    height: 150px;
+.liste{
+    height: 140px;
+}
+a h2{
+    width: 100%;
 }
 
 .block .text-box h2{
-    width: 100%;
-    padding: 20px;
+
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    width: 40%;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 15px;
@@ -735,6 +741,13 @@ textarea{
     background: rgba( 255, 0, 0, 0.25 );
 }
 
+#colorSupU{
+    color: #ffa9a9;
+}
+#colorModifU{
+    color: #aca9ff;
+}
+
 
 
 
@@ -751,27 +764,33 @@ textarea{
 
 
     .block .text-box li,
-    .block .text-box a h2,
+    .block .text-box h2,
     .optQuestion,
     .opt{
-        font-size: 0.7em;
-        height: 120%;
+        font-size: 0.6em;
+    }
+    .block .text-box ul div.ligneExt h2 {
+        height: 150%;
+
     }
     .ligneExt h3:nth-child(2){
-        font-size: 1.2em;
+        font-size: 0.8em;
     }
-    button.opt img{
+    a#refresh{
+
+        padding: 10px;
+    }
+    button.opt img,
+    #refresh img{
         height: 18px;
     }
 
 
-
-
-
-    a.abis,
-    .ligneExt div{
+    .abis{
         display: none;
-
+    }
+    form.ligneAlign{
+        width: 100%;
     }
 
     .navBar #logo{
@@ -788,7 +807,6 @@ textarea{
         z-index: 1;
         display: flex;
     }
-
 
     .navBar ul{
         z-index: 1;

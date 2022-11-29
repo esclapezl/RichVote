@@ -16,7 +16,7 @@ class ControllerQuestion extends GenericController
     {
 
         if (isset($_POST['title']) AND !empty($_POST['title'])){
-            $recherche= htmlspecialchars($_POST['title']);
+            $recherche= strtolower(htmlspecialchars($_POST['title']));
             $questions = (new QuestionRepository)->search($recherche);
         }
         else{
