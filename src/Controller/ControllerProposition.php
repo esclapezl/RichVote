@@ -6,6 +6,7 @@ use App\Lib\MessageFlash;
 use App\Model\DataObject\Proposition;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
+use App\Model\Repository\UserRepository;
 
 class ControllerProposition extends GenericController
 {
@@ -120,8 +121,4 @@ class ControllerProposition extends GenericController
 //        self::afficheVue('view.php', $parametres);
     }
 
-    public static function voter(){
-        $proposition = (new PropositionRepository())->select($_GET['idProposition']);
-        (new PropositionRepository())->setScore($proposition, $_GET['score']);
-    }
 }

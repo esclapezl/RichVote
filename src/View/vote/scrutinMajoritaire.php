@@ -16,4 +16,16 @@
         </p>
         <div class="descG"></div>
     </div>
+
+    <form method="get" action="frontController.php?controller=vote&action=scrutinMajoritaireVoted&score=1&idUser='souvignetn'">
+        <?php
+        /** @var Proposition[] $propositions */
+        foreach ($propositions as $proposition){
+            $idProposition = $proposition->getId();
+            echo"<input type='radio' id='p$idProposition' name='idProposition' value='$idProposition'>";
+        }
+
+        ?>
+        <button type="submit"> valider </button>
+    </form>
 </div>
