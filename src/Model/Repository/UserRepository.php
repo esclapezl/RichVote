@@ -109,6 +109,21 @@ class UserRepository extends AbstractRepository
         return $result;
     }
 
+    public function getRole(string $id) : string{
+        $sql = 'SELECT "role" FROM souvignetn.Users WHERE "idUser" = :id';
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute(array(
+            'id' => $id
+        ));
+
+        $result = $pdoStatement->fetch()[0];
+        return $result;
+    }
+
+
+
     public function voter(User $user, Proposition $proposition, int $score){
         $sql = "CALL voter(:idVotant, :idProposition, :scoreVote)";
         $pdo = DatabaseConnection::getInstance()::getPdo();
