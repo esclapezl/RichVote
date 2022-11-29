@@ -569,8 +569,8 @@ textarea{
     justify-content: space-between;
 }
 
-.block .text-box ul div.ligneExt a h2.list{
-    height: 150px;
+.liste{
+    height: 140px;
 }
 a h2{
     width: 100%;
@@ -578,11 +578,11 @@ a h2{
 
 .block .text-box h2{
 
-    padding: 20px;
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    width: 40%;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 15px;

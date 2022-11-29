@@ -54,7 +54,7 @@ use App\Model\DataObject\Question;
             </div>
             </li>
            
-            <h2 class="list">'
+            <h2 class="liste">'
                 . $typePhase . '</h2>
         
             </div>';
