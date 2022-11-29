@@ -155,7 +155,9 @@ nav{
     top: 5px;
     width: 35%;
 }
-
+.navBar #btn-connexion:first-child{
+    margin-right: 5%;
+}
 .navBar #btn-connexion,
 #formulaire{
     background-color: white;
@@ -571,17 +573,18 @@ textarea{
 
 .liste{
     height: 140px;
+    width: 40%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 a h2{
     width: 100%;
+    padding: 20px;
 }
 
 .block .text-box h2{
 
-    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -612,7 +615,7 @@ a h2{
 
 .block .text-box a h2.active,
 .block .text-box a h2:hover {
-    transform: scale(0.9);
+    transform: scale(0.95);
 }
 
 
