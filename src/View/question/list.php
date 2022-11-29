@@ -11,7 +11,7 @@ use App\Model\DataObject\Question;
             <form class="ligneAlign" method="post" action="frontController.php?controller=question&action=readAll">
                 <input type="search" class="opt" name="title" id="title" placeholder="Rechercher une Question">
                 <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
-                <a href="frontController.php?controller=question&action=readAll" class="opt"><img src="../assets/img/icon-refresh.svg"></a>
+                <a href="frontController.php?controller=question&action=readAll" id="refresh"><img src="../assets/img/icon-refresh.svg"></a>
             </form>
 <!--            <button class="opt">Trier Par</button>-->
 
