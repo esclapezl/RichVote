@@ -6,13 +6,13 @@ use App\Model\DataObject\Question;
     <div class="text-box">
         <div class="ligneExt"> <h1>Questions publiées :</h1> <div>Vous êtes connecté en tant que : <h3>Organisateur </h3></div></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
-        <div class="ligneExt"><a class="optQuestion" href="frontController.php?controller=question&action=create">Créer une Question</a></div>
-
-            <form class="ligneAlign" method="post" action="frontController.php?controller=question&action=readAll">
+        <div class="ligneExt"><form class="ligneAlign" method="post" action="frontController.php?controller=question&action=readAll">
                 <input type="search" class="opt" name="title" id="title" placeholder="Rechercher une Question">
                 <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
                 <a href="frontController.php?controller=question&action=readAll" id="refresh"><img src="../assets/img/icon-refresh.svg"></a>
-            </form>
+            </form><a class="optQuestion" href="frontController.php?controller=question&action=create">Créer une Question</a></div>
+
+
 <!--            <button class="opt">Trier Par</button>-->
 
         <ul>
@@ -53,10 +53,10 @@ use App\Model\DataObject\Question;
             
             </div>
             </li>
-            <a href=frontController.php?controller=vote&action='. $question->getCurrentPhase()->getType() .'>
-            <h2>'
+           
+            <h2 class="list">'
                 . $typePhase . '</h2>
-            </a>
+        
             </div>';
         }?>
     </ul>

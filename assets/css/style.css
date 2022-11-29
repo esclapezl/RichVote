@@ -457,10 +457,11 @@ a.optQuestion,
     padding: 10px;
 }
 input.opt{
-    width: 30%;
+    width: 100%;
 }
 .opt{
     margin-right: 10px;
+
 }
 
 .optQuestion{
@@ -505,6 +506,7 @@ button.opt{
     align-items: center;
     justify-content: center;
     border: 1px solid white;
+    margin-right: 10px;
 }
 
 a > #refresh,
@@ -528,7 +530,9 @@ button.opt.active,
     align-items: initial;
 
 }
-
+form.ligneAlign{
+    width: 70vh;
+}
 form input{
 
     font-size: 1em;
@@ -565,12 +569,15 @@ textarea{
     justify-content: space-between;
 }
 
-.block .text-box ul div.ligneExt a h2{
+.block .text-box ul div.ligneExt a h2.list{
     height: 150px;
+}
+a h2{
+    width: 100%;
 }
 
 .block .text-box h2{
-    width: 100%;
+
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -750,27 +757,33 @@ textarea{
 
 
     .block .text-box li,
-    .block .text-box a h2,
+    .block .text-box h2,
     .optQuestion,
     .opt{
-        font-size: 0.7em;
-        height: 120%;
+        font-size: 0.6em;
+    }
+    .block .text-box ul div.ligneExt h2 {
+        height: 150%;
+
     }
     .ligneExt h3:nth-child(2){
-        font-size: 1.2em;
+        font-size: 0.8em;
     }
-    button.opt img{
+    a#refresh{
+
+        padding: 10px;
+    }
+    button.opt img,
+    #refresh img{
         height: 18px;
     }
 
 
-
-
-
-    a.abis,
-    .ligneExt div{
+    .abis{
         display: none;
-
+    }
+    form.ligneAlign{
+        width: 100%;
     }
 
     .navBar #logo{
@@ -787,7 +800,6 @@ textarea{
         z-index: 1;
         display: flex;
     }
-
 
     .navBar ul{
         z-index: 1;
