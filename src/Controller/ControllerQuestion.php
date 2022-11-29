@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Lib\ConnexionUtilisateur;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
@@ -62,7 +63,7 @@ class ControllerQuestion extends GenericController
         $nbPhases = $_POST['nbPhases'];
         $dateCreation = date_create();
         $dateFermeture = date_create($_POST['dateFermeture']);
-        $question = new Question(null, $intitule, 'description', $dateCreation, $dateFermeture, Phase::emptyPhase());
+        $question = new Question(null, ConnexionUtilisateur::getLoginUtilisateurConnecte() , $intitule, 'description', $dateCreation, $dateFermeture, Phase::emptyPhase());
         $question = (new QuestionRepository())->creerQuestion($question, $nbSections, $nbPhases);
 
         $parametres = array(

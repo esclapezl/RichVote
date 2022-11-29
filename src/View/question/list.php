@@ -70,7 +70,7 @@ use App\Model\Repository\UserRepository;
            </div>
             <div>
             <a class="abis" href=frontController.php?controller=user&action=read&id=' .
-                $question->getOrganisateur() . '>Organisateur<strong>' . $question->getOrganisateur() . '</strong>
+                $question->getIdOrganisateur() . '>Organisateur<strong>' . $question->getIdOrganisateur() . '</strong>
             </a>
             </div>
             </li>

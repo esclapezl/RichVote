@@ -6,6 +6,7 @@ use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
+use App\Lib\ConnexionUtilisateur;
 
 class QuestionRepository extends AbstractRepository
 {
@@ -23,6 +24,7 @@ class QuestionRepository extends AbstractRepository
     {
         return [
             "idQuestion",
+            "idOrganisateur",
             "intituleQuestion",
             "descriptionQuestion",
             "dateCreation",
@@ -35,6 +37,7 @@ class QuestionRepository extends AbstractRepository
         $currentPhase = (new PhaseRepository())->getCurrentPhase($objetFormatTableau['IDQUESTION']);
         return new Question(
             $objetFormatTableau['IDQUESTION'],
+            $objetFormatTableau['IDORGANISATEUR'],
             $objetFormatTableau['INTITULEQUESTION'],
             $objetFormatTableau['DESCRIPTIONQUESTION'],
             date_create_from_format('d/m/Y',$objetFormatTableau['DATECREATION']),
@@ -43,18 +46,21 @@ class QuestionRepository extends AbstractRepository
         );
     }
 
-    public function creerQuestion(Question $question, int $nbSections, int $nbPhases){ // tentative pour réduire le temps d'attente apres la creatioin d'une question
+    public function creerQuestion(Question $question, $nbSections, int $nbPhases)
+    { // tentative pour réduire le temps d'attente apres la creatioin d'une question
         $intitule = $question->getIntitule();
+        $idOganisateur = $question->getIdOrganisateur();
         $description = $question->getDescription();
         $dateCreation = $question->getDateCreation()->format('d/m/Y');
         $dateFermeture = $question->getDateFermeture()->format('d/m/Y');
-        $sql = "call CREERQUESTION(:intitule, :description, :dateCreation, :dateFermeture, :nbSections, :nbPhases)";
+        $sql = "call CREERQUESTION(:idOrganisateur, :intitule, :description, :dateCreation, :dateFermeture, :nbSections, :nbPhases)";
 
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $pdostatement = $pdo->prepare($sql);
 
         $parametres = [
+            'idOrganisateur' => $idOganisateur,
             'intitule' => $intitule,
             'description' => $description,
             'dateCreation' => $dateCreation,
