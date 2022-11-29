@@ -18,12 +18,13 @@ $nbPlaces = $phase->getNbDePlaces();
     <input type="date" id=<?='dF'.$id?> name=<?='dateFin['.$id.']'?> value="<?=$dateFin?>">
     </div><div class="descP"></div>
 
-
-<label for="consultation"> Consultation </label>
-<input type="radio" id="consultation" name=<?='type['.$id.']'?> value="consultation" <?=$type=='consultation'?'checked':''?>>
-<label for="scrutinMajoritaire"> Scrutin majoritaire </label>
-<input type="radio" id="scrutinMajoritaire" name=<?='type['.$id.']'?> value="scrutinMajoritaire" <?=$type=='scrutinMajoritaire'?'checked':''?>>
-
+    <div>
+        Type de phase :
+        <select name="<?='type['.$id.']'?>">
+            <option value="consultation">Phase de consultation</option>
+            <option value="scrutinMajoritaire">Phase de vote par scrutin majoritaire</option>
+        </select>
+    </div>
 
 <div class="descP"></div>
     <label for=<?='nbP'.$id?>>S'il s'agit d'un vote, indiquez le nombre de propositions qui seront sélectionnées à l'issue du vote</label>
