@@ -495,7 +495,6 @@ button.opt{
 
     background: none;
     border: 1px solid white;
-    transition: 1s;
 }
 #refresh img{
     height: 50%;
@@ -506,8 +505,8 @@ button.opt{
     align-items: center;
     justify-content: center;
     border: 1px solid white;
-    transition: 1s;
 }
+
 a > #refresh,
 button.opt{
     height: 100%;
