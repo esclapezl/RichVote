@@ -54,8 +54,8 @@ use App\Model\DataObject\Question;
             </div>
             </li>
            
-            <h2 class="liste">'
-                . $typePhase . '</h2>
+            <a class="liste" href=frontController.php?controller=vote&action=' . rawurlencode($question->getCurrentPhase()->getType()) . '><h2>'
+                . $typePhase . '</h2></a>
         
             </div>';
         }?>
