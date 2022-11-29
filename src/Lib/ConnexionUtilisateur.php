@@ -30,4 +30,9 @@ class ConnexionUtilisateur
     {
         return Session::getInstance()->lire(ConnexionUtilisateur::$cleConnexion);
     }
+
+    public static function estUtilisateur($id):bool
+    {
+        return ((new ConnexionUtilisateur())->estConnecte() && (new ConnexionUtilisateur())->getLoginUtilisateurConnecte() == $id);
+    }
 }

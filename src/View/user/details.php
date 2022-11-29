@@ -1,5 +1,6 @@
 <?php
 use App\Model\DataObject\User;
+use App\Lib\ConnexionUtilisateur;
 /** @var User $user */
 ?>
 <div class="block">
@@ -10,9 +11,13 @@ use App\Model\DataObject\User;
             <?php
             echo '<div> '.$user->getNom().'</div>
                   <div> '.$user->getPrenom().'</div>
-                  <div class="descP"></div>
-              
-                  <a href="frontController.php?controller=user&action=update&id='.$user->getId(). '" style="color: #aca9ff">Modifier le mot de passe </a>'
+                  <div class="descP"></div>';
+
+              if((new ConnexionUtilisateur())->estUtilisateur($user->getId()))
+                  {
+                      echo ' <a href="frontController.php?controller=user&action=update&id='.$user->getId(). '" style="color: #aca9ff">Modifier le mot de passe </a>';
+
+                  }
 
             ?>
 

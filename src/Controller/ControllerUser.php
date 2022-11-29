@@ -75,11 +75,8 @@ class ControllerUser extends GenericController
             $connexion = (new ConnexionUtilisateur());
             $connexion->connecter($id);
 
-            $parametres = array(
-                'pagetitle' => 'Connecté en tant que '.$id,
-                'cheminVueBody' => 'user/details.php',
-                'user' => $user
-            );
+            MessageFlash::ajouter('info', 'Connecté.');
+            self::redirection('frontController.php?controller=user&action=accueil');
         }
         else
         {
@@ -183,14 +180,38 @@ class ControllerUser extends GenericController
 
     public static function update():void
     {
-        $user = (new UserRepository())->select($_GET['id']);
-        $parametres = array(
-            'pagetitle' => 'Mettre à jour un utilisateur',
-            'cheminVueBody' => 'user/update.php',
-            'user' => $user
-        );
 
-        self::afficheVue('view.php', $parametres);
+        if((new UserRepository())->select($_GET['id'] != null))
+        {
+            $user = (new UserRepository())->select($_GET['id']);
+
+
+            if((new ConnexionUtilisateur())->estUtilisateur($user->getId()))
+            {
+                MessageFlash::ajouter('danger', "Vous n'êtes pas autorisé à acceder à cette page.");
+                self::redirection('frontController.php?controller=user&action=readAll');
+            }
+
+            $parametres = array(
+                'pagetitle' => 'Mettre à jour un utilisateur',
+                'cheminVueBody' => 'user/update.php',
+                'user' => $user
+            );
+
+            self::afficheVue('view.php', $parametres);
+        }
+        else
+        {
+            essageFlash::ajouter('warning', "Cet utilisateur n'existe pas.");
+            self::redirection('frontController.php?controller=user&action=readAll');
+        }
+
+
+
+
+
+
+
     }
 
     public static function updated() : void

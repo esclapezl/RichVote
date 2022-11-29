@@ -94,38 +94,6 @@ abstract class AbstractRepository{
     }
 
 
-    public function sauvegarder(AbstractDataObject $object): AbstractDataObject
-    {
-        $colonnes = "";
-        foreach ($this->getNomsColonnes() as $colonne) {
-            if(!$colonnes =="") {
-                $colonnes .= ',';
-            }
-            $colonnes .= $colonne;
-        }
 
-        $values = "";
-        foreach ($this->getNomsColonnes() as $value) {
-            if(!$values =="") {
-                $values .= ',';
-            }
-            $values .= ":".$value . 'Tag';
-        }
-
-        $sql = 'INSERT INTO '.$this->getNomTable().'('.$colonnes.') VALUES('.$values.')';
-        var_dump($sql);
-        $pdo = DatabaseConnection::getInstance()::getPdo();
-
-        $pdoStatement = $pdo->prepare($sql);
-
-        $pdoStatement->execute($object->formatTableau());
-
-        $nomSequence = $this->getNomTable() . '_seq';
-        $sqlId = "SELECT $nomSequence.CURRVAL FROM DUAL";
-        $pdoSId = $pdo->query($sqlId);
-        $id = $pdoSId->fetch()[0];
-        var_dump($id);
-        return ($this->select($id));
-    }
 
 }
