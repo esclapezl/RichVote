@@ -52,11 +52,7 @@ abstract class AbstractRepository{
         $nomTable = $this->getNomTable();
         $nomId = $this->getNomClePrimaire();
 
-
-
         $sql = 'SELECT * FROM '.$nomTable.' WHERE '.$nomId." = '" . $id."'";
-
-
 
         $pdostatement = $pdo->query($sql);
 
@@ -89,7 +85,7 @@ abstract class AbstractRepository{
             if($nomColonne!=$nomColonnes[0]){
                 $txtsql .= ', ';
             }
-            $txtsql .= "$nomColonne = :$nomColonne";
+            $txtsql .= "$nomColonne = :$nomColonne" . 'Tag';
         }
 
         $sql = "UPDATE ".$this->getNomTable() ." SET ".$txtsql." WHERE " . $this->getNomClePrimaire() . "='".$object->getId()."'";
@@ -98,7 +94,7 @@ abstract class AbstractRepository{
     }
 
 
-    public function sauvegarder(AbstractDataObject $object): void
+    public function sauvegarder(AbstractDataObject $object): AbstractDataObject
     {
         $colonnes = "";
         foreach ($this->getNomsColonnes() as $colonne) {
@@ -113,15 +109,23 @@ abstract class AbstractRepository{
             if(!$values =="") {
                 $values .= ',';
             }
-            $values .= ":".$value;
+            $values .= ":".$value . 'Tag';
         }
 
         $sql = 'INSERT INTO '.$this->getNomTable().'('.$colonnes.') VALUES('.$values.')';
+        var_dump($sql);
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $pdoStatement = $pdo->prepare($sql);
 
         $pdoStatement->execute($object->formatTableau());
+
+        $nomSequence = $this->getNomTable() . '_seq';
+        $sqlId = "SELECT $nomSequence.CURRVAL FROM DUAL";
+        $pdoSId = $pdo->query($sqlId);
+        $id = $pdoSId->fetch()[0];
+        var_dump($id);
+        return ($this->select($id));
     }
 
 }

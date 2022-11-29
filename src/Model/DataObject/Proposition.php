@@ -99,7 +99,7 @@ class Proposition extends AbstractDataObject
     public function formatTableau(): array
     {
         return array(
-            "idPropositionTag" => $this->getIdProposition(),
+            "idPropositionTag" => $this->getId(),
             "idQuestionTag" => $this->getIdQuestion(),
             "intituleTag" => $this->getIntitule()
         );
