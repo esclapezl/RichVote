@@ -6,6 +6,7 @@ use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
+use App\Lib\ConnexionUtilisateur;
 
 class QuestionRepository extends AbstractRepository
 {
@@ -22,6 +23,7 @@ class QuestionRepository extends AbstractRepository
     protected function getNomsColonnes(): array
     {
         return [
+            "idUser",
             "idQuestion",
             "intituleQuestion",
             "descriptionQuestion",
@@ -43,18 +45,20 @@ class QuestionRepository extends AbstractRepository
         );
     }
 
-    public function creerQuestion(Question $question, int $nbSections, int $nbPhases){ // tentative pour réduire le temps d'attente apres la creatioin d'une question
+    public function creerQuestion(Question $question, string $idUser, $nbSections, int $nbPhases)
+    { // tentative pour réduire le temps d'attente apres la creatioin d'une question
         $intitule = $question->getIntitule();
         $description = $question->getDescription();
         $dateCreation = $question->getDateCreation()->format('d/m/Y');
         $dateFermeture = $question->getDateFermeture()->format('d/m/Y');
-        $sql = "call CREERQUESTION(:intitule, :description, :dateCreation, :dateFermeture, :nbSections, :nbPhases)";
+        $sql = "call CREERQUESTION(:idUser, :intitule, :description, :dateCreation, :dateFermeture, :nbSections, :nbPhases)";
 
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $pdostatement = $pdo->prepare($sql);
 
         $parametres = [
+            'idUser' => $idUser,
             'intitule' => $intitule,
             'description' => $description,
             'dateCreation' => $dateCreation,

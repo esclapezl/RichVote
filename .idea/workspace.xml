@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="list + detail">
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="BarreDeRecherche v1.1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ControllerQuestion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ControllerQuestion.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Repository/QuestionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/QuestionRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/phase/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/phase/update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/question/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/create.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +25,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -31,17 +35,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/xampp/htdocs/sae-website/src/View/infosVote",
-    "list.type.of.created.stylesheet": "CSS",
-    "php.override.implement.member.chooser.php.doc": "NONE",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sae-website/src/View/infosVote&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\sae-website\src\View\infosVote" />
@@ -90,6 +94,34 @@
       <workItem from="1668521857882" duration="4091000" />
       <workItem from="1669628515602" duration="2121000" />
       <workItem from="1669639780301" duration="1967000" />
+    </task>
+    <task id="LOCAL-00001" summary="structure">
+      <created>1666707099608</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1666707099608</updated>
+    </task>
+    <task id="LOCAL-00002" summary="structure">
+      <created>1666707133573</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1666707133573</updated>
+    </task>
+    <task id="LOCAL-00003" summary="structure">
+      <created>1666707181712</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1666707181712</updated>
+    </task>
+    <task id="LOCAL-00004" summary="structure">
+      <created>1666708272158</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1666708272158</updated>
     </task>
     <task id="LOCAL-00005" summary="view.php">
       <created>1666708595161</created>
@@ -406,35 +438,7 @@
       <option name="project" value="LOCAL" />
       <updated>1669750224483</updated>
     </task>
-    <task id="LOCAL-00050" summary="BarreDeRecherche v1.2 &amp; Detail Question">
-      <created>1669753618363</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1669753618364</updated>
-    </task>
-    <task id="LOCAL-00051" summary="detail User">
-      <created>1669754180590</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1669754180590</updated>
-    </task>
-    <task id="LOCAL-00052" summary="list">
-      <created>1669755005785</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1669755005785</updated>
-    </task>
-    <task id="LOCAL-00053" summary="list + detail">
-      <created>1669755941385</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1669755941385</updated>
-    </task>
-    <option name="localTasksCounter" value="54" />
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -452,6 +456,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="vue connexion" />
+    <MESSAGE value="listQuestion : modif ajouté" />
+    <MESSAGE value="modifyQuestion" />
+    <MESSAGE value="modifyQuestion, modifyQuestion -&gt; interface update" />
     <MESSAGE value="réglages creer/supprimer question" />
     <MESSAGE value="modifier" />
     <MESSAGE value="last" />
@@ -473,10 +481,6 @@
     <MESSAGE value="maj mdp&#10;(abstract update a changer)" />
     <MESSAGE value="changer mdp" />
     <MESSAGE value="BarreDeRecherche v1.1" />
-    <MESSAGE value="BarreDeRecherche v1.2 &amp; Detail Question" />
-    <MESSAGE value="detail User" />
-    <MESSAGE value="list" />
-    <MESSAGE value="list + detail" />
-    <option name="LAST_COMMIT_MESSAGE" value="list + detail" />
+    <option name="LAST_COMMIT_MESSAGE" value="BarreDeRecherche v1.1" />
   </component>
 </project>
