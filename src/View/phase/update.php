@@ -13,15 +13,14 @@ $nbPlaces = $phase->getNbDePlaces();
 <p>
     <div>Début :
     <input type="date" id=<?='dD'.$id?> name=<?='dateDebut['.$id.']'?> value="<?=$dateDebut?>">
-    </div>
+    </div><div class="descP"></div>
     <div>Fin :
     <input type="date" id=<?='dF'.$id?> name=<?='dateFin['.$id.']'?> value="<?=$dateFin?>">
-    </div>
+    </div><div class="descP"></div>
     <select name="phase" size="1">
-        <option value="consultation">Consultation
-        <option value="scrutinMajoritaire">Vote par scrutin majoritaire
+        <option value="consultation">Phase de consultation
+        <option value="scrutinMajoritaire">Phase de vote par scrutin majoritaire
     </select>
-    <input type="submit" value="Valider" />
 
 
     <label for="consultation"> Consultation </label>

@@ -476,27 +476,52 @@ input.opt{
     border-radius: 15px;
 }
 
-button.opt img{
+button.opt img,
+#refresh img{
     margin: 0;
-
 }
-.opt{
+button.opt img{
+    height: 80%;
+}
+
+.opt,
+#refresh{
     border-radius: 20px;
     color: mediumblue;
     margin-bottom: 15px;
 }
 button.opt{
     cursor: pointer;
-    border-color: white;
+
     background: none;
-    border-width: 1px;
+    border: 1px solid white;
     transition: 1s;
 }
+#refresh img{
+    height: 50%;
+}
+
+#refresh{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+    transition: 1s;
+}
+a > #refresh,
+button.opt{
+    height: 100%;
+}
+
+
 
 button.opt:hover,
-button.opt.active {
-    transform: rotate(360deg);
+button.opt.active,
+#refresh:hover,
+#refresh.active{
+    background: rgba(255,255,255,0.2);
 }
+
 
 
 .ligneAlign{

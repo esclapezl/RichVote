@@ -26,7 +26,9 @@ class UserRepository extends AbstractRepository
             "MDP",
             "PRENOMUSER",
             "NOMUSER",
-            '"role"'
+            '"role"',
+            "ESTADMIN",
+            "EMAIL"
         ];
 
     }
@@ -38,7 +40,9 @@ class UserRepository extends AbstractRepository
             $objetFormatTableau['MDP'],
             $objetFormatTableau['PRENOMUSER'],
             $objetFormatTableau['NOMUSER'],
-            $objetFormatTableau['role']
+            $objetFormatTableau['role'],
+            $objetFormatTableau['ESTADMIN'],
+            $objetFormatTableau['EMAIL']
         );
     }
 
@@ -72,8 +76,23 @@ class UserRepository extends AbstractRepository
         return true;
 
         //return var_dump($pdoStatement->fetch());
+    }
 
+    public function checkEmail(string $email):bool
+    {
 
+        $sql = "SELECT * FROM souvignetn.Users WHERE EMAIL = :email";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $pdoStatement->execute(array(
+            'email' => $email
+        ));
+
+        if ($pdoStatement->fetch()) {
+            return false;
+        }
+        return true;
+
+        //return var_dump($pdoStatement->fetch());
     }
 
     public function getRoleQuestion(string $user, string $question) : string{
