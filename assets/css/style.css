@@ -681,7 +681,6 @@ a h2{
 {
 
     font-size: 1em;
-    transition: 0.2s;
 }
 
 .block .text-box img,
@@ -693,6 +692,9 @@ a h2{
     padding: 10px;
     font-size: 1em;
     color: mediumslateblue;
+}
+a{
+    color: white;
 }
 
 .descG{
@@ -769,7 +771,7 @@ a h2{
         font-size: 0.6em;
     }
     .block .text-box ul div.ligneExt h2 {
-        height: 150%;
+        height: 100%;
 
     }
     .ligneExt h3:nth-child(2){

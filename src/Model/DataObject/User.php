@@ -23,7 +23,7 @@ class User extends AbstractDataObject
      * @param string $role
      * @param bool $Admin
      */
-    public function __construct(string $id, string $mdp, string $prenom, string $nom, string $role, bool $Admin,string $email)
+    public function __construct(string $id, string $mdp, string $prenom, string $nom, string $role, bool $Admin, string $email)
     {
         $this->id = $id;
         $this->mdpHache = $mdp;
@@ -41,6 +41,7 @@ class User extends AbstractDataObject
     {
         return $this->estAdmin;
     }
+
 
     /**
      * @param bool $estAdmin
