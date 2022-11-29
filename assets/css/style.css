@@ -155,7 +155,9 @@ nav{
     top: 5px;
     width: 35%;
 }
-
+.navBar #btn-connexion:first-child{
+    margin-right: 5%;
+}
 .navBar #btn-connexion,
 #formulaire{
     background-color: white;
