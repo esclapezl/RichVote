@@ -19,7 +19,7 @@ $user = (new UserRepository())->select($_GET['id']);
         //IDENTIFIANT
         if(isset($_GET['modif'])&&$_GET['modif']=='identifiant')
         {
-            echo  '<input type="text" id="identifiant" name="identifiant" placeholder="Identifiant" size="50"> <button type="submit" class="opt"><img src="../assets/img/icons8-coche.svg"></button>';
+            echo  '<input required type="text" id="identifiant" name="identifiant" placeholder="Identifiant" size="50"> <button type="submit" class="opt"><img src="../assets/img/icons8-coche.svg"></button>';
         }
         else
         {
@@ -32,7 +32,7 @@ $user = (new UserRepository())->select($_GET['id']);
         //NOM
         if(isset($_GET['modif'])&&$_GET['modif']=='nom')
         {
-            echo '<input type="text" id="nom" name="nom" placeholder="Nom" size="50"> <button type="submit" class="opt"><img src="../assets/img/icons8-coche.svg"></button>';
+            echo '<input type="text" id="nom" name="nom" placeholder="Nom" size="50" required> <button type="submit" class="opt"><img src="../assets/img/icons8-coche.svg"></button>';
         }
         else
         {
@@ -43,7 +43,7 @@ $user = (new UserRepository())->select($_GET['id']);
         //PRENOM
         if(isset($_GET['modif'])&&$_GET['modif']=='prenom')
         {
-            echo '<input type="text" id="prenom" name="prenom" placeholder="Prenom" size="50"> <button type="submit" class="opt"><img src="../assets/img/icons8-coche.svg"></button>';
+            echo '<input type="text" id="prenom" name="prenom" placeholder="Prenom" size="50" required> <button type="submit" class="opt"><img src="../assets/img/icons8-coche.svg"></button>';
         }
         else
         {
@@ -54,7 +54,7 @@ $user = (new UserRepository())->select($_GET['id']);
         //EMAIL
         if(isset($_GET['modif'])&&$_GET['modif']=='email')
         {
-            echo '<div><input type="text" id="email" name="email" placeholder="Email" size="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"> <button type="submit" class="opt"><img src="../assets/img/icons8-coche.svg"></button></div>';
+            echo '<div><input type="text" required id="email" name="email" placeholder="Email" size="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"> <button type="submit" class="opt"><img src="../assets/img/icons8-coche.svg"></button></div>';
         }
         else
         {
