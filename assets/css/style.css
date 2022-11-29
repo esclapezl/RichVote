@@ -468,6 +468,7 @@ input.opt{
 
 .optQuestion{
 
+
     display: flex;
     background-color: white;
     color: mediumblue;
@@ -509,6 +510,7 @@ button.opt{
     justify-content: center;
     border: 1px solid white;
     margin-right: 10px;
+
 }
 
 a > #refresh,
@@ -541,7 +543,7 @@ form input{
 }
 form input.optQuestion{
     font-size: 1.5em;
-    width: 50%;
+    width: 100%;
     height: 50px;
 }
 textarea{
@@ -551,7 +553,7 @@ textarea{
 
 
 .block .text-box div .optQuestion{
-    width: 25%;
+    width: 80%;
     height: 30%;
 }
 
@@ -679,8 +681,24 @@ a h2{
 
 .block .text-box p
 {
+    font-size: 1.2em;
+}
 
-    font-size: 1em;
+
+
+input[type="checkbox"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 20px 0 20px;
+    background-color: #fff;
+    width: 2em;
+    height: 2em;
+    color: mediumblue;
+    border: 10px solid mediumblue;
+    border-radius: 50px;
+
+
 }
 
 .block .text-box img,
@@ -693,8 +711,11 @@ a h2{
     font-size: 1em;
     color: mediumslateblue;
 }
-a{
+.ligneCent > a{
     color: white;
+}
+a{
+    color: mediumblue;
 }
 
 .descG{

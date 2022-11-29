@@ -169,11 +169,38 @@ class ControllerUser extends GenericController
 
     public static function readAll() : void
     {
-        $arrayUser = (new UserRepository())->selectAll();
+        if (isset($_POST['title']) AND !empty($_POST['title'])){
+            $recherche= strtolower(htmlspecialchars($_POST['title']));
+            $arrayUser = (new UserRepository())->search($recherche);
+        }
+        else{
+            $arrayUser = (new UserRepository())->selectAll();
+        }
+
 
         $parametres = array(
             'pagetitle' => 'Liste Utilisateurs',
             'cheminVueBody' => 'user/list.php',
+            'users' => $arrayUser
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
+    public static function readAllSelect() : void
+    {
+        if (isset($_POST['title']) AND !empty($_POST['title'])){
+            $recherche= strtolower(htmlspecialchars($_POST['title']));
+            $arrayUser = (new UserRepository())->search($recherche);
+        }
+        else{
+            $arrayUser = (new UserRepository())->selectAll();
+        }
+
+
+        $parametres = array(
+            'pagetitle' => 'Liste Utilisateurs',
+            'cheminVueBody' => 'user/listOrganisateur.php',
             'users' => $arrayUser
         );
 

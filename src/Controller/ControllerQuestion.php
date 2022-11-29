@@ -31,12 +31,6 @@ class ControllerQuestion extends GenericController
         self::afficheVue('view.php', $parametres);
     }
 
-    public static function search() : void
-    {
-        MessageFlash::ajouter('success', 'La question est désormais en ligne.');
-        self::redirection('frontController.php?controller=question&action=readAll');
-    }
-
     public static function read() : void
     {
         $idQuestion = $_GET['id'];
