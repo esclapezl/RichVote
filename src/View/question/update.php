@@ -11,6 +11,15 @@ use App\Model\DataObject\Question;
             <h1><legend>Votre Question</legend></h1>
             <div class="ligneCent"><div class="ligne"></div></div>
             <div class="descG"></div>
+            <?php
+            $phases = (new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($question->getId());
+            for($i=0; $i<count($phases); $i++){
+            $phase = $phases[$i];
+            echo '<h3> Phase '.$i + 1 .'</h3>';
+            echo '<div class="descP"></div>';
+            require __DIR__ .'/../phase/update.php';
+            echo '<div class="descG"></div>';
+            }?>
 
             <p>
             <h3>Question :</h3>
@@ -23,15 +32,6 @@ use App\Model\DataObject\Question;
             </p>
             <div class="descG"></div>
             <?php
-
-            $phases = (new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($question->getId());
-            for($i=0; $i<count($phases); $i++){
-                $phase = $phases[$i];
-                echo '<h3> Phase '.$i + 1 .'</h3>';
-                echo '<div class="descP"></div>';
-                require __DIR__ .'/../phase/update.php';
-                echo '<div class="descP"></div>';
-            }
 
             $sections = $question->getSections();
             for($i=0; $i<count($sections); $i++){
