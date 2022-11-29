@@ -109,12 +109,15 @@ class ControllerUser extends GenericController
         $cmdp = $_POST['confirmerMotDePasse'];
         $prenom = $_POST['prenom'];
         $nom = $_POST['nom'];
+        $email = $_POST['email'];
+        $estAdmin = false;
 
         $userRepository = new UserRepository();
-        $user = new User($idUser, $userRepository->setMdpHache($mdp),$prenom,$nom,'invité');
+        $user = new User($idUser, $userRepository->setMdpHache($mdp), $prenom, $nom, 'invité', $estAdmin, $email);
 
         if ($userRepository->checkCmdp($mdp, $cmdp)          //check si aucune contrainte n'a été violée
-            && $userRepository->checkId($idUser))
+            && $userRepository->checkId($idUser)
+            && $userRepository->checkEmail($email))
         {
             $userRepository->sauvegarder($user);
             $parametres = array(
@@ -136,15 +139,28 @@ class ControllerUser extends GenericController
                 );
 
             }
+            if(!$userRepository->checkEmail($email))
+            {
+                $parametres = array(
+                    'pagetitle' => 'Erreur',
+                    'cheminVueBody' => 'user/inscription.php',
+                    'persistanceValeurs' => array('idUser' => $idUser,
+                        'nom' => $nom,
+                        'prenom' => $prenom),
+                    'msgErreur' =>  'L\'email '.$email.' est déjà utilisé.'
+                );
+            }
             if (!$userRepository->checkId($idUser)) {
                 $parametres = array(
                     'pagetitle' => 'Erreur',
                     'cheminVueBody' => 'user/inscription.php',
                     'persistanceValeurs' => array('nom' => $nom,
-                                                    'prenom' => $prenom),
+                                                    'prenom' => $prenom,
+                        'email'=> $email),
                     'msgErreur' =>  'L\'identifiant '.$idUser.' est déjà utilisé.'
                 );
             }
+
         }
         self::afficheVue('view.php', $parametres);
     }
@@ -204,13 +220,6 @@ class ControllerUser extends GenericController
             MessageFlash::ajouter('warning', "Cet utilisateur n'existe pas.");
             self::redirection('frontController.php?controller=user&action=readAll');
         }
-
-
-
-
-
-
-
     }
 
     public static function updated() : void
