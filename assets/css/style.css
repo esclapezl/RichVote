@@ -467,7 +467,7 @@ input.opt{
 }
 
 .optQuestion{
-
+    width: 100%;
 
     display: flex;
     background-color: white;
@@ -543,7 +543,7 @@ form input{
 }
 form input.optQuestion{
     font-size: 1.5em;
-    width: 100%;
+    width: 50%;
     height: 50px;
 }
 textarea{
@@ -553,7 +553,7 @@ textarea{
 
 
 .block .text-box div .optQuestion{
-    width: 80%;
+    width: 25%;
     height: 30%;
 }
 
