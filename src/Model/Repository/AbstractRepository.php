@@ -46,7 +46,7 @@ abstract class AbstractRepository{
 
 
 
-    public function select(string $id) : AbstractDataObject{
+    public function select(string $id) : ?AbstractDataObject{
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $nomTable = $this->getNomTable();
@@ -61,10 +61,14 @@ abstract class AbstractRepository{
         $pdostatement = $pdo->query($sql);
 
         $objectTab = $pdostatement->fetch();
+        if(!$objectTab) {
+            return null;
+        }
+        else {
+            $object = $this->construire($objectTab);
+            return $object;
+        }
 
-        $object = $this->construire($objectTab);
-
-        return $object;
     }
 
     public function delete(string $valeurClePrimaire): void

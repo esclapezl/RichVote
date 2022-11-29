@@ -12,7 +12,7 @@ use App\Model\DataObject\User;
                   <div> '.$user->getPrenom().'</div>
                   <div class="descP"></div>
               
-                  <a href="frontController.php?controller=user&action=update&id='.$user->getId().'" style="color: lightblue">Modifier le mot de passe </a>'
+                  <a href="frontController.php?controller=user&action=update&id='.$user->getId(). '" style="color: #aca9ff">Modifier le mot de passe </a>'
 
             ?>
 

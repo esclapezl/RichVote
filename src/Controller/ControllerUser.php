@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Lib\ConnexionUtilisateur;
+use App\Lib\MessageFlash;
 use App\Model\DataObject\User;
 use App\Model\HTTP\Cookie;
 use App\Model\Repository\UserRepository;
@@ -60,6 +62,49 @@ class ControllerUser extends GenericController
         ]);
     }
 
+    public static function connected()
+    {
+        $id = $_POST['id'];
+        $mdp =  $_POST['mdp'];
+
+        $userRepository = (new UserRepository());
+        $user = $userRepository->select($id);
+        if($user != null
+        && $userRepository->checkCmdp($user->getMdpHache(),$userRepository->setMdpHache($mdp)))
+        {
+            $connexion = (new ConnexionUtilisateur());
+            $connexion->connecter($id);
+
+            $parametres = array(
+                'pagetitle' => 'Connecté en tant que '.$id,
+                'cheminVueBody' => 'user/details.php',
+                'user' => $user
+            );
+        }
+        else
+        {
+            if($user == null)
+            {
+                $parametres = array(
+                    'pagetitle' => 'Erreur',
+                    'cheminVueBody' => 'user/connexion.php',
+                    'msgErreurId' =>  "Cet utilisateur n'existe pas."
+                );
+            }
+            else if(!$userRepository->checkCmdp($user->getMdpHache(),$userRepository->setMdpHache($mdp)))
+            {
+                $parametres = array(
+                    'pagetitle' => 'Erreur',
+                    'cheminVueBody' => 'user/connexion.php',
+                    'msgErreurMdp' =>  "Mot de passe incorrect."
+                );
+            }
+        }
+        self::afficheVue('view.php', $parametres);
+
+
+    }
+
     public static function inscrit() : void
     {
         $idUser = $_POST['identifiant'];
@@ -70,10 +115,6 @@ class ControllerUser extends GenericController
 
         $userRepository = new UserRepository();
         $user = new User($idUser, $userRepository->setMdpHache($mdp),$prenom,$nom,'invité');
-
-
-
-
 
         if ($userRepository->checkCmdp($mdp, $cmdp)          //check si aucune contrainte n'a été violée
             && $userRepository->checkId($idUser))
@@ -107,9 +148,7 @@ class ControllerUser extends GenericController
                     'msgErreur' =>  'L\'identifiant '.$idUser.' est déjà utilisé.'
                 );
             }
-
         }
-
         self::afficheVue('view.php', $parametres);
     }
 
@@ -197,26 +236,12 @@ class ControllerUser extends GenericController
         self::afficheVue('view.php', $parametres);
     }
 
-
-
-
-
-
-    /*A FAIRE
-    fonctions update et updated
-    fonction delete
-    fonction readall ? Pour Admin et Organisateur quand il souhaite choisir ses votants
-    */
-
-
-
-
-
-
-
-
-
-
+    public static function deconnexion()
+    {
+        (new ConnexionUtilisateur())->deconnecter();
+        MessageFlash::ajouter('info', 'Deconnecté.');
+        self::redirection('frontController.php?controller=user&action=accueil');
+    }
 
 
 }
