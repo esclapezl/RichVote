@@ -15,6 +15,9 @@ class User extends AbstractDataObject
     private string $email;
     private bool $estAdmin;
 
+    private string $emailAValider;
+    private string $nonce;
+
 
     /**
      * @param string $id
