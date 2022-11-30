@@ -23,7 +23,6 @@ class ControllerQuestion extends GenericController
         else{
             $questions = (new QuestionRepository)->selectAll();
         }
-        var_dump($questions);
 
         $parametres = array(
             'pagetitle' => 'Liste Questions',
