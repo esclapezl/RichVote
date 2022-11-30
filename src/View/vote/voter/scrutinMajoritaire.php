@@ -15,7 +15,7 @@
             $intituleProposition = $proposition->getIntitule();
             echo '<div class="ligneCent">
                     <h3>'.ucfirst($intituleProposition).' → </h3>
-                    <label for="checkbox"  class="checkbox"><input type="radio" id='.$idProposition .' name='.$idProposition .'. value='.$idProposition .'></label>
+                    <label for="checkbox"  class="checkbox"><input type="radio" id='.$idProposition .' name=idProposition value='.$idProposition .'></label>
                     </div><div class="descP"></div>';
         }
         ?>

@@ -29,7 +29,7 @@ class Proposition extends AbstractDataObject
     /**
      * @return bool
      */
-    public function isArchive(): bool
+    public function estArchive(): bool
     {
         return $this->archive;
     }
