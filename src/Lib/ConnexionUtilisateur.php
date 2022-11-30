@@ -29,6 +29,7 @@ class ConnexionUtilisateur
 
     public static function getLoginUtilisateurConnecte(): ?string
     {
+
         return Session::getInstance()->lire(ConnexionUtilisateur::$cleConnexion);
     }
 
