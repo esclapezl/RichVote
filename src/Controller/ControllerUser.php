@@ -119,6 +119,8 @@ class ControllerUser extends GenericController
             && $userRepository->checkId($idUser)
             && $userRepository->checkEmail($email))
         {
+            $connexion = new ConnexionUtilisateur();
+            $connexion->connecter($idUser);
             $userRepository->sauvegarder($user);
             $parametres = array(
                 'pagetitle' => 'Inscription validée !',
