@@ -684,6 +684,7 @@ a h2{
 
 .abis {
     display: flex;
+    margin-left: 10px;
     justify-content: center;
     align-items: center;
     width: 100%;

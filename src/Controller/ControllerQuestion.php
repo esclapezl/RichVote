@@ -140,7 +140,7 @@ class ControllerQuestion extends GenericController
                 (new PhaseRepository())->update($p);
             }
 
-            MessageFlash::ajouter('success', 'La question : "' . $titreQuestion . '" est désormais en ligne.');
+            MessageFlash::ajouter('success', 'La question : "' . $titreQuestion . '" est désormais à jour.');
             self::redirection('frontController.php?controller=question&action=readAll');
         }
 
