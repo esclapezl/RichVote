@@ -122,10 +122,13 @@ nav{
     margin: 0 25px;
     transition: 0.5s;
 
+
 }
 
 .navBar ul li.active,.navBar ul li:hover{
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+
+
 }
 
 .navBar .btn {
@@ -698,16 +701,24 @@ a h2{
     font-size: 1.2em;
 }
 
+input[type="radio"]{
+    width: 1.5em;
+    height: 1.5em;
+}
 
+input[type="checkbox"]{
+    width: 2em;
+    height: 2em;
+}
 
-input[type="checkbox"] {
+input[type="checkbox"],
+input[type="radio"]{
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 20px 0 20px;
     background-color: #fff;
-    width: 2em;
-    height: 2em;
+
     color: mediumblue;
     border: 10px solid mediumblue;
     border-radius: 50px;
