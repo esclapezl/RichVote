@@ -17,6 +17,8 @@ abstract class AbstractRepository{
 
     public function selectAll(): array{
         $pdo = DatabaseConnection::getInstance()::getPdo();
+        $sqlUpdate = 'CALL updatePhase()';
+        $pdo->query($sqlUpdate);
 
         $nomTable = $this->getNomTable();
 
