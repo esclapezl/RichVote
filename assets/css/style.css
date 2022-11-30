@@ -833,7 +833,8 @@ a{
     }
 
 
-    .abis{
+    .abis,
+    .responsive{
         display: none;
     }
     form.ligneAlign{

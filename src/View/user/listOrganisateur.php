@@ -10,8 +10,6 @@ use App\Model\Repository\UserRepository;
             if(ConnexionUtilisateur::estConnecte()){
                 $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
                 echo "<div>Vous êtes connecté en tant que :<h3>".ucfirst((new UserRepository())->getRole($idUser))."</h3></div>";
-
-
             }
             else{
                 echo "<h3>Vous n'êtes pas connecté</h3>";
