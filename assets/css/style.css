@@ -462,6 +462,7 @@ footer .vague#vague4{
 
 .optQuestion{
     padding: 20px;
+    border: none;
 }
 a.optQuestion,
 .opt{
@@ -474,9 +475,12 @@ input.opt{
     margin-right: 10px;
 
 }
-
+input.optQuestion{
+    width: 80%;
+}
 .optQuestion{
     width: 100%;
+    height: 100%;
 
     display: flex;
     background-color: white;
@@ -489,6 +493,15 @@ input.opt{
     border-radius: 15px;
 }
 
+form input.optQuestion{
+    font-size: 1.5em;
+    width: 50%;
+}
+
+.block .text-box a.optQuestion{
+    width: 25%;
+}
+
 button.opt img,
 #refresh img{
     margin: 0;
@@ -496,6 +509,7 @@ button.opt img,
 button.opt img{
     height: 80%;
 }
+
 
 .opt,
 #refresh{
@@ -550,21 +564,12 @@ form input{
 
     font-size: 1em;
 }
-form input.optQuestion{
-    font-size: 1.5em;
-    width: 50%;
-    height: 50px;
-}
+
 textarea{
     font-size: 1em;
 }
 
 
-
-.block .text-box div .optQuestion{
-    width: 25%;
-    height: 30%;
-}
 
 .block .text-box .ligneExt div .optQuestion{
     width: 100px;
@@ -706,9 +711,8 @@ input[type="checkbox"] {
     color: mediumblue;
     border: 10px solid mediumblue;
     border-radius: 50px;
-
-
 }
+
 
 .block .text-box img,
 .block .text-box h1{

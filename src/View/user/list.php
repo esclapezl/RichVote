@@ -1,10 +1,21 @@
 <?php
 use App\Model\DataObject\User;
+use \App\Lib\ConnexionUtilisateur;
+use App\Model\Repository\UserRepository;
 /** @var User[] $users*/
 ?>
 <div class="block">
     <div class="text-box">
-        <div class="ligneExt"> <h1>Liste des Utilisateurs :</h1> <div>Vous êtes connecté en tant que : <h3>Organisateur </h3></div></div>
+        <div class="ligneExt"> <h1>Liste des Utilisateurs :</h1> <?php
+            if(ConnexionUtilisateur::estConnecte()){
+                $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+                echo "<div>Vous êtes connecté en tant que :<h3>".ucfirst((new UserRepository())->getRole($idUser))."</h3></div>";
+
+
+            }
+            else{
+                echo "<h3>Vous n'êtes pas connecté</h3>";
+            }?></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <div class="ligneExt"><form class="ligneAlign" method="post" action="frontController.php?controller=user&action=readAll">
                 <input type="search" class="opt" name="title" id="title" placeholder="Rechercher un Utilisateur">

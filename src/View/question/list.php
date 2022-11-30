@@ -12,7 +12,7 @@ use App\Model\Repository\UserRepository;
                 <?php
                 if(ConnexionUtilisateur::estConnecte()){
                     $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-                    echo "<div>Vous êtes connecté en tant que :<h3>".(new UserRepository())->getRole($idUser)."</h3></div>";
+                    echo "<div>Vous êtes connecté en tant que :<h3>".ucfirst((new UserRepository())->getRole($idUser))."</h3></div>";
 
 
                 }

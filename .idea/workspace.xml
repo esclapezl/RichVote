@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="modifier profil" />
+    <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="listOrganisateur.php + implémentation barre de recherche users">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/question/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/user/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/user/list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/user/listOrganisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/user/listOrganisateur.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,27 +39,26 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sae-website/assets/img&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/sae-website/src/View/infosVote&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\sae-website\src\View\infosVote" />
       <recent name="C:\xampp\htdocs\sae-website\assets\img" />
       <recent name="C:\xampp\htdocs\sae-website\assets" />
       <recent name="C:\xampp\htdocs\sae-website\web\img" />
       <recent name="C:\xampp\htdocs\sae-website\src\View\images" />
-      <recent name="$PROJECT_DIR$/src/view" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\myProjet\sae-website\assets\img" />
+      <recent name="C:\xampp\htdocs\sae-website\src\View\vote" />
+      <recent name="C:\xampp\htdocs\sae-website\src\View\infosVote" />
       <recent name="C:\xampp\htdocs\sae-website\assets" />
       <recent name="C:\xampp\htdocs\sae-website\web\img" />
       <recent name="C:\xampp\htdocs\sae-website\web\trailer" />
-      <recent name="C:\xampp\htdocs\sae-website\src\View\user" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -88,83 +93,6 @@
       <workItem from="1668521857882" duration="4091000" />
       <workItem from="1669628515602" duration="2121000" />
       <workItem from="1669639780301" duration="1967000" />
-    </task>
-    <task id="LOCAL-00001" summary="structure">
-      <created>1666707099608</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1666707099608</updated>
-    </task>
-    <task id="LOCAL-00002" summary="structure">
-      <created>1666707133573</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1666707133573</updated>
-    </task>
-    <task id="LOCAL-00003" summary="structure">
-      <created>1666707181712</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1666707181712</updated>
-    </task>
-    <task id="LOCAL-00004" summary="structure">
-      <created>1666708272158</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1666708272158</updated>
-    </task>
-    <task id="LOCAL-00005" summary="view.php">
-      <created>1666708595161</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1666708595161</updated>
-    </task>
-    <task id="LOCAL-00006" summary="accueil">
-      <created>1666946621952</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1666946621952</updated>
-    </task>
-    <task id="LOCAL-00007" summary="accueil">
-      <created>1666946682348</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1666946682348</updated>
-    </task>
-    <task id="LOCAL-00008" summary="accueil">
-      <created>1666947007880</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1666947007880</updated>
-    </task>
-    <task id="LOCAL-00009" summary="configuration de la base pour les questions avec la classe abstraite repository et la classe Question&#10;la connexion avec la base de données marche">
-      <created>1667072818291</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1667072818291</updated>
-    </task>
-    <task id="LOCAL-00010" summary="je test le .gitignore pour plus mettre mes identifiants dans le Conf">
-      <created>1667072922013</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1667072922013</updated>
-    </task>
-    <task id="LOCAL-00011" summary="test du gitignore sans la faute">
-      <created>1667073072584</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1667073072584</updated>
     </task>
     <task id="LOCAL-00012" summary="creation fichier css">
       <created>1667249663509</created>
@@ -425,14 +353,91 @@
       <option name="project" value="LOCAL" />
       <updated>1669677248320</updated>
     </task>
-    <task id="LOCAL-00049" summary="modifier profil">
-      <created>1669764982246</created>
+    <task id="LOCAL-00049" summary="BarreDeRecherche v1.1">
+      <created>1669750224483</created>
       <option name="number" value="00049" />
       <option name="presentableId" value="LOCAL-00049" />
       <option name="project" value="LOCAL" />
-      <updated>1669764982246</updated>
+      <updated>1669750224483</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="BarreDeRecherche v1.2 &amp; Detail Question">
+      <created>1669753618363</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1669753618364</updated>
+    </task>
+    <task id="LOCAL-00051" summary="detail User">
+      <created>1669754180590</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1669754180590</updated>
+    </task>
+    <task id="LOCAL-00052" summary="list">
+      <created>1669755005785</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1669755005785</updated>
+    </task>
+    <task id="LOCAL-00053" summary="list + detail">
+      <created>1669755941385</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1669755941385</updated>
+    </task>
+    <task id="LOCAL-00054" summary="styles ajustements">
+      <created>1669757047514</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1669757047514</updated>
+    </task>
+    <task id="LOCAL-00055" summary="styles ajustements">
+      <created>1669758435882</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1669758435882</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;src/View/question/detail.php">
+      <created>1669758530446</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1669758530446</updated>
+    </task>
+    <task id="LOCAL-00057" summary="consultation.php scrutinMajoritaire.php">
+      <created>1669758820963</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1669758820963</updated>
+    </task>
+    <task id="LOCAL-00058" summary="getRole + modif affichage liste">
+      <created>1669760963583</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1669760963583</updated>
+    </task>
+    <task id="LOCAL-00059" summary="BarreDeRecherche finale">
+      <created>1669761865284</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1669761865284</updated>
+    </task>
+    <task id="LOCAL-00060" summary="listOrganisateur.php + implémentation barre de recherche users">
+      <created>1669764936345</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1669764936345</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -450,16 +455,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="vue connexion" />
-    <MESSAGE value="listQuestion : modif ajouté" />
-    <MESSAGE value="modifyQuestion" />
-    <MESSAGE value="modifyQuestion, modifyQuestion -&gt; interface update" />
-    <MESSAGE value="réglages creer/supprimer question" />
-    <MESSAGE value="modifier" />
-    <MESSAGE value="last" />
-    <MESSAGE value="page connexion + page inscription -&gt; CSS" />
-    <MESSAGE value="Sessions" />
-    <MESSAGE value="user readall" />
     <MESSAGE value="Adaptation architecture" />
     <MESSAGE value="Implémentation MessageFlash + corrections CSS" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;src/Controller/ControllerQuestion.php&#10;#&#9;src/View/question/list.php" />
@@ -474,7 +469,17 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="maj mdp&#10;(abstract update a changer)" />
     <MESSAGE value="changer mdp" />
-    <MESSAGE value="modifier profil" />
-    <option name="LAST_COMMIT_MESSAGE" value="modifier profil" />
+    <MESSAGE value="BarreDeRecherche v1.1" />
+    <MESSAGE value="BarreDeRecherche v1.2 &amp; Detail Question" />
+    <MESSAGE value="detail User" />
+    <MESSAGE value="list" />
+    <MESSAGE value="list + detail" />
+    <MESSAGE value="styles ajustements" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;src/View/question/detail.php" />
+    <MESSAGE value="consultation.php scrutinMajoritaire.php" />
+    <MESSAGE value="getRole + modif affichage liste" />
+    <MESSAGE value="BarreDeRecherche finale" />
+    <MESSAGE value="listOrganisateur.php + implémentation barre de recherche users" />
+    <option name="LAST_COMMIT_MESSAGE" value="listOrganisateur.php + implémentation barre de recherche users" />
   </component>
 </project>
