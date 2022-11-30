@@ -46,7 +46,7 @@ class ControllerVote extends GenericController
             MessageFlash::ajouter('success', 'Vous avez voté !');
         }
         else{
-            MessageFlash::ajouter('danger', 'ca passe pas');
+            MessageFlash::ajouter('danger', "Votre vote n'est pas passé.");
         }
 
         ControllerQuestion::readAll();

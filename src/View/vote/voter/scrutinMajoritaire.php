@@ -14,13 +14,10 @@
             $idProposition = $proposition->getId();
             $intituleProposition = $proposition->getIntitule();
             echo '<div class="ligneCent">
-
-                    
                     <h3>'.ucfirst($intituleProposition).' → </h3>
-                    <label for="checkbox"  class="checkbox"><input type="radio" id='.$idProposition .' name='.$intituleProposition .'></label>
+                    <label for="checkbox"  class="checkbox"><input type="radio" id='.$idProposition .' name='.$idProposition .'. value='.$idProposition .'></label>
                     </div><div class="descP"></div>';
         }
-
         ?>
         <div class="descG"></div>
         <div class="ligneCent"><button type="submit" class="opt"><img src="../assets/img/icon-vote.png"></button></div>
