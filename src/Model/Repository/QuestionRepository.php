@@ -94,6 +94,19 @@ class QuestionRepository extends AbstractRepository
         }
     }
 
+    public function addUsersQuestion(array $users, string $idQuestion){
+        $sql = "INSERT INTO VOTANTS(idUser, idQuestion) VALUES(:idUser, :idQuestion)";
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+        foreach ($users as $idUser){
+            $param = [
+                'idUser' => $idUser,
+                'idQuestion' => $idQuestion
+            ];
+            $pdoStatement->execute($param);
+        }
+    }
+
 
     protected function getIntitule(): string
     {

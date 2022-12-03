@@ -180,4 +180,8 @@ class ControllerQuestion extends GenericController
         }
     }
 
+    public static function addUser(){
+        var_dump($_POST);
+    }
+
 }

@@ -2,7 +2,9 @@
 use App\Model\DataObject\User;
 use \App\Lib\ConnexionUtilisateur;
 use App\Model\Repository\UserRepository;
-/** @var User[] $users*/
+/** @var User[] $users
+    @var Question $question
+ */
 ?>
 <div class="block">
     <div class="text-box">
@@ -28,12 +30,12 @@ use App\Model\Repository\UserRepository;
                     <a href=frontController.php?controller=user&action=readAll>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
             }
             else {
-                echo '<form method="post" action="">';
+                echo '<form method="post" action="frontController.php?controller=question&action=addUser">';
                 foreach ($users as $user) {
                     echo '<div class="ligneExt">
 
 <li class="ligneExt"><a href=frontController.php?controller=user&action=read&id=' . rawurlencode($user->getId()) . '>' . ucfirst(htmlspecialchars($user->getId())) . '</a> <span>' . ucfirst(htmlspecialchars($user->getPrenom())) . ' ' . ucfirst(htmlspecialchars($user->getNom())) . '</span></span></li><h2>' . ucfirst(htmlspecialchars($user->getRole())) . '</h2>
-<label for="checkbox"class="checkbox"><input type="checkbox" ></label></div>';
+<label for="checkbox"class="checkbox"><input type="checkbox" value='. $user->getId() .'></label></div>';
                 }
                 echo '<div class="descG"></div> <div class="ligneCent"> <input type="submit" value="Ajouter les utilisateurs selectionnés" class="optQuestion"></div></form>';
             }
