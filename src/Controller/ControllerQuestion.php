@@ -10,6 +10,7 @@ use App\Model\Repository\PhaseRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\SectionRepository;
 use App\Lib\MessageFlash;
+use App\Model\Repository\UserRepository;
 
 class ControllerQuestion extends GenericController
 {
@@ -180,8 +181,30 @@ class ControllerQuestion extends GenericController
         }
     }
 
-    public static function addUser(){
-        var_dump($_POST);
+    public static function addVotantToQuestion(){
+        $idQuestion = $_GET['id'];
+        $users = (new UserRepository())->selectAll();
+
+        $param = [
+            'question' => (new QuestionRepository())->select($idQuestion),
+            'users' => $users,
+            'pagetitle' => 'test',
+            'cheminVueBody' => '/user/listOrganisateur.php'
+        ];
+
+        self::afficheVue('view.php', $param);
+    }
+
+    public static function votantAdded(){
+        $idUsers = [];
+        $idQuestion = $_GET['idQuestion'];
+        if(isset($_POST['user'])){
+            foreach ($_POST['user'] as $idUser){
+                $idUsers[] = $idUser;
+            }
+            (new QuestionRepository())->addUsersQuestion($idUsers, $idQuestion);
+        }
+        self::readAll();
     }
 
 }

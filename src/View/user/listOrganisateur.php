@@ -1,9 +1,11 @@
 <?php
+
+use App\Model\DataObject\Question;
 use App\Model\DataObject\User;
 use \App\Lib\ConnexionUtilisateur;
 use App\Model\Repository\UserRepository;
-/** @var User[] $users
-    @var Question $question
+/** @var User[] $users,
+ * @var Question $question
  */
 ?>
 <div class="block">
@@ -30,12 +32,23 @@ use App\Model\Repository\UserRepository;
                     <a href=frontController.php?controller=user&action=readAll>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
             }
             else {
-                echo '<form method="post" action="frontController.php?controller=question&action=addUser">';
+                $idQuestion = $question->getId();
+                echo "<form method='post' action='frontController.php?controller=question&action=votantAdded&idQuestion=$idQuestion'>";
                 foreach ($users as $user) {
-                    echo '<div class="ligneExt">
+                    $idUser = rawurlencode($user->getId());
+                    $htmlId = ucfirst(htmlspecialchars($idUser));
+                    $prenom = ucfirst(htmlspecialchars($user->getPrenom()));
+                    $nom = ucfirst(htmlspecialchars($user->getNom()));
+                    $role = ucfirst(htmlspecialchars($user->getRole()));
+                    var_dump((new UserRepository())->getRoleQuestion($idUser, $idQuestion));
+                    echo "<div class='ligneExt'>
 
-<li class="ligneExt"><a href=frontController.php?controller=user&action=read&id=' . rawurlencode($user->getId()) . '>' . ucfirst(htmlspecialchars($user->getId())) . '</a> <span>' . ucfirst(htmlspecialchars($user->getPrenom())) . ' ' . ucfirst(htmlspecialchars($user->getNom())) . '</span></span></li><h2>' . ucfirst(htmlspecialchars($user->getRole())) . '</h2>
-<label for="checkbox"class="checkbox"><input type="checkbox" value='. $user->getId() .'></label></div>';
+                            <li class='ligneExt'> <a href='frontController.php?controller=user&action=read&id=$idUser'> $htmlId</a> <span> $prenom $nom </span></span></li>
+                            <h2> $role </h2>
+                            <label for='checkbox' class='checkbox'> 
+                                <input type='checkbox' id='cb[$idUser]' name='user[$idUser]' value='$idUser'>
+                            </label>
+                          </div>";
                 }
                 echo '<div class="descG"></div> <div class="ligneCent"> <input type="submit" value="Ajouter les utilisateurs selectionnés" class="optQuestion"></div></form>';
             }

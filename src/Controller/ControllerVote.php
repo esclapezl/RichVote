@@ -48,7 +48,6 @@ class ControllerVote extends GenericController
         else{
             MessageFlash::ajouter('danger', "Votre vote n'est pas passé.");
         }
-
         ControllerQuestion::readAll();
     }
     public static function consultation() : void

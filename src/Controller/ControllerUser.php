@@ -6,6 +6,7 @@ use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
 use App\Model\DataObject\User;
 use App\Model\HTTP\Cookie;
+use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\UserRepository;
 use App\Model\HTTP\Session;
 
