@@ -72,6 +72,6 @@ class ControllerVote extends GenericController
             MessageFlash::ajouter('failure', 'votre demande à échoué');
         }
 
-        ControllerUser::accueil();
+        ControllerQuestion::readAll();
     }
 }
