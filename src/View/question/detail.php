@@ -25,8 +25,12 @@ switch ($typePhase) {
                     use App\Model\Repository\VoteRepository;
                     if(ConnexionUtilisateur::estConnecte()){
                         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-                        if(VoteRepository::peutVoter($idUser, $question->getId())) {
-                            echo "<a href=frontController.php?controller=vote&action=voterScrutinMajoritaire&idQuestion=" .$question->getId() ."><h2>$typePhase</h2></a>";
+                        $idQuestion = $question->getId();
+                        if(VoteRepository::peutVoter($idUser, $idQuestion)) {
+                            echo "<a href=frontController.php?controller=vote&action=voterScrutinMajoritaire&idQuestion=$idQuestion><h2>$typePhase</h2></a>";
+                        }
+                        else{
+                            echo "<a href=frontController.php?controller=vote&action=demandeAcces&idQuestion=$idQuestion><h2>Vous souhaitez voter?</h2><h3>Demandez votre accès ici</h3></a>";
                         }
 
                     }else{

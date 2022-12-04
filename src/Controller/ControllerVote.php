@@ -60,4 +60,18 @@ class ControllerVote extends GenericController
 
         self::afficheVue('view.php', $parametres);
     }
+
+    public static function demandeAcces() : void{
+        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+        $idQuestion = $_GET['idQuestion'];
+
+        if((new UserRepository())->demanderAccesVote($idUser, $idQuestion)){
+            MessageFlash::ajouter('success', 'votre demande à bien été enregistrée');
+        }
+        else{
+            MessageFlash::ajouter('failure', 'votre demande à échoué');
+        }
+
+        ControllerUser::accueil();
+    }
 }

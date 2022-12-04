@@ -201,6 +201,31 @@ class UserRepository extends AbstractRepository
         $pdoStatement->execute($object->formatTableau());
     }
 
+    public function getDemandeVote(string $idQuestion) : array{
+        $sql = "SELECT * FROM Votants v WHERE idQuestion=:idQuestion AND demande='V'";
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+
+        $users = [];
+        if($pdoStatement->execute(['idQuestion' => $idQuestion])) {
+            foreach ($pdoStatement as $votant) {
+                $users[] = (new UserRepository())->select($votant['idUser']);
+            }
+        }
+        return $users;
+    }
+
+    public function demanderAccesVote(string $idUser, string $idQuestion) : bool{
+        $sql = "CALL demandeAccesVote(:idUser, :idQuestion)";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        $reussite = $pdoStatement->execute([
+            'idQuestion' => $idQuestion,
+            'idUser' => $idUser
+        ]);
+
+        return $reussite;
+    }
 
 
 }
