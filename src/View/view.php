@@ -28,7 +28,7 @@ if((new ConnexionUtilisateur())->estAdministrateur())
 
                 <ul>
                     <li><a href="frontController.php?controller=question&action=readAll">Questions</a></li>
-                    <li><a href="frontController.php?controller=question&action=readAll">Résultats</a></li>
+                    <li><a href="frontController.php?controller=question&action=readAllResult">Résultats</a></li>
                     <li><a href="frontController.php?controller=user&action=readAll">Contributeurs</a></li>
                 </ul>
                     <?php

@@ -207,4 +207,14 @@ class ControllerQuestion extends GenericController
         self::readAll();
     }
 
+    public static function readAllResult(){
+        $questions = (new QuestionRepository())->selectAllClosed();
+        $param = [
+            'pagetitle' => 'Questions fermées',
+            'cheminVueBody' => '/question/list.php',
+            'questions' => $questions
+        ];
+        self::afficheVue('view.php', $param);
+    }
+
 }

@@ -112,4 +112,16 @@ class QuestionRepository extends AbstractRepository
     {
         return "intituleQuestion";
     }
+
+    public function selectAllClosed(): array
+    {
+        $sql = "SELECT * FROM QUESTIONS q WHERE to_date(datefermeture, 'DD/MM/YY') <= SYSDATE";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->query($sql);
+
+        $questions = [];
+        foreach ($pdoStatement as $questionTab){
+            $questions[] = $this->construire($questionTab);
+        }
+        return $questions;
+    }
 }
