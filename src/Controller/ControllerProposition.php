@@ -121,4 +121,25 @@ class ControllerProposition extends GenericController
 //        self::afficheVue('view.php', $parametres);
     }
 
+    public static function selectAllWithScore(){
+        $idPhase = $_GET['idPhase'];
+        $scores = [];
+        $propositions = [];
+
+        $propositionsScore = (new PropositionRepository())->selectAllWithScore($idPhase);
+        foreach ($propositionsScore as $proposition){
+            $propositions[] = $proposition[0];
+            $scores[$proposition[0]->getId()] = $proposition[1];
+        }
+
+        $param = [
+            'pagetitle' => 'Scores',
+            'cheminVueBody' => '/proposition/listWithScore.php',
+            'propositions' => $propositions,
+            'scores' => $scores
+        ];
+
+        self::afficheVue('view.php', $param);
+    }
+
 }

@@ -128,4 +128,28 @@ class PropositionRepository extends AbstractRepository
     {
         return "intitule";
     }
+
+    public function selectAllWithScore(string $idPhase): array{ // forme [Proposition, score]
+        $sql = 'SELECT p.idProposition, p.idQuestion, intitule, archive, score  
+                FROM sessionVote sv
+                JOIN Propositions p ON p.idProposition=sv.idProposition
+                where idPhaseVote=:idPhase
+                ORDER BY score DESC';
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        $pdoStatement->execute(['idPhase'=>$idPhase]);
+
+        $result = [];
+        foreach ($pdoStatement as $infoProposition){
+            var_dump($infoProposition);
+            $proposition = $this->construire([
+                "IDPROPOSITION" => $infoProposition["IDPROPOSITION"],
+                "IDQUESTION" => $infoProposition["IDQUESTION"],
+                "INTITULE" => $infoProposition["INTITULE"],
+                "ARCHIVE" => $infoProposition["ARCHIVE"]]);
+            $result[] = [$proposition, $infoProposition['SCORE']];
+        }
+
+        return $result;
+    }
 }
