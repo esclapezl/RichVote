@@ -95,7 +95,7 @@ class UserRepository extends AbstractRepository
         //return var_dump($pdoStatement->fetch());
     }
 
-    public function getRoleQuestion(string $user, string $question) : string{
+    public function getRoleQuestion(string $user, string $question) : ?string{
         $sql = 'SELECT getRoleQuestion(:idUser, :idQuestion) FROM DUAL';
         $pdo = DatabaseConnection::getInstance()::getPdo();
 

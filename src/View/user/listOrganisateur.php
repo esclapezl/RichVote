@@ -39,8 +39,9 @@ use App\Model\Repository\UserRepository;
                     $htmlId = ucfirst(htmlspecialchars($idUser));
                     $prenom = ucfirst(htmlspecialchars($user->getPrenom()));
                     $nom = ucfirst(htmlspecialchars($user->getNom()));
-                    $role = ucfirst(htmlspecialchars($user->getRole()));
-                    var_dump((new UserRepository())->getRoleQuestion($idUser, $idQuestion));
+
+                    $roleQuestion = (new UserRepository())->getRoleQuestion($idUser, $idQuestion);
+                    $role = ucfirst(htmlspecialchars($roleQuestion==null?'pas de role':$roleQuestion));
                     echo "<div class='ligneExt'>
 
                             <li class='ligneExt'> <a href='frontController.php?controller=user&action=read&id=$idUser'> $htmlId</a> <span> $prenom $nom </span></span></li>

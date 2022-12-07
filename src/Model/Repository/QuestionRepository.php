@@ -95,7 +95,7 @@ class QuestionRepository extends AbstractRepository
     }
 
     public function addUsersQuestion(array $users, string $idQuestion){
-        $sql = "INSERT INTO VOTANTS(idUser, idQuestion) VALUES(:idUser, :idQuestion)";
+        $sql = "CALL setRoleQuestion(:idUser, 'votant', :idQuestion)";
         $pdo = DatabaseConnection::getInstance()::getPdo();
         $pdoStatement = $pdo->prepare($sql);
         foreach ($users as $idUser){

@@ -123,6 +123,10 @@ class Question extends AbstractDataObject
         $this->currentPhase = $currentPhase;
     }
 
+    public function isClosed(): bool{
+        return $this->getDateFermeture()->format('dd-mm-YY') < date_create()->format('dd-mm-YY');
+    }
+
 
     public function getIdOrganisateur(): string
     {

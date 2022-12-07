@@ -52,6 +52,8 @@ switch ($typePhase) {
             ?></div>
         <div class="descP"></div>
 
+        <div class="ligneExt"><a class="optQuestion" href="frontController.php?controller=question&action=addVotantToQuestion&id=<?=$question->getId()?>">Ajouter des votants</a></div>
+
         <div class="ligneExt"><h3>Description :</h3></div>
         <p class="descG"><?=htmlspecialchars($question->getDescription())?></p>
 
