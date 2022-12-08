@@ -57,10 +57,17 @@ class ControllerUser extends GenericController
 
     public static function connexion()
     {
-        self::afficheVue('view.php',[
-            "pagetitle" => "Connexion",
-            "cheminVueBody" => 'user/connexion.php'
-        ]);
+        if((new ConnexionUtilisateur())->estConnecte()){
+            MessageFlash::ajouter('info', 'Vous êtes déjà connecté.');
+            self::redirection('frontController.php?controller=user&action=read&id='. (new ConnexionUtilisateur())->getLoginUtilisateurConnecte());
+        }
+        else{
+            self::afficheVue('view.php',[
+                "pagetitle" => "Connexion",
+                "cheminVueBody" => 'user/connexion.php'
+            ]);
+        }
+
     }
 
     public static function connected()
@@ -212,9 +219,7 @@ class ControllerUser extends GenericController
 
     public static function read():void
     {
-
         $user = (new UserRepository())->select($_GET['id']);
-
         $parametres = array(
             'pagetitle' => 'Détails user',
             'cheminVueBody' => 'user/details.php',
