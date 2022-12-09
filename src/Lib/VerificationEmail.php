@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Covoiturage\Lib;
+namespace App\Lib;
 
 use App\Config\Conf;
 use App\Model\DataObject;
+use App\Model\DataObject\User;
 
 class VerificationEmail
 {
@@ -16,7 +17,7 @@ class VerificationEmail
         $corpsEmail = "<a href=\"$lienValidationEmail\">Validation</a>";
 
         // Temporairement avant d'envoyer un vrai mail
-        MessageFlash::ajouter("success", $corpsEmail);
+        MessageFlash::ajouter("info", $corpsEmail);
     }
 
     public static function traiterEmailValidation($login, $nonce): bool

@@ -20,7 +20,7 @@ class User extends AbstractDataObject
 
 
     private string $emailAValider;
-    private string $nonce;
+    private string $nonce = "";
 
 
     /**
@@ -55,7 +55,16 @@ class User extends AbstractDataObject
      */
     public function getNonce(): string
     {
-        return $this->nonce;
+        $sql = "SELECT nonce FROM SOUVIGNETN.EMAILUSERSINVALIDE WHERE IDUSER = :idUser";
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+        $values = array(
+            "idUser" => $this->getId()
+        );
+        $pdoStatement->execute($values);
+
+        $result = $pdoStatement->fetch();
+        return $result['NONCE'];
     }
 
     /**

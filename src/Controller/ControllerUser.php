@@ -196,14 +196,43 @@ class ControllerUser extends GenericController
     {
         $userRepository = new UserRepository();
         $user = $userRepository->select($_GET['idUser']);
-        $connexion = new ConnexionUtilisateur();
-        $connexion->connecter($_GET['idUser']);
 
+        if($userRepository->checkCmdp($user->getNonce(),$_POST['nonce']))
+        {
+            $userRepository->validerUser($user);
+            $connexion = new ConnexionUtilisateur();
+            $connexion->connecter($_GET['idUser']);
 
+            $parametres = array(
+                'pagetitle' => 'Inscription validée !',
+                'cheminVueBody' => 'user/accueil.php',
+            );
+        }
+        else
+        {
+            MessageFlash::ajouter('info', 'Le code ne correspond pas à celui envoyé à l\'adresse '.$user->getEmail().'.');
+            $parametres = array(
+                'pagetitle' => 'Erreur.',
+                'cheminVueBody' => 'user/validationEmail.php',
+            );
+        }
+
+        self::afficheVue('view.php', $parametres);
+    }
+
+    public static function renvoyerCode()
+    {
+        $idUser = $_GET['idUser'];
+        $userRepository = new UserRepository();
+        $userRepository->mailDeValidation($userRepository->select($idUser));
         $parametres = array(
-            'pagetitle' => 'Inscription validée !',
-            'cheminVueBody' => 'user/accueil.php',
+            'pagetitle' => 'Valider l\'inscription.',
+            'cheminVueBody' => 'user/validationEmail.php',
+            'idUser'=> $idUser
         );
+        MessageFlash::ajouter('info', 'Code renvoyé.');
+        self::afficheVue('view.php', $parametres);
+
     }
 
 

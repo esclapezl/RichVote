@@ -6,6 +6,7 @@ use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Proposition;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\User;
+use App\Lib\VerificationEmail;
 
 class UserRepository extends AbstractRepository
 {
@@ -146,6 +147,7 @@ class UserRepository extends AbstractRepository
 
     public function sauvegarder(AbstractDataObject $object): void
     {
+        $this->mailDeValidation($this);
         $colonnes = "";
         foreach ($this->getNomsColonnes() as $colonne) {
             if(!$colonnes =="") {
@@ -240,10 +242,14 @@ class UserRepository extends AbstractRepository
 
     public function mailDeValidation(User $user)
     {
-        if($user->getNonce() == null)
-        {
-            $user->setNonce($this->genererNonce());
-        }
+        $sql = "UPDATE SOUVIGNETN.EMAILUSERSINVALIDE SET nonce = :nonce WHERE IDUSER = :idUser";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $values = array(
+            "nonce" => $this->genererNonce(),
+            "idUser" => $user->getId()
+        );
+        $pdoStatement->execute($values);
+
         VerificationEmail::envoiEmailValidation($user);
 
     }
