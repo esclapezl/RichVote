@@ -421,7 +421,6 @@ footer .vague#vague4{
     align-items: end;
     justify-content: end;
     align-content: end;
-    width: 100%;
 }
 
 .fleche{
@@ -630,7 +629,8 @@ textarea{
     justify-content: center;
     align-items: center;
 }
-a h2{
+a h2,
+#col h2{
     width: 100%;
     padding: 20px;
 }
@@ -645,15 +645,16 @@ a h2{
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 15px;
 }
-.block .text-box a h2{
+.block .text-box a h2,
+.block .text-box #col h2{
     color: white;
     transition: 1s;
 }
 
-.block .text-box .ligneAlign a h2{
+.block .text-box .ligneAlign a h2,
+.block .text-box #col a h2{
     padding: 10px;
     height: 80px;
-    margin: 0 20px 0 20px;
 
 }
 .block .text-box .ligneExt div .ligneAlign{
@@ -670,9 +671,7 @@ a h2{
     transform: scale(0.95);
 }
 
- #col h2{
-    width: 50%;
-}
+
 
 
 .block .text-box li {

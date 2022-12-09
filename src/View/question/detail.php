@@ -9,7 +9,7 @@ switch ($typePhase) {
         $typePhase= 'En cours de consultation';
         break;
     case 'scrutinMajoritaire':
-        $typePhase= 'Voter juste Ici';
+        $typePhase= 'Phase de vote en cours';
         break;
     case 'termine':
         echo "Vote(s) terminé(s)";
@@ -35,7 +35,7 @@ switch ($typePhase) {
 
 
                         if(VoteRepository::peutVoter($idUser, $idQuestion) && $question->getCurrentPhase()->getType()!="termine" && $question->getCurrentPhase()->getType()!="consultation") {
-                            echo "<a href=frontController.php?controller=vote&action=voterScrutinMajoritaire&idQuestion=$idQuestion><h2>$typePhase</h2></a>";
+                            echo "<a href=frontController.php?controller=vote&action=voterScrutinMajoritaire&idQuestion=$idQuestion><h2>Vote en cliquant ici</h2></a>";
                         }
                         else if((new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $question->getId())==null  && $typePhase== 'Voter juste Ici'){
                             echo "<a href=frontController.php?controller=vote&action=demandeAcces&idQuestion=". rawurlencode($idQuestion) .">
@@ -65,15 +65,16 @@ switch ($typePhase) {
 
                         . '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
     Créer proposition</a><a class="optQuestion" href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '>Modifier</a></div>' . '
-                        <div class="ligneExt"><div><p id="petit">Il y a 500 votants. 10 policiers, 15 utilisateurs premiums, 20 belges...</p>
-                        </div>
+                        
                         <div class="ligneExt">
+                        <div>
+                        <p id="petit">Il y a 500 votants. 10 policiers, 15 utilisateurs premiums, 20 belges...</p>
+                        </div>
                             <div id="col">
                          
-                                <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=addVotantToQuestion&id=<?=$question->getId()?>">Ajouter des votants</a>
+                                <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=addVotantToQuestion&id=' . $question->getId() .'">Ajouter des votants</a>
                                 <p id="petit">Il y a n demandes de votes</p>
                                 <div class="ligne">
-                                </div>
                             </div>
                         </div>
                         </div>';
