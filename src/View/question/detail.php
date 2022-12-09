@@ -28,17 +28,24 @@ switch ($typePhase) {
                     use \App\Lib\ConnexionUtilisateur;
                     use App\Model\Repository\VoteRepository;
                     if(ConnexionUtilisateur::estConnecte()){
-                        echo '<div><h3>Détail de la question</h3>
-                        <div class="ligneAlign">';
-                        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
                         $idQuestion = $question->getId();
-                        if(VoteRepository::peutVoter($idUser, $idQuestion)) {
+                        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+                        echo "<div id='col'><h3> Vous êtes ".(new UserRepository())->getRoleQuestion($idUser, $idQuestion)." sur cette question.</h3>";
+
+
+
+                        if(VoteRepository::peutVoter($idUser, $idQuestion) && $question->getCurrentPhase()->getType()!="termine" && $question->getCurrentPhase()->getType()!="consultation") {
                             echo "<a href=frontController.php?controller=vote&action=voterScrutinMajoritaire&idQuestion=$idQuestion><h2>$typePhase</h2></a>";
                         }
-                        else{
-                            echo "<a href=frontController.php?controller=vote&action=demandeAcces&idQuestion=$idQuestion><h2>Vous souhaitez voter?</h2></a>";
+                        else if((new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $question->getId())==null  && $typePhase== 'Voter juste Ici'){
+                            echo "<a href=frontController.php?controller=vote&action=demandeAcces&idQuestion=". rawurlencode($idQuestion) .">
+                                <h2>Vous souhaitez voter?</h2></a>";
                         }
-                        echo '</div></div>';
+                        else{
+                            echo '<h2>' . $typePhase . '</h2>';
+                        }
+
+                        echo '</div>';
 
 
                     }
@@ -61,9 +68,9 @@ switch ($typePhase) {
                         <div class="ligneExt"><div><p id="petit">Il y a 500 votants. 10 policiers, 15 utilisateurs premiums, 20 belges...</p>
                         </div>
                         <div class="ligneExt">
-                            <div class="col">
+                            <div id="col">
                          
-                                <a class="optQuestion" href="frontController.php?controller=question&action=addVotantToQuestion&id=<?=$question->getId()?>">Ajouter des votants</a>
+                                <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=addVotantToQuestion&id=<?=$question->getId()?>">Ajouter des votants</a>
                                 <p id="petit">Il y a n demandes de votes</p>
                                 <div class="ligne">
                                 </div>
