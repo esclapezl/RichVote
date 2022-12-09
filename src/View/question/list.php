@@ -13,8 +13,6 @@ use App\Model\Repository\UserRepository;
                 if(ConnexionUtilisateur::estConnecte()){
                     $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
                     echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>".ucfirst((new UserRepository())->getRole($idUser))."</h3></div>";
-
-
                 }
                 else{
                     echo "<h3 class='responsive'>Vous n'êtes pas connecté</h3>";
@@ -26,12 +24,18 @@ use App\Model\Repository\UserRepository;
                 <input type="search" class="opt" name="title" id="title" placeholder="Rechercher une Question">
                 <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
                 <a href="frontController.php?controller=question&action=readAll" id="refresh"><img src="../assets/img/icon-refresh.svg"></a>
-            </form><a class="optQuestion" href="frontController.php?controller=question&action=create">Créer une Question</a></div>
+            </form>
+            <?php
+            if(ConnexionUtilisateur::estConnecte()) {
+            if ((new UserRepository())->getRole(ConnexionUtilisateur::getLoginUtilisateurConnecte()) == "organisateur") {
 
-
+                echo '<a class="optQuestion" href = "frontController.php?controller=question&action=create" > Créer une Question </a >';
+                }
+            }
+            ?>
 <!--            <button class="opt">Trier Par</button>-->
 
-        <ul>
+        </div><ul>
         <?php
         if(empty($questions)){
             echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat a été trouvé pour ". $_POST['title']." .</h3></div>

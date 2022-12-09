@@ -23,12 +23,13 @@ switch ($typePhase) {
     <div class="text-box">
         <div class="ligneExt"> <div><a class="optQuestion" id="fleche" href=frontController.php?controller=question&action=readAll>↩</a>
                 <h1><?=htmlspecialchars($question->getIntitule())?></h1></div>
-                <div><h3>Détail de la question</h3>
-                <div class="ligneAlign">
+
                     <?php
                     use \App\Lib\ConnexionUtilisateur;
                     use App\Model\Repository\VoteRepository;
                     if(ConnexionUtilisateur::estConnecte()){
+                        echo '<div><h3>Détail de la question</h3>
+                        <div class="ligneAlign">';
                         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
                         $idQuestion = $question->getId();
                         if(VoteRepository::peutVoter($idUser, $idQuestion)) {
@@ -37,50 +38,55 @@ switch ($typePhase) {
                         else{
                             echo "<a href=frontController.php?controller=vote&action=demandeAcces&idQuestion=$idQuestion><h2>Vous souhaitez voter?</h2></a>";
                         }
+                        echo '</div></div>';
 
-                    }else{
-                        echo "<a><h2>Vous n'avez pas le droit de voter</h2></a>";
+
+                    }
+                    else{
+                      echo '<div><h2 id="desc">Aucunes informations disponibles.</h2></div>';
                     }?>
 
-                </div></div></div>
+                </div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
 
 
             <?php
-            if((new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$question->getId())=="organisateur"){
-                echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Liste des propositions</a>
-<a class="optQuestion" href=frontController.php?controller=question&action=delete&id='. rawurlencode($question->getId()) . '>Supprimer</a></div>'
+            if(ConnexionUtilisateur::estConnecte()) {
+                if ((new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $question->getId()) == "organisateur") {
+                    echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Liste des propositions</a>
+    <a class="optQuestion" href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '>Supprimer</a></div>'
 
-                    . '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
-Créer proposition</a><a class="optQuestion" href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '>Modifier</a></div>' .'
-                    <div class="ligneExt"><div><p id="petit">Il y a 500 votants. 10 policiers, 15 utilisateurs premiums, 20 belges...</p>
-                    </div>
-                    <div class="ligneExt">
-                        <div class="col">
-                     
-                            <a class="optQuestion" href="frontController.php?controller=question&action=addVotantToQuestion&id=<?=$question->getId()?>">Ajouter des votants</a>
-                            <p id="petit">Il y a n demandes de votes</p>
-                            <div class="ligne">
+                        . '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
+    Créer proposition</a><a class="optQuestion" href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '>Modifier</a></div>' . '
+                        <div class="ligneExt"><div><p id="petit">Il y a 500 votants. 10 policiers, 15 utilisateurs premiums, 20 belges...</p>
+                        </div>
+                        <div class="ligneExt">
+                            <div class="col">
+                         
+                                <a class="optQuestion" href="frontController.php?controller=question&action=addVotantToQuestion&id=<?=$question->getId()?>">Ajouter des votants</a>
+                                <p id="petit">Il y a n demandes de votes</p>
+                                <div class="ligne">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    </div>';
-            }
-            else{
-                echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Liste des propositions</a></div>';
-            }
-            ?>
-
-
-        <div class="descP"></div>
+                        </div>';
+                } else {
+                    echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Liste des propositions</a></div>';
+                }
+                echo '<div class="descP"></div>
 
         <div class="ligneExt"><h2 id="desc">DESCRIPTION</h2></div>
-        <p class="descG"><?=htmlspecialchars($question->getDescription())?></p>
+        <p class="descG"><?=htmlspecialchars($question->getDescription())?></p>';
 
-        <?php foreach ($question->getSections() as $section) {
+        foreach ($question->getSections() as $section) {
             echo '<div class="ligneExt"><h3>' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
             echo "<div class='ligne'></div> <p class='descP'>" . htmlspecialchars($section->getDescription()) . "</p>";
-        }?>
+        }
+        }
+            else{
+                echo "<div class='LigneCent'><h3>Vous n'êtes pas connecté. Connectez-vous pour plus d'informations !</h3></div>";
+            }
+            ?>
 
     </div>
 </div>
