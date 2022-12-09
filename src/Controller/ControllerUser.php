@@ -84,11 +84,23 @@ class ControllerUser extends GenericController
              MotDePasse::verifier($mdp, $user->getMdpHache()))
         )
         {
-            $connexion = (new ConnexionUtilisateur());
-            $connexion->connecter($id);
+            if(!$user->isVerified())
+            {
+                $parametres = array(
+                    'pagetitle' => 'Valider l\'inscription.',
+                    'cheminVueBody' => 'user/validationEmail.php',
+                    'idUser'=> $user->getId()
+                );
+            }
+            else
+            {
+                $connexion = (new ConnexionUtilisateur());
+                $connexion->connecter($id);
 
-            MessageFlash::ajouter('info', 'Connecté.');
-            self::redirection('frontController.php?controller=user&action=accueil');
+                MessageFlash::ajouter('info', 'Connecté.');
+                self::redirection('frontController.php?controller=user&action=accueil');
+            }
+
         }
         else
         {
@@ -133,7 +145,6 @@ class ControllerUser extends GenericController
             && $userRepository->checkId($idUser)
             && $userRepository->checkEmail($email))
         {
-            $userRepository->ajouterUserAValider($user);
             $userRepository->sauvegarder($user);
             $parametres = array(
                 'pagetitle' => 'Valider l\'inscription.',
@@ -181,12 +192,13 @@ class ControllerUser extends GenericController
         self::afficheVue('view.php', $parametres);
     }
 
-    public static function userValide($idUser)
+    public static function userValide()
     {
         $userRepository = new UserRepository();
-        $user = $userRepository->select($idUser);
+        $user = $userRepository->select($_GET['idUser']);
         $connexion = new ConnexionUtilisateur();
-        $connexion->connecter($idUser);
+        $connexion->connecter($_GET['idUser']);
+
 
         $parametres = array(
             'pagetitle' => 'Inscription validée !',

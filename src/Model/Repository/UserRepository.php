@@ -170,15 +170,6 @@ class UserRepository extends AbstractRepository
         $pdoStatement->execute($object->formatTableau());
     }
 
-    public function ajouterUserAValider(AbstractDataObject $object): void
-    {
-        $sql = 'INSERT INTO SOUVIGNETN.EMAILUSERSINVALIDE (IDUSER) VALUES (:IDUSER)';
-        $pdo = DatabaseConnection::getInstance()::getPdo();
-
-        $pdoStatement = $pdo->prepare($sql);
-
-        $pdoStatement->execute(array('IDUSER' => $object->getId()));
-    }
 
     public function update(AbstractDataObject $object): void{
         $txtsql="";
@@ -236,6 +227,17 @@ class UserRepository extends AbstractRepository
 
         return $reussite;
     }
+
+    public function validerUser(User $user)
+    {
+        $sql = "DELETE FROM SOUVIGNETN.EMAILUSERSINVALIDE WHERE IDUSER = :idUser";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $values = array(
+            "idUser" => $user->getId()
+        );
+        $pdoStatement->execute($values);
+    }
+
 
 
 
