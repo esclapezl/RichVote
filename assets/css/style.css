@@ -193,6 +193,17 @@ nav{
     background-color: rgba(0,0,0,0.5);
     color: white;
 }
+p#petit{
+    font-size: 1em;
+    color: white;
+    margin-right: 12px;
+    font-style: italic;
+}
+
+#desc{
+    padding: 8px;
+    margin-bottom: 20px;
+}
 
 
 
@@ -396,6 +407,17 @@ footer .vague#vague4{
     align-items: center;
 }
 
+.col {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 100%;
+}
+
+.fleche{
+    width: 100px;
+}
+
 .block .text-box .ligneExt div h3{
     display: flex;
     justify-content: end;
@@ -574,7 +596,7 @@ textarea{
 
 
 
-.block .text-box .ligneExt div .optQuestion{
+#fleche{
     width: 100px;
 }
 

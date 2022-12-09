@@ -1,7 +1,7 @@
 <div class="block">
     <div class="text-box">
         <div class="ligneExt">
-            <a class="optQuestion" href="frontController.php?controller=question&action=readAll">↩</a>
+            <a class="optQuestion" id="fleche" href="frontController.php?controller=question&action=readAll">↩</a>
             <img src="../assets/img/logo.png" alt="RichVote" id="logo">
         </div>
         <div class="ligneCent">
