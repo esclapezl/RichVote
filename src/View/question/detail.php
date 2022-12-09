@@ -60,7 +60,7 @@ switch ($typePhase) {
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
                 if ((new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $question->getId()) == "organisateur") {
-                    echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Liste des propositions</a>
+                    echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
     <a class="optQuestion" href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '>Supprimer</a></div>'
 
                         . '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
@@ -79,7 +79,7 @@ switch ($typePhase) {
                         </div>
                         </div>';
                 } else {
-                    echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Liste des propositions</a></div>';
+                    echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a></div>';
                 }
                 echo '<div class="descP"></div>
 

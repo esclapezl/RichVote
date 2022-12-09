@@ -19,10 +19,10 @@ use App\Model\Repository\UserRepository;
                 echo "<h3 class='responsive'>Vous n'êtes pas connecté</h3>";
             }?></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
-        <div class="ligneExt"><form class="ligneAlign" method="post" action="frontController.php?controller=user&action=readAll">
+        <div class="ligneExt"><form class="ligneAlign" method="post" action="frontController.php?controller=user&action=readAllSelect">
                 <input type="search" class="opt" name="title" id="title" placeholder="Rechercher un Utilisateur">
                 <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
-                <a href="frontController.php?controller=user&action=readAll" id="refresh"><img src="../assets/img/icon-refresh.svg"></a>
+                <a href="frontController.php?controller=user&action=readAllSelect" id="refresh"><img src="../assets/img/icon-refresh.svg"></a>
             </form><h3>Rôle</h3><h3>Ajouter</h3></div>
         <ul>
             <?php
