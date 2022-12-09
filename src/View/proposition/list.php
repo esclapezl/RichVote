@@ -10,7 +10,13 @@ use App\Model\DataObject\Proposition;
 
 <div class="block">
     <div class="text-box">
-        <div class="ligneExt"> <div><a class="optQuestion" href=frontController.php?controller=question&action=read&id=<?= rawurlencode($_GET['id'])?>></a><h1>Propositions publiées :</h1></div> <div>Vous êtes connecté en tant que : <h3>Organisateur </h3></div></div>
+        <a class="optQuestion" id="fleche" href=frontController.php?controller=question&action=read&id=<?= rawurlencode($_GET['id'])?>>↩</a>
+        <div class="ligneExt">
+            <div>
+
+                <h1>Propositions publiées :</h1></div>
+            <div>Vous êtes connecté en tant que : <h3>Organisateur </h3></div>
+        </div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <ul>
             <?php foreach ($propositions as $proposition) {

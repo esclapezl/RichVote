@@ -1,5 +1,6 @@
 <?php
 use App\Model\DataObject\Question;
+use App\Model\Repository\UserRepository;
 /** @var Question $question */
 
 $typePhase= $question->getCurrentPhase()->getType();
@@ -14,6 +15,8 @@ switch ($typePhase) {
         echo "Vote(s) terminé(s)";
         break;
 }
+
+
 ?>
 
 <div class="block">
@@ -32,7 +35,7 @@ switch ($typePhase) {
                             echo "<a href=frontController.php?controller=vote&action=voterScrutinMajoritaire&idQuestion=$idQuestion><h2>$typePhase</h2></a>";
                         }
                         else{
-                            echo "<a href=frontController.php?controller=vote&action=demandeAcces&idQuestion=$idQuestion><h2>Vous souhaitez voter?</h2><h3>Demandez votre accès ici</h3></a>";
+                            echo "<a href=frontController.php?controller=vote&action=demandeAcces&idQuestion=$idQuestion><h2>Vous souhaitez voter?</h2></a>";
                         }
 
                     }else{
@@ -41,28 +44,34 @@ switch ($typePhase) {
 
                 </div></div></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
-        <div class="ligneExt">
+
 
             <?php
-            echo
-                '<a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Liste des propositions</a>'.
-                '<a class="optQuestion" href=frontController.php?controller=question&action=delete&id='. rawurlencode($question->getId()) . '>Supprimer</a></div>'
+            if((new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$question->getId())=="organisateur"){
+                echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Liste des propositions</a>
+<a class="optQuestion" href=frontController.php?controller=question&action=delete&id='. rawurlencode($question->getId()) . '>Supprimer</a></div>'
 
-            . '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>Créer proposition</a>' .
-                '<a class="optQuestion" href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '>Modifier</a></div>';
+                    . '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
+Créer proposition</a><a class="optQuestion" href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '>Modifier</a></div>' .'
+                    <div class="ligneExt"><div><p id="petit">Il y a 500 votants. 10 policiers, 15 utilisateurs premiums, 20 belges...</p>
+                    </div>
+                    <div class="ligneExt">
+                        <div class="col">
+                     
+                            <a class="optQuestion" href="frontController.php?controller=question&action=addVotantToQuestion&id=<?=$question->getId()?>">Ajouter des votants</a>
+                            <p id="petit">Il y a n demandes de votes</p>
+                            <div class="ligne">
+                            </div>
+                        </div>
+                    </div>
+                    </div>';
+            }
+            else{
+                echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Liste des propositions</a></div>';
+            }
             ?>
 
-        <div class="descP"></div>
 
-        <div class="ligneExt"><div>
-                <p id="petit">Il y a 500 votants. 10 policiers, 15 utilisateurs premiums, 20 belges...</p>
-            </div>
-            <div class="col">
-                <a class="optQuestion" href="frontController.php?controller=question&action=addVotantToQuestion&id=<?=$question->getId()?>">Ajouter des votants</a>
-                <p id="petit">Il y a n demandes de votes</p>
-                <div class='ligne'></div>
-            </div>
-        </div>
         <div class="descP"></div>
 
         <div class="ligneExt"><h2 id="desc">DESCRIPTION</h2></div>
