@@ -18,10 +18,12 @@ switch ($typePhase) {
 
 <div class="block">
     <div class="text-box">
-        <div class="ligneExt"> <div><a class="optQuestion" href=frontController.php?controller=question&action=readAll>↩</a>
-                <h1><?=htmlspecialchars($question->getIntitule())?></h1></div> <div><h3>Détail de la question</h3>
+        <div class="ligneExt"> <div><a class="optQuestion" id="fleche" href=frontController.php?controller=question&action=readAll>↩</a>
+                <h1><?=htmlspecialchars($question->getIntitule())?></h1></div>
+                <div><h3>Détail de la question</h3>
                 <div class="ligneAlign">
-                    <?php use \App\Lib\ConnexionUtilisateur;
+                    <?php
+                    use \App\Lib\ConnexionUtilisateur;
                     use App\Model\Repository\VoteRepository;
                     if(ConnexionUtilisateur::estConnecte()){
                         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
@@ -39,22 +41,31 @@ switch ($typePhase) {
 
                 </div></div></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
-        <div class="ligneExt"><?php
-            echo
-                '<a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Liste des propositions</a>'
-                .
-                '<a class="optQuestion" href=frontController.php?controller=question&action=delete&id='. rawurlencode($question->getId()) . '>Supprimer</a>';
+        <div class="ligneExt">
 
+            <?php
+            echo
+                '<a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Liste des propositions</a>'.
+                '<a class="optQuestion" href=frontController.php?controller=question&action=delete&id='. rawurlencode($question->getId()) . '>Supprimer</a></div>'
+
+            . '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>Créer proposition</a>' .
+                '<a class="optQuestion" href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '>Modifier</a></div>';
             ?>
-        </div>
-        <div class="ligneExt"><?php echo '<a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>Créer proposition</a>' .
-                '<a class="optQuestion" href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '>Modifier</a>';
-            ?></div>
+
         <div class="descP"></div>
 
-        <div class="ligneExt"><a class="optQuestion" href="frontController.php?controller=question&action=addVotantToQuestion&id=<?=$question->getId()?>">Ajouter des votants</a></div>
+        <div class="ligneExt"><div>
+                <p id="petit">Il y a 500 votants. 10 policiers, 15 utilisateurs premiums, 20 belges...</p>
+            </div>
+            <div class="col">
+                <a class="optQuestion" href="frontController.php?controller=question&action=addVotantToQuestion&id=<?=$question->getId()?>">Ajouter des votants</a>
+                <p id="petit">Il y a n demandes de votes</p>
+                <div class='ligne'></div>
+            </div>
+        </div>
+        <div class="descP"></div>
 
-        <div class="ligneExt"><h3>Description :</h3></div>
+        <div class="ligneExt"><h2 id="desc">DESCRIPTION</h2></div>
         <p class="descG"><?=htmlspecialchars($question->getDescription())?></p>
 
         <?php foreach ($question->getSections() as $section) {
