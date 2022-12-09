@@ -2,6 +2,7 @@
 
 namespace App\Model\DataObject;
 
+use App\Lib\MotDePasse;
 use App\Model\Repository\UserRepository;
 use http\QueryString;
 
@@ -133,7 +134,7 @@ class User extends AbstractDataObject
 
     public function setMdp(string $mdp): void
     {
-        $this->mdpHache = (new UserRepository())->setMdpHache($mdp);
+        $this->mdpHache = (new MotDePasse())->hacher($mdp);
     }
 
 
@@ -171,6 +172,15 @@ class User extends AbstractDataObject
     public function setRole(string $role): void
     {
         $this->role = $role;
+    }
+
+    public function isVerified(): bool
+    {
+        if((new UserRepository())->select($this->getId())==null)
+        {
+            return true;
+        }
+        else return false;
     }
 
 

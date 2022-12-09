@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
+use App\Lib\MotDePasse;
 use App\Model\DataObject\User;
 use App\Model\HTTP\Cookie;
 use App\Model\Repository\QuestionRepository;
@@ -76,9 +77,12 @@ class ControllerUser extends GenericController
         $mdp =  $_POST['mdp'];
 
         $userRepository = (new UserRepository());
+        /** @var User $user */
         $user = $userRepository->select($id);
         if($user != null
-        && $userRepository->checkCmdp($user->getMdpHache(),$userRepository->setMdpHache($mdp)))
+            &&( $userRepository->checkCmdp($user->getMdpHache(),$userRepository->setMdpHache($mdp)) ||
+             MotDePasse::verifier($mdp, $user->getMdpHache()))
+        )
         {
             $connexion = (new ConnexionUtilisateur());
             $connexion->connecter($id);
@@ -96,7 +100,8 @@ class ControllerUser extends GenericController
                     'msgErreurId' =>  "Cet utilisateur n'existe pas."
                 );
             }
-            else if(!$userRepository->checkCmdp($user->getMdpHache(),$userRepository->setMdpHache($mdp)))
+            else if(!($userRepository->checkCmdp($user->getMdpHache(),$userRepository->setMdpHache($mdp)) ||
+                MotDePasse::verifier($mdp, $user->getMdpHache())))
             {
                 $parametres = array(
                     'pagetitle' => 'Erreur',
@@ -120,19 +125,20 @@ class ControllerUser extends GenericController
         $email = $_POST['email'];
         $estAdmin = false;
 
+        $mdpconfig = new MotDePasse();
         $userRepository = new UserRepository();
-        $user = new User($idUser, $userRepository->setMdpHache($mdp), $prenom, $nom, 'invité', $estAdmin, $email);
+        $user = new User($idUser, $mdpconfig->hacher($mdp), $prenom, $nom, 'invité', $estAdmin, $email);
 
         if ($userRepository->checkCmdp($mdp, $cmdp)          //check si aucune contrainte n'a été violée
             && $userRepository->checkId($idUser)
             && $userRepository->checkEmail($email))
         {
-            $connexion = new ConnexionUtilisateur();
-            $connexion->connecter($idUser);
+            $userRepository->ajouterUserAValider($user);
             $userRepository->sauvegarder($user);
             $parametres = array(
-                'pagetitle' => 'Inscription validée !',
-                'cheminVueBody' => 'user/accueil.php',
+                'pagetitle' => 'Valider l\'inscription.',
+                'cheminVueBody' => 'user/validationEmail.php',
+                'idUser'=> $idUser
             );
         }
         else
@@ -173,6 +179,19 @@ class ControllerUser extends GenericController
 
         }
         self::afficheVue('view.php', $parametres);
+    }
+
+    public static function userValide($idUser)
+    {
+        $userRepository = new UserRepository();
+        $user = $userRepository->select($idUser);
+        $connexion = new ConnexionUtilisateur();
+        $connexion->connecter($idUser);
+
+        $parametres = array(
+            'pagetitle' => 'Inscription validée !',
+            'cheminVueBody' => 'user/accueil.php',
+        );
     }
 
 
@@ -260,6 +279,7 @@ class ControllerUser extends GenericController
     public static function updated() : void
     {
         $userRepository = new UserRepository();
+        $mdp = new MotDePasse();
         $user = $userRepository->select($_GET['id']);
 
         if(isset($_POST['aMdp']))
@@ -268,8 +288,9 @@ class ControllerUser extends GenericController
             $nMdp = $_POST['nMdp'];
             $cNMdp = $_POST['cNMdp'];
 
+
             if ($userRepository->checkCmdp($nMdp, $cNMdp) &&
-                $userRepository->checkCmdp($userRepository->setMdpHache($aMdp), $user->getMdpHache()))
+                $mdp->verifier($aMdp, $user->getMdpHache()))
             {
                 $user->setMdp($nMdp);
                 $userRepository->update($user);
@@ -290,7 +311,7 @@ class ControllerUser extends GenericController
                     );
 
                 }
-                if (!$userRepository->checkCmdp($userRepository->setMdpHache($aMdp), $user->getMdpHache())) {
+                if (!$mdp->verifier($aMdp, $user->getMdpHache())) {
                     $parametres = array(
                         'pagetitle' => 'Erreur',
                         'cheminVueBody' => 'user/update.php',
