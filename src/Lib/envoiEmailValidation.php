@@ -2,14 +2,14 @@
 
 namespace App\Covoiturage\Lib;
 
-use App\Covoiturage\Config\Conf;
-use App\Covoiturage\Model\DataObject\Utilisateur;
+use App\Config\Conf;
+use App\Model\DataObject;
 
 class VerificationEmail
 {
-    public static function envoiEmailValidation(Utilisateur $utilisateur): void
+    public static function envoiEmailValidation(User $utilisateur): void
     {
-        $loginURL = rawurlencode($utilisateur->getLogin());
+        $loginURL = rawurlencode($utilisateur->getId());
         $nonceURL = rawurlencode($utilisateur->getNonce());
         $absoluteURL = Conf::getAbsoluteURL();
         $lienValidationEmail = "$absoluteURL?action=validerEmail&controller=utilisateur&login=$loginURL&nonce=$nonceURL";

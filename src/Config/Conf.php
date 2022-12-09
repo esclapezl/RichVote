@@ -19,6 +19,10 @@ class Conf {
         'password' => '060781121EK'
     );
 
+    static public function getAbsoluteUrl(): string{
+        return 'https://webinfo.iutmontp.univ-montp2.fr/~esclapezl/sae-website/web/frontController.php';
+    }
+
     static public function getLogin() : string {
         // L'attribut statique $databases s'obtient avec la syntaxe static::$databases
         // au lieu de $this->databases pour un attribut non statique

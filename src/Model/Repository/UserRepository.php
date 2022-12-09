@@ -238,6 +238,25 @@ class UserRepository extends AbstractRepository
         $pdoStatement->execute($values);
     }
 
+    public function mailDeValidation(User $user)
+    {
+        if($user->getNonce() == null)
+        {
+            $user->setNonce($this->genererNonce());
+        }
+        VerificationEmail::envoiEmailValidation($user);
+
+    }
+
+    function genererNonce():string {
+        $characters = '0123456789';
+        $randomString = '';
+        for ($i = 0; $i < 6; $i++) {
+            $randomString .= $characters[rand(0, 9)];
+        }
+        return $randomString;
+    }
+
 
 
 

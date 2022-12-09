@@ -3,6 +3,7 @@
 namespace App\Model\DataObject;
 
 use App\Lib\MotDePasse;
+use App\Model\Repository\DatabaseConnection;
 use App\Model\Repository\UserRepository;
 use http\QueryString;
 
@@ -15,6 +16,8 @@ class User extends AbstractDataObject
     private string $role;
     private string $email;
     private bool $estAdmin;
+
+
 
     private string $emailAValider;
     private string $nonce;
@@ -47,7 +50,21 @@ class User extends AbstractDataObject
         return $this->estAdmin;
     }
 
+    /**
+     * @return string
+     */
+    public function getNonce(): string
+    {
+        return $this->nonce;
+    }
 
+    /**
+     * @param string $nonce
+     */
+    public function setNonce(string $nonce): void
+    {
+        $this->nonce = $nonce;
+    }
     /**
      * @param string $id
      */
@@ -176,11 +193,12 @@ class User extends AbstractDataObject
 
     public function isVerified(): bool
     {
-        if((new UserRepository())->select($this->getId())==null)
-        {
-            return true;
-        }
+        $sql = "SELECT IDUSER FROM SOUVIGNETN.EMAILUSERSINVALIDE WHERE IDUSER = '".$this->getId()."'";
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdostatement = $pdo->query($sql);
+        if(!$pdostatement->fetch()) return true;
         else return false;
+
     }
 
 

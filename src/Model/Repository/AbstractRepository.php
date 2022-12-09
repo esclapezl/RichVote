@@ -70,6 +70,8 @@ abstract class AbstractRepository{
 
     }
 
+
+
     public function delete(string $valeurClePrimaire): void
     {
         $sql = "DELETE FROM ". $this->getNomTable() ." WHERE ". $this->getNomClePrimaire()." = :objetTag";
