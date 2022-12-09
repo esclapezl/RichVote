@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="1fe0a3b7-0d7b-4030-b748-9894c058a015" name="Changes" comment="validation email">
       <change beforePath="$PROJECT_DIR$/src/Config/Conf.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Config/Conf.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lib/envoiEmailValidation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lib/envoiEmailValidation.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/DataObject/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DataObject/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/AbstractRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Repository/UserRepository.php" afterDir="false" />
+=======
+    <list default="true" id="9362fd9e-e1d8-404e-840d-c687c7064421" name="Changes" comment="maj question">
+      <change beforePath="$PROJECT_DIR$/src/View/question/detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/question/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/question/list.php" afterDir="false" />
+>>>>>>> origin/main
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +22,7 @@
   <component name="ComposerSettings">
     <execution />
   </component>
+<<<<<<< HEAD
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -23,12 +30,15 @@
       </list>
     </option>
   </component>
+=======
+>>>>>>> origin/main
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectId" id="2Gd7pKXQPeAwLywNxsNhR6ilT7P" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -445,6 +455,11 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+=======
+  <component name="TaskManager">
+    <servers />
+  </component>
+>>>>>>> origin/main
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -456,6 +471,7 @@
       </map>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="VcsManagerConfiguration">
     <MESSAGE value="réglages creer/supprimer question" />
     <MESSAGE value="modifier" />
@@ -484,4 +500,6 @@
     <MESSAGE value="validation email" />
     <option name="LAST_COMMIT_MESSAGE" value="validation email" />
   </component>
+=======
+>>>>>>> origin/main
 </project>
