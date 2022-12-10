@@ -29,7 +29,7 @@ use App\Model\Repository\UserRepository;
             if (empty($users)){
                 echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat a été trouvé pour " . $_POST['title'] . " .</h3></div>
                     <div class='descP'></div><div class='ligneCent'>
-                    <a href=frontController.php?controller=user&action=readAll>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
+                    <a href=frontController.php?controller=user&action=readAllSelect>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
             }
             else {
                 $idQuestion = $question->getId();

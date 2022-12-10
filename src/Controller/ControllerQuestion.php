@@ -211,7 +211,7 @@ class ControllerQuestion extends GenericController
         $questions = (new QuestionRepository())->selectAllClosed();
         $param = [
             'pagetitle' => 'Questions fermées',
-            'cheminVueBody' => '/question/list.php',
+            'cheminVueBody' => 'resultats/list.php',
             'questions' => $questions
         ];
         self::afficheVue('view.php', $param);

@@ -27,10 +27,10 @@ use App\Model\Repository\UserRepository;
             </form>
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
-            //if ((new UserRepository())->getRole(ConnexionUtilisateur::getLoginUtilisateurConnecte()) == "organisateur") {
+            if ((new UserRepository())->getRole(ConnexionUtilisateur::getLoginUtilisateurConnecte()) == "organisateur") {
 
                 echo '<a class="optQuestion" href = "frontController.php?controller=question&action=create" > Créer une Question </a >';
-                //}
+                }
             }
             ?>
 <!--            <button class="opt">Trier Par</button>-->
