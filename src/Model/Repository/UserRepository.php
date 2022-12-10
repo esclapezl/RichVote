@@ -145,9 +145,8 @@ class UserRepository extends AbstractRepository
         return '"idUser"';
     }
 
-    public function sauvegarder(AbstractDataObject $object): void
+    public function sauvegarder(User $object): void
     {
-        $this->mailDeValidation($this);
         $colonnes = "";
         foreach ($this->getNomsColonnes() as $colonne) {
             if(!$colonnes =="") {

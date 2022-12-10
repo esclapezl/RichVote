@@ -151,6 +151,8 @@ class ControllerUser extends GenericController
                 'cheminVueBody' => 'user/validationEmail.php',
                 'idUser'=> $idUser
             );
+            $userRepository->mailDeValidation($user);
+
         }
         else
         {
