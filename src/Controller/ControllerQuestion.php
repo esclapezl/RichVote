@@ -183,7 +183,16 @@ class ControllerQuestion extends GenericController
 
     public static function addVotantToQuestion(){
         $idQuestion = $_GET['id'];
-        $users = (new UserRepository())->selectAll();
+
+
+        if (isset($_POST['title']) AND !empty($_POST['title'])){
+            $recherche= strtolower(htmlspecialchars($_POST['title']));
+            $users = (new UserRepository())->search($recherche);
+        }
+        else{
+            $users = (new UserRepository())->selectAll();
+        }
+
 
         $param = [
             'question' => (new QuestionRepository())->select($idQuestion),
@@ -208,7 +217,15 @@ class ControllerQuestion extends GenericController
     }
 
     public static function readAllResult(){
-        $questions = (new QuestionRepository())->selectAllClosed();
+
+        if (isset($_POST['title']) AND !empty($_POST['title'])){
+            $recherche= strtolower(htmlspecialchars($_POST['title']));
+            $questions = (new QuestionRepository)->search($recherche);
+        }
+        else{
+            $questions = (new QuestionRepository())->selectAllClosed();
+        }
+
         $param = [
             'pagetitle' => 'Questions fermées',
             'cheminVueBody' => 'resultats/list.php',
