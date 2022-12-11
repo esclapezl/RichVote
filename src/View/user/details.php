@@ -98,10 +98,5 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
             echo '</form>';
         }
         ?>
-
-
-
-
-
     </div>
 </div>
