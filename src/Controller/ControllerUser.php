@@ -7,9 +7,11 @@ use App\Lib\MessageFlash;
 use App\Lib\MotDePasse;
 use App\Model\DataObject\User;
 use App\Model\HTTP\Cookie;
+use App\Model\Repository\GroupeRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\UserRepository;
 use App\Model\HTTP\Session;
+use Couchbase\Group;
 
 
 class ControllerUser extends GenericController

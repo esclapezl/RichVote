@@ -60,7 +60,6 @@ use App\Model\Repository\UserRepository;
         echo '<div class="descG"></div> <div class="ligneCent"> <input type="submit" value="Ajouter les utilisateurs selectionnés" class="optQuestion"></div></form>';
     }
     ?>
-
 </ul>
 </div>
 </div>

@@ -62,6 +62,19 @@ class GroupeRepository extends AbstractRepository
         return $result;
     }
 
+    public function getNomGroupes(string $idMembre) : array{
+        $sql = 'SELECT nomGroupe FROM AppartientGroupe WHERE idUser=:idMembre';
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        $pdoStatement->execute(['idMembre'=>$idMembre]);
+
+        $result = [];
+        foreach ($pdoStatement as $nomGroupe){
+            $result[] = $nomGroupe['NOMGROUPE'];
+        }
+        return $result;
+    }
+
     public function sauvegarder(Groupe $groupe){
         $sql = "INSERT INTO GROUPEUSERS(nomGroupe, idUserResponsable) VALUES(:nomGroupe, :idUser)";
 
@@ -83,5 +96,4 @@ class GroupeRepository extends AbstractRepository
             $pdoStatement->execute(['idUser'=>$idMembre, 'nomGroupe'=>$nomGroupe]);
         }
     }
-
 }
