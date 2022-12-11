@@ -20,6 +20,14 @@ class Groupe extends AbstractDataObject
         return $this->nomGroupe;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getIdResponsable(): ?string
+    {
+        return $this->idResponsable;
+    }
+
     public function ajouterIdMembre(string $id){
         $this->idMembres[] = $id;
     }

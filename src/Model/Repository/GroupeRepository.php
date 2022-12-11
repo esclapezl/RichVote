@@ -53,4 +53,26 @@ class GroupeRepository extends AbstractRepository
         return $result;
     }
 
+    public function sauvegarder(Groupe $groupe){
+        $sql = "INSERT INTO GROUPEUSERS(nomGroupe, idUserResponsable) VALUES(:nomGroupe, :idUser)";
+
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        $pdoStatement->execute(['nomGroupe' => $groupe->getId(),
+            'idUser' => $groupe->getIdResponsable()]);
+
+        // insertions des membres
+        $this->insertMembres($groupe->getId(), $groupe->getIdMembres());
+    }
+
+    private function insertMembres(string $nomGroupe, array $idMembres){
+        $sql = "INSERT INTO APPARTIENTGROUPE(idUser, nomGroupe) VALUES(:idUser, :nomGroupe) WHERE NOT EXISTS(SELECT idUser FROM APPARTIENTGROUPE WHERE idUser=:idUser AND nomGroupe=:nomGroupe)";
+
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        foreach ($idMembres as $idMembre){
+            $pdoStatement->execute(['idUser'=>$idMembre, 'nomGroupe'=>$nomGroupe]);
+        }
+    }
+
 }
