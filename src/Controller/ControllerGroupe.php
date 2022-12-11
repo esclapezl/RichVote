@@ -6,6 +6,7 @@ use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
 use App\Model\DataObject\Groupe;
 use App\Model\Repository\GroupeRepository;
+use App\Model\Repository\UserRepository;
 
 class ControllerGroupe extends GenericController
 {
@@ -58,5 +59,43 @@ class ControllerGroupe extends GenericController
             ];
             self::afficheVue('view.php', $params);
         }
+    }
+
+    public static function addUserToGroupe(){
+        $nomGroupe = $_GET['nomGroupe'];
+        $groupe = (new GroupeRepository())->select($nomGroupe);
+        if (ConnexionUtilisateur::getLoginUtilisateurConnecte() == $groupe->getIdResponsable()) {
+            $action = 'frontController.php?controller=groupe&action=usersAddedToGroupe&nomGroupe='.$nomGroupe;
+            $users = (new UserRepository())->selectAll();
+            $params = [
+                'pagetitle' => 'ajouter membres groupe',
+                'cheminVueBody' => '/user/listPourAjouter.php',
+                'action' => $action,
+                'users' => $users
+            ];
+            self::afficheVue('view.php', $params);
+        }
+    }
+
+    public static function usersAddedToGroupe()
+    {
+        $nomGroupe = $_GET['nomGroupe'];
+        $groupe = (new GroupeRepository())->select($nomGroupe);
+        if (ConnexionUtilisateur::getLoginUtilisateurConnecte() == $groupe->getIdResponsable()) {
+            if (isset($_POST['user'])) {
+                foreach ($_POST['user'] as $idUser) {
+                    $groupe->addUser($idUser);
+                }
+            }
+        }
+
+        (new GroupeRepository())->update($groupe);
+
+        $params = [
+            'pagetitle' => 'detail groupe',
+            'cheminVueBody' => '/groupe/detail.php',
+            'groupe' => $groupe
+        ];
+        self::afficheVue('view.php', $params);
     }
 }

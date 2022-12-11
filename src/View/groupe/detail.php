@@ -18,3 +18,8 @@ $membres = $groupe->getIdMembres();
         </ul>
     </div>
 </div>
+
+<?php
+$users = (new \App\Model\Repository\UserRepository())->selectAll();
+$action = 'aaaaaaaaccction';
+require_once __DIR__.'/../user/listPourAjouter.php';

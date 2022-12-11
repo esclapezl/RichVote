@@ -11,8 +11,7 @@ class Groupe extends AbstractDataObject
     public function formatTableau(): array
     {
         return ['nomGroupeTag' => $this->nomGroupe,
-            'idResponsableTag' => $this->idResponsable,
-            'idMembresTag' => $this->idMembres];
+            'idUserResponsableTag' => $this->idResponsable];
     }
 
     public function getId(): ?string
@@ -26,10 +25,6 @@ class Groupe extends AbstractDataObject
     public function getIdResponsable(): ?string
     {
         return $this->idResponsable;
-    }
-
-    public function ajouterIdMembre(string $id){
-        $this->idMembres[] = $id;
     }
 
     public function getIdMembres():array{
@@ -47,5 +42,10 @@ class Groupe extends AbstractDataObject
         $this->idMembres = $idMembres;
     }
 
+    public function addUser(string $idUser){
+        if(!isset($this->idMembres[$idUser])){
+            $this->idMembres[] = $idUser;
+        }
+    }
 
 }
