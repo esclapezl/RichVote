@@ -28,7 +28,6 @@ class UserRepository extends AbstractRepository
             "PRENOMUSER",
             "NOMUSER",
             '"role"',
-            "ESTADMIN",
             "EMAIL"
         ];
 
@@ -42,7 +41,6 @@ class UserRepository extends AbstractRepository
             $objetFormatTableau['PRENOMUSER'],
             $objetFormatTableau['NOMUSER'],
             $objetFormatTableau['role'],
-            $objetFormatTableau['ESTADMIN'],
             $objetFormatTableau['EMAIL']
         );
     }
@@ -77,6 +75,23 @@ class UserRepository extends AbstractRepository
         return true;
 
         //return var_dump($pdoStatement->fetch());
+    }
+
+    public function selectAllValide(): array{
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $sqlUpdate = 'CALL updatePhase()';
+        $pdo->query($sqlUpdate);
+
+        $nomTable = $this->getNomTable();
+
+        $pdoStatement = $pdo->query('SELECT * FROM souvignetn.users WHERE "idUser" NOT IN(SELECT IDUSER FROM souvignetn.emailusersnonvalide) ');
+
+        $tabRepo = array();
+        foreach($pdoStatement as $objetFormatTab){
+            $tabRepo[] = $this->construire($objetFormatTab);
+        }
+
+        return $tabRepo;
     }
 
     public function checkEmail(string $email):bool

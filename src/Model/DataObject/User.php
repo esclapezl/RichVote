@@ -15,7 +15,7 @@ class User extends AbstractDataObject
     private string $nom;
     private string $role;
     private string $email;
-    private bool $estAdmin;
+
 
 
 
@@ -29,16 +29,15 @@ class User extends AbstractDataObject
      * @param string $prenom
      * @param string $nom
      * @param string $role
-     * @param bool $Admin
+
      */
-    public function __construct(string $id, string $mdp, string $prenom, string $nom, string $role, bool $Admin, string $email)
+    public function __construct(string $id, string $mdp, string $prenom, string $nom, string $role, string $email)
     {
         $this->id = $id;
         $this->mdpHache = $mdp;
         $this->prenom =$prenom;
         $this->nom = $nom;
         $this->role = $role;
-        $this->estAdmin = $Admin;
         $this->email = $email;
     }
 
@@ -47,7 +46,7 @@ class User extends AbstractDataObject
      */
     public function isAdmin(): bool
     {
-        return $this->estAdmin;
+        return ($this->getRole() == 'Administrateur');
     }
 
     /**
@@ -64,7 +63,12 @@ class User extends AbstractDataObject
         $pdoStatement->execute($values);
 
         $result = $pdoStatement->fetch();
-        return $result['NONCE'];
+        if($result != null)
+        {
+            return $result['NONCE'];
+        }
+        else return 'ERROR';
+
     }
 
     /**
@@ -177,7 +181,6 @@ class User extends AbstractDataObject
             'PRENOMUSER' => $this->getPrenom(),
             'NOMUSER' => $this->getNom(),
             '"role"' => 'invité',
-            'ESTADMIN' =>$bool,
             'EMAIL' => $this->getEmail()
         );
     }

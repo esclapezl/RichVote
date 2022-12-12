@@ -35,7 +35,7 @@ class VerificationEmail
 <div style="margin-left: 150px;margin-right: 150px;margin-bottom: 40px ;background:#ffffff;border:2px solid #e2e2e2;line-height:1.1;text-align:center;text-decoration:none;display:block;border-radius:8px;font-weight:bold;padding:10px 40px">
 <span style="color:#333;letter-spacing:5px">' . $utilisateur->getNonce().'</span>
 </div>
-<div style="color:#7C7C7CFF;margin-top: 40px;margin-bottom: 20x;padding:10px 20px 10px 10px">Si vous n\'êtes pas à l\'origines de cette demande, ignorez cet e-mail.</div>
+<div style="color:#7C7C7CFF;margin-top: 40px;margin-bottom: 20x;padding:10px 20px 10px 10px">Si vous n\'êtes pas à l\'origine de cette demande, ignorez cet e-mail.</div>
 <footer style="background-color: black"><table role="presentation" width="100%" >
 <tbody><tr>
 <td style="padding:10px 10px 10px 20px" align="left"><div style="color: white;font-weight: bold"> richvote.website@gmail.&#8203;com</div></td> 

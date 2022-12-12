@@ -141,7 +141,7 @@ class ControllerUser extends GenericController
 
         $mdpconfig = new MotDePasse();
         $userRepository = new UserRepository();
-        $user = new User($idUser, $mdpconfig->hacher($mdp), $prenom, $nom, 'invité', $estAdmin, $email);
+        $user = new User($idUser, $mdpconfig->hacher($mdp), $prenom, $nom, 'invité', $email);
 
         if ($userRepository->checkCmdp($mdp, $cmdp)          //check si aucune contrainte n'a été violée
             && $userRepository->checkId($idUser)
