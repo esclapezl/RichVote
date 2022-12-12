@@ -33,15 +33,56 @@ class ControllerVote extends GenericController
         self::afficheVue('view.php', $parametres);
     }
 
+    public static function voterScrutinMajoritairePlurinominal() : void
+    {
+        $question = (new QuestionRepository())->select($_GET['idQuestion']);
+        $propositions = (new PropositionRepository())->selectAllWithScoreForUser($question->getCurrentPhase()->getId(), ConnexionUtilisateur::getLoginUtilisateurConnecte());
+
+        $propositionsPour = [];
+        $propositionsContre = [];
+        foreach ($propositions as $propositionWithScore){
+            if($propositionWithScore[1] > 0){
+                $propositionsPour[] = $propositionWithScore[0];
+            }
+            else{
+                $propositionsContre[] = $propositionWithScore[0];
+            }
+        }
+
+        $params =
+            [
+                'pagetitle' => 'vote plurinominal',
+                'cheminVueBody' => '/vote/voter/scrutinMajoritairePlurinominal.php',
+                'propisitionsPour' => $propositionsPour,
+                'propositionsContre' => $propositionsContre,
+                'question' => $question
+            ];
+        self::afficheVue('view.php', $params);
+    }
+
+    public static function scrutinMajoritairePlurinominalVoted(){
+        $user = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+        if($user == null){
+            MessageFlash::ajouter('danger', 'vote refusé, vous n\'êtes pas connecté');
+        }
+        else if(isset($_POST['idProposition'])){
+            VoteRepository::voter($_POST['idProposition'], $user, 1);
+
+            MessageFlash::ajouter('success', 'Vous avez voté !');
+        }
+        else{
+            MessageFlash::ajouter('danger', "Votre vote n'est pas passé.");
+        }
+        self::voterScrutinMajoritairePlurinominal();
+    }
+
     public static function scrutinMajoritaireVoted(){
         $user = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         if($user == null){
             MessageFlash::ajouter('danger', 'vote refusé, vous n\'êtes pas connecté');
         }
         else if(isset($_POST['idProposition'])){
-            $scoreVote = 1;
-
-            VoteRepository::voter($_POST['idProposition'], $user, $scoreVote);
+            VoteRepository::voter($_POST['idProposition'], $user, 1);
 
             MessageFlash::ajouter('success', 'Vous avez voté !');
         }

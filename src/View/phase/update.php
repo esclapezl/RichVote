@@ -23,6 +23,7 @@ $nbPlaces = $phase->getNbDePlaces();
         <select name="<?='type['.$id.']'?>">
             <option value="consultation">Phase de consultation</option>
             <option value="scrutinMajoritaire">Phase de vote par scrutin majoritaire</option>
+            <option value="scrutinMajoritairePlurinominal">Phasede vote par scutin majoritaire plurinominal</option>
         </select>
     </div>
 

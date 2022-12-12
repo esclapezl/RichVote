@@ -152,4 +152,36 @@ class PropositionRepository extends AbstractRepository
 
         return $result;
     }
+
+    public function selectAllWithScoreForUser(string $idPhase, string $idUser){ // comme au dessus sauf que c'est pour un user (propal de score 0 si pas votée)
+        $sql = 'SELECT vp.idProposition, intitule, archive, scoreVote
+                FROM VotantProposition vp
+                JOIN Questions q ON q.idProposition=vp.idProposition
+                WHERE idPhaseVote=:idPhase AND idUser=:idUser
+                UNION
+                SELECT sv.idProposition, intitule, archive, 0
+                FROM SESSIONVOTE sv
+                JOIN PROPOSITIONS p ON p.idProposition=sv.idProposition
+                WHERE idPhaseVote=:idPhase';
+
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        $pdoStatement->execute([
+            'idPhase' => $idPhase,
+            'idUser' => $idUser
+        ]);
+
+        $result = [];
+        foreach ($pdoStatement as $infoProposition){
+            var_dump($infoProposition);
+            $proposition = $this->construire([
+                "IDPROPOSITION" => $infoProposition["IDPROPOSITION"],
+                "IDQUESTION" => $infoProposition["IDQUESTION"],
+                "INTITULE" => $infoProposition["INTITULE"],
+                "ARCHIVE" => $infoProposition["ARCHIVE"]]);
+            $result[] = [$proposition, $infoProposition['SCORE']];
+        }
+
+        return $result;
+    }
 }
