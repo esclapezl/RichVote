@@ -20,6 +20,7 @@ class PropositionRepository extends AbstractRepository
         return new Proposition(
             $objetFormatTableau['IDPROPOSITION'],
             $objetFormatTableau['IDQUESTION'],
+            $objetFormatTableau['IDRESPONSABLE'],
             null,
             $objetFormatTableau['INTITULE'],
             $archive
@@ -36,6 +37,7 @@ class PropositionRepository extends AbstractRepository
         return [
             "idProposition",
             "idQuestion",
+            "idResponsable",
             "intitule"
         ];
 
@@ -82,11 +84,12 @@ class PropositionRepository extends AbstractRepository
      public function sauvegarder(AbstractDataObject $proposition) : AbstractDataObject{
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
-        $sql = "CALL creerProposition(:idQuestion)";
+        $sql = "CALL creerProposition(:idQuestion, :idResponsable)";
 
         $pdoStatement = $pdo->prepare($sql);
 
-        $params = ['idQuestion' => $proposition->getIdQuestion()];
+        $params = ['idQuestion' => $proposition->getIdQuestion(),
+            'idResponsable' => $proposition->getIdResponsable()];
 
         $pdoStatement->execute($params);
 
@@ -141,7 +144,6 @@ class PropositionRepository extends AbstractRepository
 
         $result = [];
         foreach ($pdoStatement as $infoProposition){
-            var_dump($infoProposition);
             $proposition = $this->construire([
                 "IDPROPOSITION" => $infoProposition["IDPROPOSITION"],
                 "IDQUESTION" => $infoProposition["IDQUESTION"],
@@ -154,15 +156,10 @@ class PropositionRepository extends AbstractRepository
     }
 
     public function selectAllWithScoreForUser(string $idPhase, string $idUser){ // comme au dessus sauf que c'est pour un user (propal de score 0 si pas votée)
-        $sql = 'SELECT vp.idProposition, intitule, archive, scoreVote
+        $sql = 'SELECT vp.idProposition, idResponsable, intitule, archive, p.idQuestion, NVL(scoreVote, 0) as scoreVote
                 FROM VotantProposition vp
-                JOIN Questions q ON q.idProposition=vp.idProposition
-                WHERE idPhaseVote=:idPhase AND idUser=:idUser
-                UNION
-                SELECT sv.idProposition, intitule, archive, 0
-                FROM SESSIONVOTE sv
-                JOIN PROPOSITIONS p ON p.idProposition=sv.idProposition
-                WHERE idPhaseVote=:idPhase';
+                RIGHT JOIN Propositions p ON p.idProposition=vp.idProposition
+                WHERE idPhaseVote=:idPhase AND idVotant=:idUser';
 
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
@@ -173,13 +170,13 @@ class PropositionRepository extends AbstractRepository
 
         $result = [];
         foreach ($pdoStatement as $infoProposition){
-            var_dump($infoProposition);
             $proposition = $this->construire([
                 "IDPROPOSITION" => $infoProposition["IDPROPOSITION"],
                 "IDQUESTION" => $infoProposition["IDQUESTION"],
                 "INTITULE" => $infoProposition["INTITULE"],
-                "ARCHIVE" => $infoProposition["ARCHIVE"]]);
-            $result[] = [$proposition, $infoProposition['SCORE']];
+                "ARCHIVE" => $infoProposition["ARCHIVE"],
+                "IDRESPONSABLE" => $infoProposition["IDRESPONSABLE"]]);
+            $result[] = [$proposition, $infoProposition['SCOREVOTE']];
         }
 
         return $result;

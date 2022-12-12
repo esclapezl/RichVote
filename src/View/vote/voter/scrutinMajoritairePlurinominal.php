@@ -14,7 +14,7 @@ use App\Model\DataObject\Proposition;
 
 <div class="block">
     <div class="text-box">
-        <form method="post" action="frontController.php?controller=vote&action=scrutinMajoritairePlurinominalVoted&idQuestion<?=$question->getId()?>">
+        <form method="post" action="frontController.php?controller=vote&action=scrutinMajoritairePlurinominalVoted&idQuestion=<?=$question->getId()?>">
             <div class="ligneCent"> <h1>Vous pouvez voter.</h1></div>
 
             <div class="ligneCent"><div class="ligne"></div></div><br>
@@ -26,7 +26,7 @@ use App\Model\DataObject\Proposition;
             foreach ($propositionsPour as $propalPour){
                 $idProposition = $propalPour->getId();
                 $intituleProposition = htmlspecialchars($propalPour->getIntitule());
-                echo "<button name='idPropositionPour' value='$idProposition'>$intituleProposition</button>";
+                echo "<button name='idPropositionContre' value='$idProposition'>$intituleProposition</button>";
             }
             ?>
 
@@ -35,7 +35,7 @@ use App\Model\DataObject\Proposition;
             foreach ($propositionsContre as $propalContre){
                 $idProposition = $propalContre->getId();
                 $intituleProposition = htmlspecialchars($propalContre->getIntitule());
-                echo "<button name='idPropositionContre' value='$idProposition'>$intituleProposition</button>";
+                echo "<button name='idPropositionPour' value='$idProposition'>$intituleProposition</button>";
             }
             ?>
             <div class="descG"></div>

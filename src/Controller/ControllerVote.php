@@ -53,7 +53,7 @@ class ControllerVote extends GenericController
             [
                 'pagetitle' => 'vote plurinominal',
                 'cheminVueBody' => '/vote/voter/scrutinMajoritairePlurinominal.php',
-                'propisitionsPour' => $propositionsPour,
+                'propositionsPour' => $propositionsPour,
                 'propositionsContre' => $propositionsContre,
                 'question' => $question
             ];
@@ -65,8 +65,13 @@ class ControllerVote extends GenericController
         if($user == null){
             MessageFlash::ajouter('danger', 'vote refusé, vous n\'êtes pas connecté');
         }
-        else if(isset($_POST['idProposition'])){
-            VoteRepository::voter($_POST['idProposition'], $user, 1);
+        else if(isset($_POST['idPropositionPour'])){
+            VoteRepository::voter($_POST['idPropositionPour'], $user, 1);
+
+            MessageFlash::ajouter('success', 'Vous avez voté !');
+        }
+        else if(isset($_POST['idPropositionContre'])){
+            VoteRepository::voter($_POST['idPropositionContre'], $user, 0);
 
             MessageFlash::ajouter('success', 'Vous avez voté !');
         }
