@@ -84,7 +84,7 @@ class UserRepository extends AbstractRepository
 
         $nomTable = $this->getNomTable();
 
-        $pdoStatement = $pdo->query('SELECT * FROM souvignetn.users WHERE "idUser" NOT IN(SELECT IDUSER FROM souvignetn.emailusersnonvalide) ');
+        $pdoStatement = $pdo->query('SELECT * FROM souvignetn.users WHERE "idUser" NOT IN(SELECT IDUSER FROM SOUVIGNETN.EMAILUSERSINVALIDE)');
 
         $tabRepo = array();
         foreach($pdoStatement as $objetFormatTab){

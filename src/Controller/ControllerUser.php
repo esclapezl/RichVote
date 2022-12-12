@@ -248,7 +248,7 @@ class ControllerUser extends GenericController
             $arrayUser = (new UserRepository())->search($recherche);
         }
         else{
-            $arrayUser = (new UserRepository())->selectAll();
+            $arrayUser = (new UserRepository())->selectAllValide();
         }
 
 
@@ -260,7 +260,7 @@ class ControllerUser extends GenericController
 
         self::afficheVue('view.php', $parametres);
     }
-
+/*
     public static function readAllSelect() : void
     {
         if (isset($_POST['title']) AND !empty($_POST['title'])){
@@ -268,7 +268,7 @@ class ControllerUser extends GenericController
             $arrayUser = (new UserRepository())->search($recherche);
         }
         else{
-            $arrayUser = (new UserRepository())->selectAll();
+            $arrayUser = (new UserRepository())->selectAllValide();
         }
 
 
@@ -280,6 +280,7 @@ class ControllerUser extends GenericController
 
         self::afficheVue('view.php', $parametres);
     }
+*/
 
     public static function read():void
     {
