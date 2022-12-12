@@ -4,7 +4,6 @@ namespace App\Model\Repository;
 
 use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Proposition;
-use App\Model\DataObject\Question;
 use App\Model\DataObject\User;
 use App\Lib\VerificationEmail;
 
@@ -82,9 +81,8 @@ class UserRepository extends AbstractRepository
         $sqlUpdate = 'CALL updatePhase()';
         $pdo->query($sqlUpdate);
 
-        $nomTable = $this->getNomTable();
 
-        $pdoStatement = $pdo->query('SELECT * FROM souvignetn.users WHERE "idUser" NOT IN(SELECT IDUSER FROM souvignetn.emailusersnonvalide) ');
+        $pdoStatement = $pdo->query('SELECT * FROM souvignetn.users WHERE "idUser" NOT IN(SELECT IDUSER FROM SOUVIGNETN.EMAILUSERSINVALIDE)');
 
         $tabRepo = array();
         foreach($pdoStatement as $objetFormatTab){
@@ -121,8 +119,8 @@ class UserRepository extends AbstractRepository
                 'idQuestion' => $question]
         );
 
-        $result = $pdoStatement->fetch()[0];
-        return $result;
+
+        return $pdoStatement->fetch()[0];
     }
 
     public function getRole(string $id) : string{
@@ -134,8 +132,8 @@ class UserRepository extends AbstractRepository
             'id' => $id
         ));
 
-        $result = $pdoStatement->fetch()[0];
-        return $result;
+
+        return $pdoStatement->fetch()[0];
     }
 
 
@@ -236,12 +234,11 @@ class UserRepository extends AbstractRepository
         $sql = "CALL demandeAccesVote(:idUser, :idQuestion)";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
-        $reussite = $pdoStatement->execute([
-            'idQuestion' => $idQuestion,
-            'idUser' => $idUser
-        ]);
 
-        return $reussite;
+
+        return $pdoStatement->execute([
+            'idQuestion' => $idQuestion,
+            'idUser' => $idUser]);
     }
 
     public function validerUser(User $user)
@@ -256,7 +253,7 @@ class UserRepository extends AbstractRepository
 
     public function mailDeValidation(User $user)
     {
-        $sql = "UPDATE SOUVIGNETN.EMAILUSERSINVALIDE SET nonce = :nonce WHERE IDUSER = :idUser";
+        $sql = 'UPDATE SOUVIGNETN.EMAILUSERSINVALIDE SET nonce = :nonce WHERE IDUSER = :idUser';
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
         $values = array(
             "nonce" => $this->genererNonce(),
