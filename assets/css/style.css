@@ -109,8 +109,9 @@ nav{
     display: flex;
     position: absolute;
     left: 200px;
-    background-color: rgba(0,0,0,0.5);
-    border-radius: 5px;
+    /*background-color: rgba(0,0,0,0.5);*/
+    background: white;
+    border-radius: 80px;
     height: 50px;
     justify-content: center;
     align-items: center;
@@ -120,16 +121,10 @@ nav{
 
 .navBar ul li{
     margin: 0 25px;
-    transition: 0.5s;
-
 
 }
 
-.navBar ul li.active,.navBar ul li:hover{
-    transform: translateY(-4px);
 
-
-}
 
 .navBar .btn {
     display: none;
@@ -180,7 +175,7 @@ nav{
     display: flex;
     width: 160px;
     height: 50px;
-    border-radius: 5px;
+    border-radius: 80px;
     justify-content: center;
     align-items: center;
     transition: 1s;
@@ -212,6 +207,16 @@ a#addVotants{
     padding: 8px;
     margin-bottom: 20px;
 }
+
+
+
+.photo{
+    width: 5em;
+    height: 5em;
+    box-shadow: 0 8px 32px 0 white;
+    border-radius: 100%;
+}
+
 
 
 
@@ -408,6 +413,86 @@ footer .vague#vague4{
 
 }
 
+.profil{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+
+    flex-direction: column;
+    background: rgb(112,116,213);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 1 );
+    border-radius: 80px;
+}
+
+#parametres{
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 70px;
+    width: 80%;
+    border-radius: 80px;
+    padding: 20px;
+
+    margin: 50px 50px;
+}
+
+#parametres > a{
+    border: 2px solid white;
+}
+
+
+#parametres > a,
+.navBar li > a{
+    color: rgb(112,116,213);
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+
+
+input[type=date],
+select,
+input[type=number]{
+    background: rgb(112,116,213);
+}
+input[type=text],
+textarea
+{
+    background: transparent;
+}
+
+input[type=text],
+input[type=date],
+input[type=number],
+textarea,
+select{
+
+    font-weight: bold;
+    border: 2px solid white;
+    padding: 8px;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+}
+
+
+#parametres > a:hover,
+#parametres > a.active
+{
+    border: 2px solid rgb(112,116,213);
+}
+.navBar ul li a.active,
+.navBar ul li a:hover{
+    background: rgba(0,0,0,0.1);
+}
+
+h3#mail{
+    font-size: 1em;
+}
+
 .block .text-box .ligneExt{
     width: 100%;
     display: flex;
@@ -422,6 +507,8 @@ footer .vague#vague4{
     justify-content: end;
     align-content: end;
 }
+
+
 
 .fleche{
     width: 100px;
@@ -449,6 +536,10 @@ footer .vague#vague4{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.names{
+    margin-right: 20px;
 }
 
 .ligne{
@@ -493,6 +584,25 @@ footer .vague#vague4{
 
 .ligneExt h3:nth-child(2){
     font-size: 1.8em;
+}
+button.valide > img{
+    width: 80%;
+    height: 80%;
+}
+
+.valide{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgb(112,116,213);
+    border-radius: 20px;
+    background: transparent;
+    cursor: pointer;
+    margin-left: 10px;
+}
+button.valide:hover,
+button.valide.active{
+    border: 2px solid white;
 }
 
 .optQuestion{
@@ -687,6 +797,8 @@ a h2,
     border-radius: 20px;
 }
 
+
+
 .block .text-box li .atxt {
     font-size: 1.8em;
     display: flex;
@@ -765,6 +877,13 @@ input[type="radio"]{
 .block .text-box img,
 .block .text-box h1{
     font-size: 2.5em;
+}
+
+h1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .block .text-box p a {

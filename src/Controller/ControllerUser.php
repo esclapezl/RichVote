@@ -286,7 +286,7 @@ class ControllerUser extends GenericController
         $user = (new UserRepository())->select($_GET['id']);
         $parametres = array(
             'pagetitle' => 'Détails user',
-            'cheminVueBody' => 'user/details.php',
+            'cheminVueBody' => 'user/detail.php',
             'user' => $user
         );
 
