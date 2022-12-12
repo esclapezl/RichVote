@@ -14,6 +14,14 @@ use App\Model\Repository\UserRepository;
 
 class ControllerQuestion extends GenericController
 {
+    public static function accueil()
+    {
+        self::afficheVue('view.php',[
+            "pagetitle" => "Accueil",
+            "cheminVueBody" => 'user/accueil.php'
+        ]);
+    }
+
     public static function readAll() : void
     {
 
