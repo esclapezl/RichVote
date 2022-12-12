@@ -81,10 +81,9 @@ switch ($typePhase) {
                 } else {
                     echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a></div>';
                 }
-                echo '<div class="descP"></div>
-
-        <div class="ligneExt"><h2 id="desc">DESCRIPTION</h2></div>
-        <p class="descG"><?=htmlspecialchars($question->getDescription())?></p>';
+                echo '<div class="descP"></div>'
+                    . ' <div class="ligneExt"><h2 id="desc">DESCRIPTION</h2></div>
+                        <p class="descG">' . htmlspecialchars($question->getDescription()) . '</p>';
 
         foreach ($question->getSections() as $section) {
             echo '<div class="ligneExt"><h3>' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
