@@ -1,6 +1,6 @@
 <?php
 namespace App\web;
-use App\Controller\Controller as Controller;
+use App\Controller ;
 use App\Controller\ControllerAdmin;
 use App\Controller\ControllerUser;
 use App\Controller\GenericController;
@@ -41,7 +41,7 @@ if(isset($_GET['controller'])) //si le controller est indiqué dans l'URL
 }
 else //si il n'y a pas de controller dans l'URL
 {
-    $controller = "Question"; //le controlleur "user" est choisi par défaut
+    $controller = "User"; //le controlleur "user" est choisi par défaut
     $controllerClassName = "App\Controller\Controller" . $controller;
 
     if(isset($_GET['action'])) {

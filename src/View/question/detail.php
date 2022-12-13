@@ -8,7 +8,7 @@ switch ($typePhase) {
     case 'consultation':
         $typePhase= 'En cours de consultation';
         break;
-    case 'scrutinMajoritaire':
+    case 'scrutinMajoritaire' || 'scrutinMajoritairePlurinominal' :
         $typePhase= 'Phase de vote en cours';
         break;
     case 'termine':

@@ -53,7 +53,7 @@ use App\Model\Repository\UserRepository;
                 case 'consultation':
                     $typePhase= 'En cours de consultation';
                     break;
-                case 'scrutinMajoritaire':
+                case 'scrutinMajoritaire' || 'scrutinMajoritairePlurinominal' :
                     $typePhase= 'En cours de vote';
                     break;
                 case 'termine':
