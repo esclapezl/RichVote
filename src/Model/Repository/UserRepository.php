@@ -41,7 +41,6 @@ class UserRepository extends AbstractRepository
             $objetFormatTableau['PRENOMUSER'],
             $objetFormatTableau['NOMUSER'],
             $objetFormatTableau['role'],
-            false,
             $objetFormatTableau['EMAIL']
         );
     }
@@ -78,6 +77,22 @@ class UserRepository extends AbstractRepository
         //return var_dump($pdoStatement->fetch());
     }
 
+    public function selectAllValide(): array{
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $sqlUpdate = 'CALL updatePhase()';
+        $pdo->query($sqlUpdate);
+
+
+        $pdoStatement = $pdo->query('SELECT * FROM souvignetn.users WHERE "idUser" NOT IN(SELECT IDUSER FROM SOUVIGNETN.EMAILUSERSINVALIDE)');
+
+        $tabRepo = array();
+        foreach($pdoStatement as $objetFormatTab){
+            $tabRepo[] = $this->construire($objetFormatTab);
+        }
+
+        return $tabRepo;
+    }
+
     public function checkEmail(string $email):bool
     {
 
@@ -105,8 +120,8 @@ class UserRepository extends AbstractRepository
                 'idQuestion' => $question]
         );
 
-        $result = $pdoStatement->fetch()[0];
-        return $result;
+
+        return $pdoStatement->fetch()[0];
     }
 
     public function getRole(string $id) : string{
@@ -118,8 +133,8 @@ class UserRepository extends AbstractRepository
             'id' => $id
         ));
 
-        $result = $pdoStatement->fetch()[0];
-        return $result;
+
+        return $pdoStatement->fetch()[0];
     }
 
 
@@ -186,7 +201,6 @@ class UserRepository extends AbstractRepository
             {
                 $txtsql .= "$nomColonne = :$nomColonne".'Tag';
             }
-
         }
 
         if($this->select($object->getId()) != null)
@@ -220,12 +234,11 @@ class UserRepository extends AbstractRepository
         $sql = "CALL demandeAccesVote(:idUser, :idQuestion)";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
-        $reussite = $pdoStatement->execute([
-            'idQuestion' => $idQuestion,
-            'idUser' => $idUser
-        ]);
 
-        return $reussite;
+
+        return $pdoStatement->execute([
+            'idQuestion' => $idQuestion,
+            'idUser' => $idUser]);
     }
 
     public function validerUser(User $user)
@@ -240,7 +253,7 @@ class UserRepository extends AbstractRepository
 
     public function mailDeValidation(User $user)
     {
-        $sql = "UPDATE SOUVIGNETN.EMAILUSERSINVALIDE SET nonce = :nonce WHERE IDUSER = :idUser";
+        $sql = 'UPDATE SOUVIGNETN.EMAILUSERSINVALIDE SET nonce = :nonce WHERE IDUSER = :idUser';
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
         $values = array(
             "nonce" => $this->genererNonce(),
@@ -259,6 +272,54 @@ class UserRepository extends AbstractRepository
             $randomString .= $characters[rand(0, 9)];
         }
         return $randomString;
+    }
+
+    public function emailExiste(string $email) :bool
+    {
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+
+        $sql = "SELECT email FROM souvignetn.users where email = '".$email."'";
+
+        $pdostatement = $pdo->query($sql);
+
+        $objectTab = $pdostatement->fetch();
+        if(!$objectTab) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public function selectEmail(string $email) :?User
+    {
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $sql = "SELECT * FROM souvignetn.users where email = '".$email."'";
+        $pdostatement = $pdo->query($sql);
+        $objectTab = $pdostatement->fetch();
+        if(!$objectTab) {
+            return null;
+        }
+        else {
+            return  $this->construire($objectTab);
+        }
+    }
+
+    public function selectMdpHache(string $mdpHache) :?User
+    {
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $sql = "SELECT * FROM souvignetn.users where MDP = '".$mdpHache."'";
+        $pdostatement = $pdo->query($sql);
+        $objectTab = $pdostatement->fetch();
+        if(!$objectTab) {
+            return null;
+        }
+        else {
+            return  $this->construire($objectTab);
+        }
     }
 
 

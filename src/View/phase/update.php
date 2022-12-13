@@ -20,12 +20,13 @@ $nbPlaces = $phase->getNbDePlaces();
 
     <div>
         Type de phase :
-        <select name="<?='type['.$id.']'?>">
+        <select name="' . '<?="type[' . $id . ']"?>' . '">
             <option value="consultation">Phase de consultation</option>
             <option value="scrutinMajoritaire">Phase de vote par scrutin majoritaire</option>
             <option value="scrutinMajoritairePlurinominal">Phasede vote par scutin majoritaire plurinominal</option>
         </select>
     </div>
+
 
 <div class="descP"></div>
     <label for=<?='nbP'.$id?>>S'il s'agit d'un vote, indiquez le nombre de propositions qui seront sélectionnées à l'issue du vote</label>

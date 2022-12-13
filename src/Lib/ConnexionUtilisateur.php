@@ -44,7 +44,7 @@ class ConnexionUtilisateur
         {
             $userRepository = new UserRepository;
             $user = $userRepository->select(self::getLoginUtilisateurConnecte());
-            return $user->isAdmin();
+            return ($user->getRole() == 'Administrateur');
         }
         else
         {

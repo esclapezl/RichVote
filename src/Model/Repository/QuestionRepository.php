@@ -113,6 +113,22 @@ class QuestionRepository extends AbstractRepository
         return "intituleQuestion";
     }
 
+    public function selectAllfromOrganisateur(string $id): ?array
+    {
+        $sql = "SELECT * FROM SOUVIGNETN.QUESTIONS WHERE idOrganisateur='" . $id ."'";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->query($sql);
+
+        $questions = [];
+        foreach ($pdoStatement as $questionTab){
+            $questions[] = $this->construire($questionTab);
+        }
+
+        return $questions;
+    }
+
+
+
+
     public function selectAllClosed(): array
     {
         $sql = "SELECT * FROM QUESTIONS q WHERE to_date(datefermeture, 'DD/MM/YY') <= SYSDATE";
