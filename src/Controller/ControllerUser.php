@@ -82,6 +82,8 @@ class ControllerUser extends GenericController
         $userRepository = (new UserRepository());
         /** @var User $user */
         $user = $userRepository->select($id);
+
+
         if($user != null
             &&( $userRepository->checkCmdp($user->getMdpHache(),$userRepository->setMdpHache($mdp)) ||
              MotDePasse::verifier($mdp, $user->getMdpHache()))
@@ -115,8 +117,8 @@ class ControllerUser extends GenericController
                     'msgErreurId' =>  "Cet utilisateur n'existe pas."
                 );
             }
-            else if(!($userRepository->checkCmdp($user->getMdpHache(),$userRepository->setMdpHache($mdp)) ||
-                MotDePasse::verifier($mdp, $user->getMdpHache())))
+            else if(!($userRepository->checkCmdp($user->getMdpHache(),$userRepository->setMdpHache($mdp))) ||
+                !MotDePasse::verifier($mdp, $user->getMdpHache()))
             {
                 $parametres = array(
                     'pagetitle' => 'Erreur',
@@ -261,27 +263,6 @@ class ControllerUser extends GenericController
 
         self::afficheVue('view.php', $parametres);
     }
-/*
-    public static function readAllSelect() : void
-    {
-        if (isset($_POST['title']) AND !empty($_POST['title'])){
-            $recherche= strtolower(htmlspecialchars($_POST['title']));
-            $arrayUser = (new UserRepository())->search($recherche);
-        }
-        else{
-            $arrayUser = (new UserRepository())->selectAllValide();
-        }
-
-
-        $parametres = array(
-            'pagetitle' => 'Liste Utilisateurs',
-            'cheminVueBody' => 'user/listOrganisateur.php',
-            'users' => $arrayUser
-        );
-
-        self::afficheVue('view.php', $parametres);
-    }
-*/
 
     public static function read():void
     {
@@ -342,7 +323,7 @@ class ControllerUser extends GenericController
             if ($userRepository->checkCmdp($nMdp, $cNMdp) &&
                 $mdp->verifier($aMdp, $user->getMdpHache()))
             {
-                $user->setMdp($mdp->hacher($nMdp));
+                $user->setMdp($nMdp);
                 $userRepository->update($user);
                 $parametres = array(
                     'pagetitle' => 'Mot de passe mis à jour.',
@@ -485,11 +466,20 @@ class ControllerUser extends GenericController
 
     public static function mdpOublie()
     {
-        $parametres = array(
-            'pagetitle' => 'Récuperation du mot de passe',
-            'cheminVueBody' => 'user/mdpOublie.php');
+        if(ConnexionUtilisateur::estConnecte())
+        {
+            $parametres = array(
+                'pagetitle' => 'Récuperation du mot de passe',
+                'cheminVueBody' => 'user/mdpOublie.php');
 
-        self::afficheVue('view.php', $parametres);
+            self::afficheVue('view.php', $parametres);
+        }
+        else
+        {
+            MessageFlash::ajouter('info', 'Vous êtes déjà connecté.');
+            self::redirection('frontController.php?controller=user&action=accueil');
+        }
+
     }
 
     public static function emailRecup()
@@ -526,7 +516,7 @@ class ControllerUser extends GenericController
             self::redirection('frontController.php?controller=user&action=accueil');
         }
         if ($userRepository->checkCmdp($nMdp, $cNMdp)) {
-            $user->setMdp($mdpConfig->hacher($nMdp));
+            $user->setMdp($nMdp);
             $userRepository->update($user);
 
 

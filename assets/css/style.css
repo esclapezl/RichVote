@@ -723,7 +723,7 @@ textarea{
 .block .text-box .optQuestion.active,
 .block .text-box .optQuestion:hover
 {
-    background-color: mediumblue;
+    background-color: #7061d0;
     color: white;
 }
 .block .text-box .ligneExt .stVote{

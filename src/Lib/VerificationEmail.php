@@ -60,7 +60,7 @@ class VerificationEmail
         $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
         $message  = '
-<span style="opacity: 0">' .rand(0, 1000).'</span>
+
 <div align="center" style="display:block;height:100%; width:100%;background-color: whitesmoke; justify-content: center">
 <div style="text-align:center;height:100%; width:500px;background-color: white">
 <header style="background: linear-gradient( rgb(113, 117, 213) 0%, rgba(57,78,222,1) 100%);height:100px;">
@@ -76,7 +76,7 @@ class VerificationEmail
 <td style="padding:10px 20px 10px 10px" align="right"><img  src="https://media.discordapp.net/attachments/1050956357748150302/1052001841463951460/logo.png?width=468&height=468" width="60px" height="60px">  </td> 
 </tr></tbody></table></footer>
 </div></div>
-<span style="opacity: 0">' .rand(0, 1000).'</span>
+<span style="opacity: 0"> ticker#' .rand(0, 1000).'</span>
 ';
 
         mail($email,
