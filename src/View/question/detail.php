@@ -9,7 +9,7 @@ switch ($typePhase) {
         $typePhase= 'En cours de consultation';
         break;
     case 'scrutinMajoritaire' || 'scrutinMajoritairePlurinominal' :
-        $typePhase= 'Phase de vote en cours';
+        $typePhase= 'Voter juste Ici';
         break;
     case 'termine':
         echo "Vote(s) terminé(s)";

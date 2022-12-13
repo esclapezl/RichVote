@@ -66,10 +66,10 @@ class ControllerVote extends GenericController
         $idQuestion = $_GET['idQuestion'];
 
         if((new UserRepository())->demanderAccesVote($idUser, $idQuestion)){
-            MessageFlash::ajouter('success', 'votre demande à bien été enregistrée');
+            MessageFlash::ajouter('success', 'Votre demande a bien été enregistrée');
         }
         else{
-            MessageFlash::ajouter('failure', 'votre demande à échoué');
+            MessageFlash::ajouter('failure', 'Votre demande a échouée.');
         }
 
         ControllerQuestion::readAll();
