@@ -26,13 +26,11 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
         <br>
         <?php
         if(ConnexionUtilisateur::estConnecte()){
-
-
                 if(isset($_GET['modif']))
                 {
                     echo '<form method="post" action="frontController.php?controller=user&action=updated&id='.$user->getId().'">';
                 }
-          echo '<div class="profil">
+                      echo '<div class="profil">
                     <div class="ligneExt">
                         <img class="photo" src="../assets/img/user-lambda.svg">
                         <h1>' . htmlspecialchars(ucfirst($user->getId())) . '</h1><div>';
