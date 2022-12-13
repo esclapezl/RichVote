@@ -4,6 +4,7 @@ namespace App\Model\Repository;
 
 use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Proposition;
+use App\Model\DataObject\Question;
 use App\Model\DataObject\User;
 use App\Lib\VerificationEmail;
 

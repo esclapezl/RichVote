@@ -20,6 +20,7 @@ class PropositionRepository extends AbstractRepository
         return new Proposition(
             $objetFormatTableau['IDPROPOSITION'],
             $objetFormatTableau['IDQUESTION'],
+            $objetFormatTableau['IDRESPONSABLE'],
             null,
             $objetFormatTableau['INTITULE'],
             $archive
@@ -36,6 +37,7 @@ class PropositionRepository extends AbstractRepository
         return [
             "idProposition",
             "idQuestion",
+            "idResponsable",
             "intitule"
         ];
 
@@ -82,11 +84,12 @@ class PropositionRepository extends AbstractRepository
      public function sauvegarder(AbstractDataObject $proposition) : AbstractDataObject{
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
-        $sql = "CALL creerProposition(:idQuestion)";
+        $sql = "CALL creerProposition(:idQuestion, :idResponsable)";
 
         $pdoStatement = $pdo->prepare($sql);
 
-        $params = ['idQuestion' => $proposition->getIdQuestion()];
+        $params = ['idQuestion' => $proposition->getIdQuestion(),
+            'idResponsable' => $proposition->getIdResponsable()];
 
         $pdoStatement->execute($params);
 
@@ -130,7 +133,7 @@ class PropositionRepository extends AbstractRepository
     }
 
     public function selectAllWithScore(string $idPhase): array{ // forme [Proposition, score]
-        $sql = 'SELECT p.idProposition, p.idQuestion, intitule, archive, score  
+        $sql = 'SELECT p.idProposition, idResponsable, p.idQuestion, intitule, archive, score  
                 FROM sessionVote sv
                 JOIN Propositions p ON p.idProposition=sv.idProposition
                 where idPhaseVote=:idPhase
@@ -141,13 +144,40 @@ class PropositionRepository extends AbstractRepository
 
         $result = [];
         foreach ($pdoStatement as $infoProposition){
-            var_dump($infoProposition);
+            $proposition = $this->construire([
+                "IDPROPOSITION" => $infoProposition["IDPROPOSITION"],
+                "IDQUESTION" => $infoProposition["IDQUESTION"],
+                "IDRESPONSABLE" => $infoProposition["IDRESPONSABLE"],
+                "INTITULE" => $infoProposition["INTITULE"],
+                "ARCHIVE" => $infoProposition["ARCHIVE"]]);
+            $result[] = [$proposition, $infoProposition['SCORE']];
+        }
+
+        return $result;
+    }
+
+    public function selectAllWithScoreForUser(string $idPhase, string $idUser){ // comme au dessus sauf que c'est pour un user (propal de score 0 si pas votée)
+        $sql = 'SELECT vp.idProposition, idResponsable, intitule, archive, p.idQuestion, NVL(scoreVote, 0) as scoreVote
+                FROM VotantProposition vp
+                RIGHT JOIN Propositions p ON p.idProposition=vp.idProposition
+                WHERE idPhaseVote=:idPhase AND idVotant=:idUser';
+
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        $pdoStatement->execute([
+            'idPhase' => $idPhase,
+            'idUser' => $idUser
+        ]);
+
+        $result = [];
+        foreach ($pdoStatement as $infoProposition){
             $proposition = $this->construire([
                 "IDPROPOSITION" => $infoProposition["IDPROPOSITION"],
                 "IDQUESTION" => $infoProposition["IDQUESTION"],
                 "INTITULE" => $infoProposition["INTITULE"],
-                "ARCHIVE" => $infoProposition["ARCHIVE"]]);
-            $result[] = [$proposition, $infoProposition['SCORE']];
+                "ARCHIVE" => $infoProposition["ARCHIVE"],
+                "IDRESPONSABLE" => $infoProposition["IDRESPONSABLE"]]);
+            $result[] = [$proposition, $infoProposition['SCOREVOTE']];
         }
 
         return $result;

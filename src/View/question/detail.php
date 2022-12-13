@@ -3,8 +3,9 @@ use App\Model\DataObject\Question;
 use App\Model\Repository\UserRepository;
 /** @var Question $question */
 
-$typePhase= $question->getCurrentPhase()->getType();
-switch ($typePhase) {
+$typePrecisPhase= $question->getCurrentPhase()->getType();
+$typePhase = 'placeHolder';
+switch ($typePrecisPhase) {
     case 'consultation':
         $typePhase= 'En cours de consultation';
         break;
@@ -34,8 +35,9 @@ switch ($typePhase) {
 
 
 
-                        if(VoteRepository::peutVoter($idUser, $idQuestion) && $question->getCurrentPhase()->getType()!="termine" && $question->getCurrentPhase()->getType()!="consultation") {
-                            echo "<a href=frontController.php?controller=vote&action=voterScrutinMajoritaire&idQuestion=$idQuestion><h2>Vote en cliquant ici</h2></a>";
+                        if(VoteRepository::peutVoter($idUser, $idQuestion) && $typePrecisPhase!="termine" && $typePrecisPhase!="consultation") {
+                            $typePrecisPhase = ucfirst($typePrecisPhase);
+                            echo "<a href=frontController.php?controller=vote&action=voter$typePrecisPhase&idQuestion=$idQuestion><h2>Vote en cliquant ici</h2></a>";
                         }
                         else if((new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $question->getId())==null  && $typePhase== 'Voter juste Ici'){
                             echo "<a href=frontController.php?controller=vote&action=demandeAcces&idQuestion=". rawurlencode($idQuestion) .">

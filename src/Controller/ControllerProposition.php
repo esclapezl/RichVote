@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
 use App\Model\DataObject\Proposition;
 use App\Model\Repository\PropositionRepository;
@@ -89,7 +90,7 @@ class ControllerProposition extends GenericController
     public static function create(){
         $idQuestion = $_GET['id'];
 
-        $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, null, null, false));
+        $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, ConnexionUtilisateur::getLoginUtilisateurConnecte(),null, null, false));
 
         $parametres = array(
             'pagetitle' => 'Créer Proposition',
