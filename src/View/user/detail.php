@@ -107,7 +107,8 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
             else{
                 echo "<h3>" .htmlspecialchars(ucfirst($user->getId()))." fait parti des groupes suivants :</h3>";
                 foreach ($groupes as $groupe){
-                    echo /*'<a href="frontController.php?controller=groupe&action=read&id=' . rawurlencode($groupe->getId()).'">'.*/'<p>' . htmlspecialchars($groupe->getId()).'</p>';
+                    echo /*'<a href="frontController.php?controller=groupe&action=read&id=' . rawurlencode($groupe->getId()).'">'.
+ */'<p>' . htmlspecialchars($groupe->getId()).'</p>';
                 }
 
             }

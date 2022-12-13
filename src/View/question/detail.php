@@ -41,8 +41,11 @@ switch ($typePhase) {
                             echo "<a href=frontController.php?controller=vote&action=demandeAcces&idQuestion=". rawurlencode($idQuestion) .">
                                 <h2>Vous souhaitez voter?</h2></a>";
                         }
-                        else{
+                        else if($question->getCurrentPhase()->getType()=="termine" || $question->getCurrentPhase()->getType()=="consultation"){
                             echo '<h2>' . $typePhase . '</h2>';
+                        }
+                        else{
+                            echo '<h2>Vote indisponible</h2>';
                         }
 
                         echo '</div>';

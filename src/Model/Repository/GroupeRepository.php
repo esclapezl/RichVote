@@ -67,7 +67,7 @@ class GroupeRepository extends AbstractRepository
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
         $pdoStatement->execute(['idMembre'=>$idMembre]);
-
+        echo $sql;
         $result = [];
         foreach ($pdoStatement as $nomGroupe){
             $result[] = $nomGroupe['NOMGROUPE'];
