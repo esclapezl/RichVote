@@ -266,11 +266,15 @@ class ControllerUser extends GenericController
 
     public static function read():void
     {
+        $groupes = (new GroupeRepository())->getNomGroupes($_GET['id']);
+        $questions = (new QuestionRepository())->selectAllfromOrganisateur($_GET['id']);
         $user = (new UserRepository())->select($_GET['id']);
         $parametres = array(
             'pagetitle' => 'Détails user',
             'cheminVueBody' => 'user/detail.php',
-            'user' => $user
+            'user' => $user,
+            'questions' => $questions,
+            'groupes' => $groupes
         );
 
         self::afficheVue('view.php', $parametres);

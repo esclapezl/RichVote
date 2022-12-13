@@ -218,6 +218,17 @@ a#addVotants{
 }
 
 
+.photogrp{
+    margin-bottom: 25px;
+    width: 2em;
+    height: 2em;
+    background: black;
+    box-shadow: 0 4px 8px 0 white;
+    border-radius: 100%;
+    border: 10px solid black;
+}
+
+
 
 
 
@@ -427,15 +438,26 @@ footer .vague#vague4{
 
 #parametres{
     background: white;
+    margin-top: 50px;
+}
+
+#groupe{
+    background: mediumslateblue;
+    flex-direction: column;
+    margin: 50px 50px;
+
+}
+
+#parametres,
+#groupe{
     display: flex;
     align-items: center;
     justify-content: space-around;
-    height: 70px;
+    height: 100%;
     width: 80%;
     border-radius: 80px;
     padding: 20px;
 
-    margin: 50px 50px;
 }
 
 #parametres > a{
@@ -459,6 +481,10 @@ input[type=number]{
     background: rgb(112,116,213);
 }
 input[type=text],
+input[type=password],
+input[type=email],
+input[type=prenom],
+input[type=nom],
 textarea
 {
     background: transparent;
@@ -467,6 +493,10 @@ textarea
 input[type=text],
 input[type=date],
 input[type=number],
+input[type=password],
+input[type=email],
+input[type=prenom],
+input[type=nom],
 textarea,
 select{
 
@@ -582,7 +612,8 @@ h3#mail{
     text-align: center;
 }
 
-.ligneExt h3:nth-child(2){
+.ligneExt h3:nth-child(2),
+#fontsize{
     font-size: 1.8em;
 }
 button.valide > img{
