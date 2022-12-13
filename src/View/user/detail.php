@@ -102,7 +102,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                    <img class='photogrp' src='../assets/img/icons8-groupe.png'>";
 
             if(empty($groupes)){
-                echo "<h3>" .htmlspecialchars(ucfirst($user->getId()))." n'a pas de groupes.</h3>";
+                echo "<h3>" .htmlspecialchars(ucfirst($user->getId()))." n'a pas de groupe.</h3>";
             }
             else{
                 echo "<h3>" .htmlspecialchars(ucfirst($user->getId()))." fait parti des groupes suivants :</h3>";
