@@ -15,7 +15,10 @@
             <h3>Mot de passe :</h3>
             <input type="password" id="mdp" name="mdp" placeholder="********" size="50" required>
             <?php if(isset($msgErreurMdp)) {echo '<div style="color:#5d58ff;">' .$msgErreurMdp.'</div>';}?>
+            <div></div>
+            <a style="color: #aca9ff" href="frontController.php?controller=user&action=mdpOublie"> Mot de passe oublié ? </a>
             <div class="descG"></div>
+
 
 
             </p>
