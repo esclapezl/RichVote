@@ -133,7 +133,7 @@ class PropositionRepository extends AbstractRepository
     }
 
     public function selectAllWithScore(string $idPhase): array{ // forme [Proposition, score]
-        $sql = 'SELECT p.idProposition, p.idQuestion, intitule, archive, score  
+        $sql = 'SELECT p.idProposition, idResponsable, p.idQuestion, intitule, archive, score  
                 FROM sessionVote sv
                 JOIN Propositions p ON p.idProposition=sv.idProposition
                 where idPhaseVote=:idPhase
@@ -147,6 +147,7 @@ class PropositionRepository extends AbstractRepository
             $proposition = $this->construire([
                 "IDPROPOSITION" => $infoProposition["IDPROPOSITION"],
                 "IDQUESTION" => $infoProposition["IDQUESTION"],
+                "IDRESPONSABLE" => $infoProposition["IDRESPONSABLE"],
                 "INTITULE" => $infoProposition["INTITULE"],
                 "ARCHIVE" => $infoProposition["ARCHIVE"]]);
             $result[] = [$proposition, $infoProposition['SCORE']];
