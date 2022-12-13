@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
 use App\Lib\MotDePasse;
+use App\Lib\VerificationEmail;
 use App\Model\DataObject\User;
 use App\Model\HTTP\Cookie;
 use App\Model\Repository\GroupeRepository;
@@ -296,23 +297,26 @@ class ControllerUser extends GenericController
 
     public static function update():void
     {
-        if((new UserRepository())->select($_GET['id']) != null)
+        if((new UserRepository())->select($_GET['id']) != null || (new UserRepository())->selectMdpHache(($_GET['id'])) != null)
         {
-            $user = (new UserRepository())->select($_GET['id']);
-
-
-            if(!(new ConnexionUtilisateur())->estUtilisateur($user->getId()) && !(new ConnexionUtilisateur())->estAdministrateur())
+            if((new UserRepository())->select($_GET['id']) != null )
             {
-                MessageFlash::ajouter('danger', "Vous n'êtes pas autorisé à acceder à cette page.");
-                self::redirection('frontController.php?controller=user&action=readAll');
+                $user = (new UserRepository())->select($_GET['id']);
+                if(!(new ConnexionUtilisateur())->estUtilisateur($user->getId()) && !(new ConnexionUtilisateur())->estAdministrateur())
+                {
+                    MessageFlash::ajouter('danger', "Vous n'êtes pas autorisé à acceder à cette page.");
+                    self::redirection('frontController.php?controller=user&action=readAll');
+                }
             }
-
+            else
+            {
+                $user = (new UserRepository())->selectMdpHache($_GET['id']);
+            }
             $parametres = array(
                 'pagetitle' => 'Mettre à jour un utilisateur',
                 'cheminVueBody' => 'user/update.php',
                 'user' => $user
             );
-
             self::afficheVue('view.php', $parametres);
         }
         else
@@ -328,7 +332,7 @@ class ControllerUser extends GenericController
         $mdp = new MotDePasse();
         $user = $userRepository->select($_GET['id']);
 
-        if(isset($_POST['aMdp']))
+        if( isset($_POST['aMdp']))
         {
             $aMdp = $_POST['aMdp'];
             $nMdp = $_POST['nMdp'];
@@ -338,7 +342,7 @@ class ControllerUser extends GenericController
             if ($userRepository->checkCmdp($nMdp, $cNMdp) &&
                 $mdp->verifier($aMdp, $user->getMdpHache()))
             {
-                $user->setMdp($nMdp);
+                $user->setMdp($mdp->hacher($nMdp));
                 $userRepository->update($user);
                 $parametres = array(
                     'pagetitle' => 'Mot de passe mis à jour.',
@@ -452,10 +456,16 @@ class ControllerUser extends GenericController
         &&$userRepository->checkCmdp($user->getMdpHache(), $userRepository->setMdpHache($mdp))))
         {
             $userRepository->delete($user->getId());
-            if((new ConnexionUtilisateur())->getLoginUtilisateurConnecte() == $user->getId())
-            (new ConnexionUtilisateur())->deconnecter();
             MessageFlash::ajouter('info', 'Profil supprimé.');
-            self::redirection('frontController.php?controller=user&action=accueil');
+            if((new ConnexionUtilisateur())->getLoginUtilisateurConnecte() == $user->getId())
+            {
+                ConnexionUtilisateur::deconnecter();
+                self::redirection('frontController.php?controller=user&action=accueil');
+            }
+            else
+            {
+                self::redirection('frontController.php?controller=user&action=readAll');
+            }
         }
         else
         {
@@ -471,6 +481,65 @@ class ControllerUser extends GenericController
             }
 
         }
+    }
+
+    public static function mdpOublie()
+    {
+        $parametres = array(
+            'pagetitle' => 'Récuperation du mot de passe',
+            'cheminVueBody' => 'user/mdpOublie.php');
+
+        self::afficheVue('view.php', $parametres);
+    }
+
+    public static function emailRecup()
+    {
+        $userRepository = new UserRepository();
+
+        if(isset($_POST['emailRecup']) && $userRepository->emailExiste($_POST['emailRecup']))
+        {
+            VerificationEmail::envoiEmailRecuperation($_POST['emailRecup']);
+            MessageFlash::ajouter('info', 'Email de récupération envoyé.');
+            self::redirection('frontController.php?controller=user&action=mdpOublie');
+        }
+        else
+        {
+            MessageFlash::ajouter('info', 'Cet email ne figure pas dans la base de données.');
+            self::redirection('frontController.php?controller=user&action=update');
+        }
+
+    }
+
+    public static function updatedMdpOublie() : void
+    {
+        $userRepository = new UserRepository();
+        $id = $_GET['id'];
+
+        $mdpConfig = new MotDePasse();
+        $user = $userRepository->selectMdpHache($_GET['id']);
+        $nMdp = $_POST['nMdp'];
+        $cNMdp = $_POST['cNMdp'];
+
+        if((new ConnexionUtilisateur())->estConnecte())
+        {
+            MessageFlash::ajouter('danger', 'Vous n\'êtes  pas autorisé à accéder à cette page.');
+            self::redirection('frontController.php?controller=user&action=accueil');
+        }
+        if ($userRepository->checkCmdp($nMdp, $cNMdp)) {
+            $user->setMdp($mdpConfig->hacher($nMdp));
+            $userRepository->update($user);
+
+
+            $connexion = new ConnexionUtilisateur();
+            $connexion->connecter($user->getId());
+
+            MessageFlash::ajouter('info', 'Mot de passe mis à jour.');
+            self::redirection('frontController.php?controller=user&action=accueil');
+        } else {
+            MessageFlash::ajouter('info', 'Les mots de passe ne correspondent pas.');
+            self::redirection('frontController.php?controller=user&action=update&id='.$id);
+        }
+
     }
 
 
