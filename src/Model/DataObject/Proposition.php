@@ -12,6 +12,7 @@ class Proposition extends AbstractDataObject
     private ?string $intitule;
     private string $idResponsable;
     private bool $archive;
+    private array $idAuteurs;
 
     public function __construct(
         ?string $idProposition,
@@ -19,7 +20,8 @@ class Proposition extends AbstractDataObject
         string $idResponsable,
         ?array $sections,
         ?string $titre,
-        bool $archive
+        bool $archive,
+        array $idAuteurs
     ){
         $this->idProposition = $idProposition;
         $this->idQuestion = $idQuestion;
@@ -27,6 +29,19 @@ class Proposition extends AbstractDataObject
         $this->sectionsTexte = $sections;
         $this->intitule = $titre;
         $this->archive = $archive;
+        $this->idAuteurs = $idAuteurs;
+    }
+
+    /**
+     * @return array
+     */
+    public function getIdAuteurs(): array
+    {
+        return $this->idAuteurs;
+    }
+
+    public function addIdAuteur(string $idAuteur){
+        $this->idAuteurs[] = $idAuteur;
     }
 
     /**
