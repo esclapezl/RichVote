@@ -1,17 +1,19 @@
 <?php
 use App\Lib\ConnexionUtilisateur;
+use App\Model\Repository\UserRepository;
 
-$htmlclass = "invité";
+
 if((new ConnexionUtilisateur())->estAdministrateur())
-{$htmlclass="admin";}
-?>
+    ?>
+
 
 <!DOCTYPE html>
-<html lang="fr" <?php echo 'class ="'.$htmlclass.'"'?> >
+<html lang="fr" >
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../assets/css/style.css">
         <link rel="icon" href="../assets/img/favicon.ico" />
+
         <title><?php
             /** @var $pagetitle string */
 
@@ -20,10 +22,15 @@ if((new ConnexionUtilisateur())->estAdministrateur())
             ?>
         </title>
 
+
+
     </head>
+
     <body>
+
             <nav>
                 <div class="navBar">
+
                 <a href="frontController.php?controller=user&action=accueil"><img src="../assets/img/logo.png" alt="RichVote" id="logo"></a>
 
                 <ul>
@@ -31,7 +38,12 @@ if((new ConnexionUtilisateur())->estAdministrateur())
                     <li><a href="frontController.php?controller=question&action=readAllArchives">Archives</a></li>
                     <li><a href="frontController.php?controller=user&action=readAll">Contributeurs</a></li>
                 </ul>
+
                     <?php
+                    if((new ConnexionUtilisateur())->estAdministrateur() && (new UserRepository())->select(ConnexionUtilisateur::getLoginUtilisateurConnecte())->getRole() != 'invité')
+                    {
+                        echo '<div id="btn-role">'. (new UserRepository())->select(ConnexionUtilisateur::getLoginUtilisateurConnecte())->getRole() .'</div>';
+                    }
                     if((new ConnexionUtilisateur())->estConnecte()) {
                         echo  '<div class="ligneAlign"><a id="btn-connexion" href="frontController.php?controller=user&action=read&id='.(new ConnexionUtilisateur())->getLoginUtilisateurConnecte() .'">'. (new ConnexionUtilisateur())->getLoginUtilisateurConnecte().' </a>
                                 <a id="btn-connexion" href="frontController.php?controller=user&action=deconnexion">Deconnexion </a></div>';

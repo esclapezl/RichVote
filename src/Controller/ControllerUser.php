@@ -246,20 +246,30 @@ class ControllerUser extends GenericController
 
     public static function readAll() : void
     {
-        if (isset($_POST['title']) AND !empty($_POST['title'])){
-            $recherche= strtolower(htmlspecialchars($_POST['title']));
-            $arrayUser = (new UserRepository())->search($recherche);
-        }
-        else{
-            $arrayUser = (new UserRepository())->selectAllValide();
-        }
+        if(ConnexionUtilisateur::estConnecte() && (new UserRepository)->select(ConnexionUtilisateur::getLoginUtilisateurConnecte())->isverified())
+        {
+            if (isset($_POST['title']) AND !empty($_POST['title'])){
+                $recherche= strtolower(htmlspecialchars($_POST['title']));
+                $arrayUser = (new UserRepository())->search($recherche);
+            }
+            else{
+                $arrayUser = (new UserRepository())->selectAllValide();
+            }
 
 
-        $parametres = array(
-            'pagetitle' => 'Liste Utilisateurs',
-            'cheminVueBody' => 'user/list.php',
-            'users' => $arrayUser
-        );
+            $parametres = array(
+                'pagetitle' => 'Liste Utilisateurs',
+                'cheminVueBody' => 'user/list.php',
+                'users' => $arrayUser
+            );
+        }
+        else
+        {
+            $parametres = array(
+                'pagetitle' => 'Liste Utilisateurs',
+                'cheminVueBody' => 'user/list.php'
+            );
+        }
 
         self::afficheVue('view.php', $parametres);
     }
