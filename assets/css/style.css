@@ -583,14 +583,14 @@ h3#mail{
     font-style: italic;
     font-size: 0.7em;
 }
-#margintimeline p:first-child,
-.timeline p:last-child{
-    margin-right: 50px;
-}
-#margintimeline p:last-child,
-.timeline p:first-child{
-    margin-left: 50px;
-}
+/*#margintimeline p:first-child,*/
+/*.timeline p:last-child{*/
+/*    margin-right: 50px;*/
+/*}*/
+/*#margintimeline p:last-child,*/
+/*.timeline p:first-child{*/
+/*    margin-left: 50px;*/
+/*}*/
 
 #margintimeline{
     margin: 0 0 120px 0;

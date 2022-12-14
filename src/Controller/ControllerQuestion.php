@@ -224,7 +224,7 @@ class ControllerQuestion extends GenericController
         self::readAll();
     }
 
-    public static function readAllResult(){
+    public static function readAllArchives(){
 
         if (isset($_POST['title']) AND !empty($_POST['title'])){
             $recherche= strtolower(htmlspecialchars($_POST['title']));
@@ -236,7 +236,7 @@ class ControllerQuestion extends GenericController
 
         $param = [
             'pagetitle' => 'Questions fermées',
-            'cheminVueBody' => 'resultats/list.php',
+            'cheminVueBody' => 'archives/list.php',
             'questions' => $questions
         ];
         self::afficheVue('view.php', $param);

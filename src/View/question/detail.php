@@ -111,12 +111,12 @@ switch ($typePrecisPhase) {
                     echo '<style>.ligneTbis{width: '.$widthLigne.'%;}</style>';
                     echo '<div class="ligneT" style="background: transparent"></div><p id="pet">'.htmlspecialchars(ucfirst($phase->getType())).'</p>';
                 }
-                echo '<div class="ligneT" style="background: transparent"></div><p id="pet">Résultats</p></div>';
+                echo '<div class="ligneT" style="background: transparent"></div><p id="pet">Conclusion</p></div>';
 
                 //DEBUT
                 echo '<div class="timeline"><a href=frontController.php?controller=vote&action=' . rawurlencode($question->getCurrentPhase()->getType()) . ' id="circle"></a>';
 
-                $widthLigne= 80/(sizeof($phases)+1);
+                $widthLigne= 90/(sizeof($phases)+1);
 
                 foreach ($phases as $phase){
                     echo '<style>.ligneT{width: '.$widthLigne.'%;}</style>';
@@ -127,7 +127,7 @@ switch ($typePrecisPhase) {
 
 
                 echo '<div class="timeline" id="margintimeline"><p id="pet">'.htmlspecialchars($question->dateToString($question->getDateCreation())).'</p>';
-                $widthLigne=(80/(sizeof($phases)+1)-10);
+                $widthLigne=(70/(sizeof($phases)+1));
                 foreach ($phases as $phase){
                     echo '<style>.ligneTbis{width: '.$widthLigne.'%;}</style>';
                     echo '<div class="ligneTbis" style="background: transparent"></div><p id="pet">Du '.htmlspecialchars($question->dateToString($phase->getDateDebut())).' au
