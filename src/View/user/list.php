@@ -24,16 +24,19 @@ use App\Model\Repository\UserRepository;
             </form><h3>Rôle</h3></div>
         <ul>
             <?php
-            if (empty($users)){
+            if (isset($users) && empty($users)){
                 echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat a été trouvé pour " . htmlspecialchars($_POST['title']) . " .</h3></div>
                     <div class='descP'></div><div class='ligneCent'>
                     <a href=frontController.php?controller=user&action=readAll>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
             }
-            else {
+            else if (isset($users)){
                 foreach ($users as $user) {
                     echo '<div class="ligneExt"><li class="ligneExt"><a href=frontController.php?controller=user&action=read&id=' . rawurlencode($user->getId()) . '>' . ucfirst(htmlspecialchars($user->getId())) . '</a> <span>' . ucfirst(htmlspecialchars($user->getPrenom())) . ' ' . ucfirst(htmlspecialchars($user->getNom())) . '</span></span></li><h2>' . ucfirst(htmlspecialchars($user->getRole())) . '</h2></div>';
                 }
             }
+            else
+                echo "<div class='descG'></div><div class='ligneCent'><h3> Vous devez être connecté pour visualiser les contributeurs</h3></div>"
+
             ?>
 
         </ul>

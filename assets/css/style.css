@@ -15,12 +15,7 @@ html{
 
 }
 
-.admin{
-    background: rgb(43, 4, 84);
-    background: linear-gradient( rgb(200, 113, 213) 0%, rgb(148, 57, 222) 54%, rgb(57, 30, 89) 100%);
-}
-
-.invité{
+html{
     background: rgb(9,4,84);
     background: linear-gradient( rgb(113, 117, 213) 0%, rgba(57,78,222,1) 54%, rgb(30, 39, 89) 100%);
 }
@@ -162,6 +157,21 @@ nav{
     top: 5px;
     width: 35%;
 }
+
+.navBar #btn-role,
+#formulaire{
+    background-color: #8086ff;
+    color: white;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: flex;
+    width: 120px;
+    height: 40px;
+    border-radius: 80px;
+    justify-content: center;
+    align-items: center;
+}
+
 .navBar #btn-connexion:first-child{
     margin-right: 5%;
 }
