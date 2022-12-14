@@ -20,6 +20,14 @@ class ControllerVote extends GenericController
         self::afficheVue('view.php', $parametres);
     }
 
+    public static function scrutinMajoritairePlurinominal() : void{
+        $parametres = array(
+            'pagetitle' => 'Scrutin Majoritaire Plurinominal',
+            'cheminVueBody' => 'vote/scrutinMajoritairePlurinominal.php',
+        );
+        self::afficheVue('view.php', $parametres);
+    }
+
     public static function voterScrutinMajoritaire() : void
     {
         $question = (new QuestionRepository())->select($_GET['idQuestion']);

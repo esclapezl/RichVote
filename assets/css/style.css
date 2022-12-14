@@ -565,21 +565,86 @@ h3#mail{
 
 }
 
-.ligneCent {
+.ligneCent,
+.timeline{
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.timeline{
+    margin-bottom: 10px;
+}
+
+
+
+#pet{
+    font-style: italic;
+    font-size: 0.7em;
+}
+#margintimeline p:first-child,
+.timeline p:last-child{
+    margin-right: 50px;
+}
+#margintimeline p:last-child,
+.timeline p:first-child{
+    margin-left: 50px;
+}
+
+#margintimeline{
+    margin: 0 0 120px 0;
+}
+
+
 .names{
     margin-right: 20px;
 }
 
-.ligne{
+.ligne,
+.ligneP{
     height: 1px;
+}
+.ligneP{
+    width: 25%;
+    margin: 5px 0 50px 0;
+}
+
+
+.ligne,
+.ligneT,
+.ligneTbis,
+.ligneP{
     border-radius: 20px;
     background: white;
+}
+.ligneT,
+.ligneTbis{
+    height: 5px;
+}
+
+
+
+#prog{
+    margin: 75px 0 0 0;
+    font-style: italic;
+}
+
+
+#circle{
+    position: relative;
+    border-radius: 100%;
+    background: rgb(112,116,213);
+    height: 20px;
+    width: 20px;
+    border: 1px solid white;
+    margin: 0 5px 0 5px;
+}
+
+#circle:hover,
+#circle.active{
+    background: white;
+
 }
 
 .block .text-box .ligne{
@@ -596,6 +661,8 @@ h3#mail{
 .block .text-box .ligneExt .ligne:nth-child(2){
     width: 25%;
 }
+
+
 
 
 .block .text-box .ligneExt .ligne{
