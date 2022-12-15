@@ -6,12 +6,15 @@ use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
 use App\Lib\MotDePasse;
 use App\Lib\VerificationEmail;
+use App\Model\DataObject\Commentaire;
 use App\Model\DataObject\User;
 use App\Model\HTTP\Cookie;
 use App\Model\Repository\GroupeRepository;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
+use App\Model\Repository\CommentaireRepository;
 use App\Model\Repository\UserRepository;
+use App\Model\Repository\DatabaseConnection;
 use App\Model\HTTP\Session;
 use Couchbase\Group;
 
@@ -149,7 +152,8 @@ class ControllerUser extends GenericController
 
         if ($userRepository->checkCmdp($mdp, $cmdp)          //check si aucune contrainte n'a été violée
             && $userRepository->checkId($idUser)
-            && $userRepository->checkEmail($email))
+            && $userRepository->checkEmail($email)
+            && $userRepository->checkMdp($mdp) == true)
         {
             $userRepository->sauvegarder($user);
             $parametres = array(
@@ -193,6 +197,19 @@ class ControllerUser extends GenericController
                                                     'prenom' => $prenom,
                         'email'=> $email),
                     'msgErreur' =>  'L\'identifiant '.$idUser.' est déjà utilisé.'
+                );
+            }
+            if(!$userRepository->checkMdp($mdp))
+            {
+                $parametres = array(
+                    'pagetitle' => 'Erreur',
+                    'cheminVueBody' => 'user/inscription.php',
+                    'persistanceValeurs' => array('nom' => $nom,
+                        'prenom' => $prenom,
+                        'email'=> $email),
+                    'msgErreur' =>  'Le mot de passe n\'est pas assez sécurisé.',
+                    'msgErreurMdp' => $userRepository->checkMdp($mdp)
+
                 );
             }
 
@@ -247,20 +264,30 @@ class ControllerUser extends GenericController
 
     public static function readAll() : void
     {
-        if (isset($_POST['title']) AND !empty($_POST['title'])){
-            $recherche= strtolower(htmlspecialchars($_POST['title']));
-            $arrayUser = (new UserRepository())->search($recherche);
-        }
-        else{
-            $arrayUser = (new UserRepository())->selectAllValide();
-        }
+        if(ConnexionUtilisateur::estConnecte() && (new UserRepository)->select(ConnexionUtilisateur::getLoginUtilisateurConnecte())->isverified())
+        {
+            if (isset($_POST['title']) AND !empty($_POST['title'])){
+                $recherche= strtolower(htmlspecialchars($_POST['title']));
+                $arrayUser = (new UserRepository())->search($recherche);
+            }
+            else{
+                $arrayUser = (new UserRepository())->selectAllValide();
+            }
 
 
-        $parametres = array(
-            'pagetitle' => 'Liste Utilisateurs',
-            'cheminVueBody' => 'user/list.php',
-            'users' => $arrayUser
-        );
+            $parametres = array(
+                'pagetitle' => 'Liste Utilisateurs',
+                'cheminVueBody' => 'user/list.php',
+                'users' => $arrayUser
+            );
+        }
+        else
+        {
+            $parametres = array(
+                'pagetitle' => 'Liste Utilisateurs',
+                'cheminVueBody' => 'user/list.php'
+            );
+        }
 
         self::afficheVue('view.php', $parametres);
     }
@@ -271,6 +298,10 @@ class ControllerUser extends GenericController
         $questions = (new QuestionRepository())->selectAllfromOrganisateur($_GET['id']);
         $propositions = (new PropositionRepository())->selectAllfromResponsable($_GET['id']);
         $user = (new UserRepository())->select($_GET['id']);
+
+        $arrayUser = (new CommentaireRepository())->s();
+
+
         $parametres = array(
             'pagetitle' => 'Détails user',
             'cheminVueBody' => 'user/detail.php',
@@ -536,8 +567,8 @@ class ControllerUser extends GenericController
             MessageFlash::ajouter('info', 'Les mots de passe ne correspondent pas.');
             self::redirection('frontController.php?controller=user&action=update&id='.$id);
         }
-
     }
+
 
 
 }

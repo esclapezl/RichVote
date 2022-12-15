@@ -4,6 +4,7 @@ use \App\Lib\ConnexionUtilisateur;
 use App\Model\Repository\VoteRepository;
 use App\Model\Repository\UserRepository;
 /** @var Question[] $questions*/
+
 ?>
 <div class="block">
     <div class="text-box">
@@ -43,11 +44,8 @@ use App\Model\Repository\UserRepository;
                     <a href=frontController.php?controller=question&action=readAll>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
         }
         else{
-
-
-
-
         foreach ($questions as $question){
+
             $typePhase= $question->getCurrentPhase()->getType();
             switch ($typePhase) {
                 case 'consultation':

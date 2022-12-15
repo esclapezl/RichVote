@@ -16,7 +16,7 @@ class ControllerGroupe extends GenericController
         var_dump($groupe->getIdMembres());
     }
 
-    public static function select(){
+    public static function read(){
         $nomGroupe = $_GET['nomGroupe'];
         $groupe = (new GroupeRepository())->select($nomGroupe);
 

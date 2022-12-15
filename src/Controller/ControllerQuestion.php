@@ -7,6 +7,7 @@ use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
 use App\Model\Repository\PhaseRepository;
+use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\SectionRepository;
 use App\Lib\MessageFlash;
@@ -14,13 +15,6 @@ use App\Model\Repository\UserRepository;
 
 class ControllerQuestion extends GenericController
 {
-    public static function accueil()
-    {
-        self::afficheVue('view.php',[
-            "pagetitle" => "Accueil",
-            "cheminVueBody" => 'user/accueil.php'
-        ]);
-    }
 
     public static function readAll() : void
     {
@@ -224,7 +218,7 @@ class ControllerQuestion extends GenericController
         self::readAll();
     }
 
-    public static function readAllResult(){
+    public static function readAllArchives(){
 
         if (isset($_POST['title']) AND !empty($_POST['title'])){
             $recherche= strtolower(htmlspecialchars($_POST['title']));
@@ -236,10 +230,62 @@ class ControllerQuestion extends GenericController
 
         $param = [
             'pagetitle' => 'Questions fermées',
-            'cheminVueBody' => 'resultats/list.php',
+            'cheminVueBody' => 'archives/list.php',
             'questions' => $questions
         ];
         self::afficheVue('view.php', $param);
     }
+
+
+    public static function readResult() : void
+    {
+        $idQuestion = $_GET['id'];
+        $question = (new QuestionRepository())->select($idQuestion);
+
+        self::afficheVue('view.php',[
+            "pagetitle" => "Resultat Question",
+            "cheminVueBody" => 'question/results.php',
+            'question' => $question
+        ]);
+
+    }
+
+    public static function finPhase() : void
+    {
+        $idQuestion = $_GET['id'];
+
+        $question = (new QuestionRepository())->select($idQuestion);
+        $currentPhase=(new PhaseRepository())->getCurrentPhase($idQuestion);
+
+        (new PhaseRepository())->endPhase($currentPhase->getId());
+
+        $parametres = array(
+            'pagetitle' => 'Détail Question',
+            'cheminVueBody' => 'question/detail.php',
+            'question' => $question
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
+
+    public static function debutPhase() : void
+    {
+        $idQuestion = $_GET['id'];
+
+        $question = (new QuestionRepository())->select($idQuestion);
+        $currentPhase=(new PhaseRepository())->getCurrentPhase($idQuestion);
+
+        (new PhaseRepository())->startPhase($currentPhase->getId());
+
+        $parametres = array(
+            'pagetitle' => 'Détail Question',
+            'cheminVueBody' => 'question/detail.php',
+            'question' => $question
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
 
 }

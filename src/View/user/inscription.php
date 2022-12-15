@@ -24,6 +24,15 @@
             <div class="descP"></div>
 
             <h3>Mot de passe  <span >*</span> : </h3>
+            <div class="conditionMdp" > <ul class="mdp"> Votre mot de passe doit contenir au moins :
+                    <li class="mdp">Une majuscule</li>
+                    <li class="mdp">Une minuscule</li>
+                    <li class="mdp">Un chiffre</li>
+                    <li class="mdp">Un caractère spécial</li>
+
+
+
+                </ul></div>
             <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="mpd" name="motDePasse" placeholder="********" size="50" required>
             <?php if(isset($msgErreurMdp))
             {

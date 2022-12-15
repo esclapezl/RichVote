@@ -2,6 +2,7 @@
 
 namespace App\Model\Repository;
 
+use App\Lib\ConnexionUtilisateur;
 use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Proposition;
 use App\Model\DataObject\Question;
@@ -215,4 +216,6 @@ class PropositionRepository extends AbstractRepository
 
         return $result;
     }
+
+
 }
