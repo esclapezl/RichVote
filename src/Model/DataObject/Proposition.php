@@ -2,7 +2,10 @@
 
 namespace App\Model\DataObject;
 
+use App\Lib\ConnexionUtilisateur;
 use App\Model\DataObject\Section;
+use App\Model\Repository\DatabaseConnection;
+use App\Model\Repository\UserRepository;
 
 class Proposition extends AbstractDataObject
 {
@@ -116,6 +119,18 @@ class Proposition extends AbstractDataObject
             "idResponsableTag" => $this->getIdResponsable(),
             "intituleTag" => $this->getIntitule()
         );
+    }
+
+
+
+    public function getAllCommentaires(): void
+    {
+        $sql = "SELECT * FROM souvignetn.commentaires WHERE IDPROPOSITION = '".$this->idProposition."'";
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute();
     }
 
 }

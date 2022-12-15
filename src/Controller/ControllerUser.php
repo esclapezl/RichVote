@@ -6,10 +6,12 @@ use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
 use App\Lib\MotDePasse;
 use App\Lib\VerificationEmail;
+use App\Model\DataObject\Commentaire;
 use App\Model\DataObject\User;
 use App\Model\HTTP\Cookie;
 use App\Model\Repository\GroupeRepository;
 use App\Model\Repository\QuestionRepository;
+use App\Model\Repository\CommentaireRepository;
 use App\Model\Repository\UserRepository;
 use App\Model\Repository\DatabaseConnection;
 use App\Model\HTTP\Session;
@@ -294,6 +296,10 @@ class ControllerUser extends GenericController
         $groupes = (new GroupeRepository())->getNomGroupes($_GET['id']);
         $questions = (new QuestionRepository())->selectAllfromOrganisateur($_GET['id']);
         $user = (new UserRepository())->select($_GET['id']);
+
+        $arrayUser = (new CommentaireRepository())->s();
+
+
         $parametres = array(
             'pagetitle' => 'Détails user',
             'cheminVueBody' => 'user/detail.php',
@@ -560,23 +566,6 @@ class ControllerUser extends GenericController
         }
     }
 
-    public static function commenter(): void
-    {
-        $commentaire = $_POST['commentaire'];
-        $userRepository = new UserRepository();
-        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-        $idProposition=$_GET['id'];
-        $date = date('d-m-y');
-
-
-        $sql = "INSERT INTO souvignetn.commentaires(IDPROPOSITION, IDUSER, TEXTE, DATECOMMENTAIRE,NBLIKE) VALUES(".$idProposition.",'".$idUser."', '".$commentaire."','".$date."',0)";
-        $pdo = DatabaseConnection::getInstance()::getPdo();
-
-        $pdoStatement = $pdo->prepare($sql);
-
-        $pdoStatement->execute();
-
-    }
 
 
 }
