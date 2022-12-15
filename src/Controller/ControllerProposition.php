@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
 use App\Model\DataObject\Proposition;
+use App\Model\Repository\CommentaireRepository;
+use App\Model\Repository\DatabaseConnection;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\UserRepository;
@@ -32,10 +34,14 @@ class ControllerProposition extends GenericController
 
         $proposition = (new PropositionRepository())->select($idProposition);
 
+
+        $commentaires = (new CommentaireRepository())->selectAllProp($idProposition);
+
         $parametres = array(
             'pagetitle' => 'Détail Proposition',
             'cheminVueBody' => 'proposition/detail.php',
-            'proposition' => $proposition
+            'proposition' => $proposition,
+            'commentaires'=>$commentaires
         );
 
         self::afficheVue('view.php', $parametres);
@@ -142,5 +148,33 @@ class ControllerProposition extends GenericController
 
         self::afficheVue('view.php', $param);
     }
+
+    public static function ajtCommentaire()
+    {
+        $commentaire = $_POST['commentaire'];
+        $userRepository = new UserRepository();
+        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+        $idProposition=$_GET['id'];
+        $date = date("'d/m/y G:i:s'");
+        $date .=",'dd/mm/yy hh24:mi:ss'";
+
+        $commentaireRepository= new CommentaireRepository();
+        $commentaireRepository->commenter($idProposition,$idUser,$commentaire,$date);
+
+        MessageFlash::ajouter('info','Commentaire ajouté');
+        self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
+    }
+
+    public static function deleteCommentaire(int $idCommentaire):void
+    {
+        $sql='DELETE FROM souvignetn.commentaires WHERE idCommentaire = '.$idCommentaire;
+        MessageFlash::ajouter('info','Commentaire supprimé.');
+        self::redirection('frontController.php?controller=proposition&action=read&id=52');
+    }
+
+
+
+
+
 
 }
