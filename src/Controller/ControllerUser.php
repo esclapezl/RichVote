@@ -148,7 +148,8 @@ class ControllerUser extends GenericController
 
         if ($userRepository->checkCmdp($mdp, $cmdp)          //check si aucune contrainte n'a été violée
             && $userRepository->checkId($idUser)
-            && $userRepository->checkEmail($email))
+            && $userRepository->checkEmail($email)
+            && $userRepository->checkMdp($mdp) == true)
         {
             $userRepository->sauvegarder($user);
             $parametres = array(
@@ -192,6 +193,19 @@ class ControllerUser extends GenericController
                                                     'prenom' => $prenom,
                         'email'=> $email),
                     'msgErreur' =>  'L\'identifiant '.$idUser.' est déjà utilisé.'
+                );
+            }
+            if(!$userRepository->checkMdp($mdp))
+            {
+                $parametres = array(
+                    'pagetitle' => 'Erreur',
+                    'cheminVueBody' => 'user/inscription.php',
+                    'persistanceValeurs' => array('nom' => $nom,
+                        'prenom' => $prenom,
+                        'email'=> $email),
+                    'msgErreur' =>  'Le mot de passe n\'est pas assez sécurisé.',
+                    'msgErreurMdp' => $userRepository->checkMdp($mdp)
+
                 );
             }
 

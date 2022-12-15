@@ -15,6 +15,8 @@ html{
 
 }
 
+
+
 html{
     background: rgb(9,4,84);
     background: linear-gradient( rgb(113, 117, 213) 0%, rgba(57,78,222,1) 54%, rgb(30, 39, 89) 100%);
@@ -1091,6 +1093,17 @@ a{
     color: #aca9ff;
 }
 
+.conditionMdp{
+    background-color:white ;
+    text-align: left;
+    color:black;
+    position: absolute;
+}
+
+.mdp{
+    background-color: white;
+}
+
 
 
 
@@ -1191,3 +1204,4 @@ a{
     /*    75% { transform: translateX(4px)}*/
     /*}*/
 }
+

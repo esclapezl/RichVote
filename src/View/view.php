@@ -40,7 +40,7 @@ if((new ConnexionUtilisateur())->estAdministrateur())
                 </ul>
 
                     <?php
-                    if((new ConnexionUtilisateur())->estAdministrateur() && (new UserRepository())->select(ConnexionUtilisateur::getLoginUtilisateurConnecte())->getRole() != 'invité')
+                    if((new ConnexionUtilisateur())->estAdministrateur() )
                     {
                         echo '<div id="btn-role">'. (new UserRepository())->select(ConnexionUtilisateur::getLoginUtilisateurConnecte())->getRole() .'</div>';
                     }
