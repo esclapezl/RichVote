@@ -134,7 +134,6 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                                 htmlspecialchars($question->dateToString($question->getDateFermeture())) .'</p>
                     </a>
                    </div>
-                    
                     </li>
                     ';
                 }
