@@ -65,10 +65,8 @@ $phases=(new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($ques
 
             }
             else{
-                if($phases[0]->getType()=="consultation"){
-                    echo "<h3>Il n'y a pas eu de phases de vote sur cette question.</h3>";
+                echo "<h3>Il n'y a pas eu de phases de vote sur cette question.</h3>";
 
-                }
             }
 
             ?>

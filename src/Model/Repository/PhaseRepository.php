@@ -50,7 +50,7 @@ class PhaseRepository extends AbstractRepository
         }
     }
 
-    public function endCurrentPhase(Phase $phase){ // à tester
+    public function endCurrentPhase(Phase $phase) : void{ // à tester
         $sql = "CALL end_current_phase(" . $phase->getId() . ")";
         DatabaseConnection::getInstance()::getPdo()->query($sql);
     }
