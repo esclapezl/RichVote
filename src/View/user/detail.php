@@ -33,12 +33,12 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                       echo '<div class="profil">
                     <div class="ligneExt">
                         <img class="photo" alt="user" src="../assets/img/user-lambda.svg">
-                        <h1>' . htmlspecialchars(ucfirst($user->getId())) . '</h1><div>';
+                        <h1 id="hprofil">' . htmlspecialchars(ucfirst($user->getId())) . '</h1><div>';
 
                         //NOM
                         if(isset($_GET['modif'])&&$_GET['modif']=='nom'&& $peutModif)
                         {
-                            echo '<div class="ligneCent"><input type="text" id="nom" name="nom" value="'. htmlspecialchars(ucfirst($user->getNom())) .
+                            echo '<div class="ligneCent"><input type="text" id="blue" name="nom" value="'. htmlspecialchars(ucfirst($user->getNom())) .
                                 '" size="10" required> <button type="submit" class="valide"><img alt="coche" src="../assets/img/icons8-coche.svg"></button></div>';
                         }
                         else if($peutModif)
@@ -55,7 +55,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                         //PRENOM
                         if(isset($_GET['modif'])&&$_GET['modif']=='prenom'&& $peutModif)
                         {
-                            echo '<div class="ligneCent"><input type="text" id="prenom" name="prenom" value=' .
+                            echo '<div class="ligneCent"><input type="text" id="blue" name="prenom" value=' .
                                 htmlspecialchars(ucfirst($user->getPrenom())) . ' size="10" required> <button type="submit" class="valide">
                                 <img alt="coche" src="../assets/img/icons8-coche.svg"></button></div>';
                         }
@@ -95,7 +95,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
             }
 
             echo
-            "<div class='ligneCent'> 
+            "</div><div class='ligneCent'> 
                    <div id='groupe'>
                    <img  class='photogrp' alt='groupe' src='../assets/img/icons8-groupe.png'>";
 
@@ -110,7 +110,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                 }
 
             }
-            echo "</div></div></div>";
+            echo "</div></div>";
 
 
 

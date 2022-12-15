@@ -200,11 +200,17 @@ nav{
     background-color: rgba(0,0,0,0.5);
     color: white;
 }
+
+p#petit{
+    color: white;
+}
 p#petit{
     font-size: 1em;
-    color: white;
     margin-right: 12px;
     font-style: italic;
+}
+.profil #petit{
+    color: black;
 }
 a#addVotants{
     display: flex;
@@ -225,7 +231,7 @@ a#addVotants{
 .photo{
     width: 5em;
     height: 5em;
-    box-shadow: 0 8px 32px 0 white;
+    box-shadow: 0 8px 32px 0 mediumblue;
     border-radius: 100%;
 }
 
@@ -235,7 +241,7 @@ a#addVotants{
     width: 2em;
     height: 2em;
     background: black;
-    box-shadow: 0 4px 8px 0 white;
+    box-shadow: 0 4px 8px 0 mediumblue;
     border-radius: 100%;
     border: 10px solid black;
 }
@@ -455,7 +461,12 @@ footer .vague#vague4{
     border: 4px solid white;
     padding: 20px;
     flex-direction: column;
+}
 
+.lineresults{
+    background: white;
+    height: 5px;
+    margin-bottom: 10px;
 }
 .column{
     width: 100%;
@@ -468,22 +479,33 @@ footer .vague#vague4{
     flex-direction: column;
 }
 
-
+.block .text-box .profil{
+    color: mediumblue;
+}
 .profil {
     padding: 80px;
-    background: rgb(112, 116, 213);
+    background: whitesmoke;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 1);
     border-radius: 80px;
 }
+
+#hprofil{
+    font-size: 3.5em;
+}
 #parametres{
     background: white;
-    margin-top: 50px;
+    margin-top: 100px;
+    width: 80%;
+    box-shadow: 0 8px 16px 0 mediumblue;
 }
 
 #groupe{
-    background: mediumslateblue;
+    background: whitesmoke;
     flex-direction: column;
-    margin: 50px 100px;
+    color: mediumblue;
+    width: 100%;
+    margin: 50px 0 50px 0;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 1);
 
 }
 
@@ -493,7 +515,6 @@ footer .vague#vague4{
     align-items: center;
     justify-content: space-around;
     height: 100%;
-    width: 80%;
     border-radius: 80px;
     padding: 20px;
 
@@ -506,11 +527,14 @@ footer .vague#vague4{
 
 #parametres > a,
 .navBar li > a{
-    color: rgb(112,116,213);
     font-weight: bold;
     padding: 8px;
     border-radius: 20px;
     transition: 0.5s;
+}
+
+.navBar li > a{
+    color: rgb(112,116,213);
 }
 
 
@@ -551,11 +575,16 @@ input[type=search]{
     border: 3px solid rgb(112,116,213);
 }
 
+input#blue{
+    border: 2px solid mediumblue;
+    color: mediumblue;
+}
+
 
 #parametres > a:hover,
 #parametres > a.active
 {
-    border: 2px solid rgb(112,116,213);
+    border: 2px solid mediumblue;
 }
 .navBar ul li a.active,
 .navBar ul li a:hover{
@@ -747,7 +776,7 @@ button.valide > img{
 }
 button.valide:hover,
 button.valide.active{
-    border: 2px solid white;
+    border: 2px solid mediumblue;
 }
 
 .optQuestion{

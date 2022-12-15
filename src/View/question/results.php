@@ -13,6 +13,9 @@ $phases=(new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($ques
 ?>
 
 
+
+
+
 <div class="block">
     <div class="text-box">
         <a class="optQuestion" id="fleche" href=frontController.php?controller=question&action=read&id=<?=$question->getId()?>>↩</a>
@@ -24,71 +27,69 @@ $phases=(new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($ques
                     <br>
                     <h1>Résultats Finaux</h1>
                     <div class="descG"></div>
-
-        <div class="results">
             <?php
-            $bool=0;
-            foreach ($phases as $phase)
-            {
-                if($phase->getType()!="consultation"){
-                    $bool=1;
+            if(ConnexionUtilisateur::estConnecte()) {
+                if(/*(new QuestionRepository())->estFini($question->getId())*/1==1) {
+
+
+                    echo '<div class="results">';
+
+                    $bool = 0;
+                    foreach ($phases as $phase) {
+                        if ($phase->getType() != "consultation") {
+                            $bool = 1;
+                        }
+                    }
+                    $cpt = 0;
+                    if ($bool == 1) {
+                        if ($phases[count($phases) - 1]->getType() == "consultation") {
+                            echo "<p>Il n'y a pas eu de vote sur cette question.</p>";
+                        } else {
+                            $scores = [];
+                            $propositions = [];
+
+                            $propositionsScore = (new PropositionRepository())->selectAllWithScore($phase->getId());
+                            foreach ($propositionsScore as $proposition) {
+                                $propositions[] = $proposition[0];
+                                $scores[$proposition[0]->getId()] = $proposition[1];
+                            }
+                            $cpt = 0;
+
+                            foreach ($propositions as $proposition) {
+                                $idProposition = $proposition->getId();
+                                $score = $scores[$idProposition];
+                                $widthLigne=($score*100)/sizeof($scores);
+                                if ($cpt == 0) {
+                                    echo "<h1>" . $proposition->getIntitule() . " l'emporte !</h1><h3>avec un score de " . $score . ".</h3>";
+                                    $cpt++;
+                                } else {
+                                    echo '<style>.lineresults{width: '.$widthLigne.'%;}</style>';
+                                    echo '<div class="lineresults"></div>';
+                                    echo "<p id='petit'>" . $proposition->getIntitule() . " avec un score de : " . $score . "</p>";
+                                }
+
+                            }
+                        }
+
+                    } else {
+                        echo "<h3>Il n'y a pas eu de phases de vote sur cette question.</h3>";
+
+                    }
                 }
-            }
-            $cpt=0;
-            if($bool==1){
-                    if ($phases[count($phases)-1]->getType() == "consultation") {
-                        echo "<p>Il n'y a pas eu de vote sur cette question.</p>";
-                    }
-                    else {
-                        $scores = [];
-                        $propositions = [];
+                else{
+                    echo "<div class='LigneCent'><h3>La question n'est pas finit, revenez plus tard !</h3></div>";
+                }
 
-                        $propositionsScore = (new PropositionRepository())->selectAllWithScore($phase->getId());
-                        foreach ($propositionsScore as $proposition) {
-                            $propositions[] = $proposition[0];
-                            $scores[$proposition[0]->getId()] = $proposition[1];
-                        }
-                        $cpt=0;
-                        foreach ($propositions as $proposition) {
-                            $idProposition = $proposition->getId();
-                            $score = $scores[$idProposition];
-                            if($cpt==0){
-                                echo "<h1>" . $proposition->getIntitule() ." l'emporte !</h1><h3>avec un score de ". $score . ".</h3>";
-                                $cpt++;
-                            }
-                            else{
-                                echo "<p>" . $proposition->getIntitule() ." perd avec un score de : ". $score . "</hp>";
-                            }
-
-                        }
-                    }
-
-            }
-            else{
-                echo "<h3>Il n'y a pas eu de phases de vote sur cette question.</h3>";
-
+            }else{
+                echo "<div class='LigneCent'><h3>Vous n'êtes pas connecté. Connectez-vous pour plus d'informations !</h3></div>";
             }
 
             ?>
-
         </div>
 
     </div>
 
 
 
-
-                <?php
-
-                if(ConnexionUtilisateur::estConnecte()) {
-                    //if($question->estarchive()){
-
-
-                }
-                else{
-                    echo "<div class='LigneCent'><h3>Vous n'êtes pas connecté. Connectez-vous pour plus d'informations !</h3></div>";
-                }
-
-                ?>
 
 

@@ -140,4 +140,20 @@ class QuestionRepository extends AbstractRepository
         }
         return $questions;
     }
+
+
+
+    public function estFini(String $idQuestion){
+        $sql = 'SELECT question_est_archive(:idQuestion) FROM DUAL';
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute(
+            ['idQuestion' => $idQuestion]
+        );
+
+
+        return $pdoStatement->fetch();
+        
+    }
 }

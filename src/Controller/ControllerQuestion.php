@@ -250,22 +250,6 @@ class ControllerQuestion extends GenericController
 
     }
 
-    public static function debutPhase() : void
-    {
-        $idQuestion = $_GET['id'];
-
-        $question = (new QuestionRepository())->select($idQuestion);
-
-        $parametres = array(
-            'pagetitle' => 'Détail Question',
-            'cheminVueBody' => 'question/detail.php',
-            'question' => $question
-        );
-
-        self::afficheVue('view.php', $parametres);
-
-    }
-
     public static function finPhase() : void
     {
         $idQuestion = $_GET['id'];
@@ -273,7 +257,7 @@ class ControllerQuestion extends GenericController
         $question = (new QuestionRepository())->select($idQuestion);
         $currentPhase=(new PhaseRepository())->getCurrentPhase($idQuestion);
 
-        (new PhaseRepository())->endCurrentPhase($currentPhase);
+        (new PhaseRepository())->endPhase($currentPhase->getId());
 
         $parametres = array(
             'pagetitle' => 'Détail Question',
@@ -283,5 +267,25 @@ class ControllerQuestion extends GenericController
 
         self::afficheVue('view.php', $parametres);
     }
+
+
+    public static function debutPhase() : void
+    {
+        $idQuestion = $_GET['id'];
+
+        $question = (new QuestionRepository())->select($idQuestion);
+        $currentPhase=(new PhaseRepository())->getCurrentPhase($idQuestion);
+
+        (new PhaseRepository())->startPhase($currentPhase->getId());
+
+        $parametres = array(
+            'pagetitle' => 'Détail Question',
+            'cheminVueBody' => 'question/detail.php',
+            'question' => $question
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
 
 }
