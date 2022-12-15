@@ -96,7 +96,7 @@ class ControllerProposition extends GenericController
     public static function create(){
         $idQuestion = $_GET['id'];
 
-        $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, ConnexionUtilisateur::getLoginUtilisateurConnecte(),null, null, false));
+        $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, ConnexionUtilisateur::getLoginUtilisateurConnecte(),null, null, false, []));
 
         $parametres = array(
             'pagetitle' => 'Créer Proposition',

@@ -25,7 +25,8 @@ class PropositionRepository extends AbstractRepository
             $objetFormatTableau['IDRESPONSABLE'],
             null,
             $objetFormatTableau['INTITULE'],
-            $archive
+            $archive,
+            (new GroupeAuteurRepository())->getIdAuteursProposition($objetFormatTableau['IDPROPOSITION'])
         );
     }
 
@@ -109,6 +110,8 @@ class PropositionRepository extends AbstractRepository
 
         $sqlIdP = "select propositions_seq.CURRVAL as id from DUAL";
 
+         (new GroupeAuteurRepository())->sauvegarderGroupeProposition($proposition);
+
         return $this->select($pdo->query($sqlIdP)->fetch()['ID']);
     }
 
@@ -129,6 +132,8 @@ class PropositionRepository extends AbstractRepository
             );
             $pdoStatement->execute($params);
         }
+
+        (new GroupeAuteurRepository())->updateGroupeProposition($object);
     }
 
     public function setScore(Proposition $proposition, int $score){
