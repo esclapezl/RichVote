@@ -239,10 +239,8 @@ class ControllerQuestion extends GenericController
 
     public static function readResult() : void
     {
-
         $idQuestion = $_GET['id'];
         $question = (new QuestionRepository())->select($idQuestion);
-
 
         self::afficheVue('view.php',[
             "pagetitle" => "Resultat Question",
@@ -250,6 +248,40 @@ class ControllerQuestion extends GenericController
             'question' => $question
         ]);
 
+    }
+
+    public static function debutPhase() : void
+    {
+        $idQuestion = $_GET['id'];
+
+        $question = (new QuestionRepository())->select($idQuestion);
+
+        $parametres = array(
+            'pagetitle' => 'Détail Question',
+            'cheminVueBody' => 'question/detail.php',
+            'question' => $question
+        );
+
+        self::afficheVue('view.php', $parametres);
+
+    }
+
+    public static function finPhase() : void
+    {
+        $idQuestion = $_GET['id'];
+
+        $question = (new QuestionRepository())->select($idQuestion);
+        $currentPhase=(new PhaseRepository())->getCurrentPhase($idQuestion);
+
+        (new PhaseRepository())->endCurrentPhase($currentPhase);
+
+        $parametres = array(
+            'pagetitle' => 'Détail Question',
+            'cheminVueBody' => 'question/detail.php',
+            'question' => $question
+        );
+
+        self::afficheVue('view.php', $parametres);
     }
 
 }

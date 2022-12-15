@@ -82,7 +82,10 @@ switch ($typePrecisPhase) {
                         
                         <div class="ligneExt">
                         <div>
-                        <p id="petit">Il y a 500 votants. 10 policiers, 15 utilisateurs premiums, 20 belges...</p>
+                        <div class="col"> <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=debutPhase&id=' . $question->getId() .'">Lancer phase</a>
+                        <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=finPhase&id=' . $question->getId() .'">Finir phase</a>
+                        </div>
+                    
                         </div>
                             <div id="col">
                          
