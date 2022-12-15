@@ -7,14 +7,14 @@ use App\Model\DataObject\Proposition;
 class GroupeAuteurRepository
 {
     public function getIdAuteursProposition(string $idProposition) : array{
-        $sql = "SELECT idVotant FROM Auteurs WHERE idProposition=:idProposition";
+        $sql = "SELECT idAuteur FROM AuteurProposition WHERE idProposition=:idProposition";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
         $pdoStatement->execute(['idProposition' => $idProposition]);
 
         $idAuteurs = [];
         foreach ($pdoStatement as $tabId){
-            $idAuteurs[] = $tabId['IDVOTANT'];
+            $idAuteurs[] = $tabId['IDAUTEUR'];
         }
         return $idAuteurs;
     }

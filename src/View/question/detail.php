@@ -73,7 +73,8 @@ switch ($typePrecisPhase) {
 
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
-                if ((new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $question->getId()) == "organisateur") {
+                $roleQuestion = (new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $question->getId());
+                if ($roleQuestion == "responsable") {
                     echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
     <a class="optQuestion" href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '>Supprimer</a></div>'
 
