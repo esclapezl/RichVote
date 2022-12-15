@@ -4,6 +4,7 @@ namespace App\Model\Repository;
 
 use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Proposition;
+use App\Model\DataObject\Question;
 use App\Model\DataObject\User;
 
 class PropositionRepository extends AbstractRepository
@@ -79,6 +80,18 @@ class PropositionRepository extends AbstractRepository
         return $arrayProposition;
     }
 
+    public function selectAllfromResponsable(string $id): ?array
+    {
+        $sql = "SELECT * FROM SOUVIGNETN.PROPOSITIONS WHERE idResponsable='" . $id ."'";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->query($sql);
+
+        $propositions = [];
+        foreach ($pdoStatement as $propositionTab){
+            $propositions[] = $this->construire($propositionTab);
+        }
+
+        return $propositions;
+    }
 
 
      public function sauvegarder(AbstractDataObject $proposition) : AbstractDataObject{
@@ -131,6 +144,26 @@ class PropositionRepository extends AbstractRepository
     {
         return "intitule";
     }
+
+    /*public function  getIntituleQuestion(string $idProposition): string
+    {
+        $sql = 'SELECT INTITULEQUESTION
+                FROM SOUVIGNETN.QUESTIONS q
+                JOIN SOUVIGNET.PROPOSITIONS p ON q.idQuestion = p.idQuestion
+                WHERE idProposition = $idProposition';
+
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute('id' => $idQuestion);
+
+        return $arrayProposition;
+
+
+        $sql = "SELECT * FROM vue_PhasesDetail WHERE idQuestion = :idQuestion";
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute(['idQuestion' => $idQuestio
+    }*/
 
     public function selectAllWithScore(string $idPhase): array{ // forme [Proposition, score]
         $sql = 'SELECT p.idProposition, idResponsable, p.idQuestion, intitule, archive, score  

@@ -108,10 +108,12 @@ class QuestionRepository extends AbstractRepository
     }
 
 
-    protected function getIntitule(): string
+    public function getIntitule(): string
     {
         return "intituleQuestion";
     }
+
+
 
     public function selectAllfromOrganisateur(string $id): ?array
     {

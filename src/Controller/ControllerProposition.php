@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
 use App\Model\DataObject\Proposition;
+use App\Model\DataObject\Question;
+
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\UserRepository;

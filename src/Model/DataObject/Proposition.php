@@ -38,6 +38,7 @@ class Proposition extends AbstractDataObject
     }
 
 
+
     public function getId(): ?string
     {
         return $this->idProposition;
@@ -58,6 +59,7 @@ class Proposition extends AbstractDataObject
             return null;
         }
     }
+
 
     public function getIntitule() :?string{
         return $this->intitule;
@@ -98,6 +100,7 @@ class Proposition extends AbstractDataObject
     {
         return $this->idQuestion;
     }
+
 
     /**
      * @return string

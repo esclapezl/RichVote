@@ -15,7 +15,24 @@ class Question extends AbstractDataObject
     private DateTime $dateFermeture;
     private Phase $currentPhase;
 
-
+    public function __construct(
+        ?string $id,
+        string $idOrganisateur,
+        string $intitule,
+        string $description,
+        DateTime $dateCreation,
+        DateTime $dateFermeture,
+        Phase $currentPhase
+    )
+    {
+        $this->id = $id;
+        $this->idOrganisateur = $idOrganisateur;
+        $this->intitule = $intitule;
+        $this->description = $description;
+        $this->dateCreation = $dateCreation;
+        $this->dateFermeture = $dateFermeture;
+        $this->currentPhase = $currentPhase;
+    }
 
     /**
      * @return DateTime
@@ -131,25 +148,6 @@ class Question extends AbstractDataObject
     public function getIdOrganisateur(): string
     {
         return $this->idOrganisateur;
-    }
-
-    public function __construct(
-        ?string $id,
-        string $idOrganisateur,
-        string $intitule,
-        string $description,
-        DateTime $dateCreation,
-        DateTime $dateFermeture,
-        Phase $currentPhase
-    )
-    {
-        $this->id = $id;
-        $this->idOrganisateur = $idOrganisateur;
-        $this->intitule = $intitule;
-        $this->description = $description;
-        $this->dateCreation = $dateCreation;
-        $this->dateFermeture = $dateFermeture;
-        $this->currentPhase = $currentPhase;
     }
 
     public function ajouterSection(Section $section){

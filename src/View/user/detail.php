@@ -2,11 +2,13 @@
 
 use App\Model\DataObject\Groupe;
 use App\Model\DataObject\Question;
+use App\Model\DataObject\Proposition;
 use App\Model\DataObject\User;
 use App\Lib\ConnexionUtilisateur;
 use \App\Model\Repository\UserRepository;
 
 /** @var Question[] $questions*/
+/** @var Proposition[] $propositions*/
 /** @var Groupe[] $groupes*/
 $user = (new UserRepository())->select($_GET['id']);
 
@@ -117,7 +119,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
             if(!empty($questions)){
                 echo  '<div class="descG"></div>
                    
-                   <div class="ligneExt"> <h1 id="fontsize">Questions publiées par '. htmlspecialchars($user->getId()).' :</h1></div>
+                   <div class="ligneExt"> <h1 id="fontsize">Question(s) publiée(s) par '. htmlspecialchars($user->getId()).' :</h1></div>
                    <div class="ligneExt"><div class="ligne"></div> </div>';
                 echo '<ul>';
                 foreach ($questions as $question){
@@ -132,18 +134,43 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                                 htmlspecialchars($question->dateToString($question->getDateFermeture())) .'</p>
                     </a>
                    </div>
-                    <div>
-                    <a class="abis" href=frontController.php?controller=user&action=read&id=' .
-                                $question->getIdOrganisateur() . '>Organisateur<strong>' . $question->getIdOrganisateur() . '</strong>
-                    </a>
-                    </div>
+                    
                     </li>
-                   
-                
                     ';
                 }
-        echo '</ul>';
-        }
+                echo '</ul>';
+            }
+
+            if(!empty($propositions)){
+                echo  '<div class="descG"></div>
+                       <div class="ligneExt"> 
+                           <h1 id="fontsize">Proposition(s) publiée(s) par '. htmlspecialchars($user->getId()).' :</h1>
+                       </div>
+                       <div class="ligneExt">
+                           <div class="ligne"></div> 
+                       </div>';
+
+                echo '<ul>';
+                    foreach ($propositions as $proposition){
+                        echo '
+                            <li class="ligneExt">
+                                <div>
+                                    <a href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getId()).'>
+                                    <div class="atxt">' .ucfirst(htmlspecialchars($proposition->getIntitule())).'</div>
+                                    <div class="descP"></div>
+                                    <p>Pour la question : ' . /*(new App\Model\Repository\PropositionRepository)->getIntituleQuestion($proposition->getId()).'*/'</p>
+                                    <p id="date">Du '. htmlspecialchars($question->dateToString($question->getDateCreation())) .' au ' .
+                                    htmlspecialchars($question->dateToString($question->getDateFermeture())) .'</p>
+                                    </a>
+                                </div>
+                            </li>
+                        ';
+                    }
+                echo '</ul>';
+            }
+
+
+
 
 
 

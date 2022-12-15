@@ -9,6 +9,7 @@ use App\Lib\VerificationEmail;
 use App\Model\DataObject\User;
 use App\Model\HTTP\Cookie;
 use App\Model\Repository\GroupeRepository;
+use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\UserRepository;
 use App\Model\HTTP\Session;
@@ -268,11 +269,13 @@ class ControllerUser extends GenericController
     {
         $groupes = (new GroupeRepository())->getNomGroupes($_GET['id']);
         $questions = (new QuestionRepository())->selectAllfromOrganisateur($_GET['id']);
+        $propositions = (new PropositionRepository())->selectAllfromResponsable($_GET['id']);
         $user = (new UserRepository())->select($_GET['id']);
         $parametres = array(
             'pagetitle' => 'Détails user',
             'cheminVueBody' => 'user/detail.php',
             'user' => $user,
+            'propositions' => $propositions,
             'questions' => $questions,
             'groupes' => $groupes
         );
