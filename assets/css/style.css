@@ -454,6 +454,7 @@ footer .vague#vague4{
     background: transparent;
     border: 4px solid white;
     padding: 20px;
+    flex-direction: column;
 
 }
 

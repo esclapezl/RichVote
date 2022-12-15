@@ -7,6 +7,7 @@ use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
 use App\Model\Repository\PhaseRepository;
+use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\SectionRepository;
 use App\Lib\MessageFlash;
@@ -241,6 +242,7 @@ class ControllerQuestion extends GenericController
 
         $idQuestion = $_GET['id'];
         $question = (new QuestionRepository())->select($idQuestion);
+
 
         self::afficheVue('view.php',[
             "pagetitle" => "Resultat Question",
