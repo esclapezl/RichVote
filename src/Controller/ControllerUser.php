@@ -11,6 +11,7 @@ use App\Model\HTTP\Cookie;
 use App\Model\Repository\GroupeRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\UserRepository;
+use App\Model\Repository\DatabaseConnection;
 use App\Model\HTTP\Session;
 use Couchbase\Group;
 
@@ -557,6 +558,26 @@ class ControllerUser extends GenericController
             MessageFlash::ajouter('info', 'Les mots de passe ne correspondent pas.');
             self::redirection('frontController.php?controller=user&action=update&id='.$id);
         }
+    }
+
+    public static function commenter(): void
+    {
+        $commentaire = $_POST['commentaire'];
+        $user = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+        $idProposition=$_GET['id'];
+        $date = date('d-m-y');
+        echo $date;
+
+
+        $sql = 'INSERT INTO souvignetn.commentaires(IDPROPOSITION, IDUSER, TEXTE, DATECOMMENTAIRE,LIKES) VALUES(:IDPROPOSITION, :IDUSER, :TEXTE, :DATECOMMENTAIRE,0)';
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute(array('IDPROPOSITION' => $idProposition,
+            'IDUSER'=>$user,
+            'TEXTE'=>$commentaire,
+            'DATECOMMENTAIRE'));
 
     }
 

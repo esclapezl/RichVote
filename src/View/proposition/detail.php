@@ -5,7 +5,8 @@ use App\Model\Repository\VoteRepository;
 use App\Model\Repository\UserRepository;
 /** @var Proposition $proposition */
 ?>
-<div class="block">
+<div class="block" >
+    <div class="column">
     <div class="text-box">
         <a id="fleche" class="optQuestion" href=<?=$_SERVER['HTTP_REFERER']?>>↩</a>
         <div class="ligneExt">
@@ -28,9 +29,20 @@ use App\Model\Repository\UserRepository;
             echo '<div class="ligneExt"><h3>' . ucfirst(htmlspecialchars($proposition->getIntitule())) . "</h3></div>";
             echo "<div class='ligne'></div> <p class='descP'>" . htmlspecialchars($texte) . "</p>";
         }?>
+    </div>
 
+    <div class="text-box" >
+        <h3> Commentaires  </h3>
+        <form action="frontController.php?controller=user&action=commenter&id=<?php echo $_GET['id'] ?>" method="post">
+            <input  type="text" name="commentaire" id="commentaire">
+            <input type="image" src="../assets/img/icons8-coche.svg" border="0" alt="Submit" />
+        </form>
 
 
 
     </div>
+
+
 </div>
+</div>
+

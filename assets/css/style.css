@@ -456,7 +456,9 @@ footer .vague#vague4{
     padding: 20px;
 
 }
-
+.column{
+    width: 100%;
+}
 
 .profil, .column{
     display: flex;
@@ -1102,6 +1104,11 @@ a{
 
 .mdp{
     background-color: white;
+}
+
+#commentaire{
+    width: 100%;
+    height: 100px;
 }
 
 
