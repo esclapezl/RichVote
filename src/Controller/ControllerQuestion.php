@@ -14,13 +14,6 @@ use App\Model\Repository\UserRepository;
 
 class ControllerQuestion extends GenericController
 {
-    public static function accueil()
-    {
-        self::afficheVue('view.php',[
-            "pagetitle" => "Accueil",
-            "cheminVueBody" => 'user/accueil.php'
-        ]);
-    }
 
     public static function readAll() : void
     {
@@ -240,6 +233,21 @@ class ControllerQuestion extends GenericController
             'questions' => $questions
         ];
         self::afficheVue('view.php', $param);
+    }
+
+
+    public static function readResult() : void
+    {
+
+        $idQuestion = $_GET['id'];
+        $question = (new QuestionRepository())->select($idQuestion);
+
+        self::afficheVue('view.php',[
+            "pagetitle" => "Resultat Question",
+            "cheminVueBody" => 'question/results.php',
+            'question' => $question
+        ]);
+
     }
 
 }

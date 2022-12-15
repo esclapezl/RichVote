@@ -32,20 +32,20 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                 }
                       echo '<div class="profil">
                     <div class="ligneExt">
-                        <img class="photo" src="../assets/img/user-lambda.svg">
+                        <img class="photo" alt="user" src="../assets/img/user-lambda.svg">
                         <h1>' . htmlspecialchars(ucfirst($user->getId())) . '</h1><div>';
 
                         //NOM
                         if(isset($_GET['modif'])&&$_GET['modif']=='nom'&& $peutModif)
                         {
                             echo '<div class="ligneCent"><input type="text" id="nom" name="nom" value="'. htmlspecialchars(ucfirst($user->getNom())) .
-                                '" size="10" required> <button type="submit" class="valide"><img src="../assets/img/icons8-coche.svg"></button></div>';
+                                '" size="10" required> <button type="submit" class="valide"><img alt="coche" src="../assets/img/icons8-coche.svg"></button></div>';
                         }
                         else if($peutModif)
                         {
                             echo '<div class="ligneCent"><p class="names" id="petit">Nom :</p><h3 class="names">' . htmlspecialchars(ucfirst($user->getNom())) . '
                                 </h3><a href="frontController.php?controller=user&action=read&id='.$user->getId().'&modif=nom" id="modif">
-                                <img src="../assets/img/icons8-paramètres.svg"></a></div>';
+                                <img alt="coche" src="../assets/img/icons8-paramètres.svg"></a></div>';
                         }
                         else
                         {
@@ -57,14 +57,14 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                         {
                             echo '<div class="ligneCent"><input type="text" id="prenom" name="prenom" value=' .
                                 htmlspecialchars(ucfirst($user->getPrenom())) . ' size="10" required> <button type="submit" class="valide">
-                                <img src="../assets/img/icons8-coche.svg"></button></div>';
+                                <img alt="coche" src="../assets/img/icons8-coche.svg"></button></div>';
                         }
                         else if($peutModif)
                         {
                             echo '<div class="ligneCent"><p class="names" id="petit">Prénom :</p><h3 class="names">' .
                                 htmlspecialchars(ucfirst($user->getPrenom())) . '</h3>
                                 <a href="frontController.php?controller=user&action=read&id='.$user->getId().'&modif=prenom" id="modif">
-                                <img src="../assets/img/icons8-paramètres.svg"></a></div>';
+                                <img alt="coche" src="../assets/img/icons8-paramètres.svg"></a></div>';
                         }
                         else
                         {
@@ -74,7 +74,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                     echo '<br>';
                     echo '<div class="ligneCent"><p class="names" id="petit">Mail :</p><h3 id="mail">' . htmlspecialchars($user->getEmail()) . '</h3></div>
                 </div>
-                </div>
+                
 
 
         </div>';
@@ -97,7 +97,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
             echo
             "<div class='ligneCent'> 
                    <div id='groupe'>
-                   <img class='photogrp' src='../assets/img/icons8-groupe.png'>";
+                   <img  class='photogrp' alt='groupe' src='../assets/img/icons8-groupe.png'>";
 
             if(empty($groupes)){
                 echo "<h3>" .htmlspecialchars(ucfirst($user->getId()))." n'a pas de groupe.</h3>";
@@ -106,11 +106,11 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                 echo "<h3>" .htmlspecialchars(ucfirst($user->getId()))." fait parti des groupes suivants :</h3>";
                 foreach ($groupes as $groupe){
                     echo /*'<a href="frontController.php?controller=groupe&action=read&id=' . rawurlencode($groupe->getId()).'">'.
- */'<p>' . htmlspecialchars($groupe).'</p>';
+ */'<a id="grp" href="frontController.php?controller=groupe&action=read&nomGroupe='.rawurldecode($groupe).'"> -' . htmlspecialchars($groupe).'</a>';
                 }
 
             }
-            echo "</div></div>";
+            echo "</div></div></div>";
 
 
 
