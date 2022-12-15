@@ -563,21 +563,18 @@ class ControllerUser extends GenericController
     public static function commenter(): void
     {
         $commentaire = $_POST['commentaire'];
-        $user = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+        $userRepository = new UserRepository();
+        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $idProposition=$_GET['id'];
         $date = date('d-m-y');
-        echo $date;
 
 
-        $sql = 'INSERT INTO souvignetn.commentaires(IDPROPOSITION, IDUSER, TEXTE, DATECOMMENTAIRE,LIKES) VALUES(:IDPROPOSITION, :IDUSER, :TEXTE, :DATECOMMENTAIRE,0)';
+        $sql = "INSERT INTO souvignetn.commentaires(IDPROPOSITION, IDUSER, TEXTE, DATECOMMENTAIRE,NBLIKE) VALUES(".$idProposition.",'".$idUser."', '".$commentaire."','".$date."',0)";
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $pdoStatement = $pdo->prepare($sql);
 
-        $pdoStatement->execute(array('IDPROPOSITION' => $idProposition,
-            'IDUSER'=>$user,
-            'TEXTE'=>$commentaire,
-            'DATECOMMENTAIRE'));
+        $pdoStatement->execute();
 
     }
 
