@@ -21,12 +21,9 @@ $phases=(new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($ques
         <a class="optQuestion" id="fleche" href=frontController.php?controller=question&action=read&id=<?=$question->getId()?>>↩</a>
                 <div class="column">
 
-                    <h3><?=htmlspecialchars($question->getIntitule())?></h3>
-                    <br>
-                    <div class="ligne"></div>
-                    <br>
-                    <h1>Résultats Finaux</h1>
-                    <div class="descG"></div>
+
+
+
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
                 if(/*(new QuestionRepository())->estFini($question->getId())*/1==1) {
@@ -54,19 +51,38 @@ $phases=(new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($ques
                                 $scores[$proposition[0]->getId()] = $proposition[1];
                             }
                             $cpt = 0;
+                            $scorebis=null;
+                            $classement=0;
+                            echo '<h2>Résultats Finaux</h2><h3 id="quest">' . htmlspecialchars($question->getIntitule()) . '</h3>
 
+                    <div class="ligne"></div>
+                    <br>';
+                            $scoretotal=0;
+                            $cptligne=0;
                             foreach ($propositions as $proposition) {
                                 $idProposition = $proposition->getId();
                                 $score = $scores[$idProposition];
-                                $widthLigne=($score*100)/sizeof($scores);
-                                if ($cpt == 0) {
-                                    echo "<h1>" . $proposition->getIntitule() . " l'emporte !</h1><h3>avec un score de " . $score . ".</h3>";
-                                    $cpt++;
-                                } else {
-                                    echo '<style>.lineresults{width: '.$widthLigne.'%;}</style>';
-                                    echo '<div class="lineresults"></div>';
-                                    echo "<p id='petit'>" . $proposition->getIntitule() . " avec un score de : " . $score . "</p>";
-                                }
+                                $scoretotal+=$score;
+                            }
+
+
+                            foreach ($propositions as $proposition) {
+                                $classement++;
+                                $idProposition = $proposition->getId();
+                                $score = $scores[$idProposition];
+                                $widthLigne=($score/$scoretotal)*100;
+                                $widthLigne=round($widthLigne);
+
+
+
+                                    echo "<h3>" . $classement . ". " . ucfirst(htmlspecialchars($proposition->getIntitule())) . " avec un score de : " . $score . "</h3>";
+                                    echo '<style>.lineresults'.$cptligne.'{width: '.$widthLigne.'%; display: flex;background: white;height: 8px;
+                                         ;border-radius: 20px}</style>';
+                                echo '<div class="ligneExt"><div class="lineresults'.$cptligne.'"></div><p id="petit">'.$widthLigne.' %</p></div>';
+                                $cptligne++;
+
+
+
 
                             }
                         }

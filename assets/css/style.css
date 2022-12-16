@@ -220,6 +220,14 @@ a#addVotants{
     width: 50%;
     margin-top: 40px;
 }
+a#askVotants{
+    width: 100%;
+}
+
+a#phases{
+    width: 80px;
+    margin-right: 10px;
+}
 
 #desc{
     padding: 8px;
@@ -268,6 +276,10 @@ a#grp{
     justify-content: center;
     font-size: 25px;
     color: #fff;
+}
+
+.block .column .text-box form div li{
+    cursor: initial;
 }
 
 .scroll span{
@@ -449,25 +461,36 @@ footer .vague#vague4{
     border-radius: 50px;
 
 }
+.results > h2{
+    margin-bottom: 30px;
+    font-size: 2.8em;
+}
 
+.results > #quest{
+    margin-bottom: 8px;
+    font-size: 2em;
+}
+
+.block .text-box .results > .ligne{
+    width: 100%;
+    margin-bottom: 20px;
+
+}
 .results{
     display: flex;
-    align-items: center;
+    align-items: initial;
     justify-content: center;
     width: 100%;
     height: 100%;
     border-radius: 20px;
     background: transparent;
-    border: 4px solid white;
-    padding: 20px;
+
+    padding: 30px 50px 30px 50px;
     flex-direction: column;
 }
 
-.lineresults{
-    background: white;
-    height: 5px;
-    margin-bottom: 10px;
-}
+
+
 .column{
     width: 100%;
 }

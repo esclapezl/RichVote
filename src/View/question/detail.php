@@ -80,7 +80,7 @@ switch ($typePrecisPhase) {
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
                 $roleQuestion = (new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $question->getId());
-                if ($roleQuestion == "responsable") {
+                if ($roleQuestion == "organisateur") {
                     echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
     <a class="optQuestion" href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '>Supprimer</a></div>'
 
@@ -89,8 +89,8 @@ switch ($typePrecisPhase) {
                         
                         <div class="ligneExt">
                         <div>
-                        <div class="col"> <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=debutPhase&id=' . $question->getId() .'">Lancer phase</a>
-                        <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=finPhase&id=' . $question->getId() .'">Finir phase</a>
+                        <div class="ligneAlign"> <a class="optQuestion" id="phases" href="frontController.php?controller=question&action=debutPhase&id=' . $question->getId() .'">Debut phase</a>
+                        <a class="optQuestion" id="phases" href="frontController.php?controller=question&action=finPhase&id=' . $question->getId() .'">Fin phase</a>
                         </div>
                     
                         </div>
@@ -98,6 +98,8 @@ switch ($typePrecisPhase) {
                          
                                 <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=addVotantToQuestion&id=' . $question->getId() .'">Ajouter des votants</a>
                                 <p id="petit">Il y a ' . sizeof($demandes) . ' demandes de votes</p>
+                                <a class="optQuestion" id="askVotants" href=frontController.php?controller=question&action=readDemandeVote&id='.$question->getId().'> Voir les demandes de votes</a>
+                        
                                 <div class="ligne">
                             </div>
                         </div>
