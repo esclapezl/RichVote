@@ -26,6 +26,10 @@ use  \App\Model\DataObject\Commentaire;
                     $idProposition = $proposition->getId();
                     echo '<a href="frontController.php?controller=proposition&action=readDemandeAuteur&id=' . $idProposition . '"> voir demandes </a>';
                 }
+                elseif (!(new \App\Model\Repository\PropositionRepository())->estAuteur(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $proposition)){
+                    echo '<a href="frontController.php?controller=proposition&action=addDemandeAuteur&id=' . $proposition->getId() . '"> devenir auteur de cette proposition</a>';
+
+                }
             }
             ?>
         </div>

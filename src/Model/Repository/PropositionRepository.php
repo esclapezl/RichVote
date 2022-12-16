@@ -238,5 +238,20 @@ class PropositionRepository extends AbstractRepository
         }
     }
 
+    public function estAuteur(string $idUser, Proposition $proposition) : bool{
+        $sql = "SELECT COUNT(idAuteur) FROM AUTEURPROPOSITION
+                WHERE idAuteur=:idUser AND idProposition=:idProposition";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        $parametres = [
+            'idUser' => $idUser,
+            'idProposition' => $proposition->getId()
+        ];
+        $pdoStatement->execute($parametres);
+
+        $result = $pdoStatement->fetch()[0];
+        return $result>0;
+    }
+
 
 }

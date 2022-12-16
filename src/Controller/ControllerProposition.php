@@ -182,6 +182,9 @@ class ControllerProposition extends GenericController
         $demande = new Demande('auteur', $proposition->getIdQuestion(), $idUser, $proposition->getIdResponsable(), $idProposition);
 
         DemandeRepository::sauvegarder($demande);
+
+        MessageFlash::ajouter('success', 'demande effectuée');
+        ControllerQuestion::readAll();
     }
 
     public static function readDemandeAuteur() : void{
@@ -208,6 +211,8 @@ class ControllerProposition extends GenericController
         }
         $proposition = (new PropositionRepository())->select($idProposition);
         (new PropositionRepository())->addAuteursProposition($acceptees, $proposition);
+
+        ControllerQuestion::readAll();
     }
 
 
