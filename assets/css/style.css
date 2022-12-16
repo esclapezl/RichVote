@@ -172,7 +172,12 @@ nav{
     border-radius: 80px;
     justify-content: center;
     align-items: center;
+    position: relative;
+    margin-left: 200px;
 }
+
+
+
 
 .navBar #btn-connexion:first-child{
     margin-right: 5%;
