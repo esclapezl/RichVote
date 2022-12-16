@@ -44,14 +44,19 @@ class CommentaireRepository extends AbstractRepository
 
     public function commenter(int $idProposition,string $idUser,string $texte,string $date): void
     {
-        $commentaire=new Commentaire($idProposition,$idUser,$texte,$date);
-        $sql = "INSERT INTO souvignetn.commentaires(IDPROPOSITION, IDUSER, TEXTE, DATECOMMENTAIRE,NBLIKE) VALUES(:IDPROPOSITION, :IDUSER, :TEXTE, to_date(:DATECOMMENTAIRE),0,NULL)";
+        $sql = "INSERT INTO souvignetn.commentaires(IDPROPOSITION, IDUSER, TEXTE, DATECOMMENTAIRE,NBLIKE,IDCOMMENTAIRE) VALUES($idProposition,:IDUSER,:TEXTE, to_date($date),0,0)";
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
-        ($pdo->prepare($sql))->execute(array('IDPROPOSITION' => $commentaire->getIDPROPOSITION(),
-            'IDUSER' => $commentaire->getIDUSER(),
-            'TEXTE' => $commentaire->getTEXTE(),
-            'DATECOMMENTAIRE' => $commentaire->getDATECOMMENTAIRE()));
+        ($pdo->prepare($sql))->execute(array(
+            'IDUSER' => $idUser,
+            'TEXTE' => $texte));
+    }
+
+    public function deleteCommentaire(int $idCommentaire):void
+    {
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $sql='DELETE FROM souvignetn.commentaires WHERE idCommentaire = '.$idCommentaire;
+        $pdo->query($sql);
     }
 
     public function selectAllProp(string $idProposition):Array
@@ -69,5 +74,19 @@ class CommentaireRepository extends AbstractRepository
         }
 
         return $tabRepo;
+    }
+
+    public function liker($idCommentaire):void
+    {
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $sql='UPDATE souvignetn.commentaires SET NBLIKE = NBLIKE+1 WHERE idCommentaire = '.$idCommentaire;
+        $pdo->query($sql);
+    }
+
+    public function disliker($idCommentaire):void
+    {
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $sql='UPDATE souvignetn.commentaires SET NBLIKE = NBLIKE-1 WHERE idCommentaire = '.$idCommentaire;
+        $pdo->query($sql);
     }
 }

@@ -299,7 +299,6 @@ class ControllerUser extends GenericController
         $propositions = (new PropositionRepository())->selectAllfromResponsable($_GET['id']);
         $user = (new UserRepository())->select($_GET['id']);
 
-        $arrayUser = (new CommentaireRepository())->s();
 
 
         $parametres = array(
@@ -504,7 +503,7 @@ class ControllerUser extends GenericController
 
     public static function mdpOublie()
     {
-        if(ConnexionUtilisateur::estConnecte())
+        if(!ConnexionUtilisateur::estConnecte())
         {
             $parametres = array(
                 'pagetitle' => 'Récuperation du mot de passe',

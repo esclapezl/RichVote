@@ -167,11 +167,38 @@ class ControllerProposition extends GenericController
         self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
     }
 
-    public static function deleteCommentaire(int $idCommentaire):void
+    public static function deleteCommentaire():void
     {
-        $sql='DELETE FROM souvignetn.commentaires WHERE idCommentaire = '.$idCommentaire;
+        $idCommentaire= $_GET['idCommentaire'];
+        $idProposition= $_GET['id'];
+
+        (new CommentaireRepository())->deleteCommentaire($idCommentaire);
+
+
+        MessageFlash::ajouter('info','Vous n\'avez pas aimé ce commentaire.');
+        self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
+    }
+
+    public static function likeCommentaire():void
+    {
+        $idCommentaire= $_GET['idCommentaire'];
+        $idProposition= $_GET['id'];
+
+        (new CommentaireRepository())->liker($idCommentaire);
+
+        MessageFlash::ajouter('info','Vous avez aimé ce commentaire');
+        self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
+    }
+
+    public static function dislikeCommentaire():void
+    {
+        $idCommentaire= $_GET['idCommentaire'];
+        $idProposition= $_GET['id'];
+
+        (new CommentaireRepository())->disliker($idCommentaire);
+
         MessageFlash::ajouter('info','Commentaire supprimé.');
-        self::redirection('frontController.php?controller=proposition&action=read&id=52');
+        self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
     }
 
     public static function addDemandeAuteur(){

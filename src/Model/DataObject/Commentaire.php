@@ -5,7 +5,7 @@ namespace App\Model\DataObject;
 class Commentaire extends AbstractDataObject
 {
 
-    private string $IDPROPOSITION;
+    private int $IDPROPOSITION;
     private string $IDUSER;
     private string $TEXTE;
     private string $DATECOMMENTAIRE;
@@ -19,14 +19,16 @@ class Commentaire extends AbstractDataObject
      * @param string $DATECOMMENTAIRE
      * @param int $NBLIKE
      */
-    public function __construct(string $IDPROPOSITION, string $IDUSER, string $TEXTE, string $DATECOMMENTAIRE)
+    public function __construct(string $IDPROPOSITION, string $IDUSER, string $TEXTE, string $DATECOMMENTAIRE,int $NBLIKE, int $IDCOMMENTAIRE)
     {
         $this->IDPROPOSITION = $IDPROPOSITION;
         $this->IDUSER = $IDUSER;
         $this->TEXTE = $TEXTE;
         $this->DATECOMMENTAIRE = $DATECOMMENTAIRE;
-        $this->NBLIKE = 0;
+        $this->NBLIKE = $NBLIKE;
+        $this->IDCOMMENTAIRE = $IDCOMMENTAIRE;
     }
+
 
     /**
      * @return string
@@ -35,6 +37,8 @@ class Commentaire extends AbstractDataObject
     {
         return $this->IDPROPOSITION;
     }
+
+
 
 
 
@@ -87,7 +91,12 @@ class Commentaire extends AbstractDataObject
      */
     public function getIDCOMMENTAIRE(): int
     {
-        return $this->IDCOMMENTAIRE;
+        if( isset($this->IDCOMMENTAIRE))
+        {
+            return $this->IDCOMMENTAIRE;
+        }
+        return 0;
+
     }
 
 

@@ -42,8 +42,13 @@ if((new ConnexionUtilisateur())->estAdministrateur())
                     <?php
                     if((new ConnexionUtilisateur())->estAdministrateur() )
                     {
-                        echo '<div id="btn-role">'. (new UserRepository())->select(ConnexionUtilisateur::getLoginUtilisateurConnecte())->getRole() .'</div>';
+                        echo '<div id="btn-role"> Administrateur</div>';
                     }
+                    ?>
+
+
+
+                    <?php
                     if((new ConnexionUtilisateur())->estConnecte()) {
                         echo  '<div class="ligneAlign"><a id="btn-connexion" href="frontController.php?controller=user&action=read&id='.(new ConnexionUtilisateur())->getLoginUtilisateurConnecte() .'">'. (new ConnexionUtilisateur())->getLoginUtilisateurConnecte().' </a>
                                 <a id="btn-connexion" href="frontController.php?controller=user&action=deconnexion">Deconnexion </a></div>';
@@ -57,6 +62,7 @@ if((new ConnexionUtilisateur())->estAdministrateur())
                     <div class="line"></div>
                     <div class="line"></div>
                     </div>
+
                 </div>
             </nav>
         <main>

@@ -157,7 +157,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                                     <a href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getId()).'>
                                     <div class="atxt">' .ucfirst(htmlspecialchars($proposition->getIntitule())).'</div>
                                     <div class="descP"></div>
-                                    <p>Pour la question : ' . /*(new App\Model\Repository\PropositionRepository)->getIntituleQuestion($proposition->getId()).'*/'</p>
+                                    <p>Pour la question : ' . /*(new App\Model\Repository\PropositionRepository)->getIntituleQuestion($proposition->getId()).*/'</p>
                                     <p id="date">Du '. htmlspecialchars($question->dateToString($question->getDateCreation())) .' au ' .
                                     htmlspecialchars($question->dateToString($question->getDateFermeture())) .'</p>
                                     </a>

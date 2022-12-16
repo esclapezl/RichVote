@@ -46,9 +46,6 @@ switch ($typePrecisPhase) {
                             echo "<h3>Vous n'avez pas de rôle sur cette question.</h3>";
                         }
 
-                        if((new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $idQuestion) == 'organisateur'){
-                            echo "<a href='frontController.php?controller=question&action=readDemandeVote&id=$idQuestion'> voir les demandes de vote</a>";
-                        }
 
 
 
@@ -83,30 +80,40 @@ switch ($typePrecisPhase) {
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
                 $roleQuestion = (new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $question->getId());
-                if ($roleQuestion == "responsable" || $roleQuestion== "organisateur") {
+                if ($roleQuestion == "organisateur") {
                     echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
-    <a class="optQuestion" href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '>Supprimer</a></div>'
+     <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats du Tirage</a>
+</div>'
+
 
                         . '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
-    Créer proposition</a><a class="optQuestion" href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '>Modifier</a></div>' . '
+    Créer proposition</a>
+    <div class="ligneAlign"><a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '><img class="icons" alt="modifier" src="../assets/img/icons8-crayon-48.png"></a> <a href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '><img class="icons" id="poubelle" alt="supprimer question" src="../assets/img/icons8-poubelle.svg"></a>
+    </div>
+    </div>' . '
                         
                         <div class="ligneExt">
                         <div>
-                        <div class="col"> <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=debutPhase&id=' . $question->getId() .'">Lancer phase</a>
-                        <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=finPhase&id=' . $question->getId() .'">Finir phase</a>
+                        <div class="ligneAlign"> <a class="optQuestion" id="phases" href="frontController.php?controller=question&action=debutPhase&id=' . $question->getId() .'">Debut phase</a>
+                        <a class="optQuestion" id="phases" href="frontController.php?controller=question&action=finPhase&id=' . $question->getId() .'">Fin phase</a>
                         </div>
                     
                         </div>
                             <div id="col">
                          
                                 <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=addVotantToQuestion&id=' . $question->getId() .'">Ajouter des votants</a>
-                                <p id="petit">Il y a ' . sizeof($demandes) . ' demandes de votes</p>
+                                <p id="petit">Il y a ' . sizeof($demandes) . ' demande(s) de vote(s)</p>
+                                <a class="optQuestion" id="askVotants" href=frontController.php?controller=question&action=readDemandeVote&id='.$question->getId().'> Voir les demandes de votes</a>
+                        
                                 <div class="ligne">
                             </div>
                         </div>
                         </div>';
                 } else {
-                    echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a></div>';
+                    echo '<div class="ligneExt">
+                            <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
+                            <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats du Tirage</a>
+                        </div>';
                 }
 
 
