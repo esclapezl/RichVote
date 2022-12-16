@@ -4,6 +4,9 @@ use App\Model\Repository\UserRepository;
 /** @var Question $question
  * @var \App\Model\DataObject\Demande[] $demandes
  */
+if(!isset($demandes)){
+    $demandes=[];
+}
 
 $phases=(new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($question->getId());
 

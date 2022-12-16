@@ -22,6 +22,14 @@ use  \App\Model\DataObject\Commentaire;
                     echo '<a href=frontController.php?controller=proposition&action=update&id=' . rawurlencode($proposition->getIdProposition()) . ' class="optQuestion">Modifier</a>' .
                         '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($proposition->getIdProposition()) . ' class="optQuestion">Supprimer</a>';
                 }
+                if ((ConnexionUtilisateur::getLoginUtilisateurConnecte()==$proposition->getIdResponsable())){
+                    $idProposition = $proposition->getId();
+                    echo '<a href="frontController.php?controller=proposition&action=readDemandeAuteur&id=' . $idProposition . '"> voir demandes </a>';
+                }
+                elseif (!(new \App\Model\Repository\PropositionRepository())->estAuteur(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $proposition)){
+                    echo '<a href="frontController.php?controller=proposition&action=addDemandeAuteur&id=' . $proposition->getId() . '"> devenir auteur de cette proposition</a>';
+
+                }
             }
             ?>
         </div>
