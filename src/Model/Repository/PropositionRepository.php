@@ -222,5 +222,36 @@ class PropositionRepository extends AbstractRepository
         return $result;
     }
 
+    public function addAuteursProposition(array $users, Proposition $proposition){
+        $sql = "INSERT INTO AuteurProposition(idAuteur, idProposition, idQuestion) VALUES (:idAuteur, :idProposition, :idQuestion)";
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+        $idProposition = $proposition->getId();
+        $idQuestion = $proposition->getIdQuestion();
+        foreach ($users as $idUser){
+            $param = [
+                'idAuteur' => $idUser,
+                'idProposition' => $idProposition,
+                'idQuestion' => $idQuestion
+            ];
+            $pdoStatement->execute($param);
+        }
+    }
+
+    public function estAuteur(string $idUser, Proposition $proposition) : bool{
+        $sql = "SELECT COUNT(idAuteur) FROM AUTEURPROPOSITION
+                WHERE idAuteur=:idUser AND idProposition=:idProposition";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        $parametres = [
+            'idUser' => $idUser,
+            'idProposition' => $proposition->getId()
+        ];
+        $pdoStatement->execute($parametres);
+
+        $result = $pdoStatement->fetch()[0];
+        return $result>0;
+    }
+
 
 }

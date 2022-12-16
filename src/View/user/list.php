@@ -45,7 +45,7 @@ use App\Model\Repository\UserRepository;
             }
             }
             else
-                echo "<div class='descG'></div><div class='ligneCent'><h3> Vous devez être connecté pour visualiser les contributeurs</h3></div>"
+                echo "<div class='descG'></div><div class='ligneCent'><h3> Vous devez être connecté pour visualiser les contributeurs.</h3></div>"
 
             ?>
 

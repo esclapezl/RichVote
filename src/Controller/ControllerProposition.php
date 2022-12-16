@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
+use App\Model\DataObject\Demande;
 use App\Model\DataObject\Proposition;
 use App\Model\Repository\CommentaireRepository;
 use App\Model\Repository\DatabaseConnection;
+use App\Model\Repository\DemandeRepository;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\UserRepository;
@@ -172,7 +174,8 @@ class ControllerProposition extends GenericController
 
         (new CommentaireRepository())->deleteCommentaire($idCommentaire);
 
-        MessageFlash::ajouter('info','Commentaire supprimé.');
+
+        MessageFlash::ajouter('info','Vous n\'avez pas aimé ce commentaire.');
         self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
     }
 
@@ -183,7 +186,7 @@ class ControllerProposition extends GenericController
 
         (new CommentaireRepository())->liker($idCommentaire);
 
-        MessageFlash::ajouter('info','Commentaire supprimé.');
+        MessageFlash::ajouter('info','Vous avez aimé ce commentaire');
         self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
     }
 
@@ -198,7 +201,46 @@ class ControllerProposition extends GenericController
         self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
     }
 
+    public static function addDemandeAuteur(){
+        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+        $idProposition =$_GET['id'];
 
+        $proposition = (new PropositionRepository())->select($idProposition);
+        $demande = new Demande('auteur', $proposition->getIdQuestion(), $idUser, $proposition->getIdResponsable(), $idProposition);
+
+        DemandeRepository::sauvegarder($demande);
+
+        MessageFlash::ajouter('success', 'demande effectuée');
+        ControllerQuestion::readAll();
+    }
+
+    public static function readDemandeAuteur() : void{
+        $idProposition = $_GET['id'];
+
+        $proposition = (new PropositionRepository())->select($idProposition);
+        $demandes = DemandeRepository::getDemandeAuteurProposition($proposition);
+        $action = 'frontController.php?action=demandesAccepted&controller=Proposition&id=' . $idProposition;
+
+        $parametres = [
+            'pagetitle' => 'demandes en attentes',
+            'cheminVueBody' => 'demande/listAccept.php',
+            'demandes' => $demandes,
+            'action' => $action
+        ];
+        self::afficheVue('view.php', $parametres);
+    }
+
+    public static function demandesAccepted(){
+        $idProposition = $_GET['id'];
+        $acceptees = [];
+        foreach ($_POST['user'] as $idUser) {
+            $acceptees[] = $idUser;
+        }
+        $proposition = (new PropositionRepository())->select($idProposition);
+        (new PropositionRepository())->addAuteursProposition($acceptees, $proposition);
+
+        ControllerQuestion::readAll();
+    }
 
 
 

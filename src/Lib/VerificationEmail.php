@@ -27,7 +27,7 @@ class VerificationEmail
 </header>
 
 <div style="margin-top: 30px"> 
-<img  src="https://media.discordapp.net/attachments/1050956357748150302/1050956403642224690/img2.png?width=468&height=468"  width="100px" height="100px"></div>
+<img  src="https://media.discordapp.net/attachments/1050956357748150302/1050956403642224690/img2.png"  width="100px" height="100px"></div>
 <p style="color: black;width:60%;margin-left:auto;margin-right:auto; font-weight:bold;font-size:18px"> Plus qu\'une étape!</p>
 <p style="color: #181818FF;width:60%;margin-left:auto;margin-right:auto;"> Utilisez le code de vérification ci-dessous pour finaliser votre inscription.</p>
 <div style="margin-left: 150px;margin-right: 150px;margin-bottom: 40px ;background:#ffffff;border:2px solid #e2e2e2;line-height:1.1;text-align:center;text-decoration:none;display:block;border-radius:8px;font-weight:bold;padding:10px 40px">
@@ -37,7 +37,7 @@ class VerificationEmail
 <footer style="background-color: black"><table role="presentation" width="100%" >
 <tbody><tr>
 <td style="padding:10px 10px 10px 20px" align="left"><div style="color: white;font-weight: bold"> richvote.website@gmail.&#8203;com</div></td> 
-<td style="padding:10px 20px 10px 10px" align="right"><img  src="https://media.discordapp.net/attachments/1050956357748150302/1052001841463951460/logo.png?width=468&height=468" width="60px" height="60px">  </td> 
+<td style="padding:10px 20px 10px 10px" align="right"><img  src="https://media.discordapp.net/attachments/1050956357748150302/1052001841463951460/logo.png?width=629&height=629" width="60px" height="60px">  </td> 
 </tr></tbody></table></footer>
 </div></div>
 <span style="opacity: 0">' . $utilisateur->getEmail().'</span>
@@ -73,7 +73,7 @@ class VerificationEmail
 <footer style="background-color: black"><table role="presentation" width="100%" >
 <tbody><tr>
 <td style="padding:10px 10px 10px 20px" align="left"><div style="color: white;font-weight: bold"> richvote.website@gmail.&#8203;com</div></td> 
-<td style="padding:10px 20px 10px 10px" align="right"><img  src="https://media.discordapp.net/attachments/1050956357748150302/1052001841463951460/logo.png?width=468&height=468" width="60px" height="60px">  </td> 
+<td style="padding:10px 20px 10px 10px" align="right"><img  src="https://media.discordapp.net/attachments/1050956357748150302/1052001841463951460/logo.png?width=629&height=629" width="60px" height="60px">  </td> 
 </tr></tbody></table></footer>
 </div></div>
 <span style="opacity: 0"> ticker#' .rand(0, 1000).'</span>

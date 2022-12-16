@@ -22,6 +22,14 @@ use  \App\Model\DataObject\Commentaire;
                     echo '<a href=frontController.php?controller=proposition&action=update&id=' . rawurlencode($proposition->getIdProposition()) . ' class="optQuestion">Modifier</a>' .
                         '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($proposition->getIdProposition()) . ' class="optQuestion">Supprimer</a>';
                 }
+                if ((ConnexionUtilisateur::getLoginUtilisateurConnecte()==$proposition->getIdResponsable())){
+                    $idProposition = $proposition->getId();
+                    echo '<a href="frontController.php?controller=proposition&action=readDemandeAuteur&id=' . $idProposition . '"> voir demandes </a>';
+                }
+                elseif (!(new \App\Model\Repository\PropositionRepository())->estAuteur(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $proposition)){
+                    echo '<a href="frontController.php?controller=proposition&action=addDemandeAuteur&id=' . $proposition->getId() . '"> devenir auteur de cette proposition</a>';
+
+                }
             }
             ?>
         </div>
@@ -36,8 +44,9 @@ use  \App\Model\DataObject\Commentaire;
     <div class="text-box" >
         <h3> Commentaires  </h3>
         <form action="frontController.php?controller=proposition&action=ajtCommentaire&id=<?php echo $_GET['id'] ?>" method="post">
-            <input  type="text" name="commentaire" id="commentaire">
-            <input type="image" src="../assets/img/icons8-coche.svg" border="0" alt="Submit" />
+            <input  type="text" name="commentaire" id="commentaire" required>
+            <div class="ligneExt"><div></div>
+                <input type="image" src="../assets/img/icons8-coche.svg" border="0" alt="Submit" /></div>
         </form>
         <div class="descG"></div>
 
