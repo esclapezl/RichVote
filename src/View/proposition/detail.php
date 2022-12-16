@@ -36,8 +36,9 @@ use  \App\Model\DataObject\Commentaire;
     <div class="text-box" >
         <h3> Commentaires  </h3>
         <form action="frontController.php?controller=proposition&action=ajtCommentaire&id=<?php echo $_GET['id'] ?>" method="post">
-            <input  type="text" name="commentaire" id="commentaire">
-            <input type="image" src="../assets/img/icons8-coche.svg" border="0" alt="Submit" />
+            <input  type="text" name="commentaire" id="commentaire" required>
+            <div class="ligneExt"><div></div>
+                <input type="image" src="../assets/img/icons8-coche.svg" border="0" alt="Submit" /></div>
         </form>
         <div class="descG"></div>
 
