@@ -802,6 +802,19 @@ button.valide.active{
     border: 2px solid mediumblue;
 }
 
+.icons{
+    height: 45px;
+    width: 45px;
+    display: flex;
+    border: 1.5px solid white;
+    padding: 5px;
+    border-radius: 50%;
+}
+.icons:hover{
+    border: 1.5px solid mediumblue;
+}
+
+
 .optQuestion{
     padding: 20px;
     border: none;
