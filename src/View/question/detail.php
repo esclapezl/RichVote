@@ -1,7 +1,9 @@
 <?php
 use App\Model\DataObject\Question;
 use App\Model\Repository\UserRepository;
-/** @var Question $question */
+/** @var Question $question
+ * @var \App\Model\DataObject\Demande[] $demandes
+ */
 
 $phases=(new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($question->getId());
 
@@ -91,7 +93,7 @@ switch ($typePrecisPhase) {
                             <div id="col">
                          
                                 <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=addVotantToQuestion&id=' . $question->getId() .'">Ajouter des votants</a>
-                                <p id="petit">Il y a n demandes de votes</p>
+                                <p id="petit">Il y a ' . sizeof($demandes) . ' demandes de votes</p>
                                 <div class="ligne">
                             </div>
                         </div>
