@@ -4,6 +4,9 @@ use App\Model\Repository\UserRepository;
 /** @var Question $question
  * @var \App\Model\DataObject\Demande[] $demandes
  */
+if(!isset($demandes)){
+    $demandes=[];
+}
 
 $phases=(new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($question->getId());
 
@@ -80,7 +83,7 @@ switch ($typePrecisPhase) {
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
                 $roleQuestion = (new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $question->getId());
-                if ($roleQuestion == "responsable") {
+                if ($roleQuestion == "responsable" || $roleQuestion== "organisateur") {
                     echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
     <a class="optQuestion" href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '>Supprimer</a></div>'
 
