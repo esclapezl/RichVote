@@ -172,7 +172,8 @@ class ControllerProposition extends GenericController
 
         (new CommentaireRepository())->deleteCommentaire($idCommentaire);
 
-        MessageFlash::ajouter('info','Commentaire supprimé.');
+
+        MessageFlash::ajouter('info','Vous n\'avez pas aimé ce commentaire.');
         self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
     }
 
@@ -183,7 +184,7 @@ class ControllerProposition extends GenericController
 
         (new CommentaireRepository())->liker($idCommentaire);
 
-        MessageFlash::ajouter('info','Commentaire supprimé.');
+        MessageFlash::ajouter('info','Vous avez aimé ce commentaire');
         self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
     }
 
