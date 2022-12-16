@@ -504,7 +504,7 @@ class ControllerUser extends GenericController
 
     public static function mdpOublie()
     {
-        if(ConnexionUtilisateur::estConnecte())
+        if(!ConnexionUtilisateur::estConnecte())
         {
             $parametres = array(
                 'pagetitle' => 'Récuperation du mot de passe',
