@@ -39,34 +39,28 @@ use  \App\Model\DataObject\Commentaire;
             <input  type="text" name="commentaire" id="commentaire">
             <input type="image" src="../assets/img/icons8-coche.svg" border="0" alt="Submit" />
         </form>
+        <div class="descG"></div>
 
         <?php
-        if(isset($commentaires))
+        if(!empty($commentaires))
         {
             foreach ($commentaires as $commentaire)
             {
                 if($commentaire->getIDUSER() == ConnexionUtilisateur::getLoginUtilisateurConnecte() || ConnexionUtilisateur::estAdministrateur())
                 {
-                    echo '<li class="ligneExt"><div><div  class="descP">'.$commentaire->getIDUSER().'</div><div class="descP" style="margin-left: 20px;color: black">'.$commentaire->getTEXTE(). ' </div><div style="color: #adadad;">' .$commentaire->getDATECOMMENTAIRE().' </div></div>   <div><img src="../assets/img/icons8-jaime.png"><img src="../assets/img/icons8-jaimepas.png"> '.$commentaire->getNBLIKE().'<img src="../assets/img/icons8-jaime.png"><a href="frontController.php?controller=proposition&action=deleteCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE.'"<img src="../assets/img/icons8-poubelle.png"></div></li>';
+                    echo '<li class="ligneExt"><div><div  class="descP">'.$commentaire->getIDUSER().'</div><div class="descP" style="margin-left: 20px;color: black">'.$commentaire->getTEXTE(). ' </div><div style="color: #adadad;">' .$commentaire->getDATECOMMENTAIRE().' </div></div>   <div><a href="frontController.php?controller=proposition&action=likeCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE().'"><img src="../assets/img/icons8-jaime.png"></a><a href="frontController.php?controller=proposition&action=dislikeCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE().'"><img src="../assets/img/icons8-jaimepas.png"></a> '.$commentaire->getNBLIKE().'<a href="frontController.php?controller=proposition&action=deleteCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE() .'"><img src="../assets/img/icons8-poubelle.png"></a></div></li>';
                 }
                 else
                 {
-                    echo '<li class="ligneExt"><div><div  class="descP">'.$commentaire->getIDUSER().'</div><div class="descP" style="margin-left: 20px;color: black">'.$commentaire->getTEXTE(). ' </div><div style="color: #adadad;">' .$commentaire->getDATECOMMENTAIRE().' </div></div>   <div><img src="../assets/img/icons8-jaime.png"><img src="../assets/img/icons8-jaimepas.png"> '.$commentaire->getNBLIKE().'</div></li>';
+                    echo '<li class="ligneExt"><div><div  class="descP">'.$commentaire->getIDUSER().'</div><div class="descP" style="margin-left: 20px;color: black">'.$commentaire->getTEXTE(). ' </div><div style="color: #adadad;">' .$commentaire->getDATECOMMENTAIRE().' </div></div>   <div><a href="frontController.php?controller=proposition&action=likeCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE().'"><img src="../assets/img/icons8-jaime.png"></a><a href="frontController.php?controller=proposition&action=dislikeCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE().'"><img src="../assets/img/icons8-jaimepas.png"></a> '.$commentaire->getNBLIKE().'</div></li>';
                 }
              }
         }
         else
         {
             echo '<div> Pas encore de commentaires. </div>';
-        }
-
-        ?>
-
-
-
+        } ?>
     </div>
-
-
 </div>
 </div>
 
