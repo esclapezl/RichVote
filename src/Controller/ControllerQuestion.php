@@ -6,6 +6,7 @@ use App\Lib\ConnexionUtilisateur;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
+use App\Model\Repository\DemandeRepository;
 use App\Model\Repository\PhaseRepository;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
@@ -41,10 +42,13 @@ class ControllerQuestion extends GenericController
 
         $question = (new QuestionRepository())->select($idQuestion);
 
+        $demandes = DemandeRepository::getDemandeVoteQuestion($question);
+
         $parametres = array(
             'pagetitle' => 'Détail Question',
             'cheminVueBody' => 'question/detail.php',
-            'question' => $question
+            'question' => $question,
+            'demandes' => $demandes
         );
 
         self::afficheVue('view.php', $parametres);
