@@ -125,7 +125,7 @@ switch ($typePrecisPhase) {
 
                     echo '<div class="timeline">
     
-                        <p id="pet">'.htmlspecialchars(ucfirst(($question->getCurrentPhase())->getType())) .'</p>';
+                        <p id="pet">Introduction</p>';
                     $widthLigne=(80/(sizeof($phases)+1));
                     foreach ($phases as $phase){
                         echo '<style>.ligneTbis{width: '.$widthLigne.'%;}</style>';
