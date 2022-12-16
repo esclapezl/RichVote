@@ -43,6 +43,10 @@ switch ($typePrecisPhase) {
                             echo "<h3>Vous n'avez pas de rôle sur cette question.</h3>";
                         }
 
+                        if((new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $idQuestion) == 'organisateur'){
+                            echo "<a href='frontController.php?controller=question&action=readDemandeVote&id=$idQuestion'> voir les demandes de vote</a>";
+                        }
+
 
 
 

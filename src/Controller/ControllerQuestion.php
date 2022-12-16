@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Lib\ConnexionUtilisateur;
+use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
@@ -13,6 +14,7 @@ use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\SectionRepository;
 use App\Lib\MessageFlash;
 use App\Model\Repository\UserRepository;
+use App\Model\Repository\VoteRepository;
 
 class ControllerQuestion extends GenericController
 {
@@ -291,5 +293,28 @@ class ControllerQuestion extends GenericController
         self::afficheVue('view.php', $parametres);
     }
 
+    public static function readDemandeVote() : void{
+        $idQuestion = $_GET['id'];
 
+        $question = (new QuestionRepository())->select($idQuestion);
+        $demandes = DemandeRepository::getDemandeVoteQuestion($question);
+        $action = 'frontController.php?action=demandesAccepted&controller=question&id=' . $idQuestion;
+
+        $parametres = [
+            'pagetitle' => 'demandes en attentes',
+            'cheminVueBody' => 'demande/listAccept.php',
+            'demandes' => $demandes,
+            'action' => $action
+        ];
+        self::afficheVue('view.php', $parametres);
+    }
+
+    public static function demandesAccepted(){
+        $idQuestion = $_GET['id'];
+        $acceptees = [];
+        foreach ($_POST['user'] as $idUser) {
+            $acceptees[] = $idUser;
+        }
+        (new QuestionRepository())->addUsersQuestion($acceptees, $idQuestion);
+    }
 }
