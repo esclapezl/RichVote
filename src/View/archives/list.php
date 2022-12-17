@@ -5,7 +5,6 @@ use App\Model\Repository\VoteRepository;
 use App\Model\Repository\UserRepository;
 /** @var Question[] $questions
  * @var string $privilegeUser
- * @var bool $estConnecte
  */
 ?>
 <div class="block">
@@ -13,7 +12,7 @@ use App\Model\Repository\UserRepository;
         <div class="ligneExt"> <h1>Résultats publiés :</h1>
 
             <?php
-            if($estConnecte){
+            if(ConnexionUtilisateur::estConnecte()){
                 echo '<div class="responsive">Vous êtes connecté en tant que :<h3>'.ucfirst($privilegeUser).'</h3></div></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         

@@ -1,14 +1,18 @@
 <?php
 use App\Model\DataObject\Question;
-use App\Model\Repository\UserRepository;
+use App\Model\DataObject\Demande;
+use App\Model\DataObject\Phase;
+use \App\Lib\ConnexionUtilisateur;
+
 /** @var Question $question
- * @var \App\Model\DataObject\Demande[] $demandes
+ * @var Demande[] $demandes
+ * @var Phase[] $phases
+ * @var string $roleQuestion
+ * @var bool $peutVoter
  */
 if(!isset($demandes)){
     $demandes=[];
 }
-
-$phases=(new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($question->getId());
 
 $typePrecisPhase= $question->getCurrentPhase()->getType();
 $typePhase = 'placeHolder';
@@ -33,14 +37,11 @@ switch ($typePrecisPhase) {
                 <h1><?=htmlspecialchars($question->getIntitule())?></h1></div>
 
                     <?php
-                    use \App\Lib\ConnexionUtilisateur;
-                    use App\Model\Repository\VoteRepository;
                     if(ConnexionUtilisateur::estConnecte()){
                         $idQuestion = $question->getId();
-                        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
                         echo "<div id='col'>";
-                        if((new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $question->getId())!=null){
-                            echo "<h3> Vous êtes ".(new UserRepository())->getRoleQuestion($idUser, $idQuestion)." sur cette question.</h3>";
+                        if($roleQuestion!=null){
+                            echo "<h3> Vous êtes ".$roleQuestion." sur cette question.</h3>";
                         }
                         else{
                             echo "<h3>Vous n'avez pas de rôle sur cette question.</h3>";
@@ -50,11 +51,11 @@ switch ($typePrecisPhase) {
 
 
 
-                        if(VoteRepository::peutVoter($idUser, $idQuestion) && $typePrecisPhase!="termine" && $typePrecisPhase!="consultation") {
+                        if($peutVoter && $typePrecisPhase!="termine" && $typePrecisPhase!="consultation") {
                             $typePrecisPhase = ucfirst($typePrecisPhase);
                             echo "<a href=frontController.php?controller=vote&action=voter$typePrecisPhase&idQuestion=$idQuestion><h2>Vote en cliquant ici</h2></a>";
                         }
-                        else if((new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $question->getId())==null  && $typePhase== 'Voter juste Ici'){
+                        else if($roleQuestion==null  && $typePhase== 'Voter juste Ici'){
                             echo "<a href=frontController.php?controller=vote&action=demandeAcces&idQuestion=". rawurlencode($idQuestion) .">
                                 <h2>Vous souhaitez voter?</h2></a>";
                         }
@@ -79,7 +80,6 @@ switch ($typePrecisPhase) {
 
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
-                $roleQuestion = (new UserRepository())->getRoleQuestion(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $question->getId());
                 if ($roleQuestion == "organisateur") {
                     echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
      <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats du Tirage</a>

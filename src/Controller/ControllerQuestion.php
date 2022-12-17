@@ -29,9 +29,8 @@ class ControllerQuestion extends GenericController
             $questions = (new QuestionRepository)->selectAll();
         }
 
-        $estConnecte = ConnexionUtilisateur::estConnecte();
         $privilegeUser='';
-        if($estConnecte){
+        if(ConnexionUtilisateur::estConnecte()){
             $privilegeUser = (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte());
         }
 
@@ -39,7 +38,6 @@ class ControllerQuestion extends GenericController
             'pagetitle' => 'Liste Questions',
             'cheminVueBody' => 'question/list.php',
             'questions' => $questions,
-            'estConnecte' => $estConnecte,
             'privilegeUser' => $privilegeUser
         );
         self::afficheVue('view.php', $parametres);
@@ -53,11 +51,24 @@ class ControllerQuestion extends GenericController
 
         $demandes = DemandeRepository::getDemandeVoteQuestion($question);
 
+        $phases=(new PhaseRepository())->getPhasesIdQuestion($idQuestion);
+
+        $roleQuestion='';
+        $peutVoter = false;
+        if(ConnexionUtilisateur::estConnecte()) {
+            $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+            $roleQuestion = (new UserRepository())->getRoleQuestion($idUser, $idQuestion);
+            $peutVoter = VoteRepository::peutVoter($idUser, $idQuestion);
+        }
+
         $parametres = array(
             'pagetitle' => 'Détail Question',
             'cheminVueBody' => 'question/detail.php',
             'question' => $question,
-            'demandes' => $demandes
+            'demandes' => $demandes,
+            'phases' => $phases,
+            'roleQuestion' => $roleQuestion,
+            'peutVoter' => $peutVoter
         );
 
         self::afficheVue('view.php', $parametres);
