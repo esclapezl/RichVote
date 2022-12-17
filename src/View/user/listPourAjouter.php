@@ -1,12 +1,10 @@
 <?php
-use App\Model\DataObject\Question;
-use App\Model\DataObject\User;
 use \App\Lib\ConnexionUtilisateur;
 use App\Model\Repository\UserRepository;
 
-/** @var \App\Model\DataObject\User[] users
- * @var string action
- * @var string nomAction
+/** @var \App\Model\DataObject\User[] $users
+ * @var string $action
+ * @var string $privilegeUser
  */
 ?>
 
@@ -14,8 +12,7 @@ use App\Model\Repository\UserRepository;
     <div class="text-box">
         <div class="ligneExt"> <h1>Liste des Utilisateurs :</h1> <?php
             if(ConnexionUtilisateur::estConnecte()){
-                $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-                echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>".ucfirst((new UserRepository())->getPrivilege($idUser))."</h3></div>";
+                echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>".ucfirst($privilegeUser)."</h3></div>";
             }
             else{
                 echo "<h3 class='responsive'>Vous n'êtes pas connecté</h3>";

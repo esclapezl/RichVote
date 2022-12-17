@@ -174,7 +174,6 @@ class ControllerQuestion extends GenericController
 
     public static function delete() : void
     {
-
         $question = (new QuestionRepository())->select($_GET['id']);
         if($question==null){
             MessageFlash::ajouter('warning', "La question avec l'id suivant : " . $_GET['id'] . "n'existe pas.");
@@ -188,21 +187,20 @@ class ControllerQuestion extends GenericController
         }
     }
 
-    public static function voter():void{
-        $question = (new QuestionRepository())->select($_GET['id']);
-        if($question->getCurrentPhase()->getType() == 'vote'){
-            $parametres = [
-                'pagetitle' => 'vote la con de toi',
-                'cheminVueBody' => 'vote/vote.php',
-                'question' => $question
-            ];
-            self::afficheVue('view.php', $parametres);
-        }
-    }
+//    public static function voter():void{
+//        $question = (new QuestionRepository())->select($_GET['id']);
+//        if($question->getCurrentPhase()->getType() == 'vote'){
+//            $parametres = [
+//                'pagetitle' => 'vote',
+//                'cheminVueBody' => 'vote/vote.php',
+//                'question' => $question
+//            ];
+//            self::afficheVue('view.php', $parametres);
+//        }
+//    }
 
     public static function addVotantToQuestion(){
         $idQuestion = $_GET['id'];
-
 
         if (isset($_POST['title']) AND !empty($_POST['title'])){
             $recherche= strtolower(htmlspecialchars($_POST['title']));
@@ -212,12 +210,20 @@ class ControllerQuestion extends GenericController
             $users = (new UserRepository())->selectAll();
         }
 
+        $action = 'frontController.php?controller=question&action=votantAdded&idQuestion=' . $idQuestion;
+
+        $privilegeUser = '';
+        if(ConnexionUtilisateur::estConnecte()){
+            $privilegeUser = (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte());
+        }
 
         $param = [
             'question' => (new QuestionRepository())->select($idQuestion),
             'users' => $users,
+            'action' => $action,
+            'privilegeUser' => $privilegeUser,
             'pagetitle' => 'test',
-            'cheminVueBody' => '/user/listOrganisateur.php'
+            'cheminVueBody' => '/user/listPourAjouter.php'
         ];
 
         self::afficheVue('view.php', $param);
