@@ -83,6 +83,7 @@ class QuestionRepository extends AbstractRepository
     {
         $question = parent::select($id);
         $question->setSections((new SectionRepository)->getSectionsQuestion($id));
+        $question->setPhases((new PhaseRepository())->getPhasesIdQuestion($id));
         return $question;
     }
 

@@ -12,7 +12,7 @@ use App\Model\DataObject\Question;
             <div class="ligneCent"><div class="ligne"></div></div>
             <div class="descG"></div>
             <?php
-            $phases = (new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($question->getId());
+            $phases = $question->getPhases();
             for($i=0; $i<count($phases); $i++){
             $phase = $phases[$i];
             echo '<h3> Phase '.$i + 1 .'</h3>';

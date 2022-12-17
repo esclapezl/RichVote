@@ -170,13 +170,6 @@ class ControllerQuestion extends GenericController
             MessageFlash::ajouter('success', 'La question : "' . $titreQuestion . '" est désormais à jour.');
             self::redirection('frontController.php?controller=question&action=readAll');
         }
-
-//        static::afficheVue('view.php',[
-//                "pagetitle"=> "Liste Questions",
-//                "cheminVueBody" => "question/created.php",
-//                "questions" => (new QuestionRepository())->selectAll()]
-//        );
-
     }
 
     public static function delete() : void
