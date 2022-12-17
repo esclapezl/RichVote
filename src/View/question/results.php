@@ -1,15 +1,12 @@
 <?php
 use \App\Lib\ConnexionUtilisateur;
-use App\Model\Repository\VoteRepository;
-use App\Model\Repository\QuestionRepository;
 use App\Model\DataObject\Question;
-use App\Model\Repository\UserRepository;
-use App\Model\Repository\PhaseRepository;
 use App\Model\Repository\PropositionRepository;
-/** @var Question $question */
+/** @var Question $question
+ */
 
 
-$phases=(new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($question->getId());
+$phases=$question->getPhases();
 ?>
 
 
