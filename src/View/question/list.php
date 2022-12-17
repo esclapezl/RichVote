@@ -13,7 +13,7 @@ use App\Model\Repository\UserRepository;
                 <?php
                 if(ConnexionUtilisateur::estConnecte()){
                     $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-                    echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>".ucfirst((new UserRepository())->getRole($idUser))."</h3></div>";
+                    echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>".ucfirst((new UserRepository())->getPrivilege($idUser))."</h3></div>";
                 }
                 else{
                     echo "<h3 class='responsive'>Vous n'êtes pas connecté</h3>";
@@ -28,7 +28,7 @@ use App\Model\Repository\UserRepository;
             </form>
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
-            if ((new UserRepository())->getRole(ConnexionUtilisateur::getLoginUtilisateurConnecte()) == "organisateur") {
+            if ((new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte()) == "organisateur") {
 
                 echo '<a class="optQuestion" href = "frontController.php?controller=question&action=create" > Créer une Question </a >';
                 }

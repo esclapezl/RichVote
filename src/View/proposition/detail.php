@@ -17,7 +17,7 @@ use  \App\Model\DataObject\Commentaire;
         <div class="ligneExt">
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
-                if ((new UserRepository())->getRole(ConnexionUtilisateur::getLoginUtilisateurConnecte()) == "organisateur") {
+                if ((new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte()) == "organisateur") {
 
                     echo '<a href=frontController.php?controller=proposition&action=update&id=' . rawurlencode($proposition->getIdProposition()) . ' class="optQuestion">Modifier</a>' .
                         '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($proposition->getIdProposition()) . ' class="optQuestion">Supprimer</a>';

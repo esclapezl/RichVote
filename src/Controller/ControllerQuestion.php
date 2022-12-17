@@ -21,7 +21,6 @@ class ControllerQuestion extends GenericController
 
     public static function readAll() : void
     {
-
         if (isset($_POST['title']) AND !empty($_POST['title'])){
             $recherche= strtolower(htmlspecialchars($_POST['title']));
             $questions = (new QuestionRepository)->search($recherche);
@@ -30,10 +29,18 @@ class ControllerQuestion extends GenericController
             $questions = (new QuestionRepository)->selectAll();
         }
 
+        $estConnecte = ConnexionUtilisateur::estConnecte();
+        $privilegeUser='';
+        if($estConnecte){
+            $privilegeUser = (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte());
+        }
+
         $parametres = array(
             'pagetitle' => 'Liste Questions',
             'cheminVueBody' => 'question/list.php',
-            'questions' => $questions
+            'questions' => $questions,
+            'estConnecte' => $estConnecte,
+            'privilegeUser' => $privilegeUser
         );
         self::afficheVue('view.php', $parametres);
     }
@@ -225,7 +232,6 @@ class ControllerQuestion extends GenericController
     }
 
     public static function readAllArchives(){
-
         if (isset($_POST['title']) AND !empty($_POST['title'])){
             $recherche= strtolower(htmlspecialchars($_POST['title']));
             $questions = (new QuestionRepository)->search($recherche);
@@ -237,7 +243,8 @@ class ControllerQuestion extends GenericController
         $param = [
             'pagetitle' => 'Questions fermées',
             'cheminVueBody' => 'archives/list.php',
-            'questions' => $questions
+            'questions' => $questions,
+            'privilegeUser' => (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte())
         ];
         self::afficheVue('view.php', $param);
     }
