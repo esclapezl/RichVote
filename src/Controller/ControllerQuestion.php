@@ -250,11 +250,16 @@ class ControllerQuestion extends GenericController
             $questions = (new QuestionRepository())->selectAllClosed();
         }
 
+        $privilegeUser = '';
+        if(ConnexionUtilisateur::estConnecte()){
+            $privilegeUser = (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte());
+        }
+
         $param = [
             'pagetitle' => 'Questions fermées',
             'cheminVueBody' => 'archives/list.php',
             'questions' => $questions,
-            'privilegeUser' => (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte())
+            'privilegeUser' => $privilegeUser
         ];
         self::afficheVue('view.php', $param);
     }
@@ -263,13 +268,31 @@ class ControllerQuestion extends GenericController
     public static function readResult() : void
     {
         $idQuestion = $_GET['id'];
-        $question = (new QuestionRepository())->select($idQuestion);
 
-        self::afficheVue('view.php',[
-            "pagetitle" => "Resultat Question",
-            "cheminVueBody" => 'question/results.php',
-            'question' => $question
-        ]);
+        if(!ConnexionUtilisateur::estConnecte()){
+            MessageFlash::ajouter('warning', 'Veuillez vous connecter pour accéder aux résultats');
+            self::redirection('frontController.php?controller=user&action=connexion');
+        }
+
+        if((new QuestionRepository())->estFini($idQuestion)){
+            $question = (new QuestionRepository())->select($idQuestion);
+
+            $phases = $question->getPhases();
+            $phase = $phases[sizeof($phases)-1];
+            $propositionsScore = (new PropositionRepository())->selectAllWithScore($phase->getId());
+
+            self::afficheVue('view.php',[
+                "pagetitle" => "Resultat Question",
+                "cheminVueBody" => 'question/results.php',
+                'question' => $question,
+                'phase' => $phase,
+                'propositionsScore' => $propositionsScore
+            ]);
+        }
+        else{
+            MessageFlash::ajouter('info', 'La question n\'est pas encore finie, revenez plus tard');
+            self::readAll();
+        }
 
     }
 

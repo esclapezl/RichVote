@@ -9,9 +9,13 @@ class GenericController
         require __DIR__ . "/../View/$cheminVue"; // Charge la vue
     }
 
-    public static function error()
+    public static function error(string $code='404', string $message='Cette page n\'est pas disponible.')
     {
-        $parametres = array("pagetitle" => "Erreur","cheminVueBody" => 'error.php');
+        $parametres = [
+            "pagetitle" => "Erreur",
+            "cheminVueBody" => 'error.php',
+            'code' => $code,
+            'message' => $message];
         self::afficheVue('view.php',$parametres);
     }
 
