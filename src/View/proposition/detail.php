@@ -10,7 +10,7 @@ use  \App\Model\DataObject\Commentaire;
 <div class="block" >
     <div class="column">
     <div class="text-box">
-        <a id="fleche" class="optQuestion" href=<?=$_SERVER['HTTP_REFERER']?>>↩</a>
+        <a id="fleche" class="optQuestion" href="frontController.php?controller=question&action=read&id=<?=$proposition->getIdQuestion()?>">↩</a>
         <div class="ligneExt">
                 <h1><?=htmlspecialchars($proposition->getIntitule())?></h1><h3>Détail de la proposition</h3></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>

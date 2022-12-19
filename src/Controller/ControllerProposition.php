@@ -107,14 +107,21 @@ class ControllerProposition extends GenericController
         self::connexionRedirect('warning', 'Veuillez vous connecter');
         $idQuestion = $_GET['id'];
 
-        $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, ConnexionUtilisateur::getLoginUtilisateurConnecte(),null, null, false, []));
+        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+        if((new UserRepository())->getRoleQuestion($idUser, $idQuestion) == 'responsable'){
+            $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, ConnexionUtilisateur::getLoginUtilisateurConnecte(),null, null, false, []));
 
-        $parametres = array(
-            'pagetitle' => 'Créer Proposition',
-            'cheminVueBody' => 'proposition/update.php',
-            'proposition' => $proposition
-        );
-        self::afficheVue('view.php', $parametres);
+            $parametres = array(
+                'pagetitle' => 'Créer Proposition',
+                'cheminVueBody' => 'proposition/update.php',
+                'proposition' => $proposition
+            );
+            self::afficheVue('view.php', $parametres);
+        }
+        else{
+            MessageFlash::ajouter('warning', 'Vous ne disposez pas des droits pour créer une proposition');
+            self::redirection('frontController.php?controller=question&action=read&id='.$idQuestion);
+        }
     }
 
     public static function delete(){
