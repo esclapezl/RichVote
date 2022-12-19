@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Lib\ConnexionUtilisateur;
+use App\Lib\MessageFlash;
+
 class GenericController
 {
     protected static function afficheVue(string $cheminVue, array $parametres = []) : void {
@@ -22,6 +25,14 @@ class GenericController
     public static function redirection(string $lienBase){
         header("Location: $lienBase");
         exit();
+    }
+
+    public static function connexionRedirect(string $type, string $message){ // pas mis au bon endroit (fait appel à userController dans genericController)
+        // permer de vérifier si l'utilisateur est connecter pour le rediriger vers la page de connexion si ce qu'il souhaite faire nécessite d'etre connecté
+        if(!ConnexionUtilisateur::estConnecte()){
+            MessageFlash::ajouter($type, $message);
+            self::redirection('frontController.php?controller=user&action=connexion');
+        }
     }
 
 

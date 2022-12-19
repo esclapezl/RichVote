@@ -10,20 +10,18 @@ use App\Model\Repository\UserRepository;
 
 class ControllerGroupe extends GenericController
 {
-    public static function test(){
-        $groupe = (new GroupeRepository())->select('test');
-
-        var_dump($groupe->getIdMembres());
-    }
-
     public static function read(){
+        self::connexionRedirect('warning', 'Connectez-vous pour voir les membres');
+
         $nomGroupe = $_GET['nomGroupe'];
         $groupe = (new GroupeRepository())->select($nomGroupe);
+        $canAdd = $groupe->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte();
 
         $params=[
             'pagetitle' => 'Details groupe',
             'cheminVueBody' => '/groupe/detail.php',
-            'groupe' => $groupe
+            'groupe' => $groupe,
+            'canAdd' => $canAdd
         ];
         self::afficheVue('view.php', $params);
     }
@@ -37,31 +35,23 @@ class ControllerGroupe extends GenericController
     }
 
     public static function created(){
-        if(ConnexionUtilisateur::estConnecte()){
-            $nomGroup = $_POST['nomGroupe'];
-            $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-            $groupe = new Groupe($nomGroup, $idUser);
-            (new GroupeRepository())->sauvegarder($groupe);
+        self::connexionRedirect('warning', 'Connectez-vous pour créer un groupe');
 
-            $params = [
-                'pagetitle' => 'detail groupe',
-                'cheminVueBody' => '/groupe/detail.php',
-                'groupe' => $groupe
-            ];
-            self::afficheVue('view.php', $params);
-        }
-        else{
-            MessageFlash::ajouter('warning', 'veuillez vous connecter');
-
-            $params = [
-                'pagetitle' => 'accueil',
-                'cheminVueBody' => '/user/accueil.php'
-            ];
-            self::afficheVue('view.php', $params);
-        }
+        $nomGroup = $_POST['nomGroupe'];
+        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+        $groupe = new Groupe($nomGroup, $idUser);
+        (new GroupeRepository())->sauvegarder($groupe);
+        $params = [
+            'pagetitle' => 'detail groupe',
+            'cheminVueBody' => '/groupe/detail.php',
+            'groupe' => $groupe
+        ];
+        self::afficheVue('view.php', $params);
     }
 
     public static function addUserToGroupe(){
+        self::connexionRedirect('warning', 'Veuillez vous connecter');
+
         $nomGroupe = $_GET['nomGroupe'];
         $groupe = (new GroupeRepository())->select($nomGroupe);
         if (ConnexionUtilisateur::getLoginUtilisateurConnecte() == $groupe->getIdResponsable()) {
@@ -69,16 +59,22 @@ class ControllerGroupe extends GenericController
             $users = (new UserRepository())->selectAll();
             $params = [
                 'pagetitle' => 'ajouter membres groupe',
-                'cheminVueBody' => '/user/listPourAjouter.php',
+                'cheminVueBody' => '/listPourAjouter.php',
                 'action' => $action,
                 'users' => $users
             ];
             self::afficheVue('view.php', $params);
         }
+        else{
+            MessageFlash::ajouter('warning', 'Vous ne disposez pas des droits pour gérer les membres');
+            self::redirection('frontController.php?controller=groupe&action=read&nomGroupe='.$nomGroupe);
+        }
     }
 
     public static function usersAddedToGroupe()
     {
+        self::connexionRedirect('warning', 'Veuillez vous connecter');
+
         $nomGroupe = $_GET['nomGroupe'];
         $groupe = (new GroupeRepository())->select($nomGroupe);
         if (ConnexionUtilisateur::getLoginUtilisateurConnecte() == $groupe->getIdResponsable()) {

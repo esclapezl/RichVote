@@ -1,6 +1,5 @@
 <?php
 use \App\Lib\ConnexionUtilisateur;
-use App\Model\Repository\UserRepository;
 
 /** @var \App\Model\DataObject\User[] $users
  * @var string $action

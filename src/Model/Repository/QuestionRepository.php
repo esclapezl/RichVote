@@ -146,7 +146,7 @@ class QuestionRepository extends AbstractRepository
 
 
 
-    public function estFini(String $idQuestion){
+    public function estFini(String $idQuestion) : bool{
         $sql = 'SELECT question_est_archive(:idQuestion) FROM DUAL';
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
@@ -156,7 +156,7 @@ class QuestionRepository extends AbstractRepository
         );
 
 
-        return $pdoStatement->fetch();
+        return $pdoStatement->fetch()=='1';
         
     }
 }

@@ -3,7 +3,6 @@ use App\Model\DataObject\Demande;
 /**
  * @var Demande[] $demandes
  * @var string $action
-
  */
 ?>
 <div class="block" >

@@ -1,5 +1,7 @@
 <?php
-/** @var \App\Model\DataObject\Groupe $groupe */
+/** @var \App\Model\DataObject\Groupe $groupe
+ * @var bool $canAdd
+ */
 $nomGroupe = $groupe->getId();
 $responsable = $groupe->getIdResponsable();
 $membres = $groupe->getIdMembres();
@@ -16,10 +18,10 @@ $membres = $groupe->getIdMembres();
                 echo '<li>' . htmlspecialchars($membre) . '</li>';
             }?>
         </ul>
+        <?php
+        if($canAdd){
+            echo'<a href="frontController.php?controller=groupe&action=addUserToGroupe&nomGroupe=' .$nomGroupe.'">Ajouter des membres</a>';
+        }
+        ?>
     </div>
 </div>
-
-<?php
-$users = (new \App\Model\Repository\UserRepository())->selectAll();
-$action = 'aaaaaaaaccction';
-require_once __DIR__.'/../user/listPourAjouter.php';

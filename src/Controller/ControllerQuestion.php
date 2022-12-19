@@ -291,7 +291,7 @@ class ControllerQuestion extends GenericController
         }
         else{
             MessageFlash::ajouter('info', 'La question n\'est pas encore finie, revenez plus tard');
-            self::readAll();
+            self::redirection('frontController.php?controller=question&action=read&id='.$idQuestion);
         }
 
     }
