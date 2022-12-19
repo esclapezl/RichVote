@@ -155,8 +155,6 @@ class QuestionRepository extends AbstractRepository
             ['idQuestion' => $idQuestion]
         );
 
-
-        return $pdoStatement->fetch()=='1';
-        
+        return $pdoStatement->fetch()[0]=='1';
     }
 }

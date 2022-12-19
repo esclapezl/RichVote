@@ -125,28 +125,29 @@ class ControllerProposition extends GenericController
     }
 
     public static function delete(){
+        self::connexionRedirect('warning', 'Veuillez vous connecter');
         $idProposition = $_GET['id'];
-        $proposition = (new PropositionRepository())->select($idProposition);
 
-        if($proposition==null){
-            MessageFlash::ajouter('warning', "La proposition n'existe pas");
-            self::redirection('frontController.php?controller=question&action=readAll');
-        }
-        else {
+        $proposition = (new PropositionRepository())->select($idProposition);
+        if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()){
             (new PropositionRepository())->delete($idProposition);
             MessageFlash::ajouter('info', 'La proposition : "' . $proposition . '" a bien été suprimée');
             self::redirection('frontController.php?controller=proposition&action=readAll&id='. $proposition->getIdQuestion());
         }
-//        $parametres = array(
-//            'pagetitle' => 'Proposition Supprimée',
-//            'cheminVueBody' => 'question/detail.php',
-//            'question' => (new QuestionRepository())->select($proposition->getIdQuestion())
-//        );
-//
-//        self::afficheVue('view.php', $parametres);
+        else{
+            MessageFlash::ajouter('warning', 'Vous ne pouvez pas supprimer cette proposition');
+            self::redirection('frontController.php?controller=proposition&action=read&id='. $proposition->getId());
+        }
+
+        // n'est pas utilisé en l'état
+        if($proposition==null) {
+            MessageFlash::ajouter('warning', "La proposition n'existe pas");
+            self::redirection('frontController.php?controller=question&action=readAll');
+        }
     }
 
     public static function selectAllWithScore(){
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idPhase = $_GET['idPhase'];
         $scores = [];
         $propositions = [];
@@ -159,7 +160,7 @@ class ControllerProposition extends GenericController
 
         $param = [
             'pagetitle' => 'Scores',
-            'cheminVueBody' => '/proposition/listWithScore.php',
+            'cheminVueBody' => '/proposition/list.php',
             'propositions' => $propositions,
             'scores' => $scores
         ];
