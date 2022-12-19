@@ -170,6 +170,7 @@ class ControllerProposition extends GenericController
 
     public static function ajtCommentaire()
     {
+        self::connexionRedirect('warning', 'Connectez-vous');
         $commentaire = $_POST['commentaire'];
         $userRepository = new UserRepository();
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
@@ -185,7 +186,8 @@ class ControllerProposition extends GenericController
     }
 
     public static function deleteCommentaire():void
-    {
+    {// s'assurer que le commentaire nous apppartient
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idCommentaire= $_GET['idCommentaire'];
         $idProposition= $_GET['id'];
 
@@ -198,27 +200,28 @@ class ControllerProposition extends GenericController
 
     public static function likeCommentaire():void
     {
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idCommentaire= $_GET['idCommentaire'];
         $idProposition= $_GET['id'];
 
         (new CommentaireRepository())->liker($idCommentaire);
 
-        MessageFlash::ajouter('info','Vous avez aimé ce commentaire');
         self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
     }
 
     public static function dislikeCommentaire():void
     {
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idCommentaire= $_GET['idCommentaire'];
         $idProposition= $_GET['id'];
 
         (new CommentaireRepository())->disliker($idCommentaire);
 
-        MessageFlash::ajouter('info','Commentaire supprimé.');
         self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
     }
 
     public static function addDemandeAuteur(){
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $idProposition =$_GET['id'];
 
@@ -227,34 +230,49 @@ class ControllerProposition extends GenericController
 
         DemandeRepository::sauvegarder($demande);
 
-        MessageFlash::ajouter('success', 'demande effectuée');
+        MessageFlash::ajouter('success', 'Demande effectuée');
         ControllerQuestion::readAll();
     }
 
     public static function readDemandeAuteur() : void{
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idProposition = $_GET['id'];
 
         $proposition = (new PropositionRepository())->select($idProposition);
-        $demandes = DemandeRepository::getDemandeAuteurProposition($proposition);
-        $action = 'frontController.php?action=demandesAccepted&controller=Proposition&id=' . $idProposition;
+        if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()){
+            $demandes = DemandeRepository::getDemandeAuteurProposition($proposition);
+            $action = 'frontController.php?action=demandesAccepted&controller=Proposition&id=' . $idProposition;
 
-        $parametres = [
-            'pagetitle' => 'demandes en attentes',
-            'cheminVueBody' => 'demande/listAccept.php',
-            'demandes' => $demandes,
-            'action' => $action
-        ];
-        self::afficheVue('view.php', $parametres);
+            $parametres = [
+                'pagetitle' => 'demandes en attentes',
+                'cheminVueBody' => 'demande/listAccept.php',
+                'demandes' => $demandes,
+                'action' => $action
+            ];
+            self::afficheVue('view.php', $parametres);
+        }
+        else{
+            MessageFlash::ajouter('warning', 'Vous ne pouvez pas accéder à cette fonctionnalité');
+            self::read();
+        }
     }
 
     public static function demandesAccepted(){
+        self::connexionRedirect('warning', 'Connectez-vous');
+
         $idProposition = $_GET['id'];
-        $acceptees = [];
-        foreach ($_POST['user'] as $idUser) {
-            $acceptees[] = $idUser;
-        }
         $proposition = (new PropositionRepository())->select($idProposition);
-        (new PropositionRepository())->addAuteursProposition($acceptees, $proposition);
+        if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()) {
+            $acceptees = [];
+            foreach ($_POST['user'] as $idUser) {
+                $acceptees[] = $idUser;
+            }
+            (new PropositionRepository())->addAuteursProposition($acceptees, $proposition);
+            MessageFlash::ajouter('success', 'Toutes les demandes ont été acceptées');
+        }
+        else{
+            MessageFlash::ajouter('warning', 'Vous ne pouvez pas accéder à cette fonctionnalité');
+        }
 
         ControllerQuestion::readAll();
     }

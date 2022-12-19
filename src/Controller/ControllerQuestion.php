@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Lib\ConnexionUtilisateur;
-use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
