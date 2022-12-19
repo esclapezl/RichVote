@@ -17,6 +17,7 @@ class ControllerProposition extends GenericController
 {
     public static function readAll() : void
     {
+        self::connexionRedirect('warning', 'Connectez-vous pour voir les propositions');
         $idQuestion = $_GET['id'];
 
         $listePropositions = (new PropositionRepository())->selectAllForQuestion($idQuestion);
@@ -32,10 +33,23 @@ class ControllerProposition extends GenericController
 
     public static function read() : void
     {
+        self::connexionRedirect('warning', 'Connectez-vous pour accéder aux propositions');
         $idProposition = $_GET['id'];
 
         $proposition = (new PropositionRepository())->select($idProposition);
 
+        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+        $roleProposition = '';
+        if($proposition->getIdResponsable()==$idUser){
+            $roleProposition='responsable';
+        }
+        else{
+            foreach ($proposition->getIdAuteurs() as $idAuteur){
+                if($idAuteur==$idUser){
+                    $roleProposition='auteur';
+                }
+            }
+        }
 
         $commentaires = (new CommentaireRepository())->selectAllProp($idProposition);
 
@@ -43,7 +57,8 @@ class ControllerProposition extends GenericController
             'pagetitle' => 'Détail Proposition',
             'cheminVueBody' => 'proposition/detail.php',
             'proposition' => $proposition,
-            'commentaires'=>$commentaires
+            'commentaires'=>$commentaires,
+            'roleProposition' => $roleProposition
         );
 
         self::afficheVue('view.php', $parametres);
@@ -66,6 +81,7 @@ class ControllerProposition extends GenericController
 
     public static function updated() : void
     {
+        self::connexionRedirect('warning', 'Veuillez vous connecter');
         $idProposition = $_GET['id'];
         $proposition = (new PropositionRepository())->select($idProposition);
         if($proposition==null){
@@ -73,7 +89,6 @@ class ControllerProposition extends GenericController
             self::redirection('frontController.php?controller=question&action=readAll');
         }
         else {
-
             $sectionsText = [];
 
             foreach ($_POST['texte'] as $idSection => $text) {
@@ -84,18 +99,12 @@ class ControllerProposition extends GenericController
             $proposition->setIntitule($_POST['intitule']);
 
             (new PropositionRepository())->update($proposition);
-
-            $parametres = array(
-                'pagetitle' => 'Détail Proposition',
-                'cheminVueBody' => 'question/detail.php',
-                'question' => (new QuestionRepository())->select($proposition->getIdQuestion())
-            );
-
-            self::afficheVue('view.php', $parametres);
+            self::read();
         }
     }
 
     public static function create(){
+        self::connexionRedirect('warning', 'Veuillez vous connecter');
         $idQuestion = $_GET['id'];
 
         $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, ConnexionUtilisateur::getLoginUtilisateurConnecte(),null, null, false, []));

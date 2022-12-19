@@ -267,13 +267,9 @@ class ControllerQuestion extends GenericController
 
     public static function readResult() : void
     {
+        self::connexionRedirect('warning', 'Veuillez vous connecter pour accéder aux résultats');
+
         $idQuestion = $_GET['id'];
-
-        if(!ConnexionUtilisateur::estConnecte()){
-            MessageFlash::ajouter('warning', 'Veuillez vous connecter pour accéder aux résultats');
-            self::redirection('frontController.php?controller=user&action=connexion');
-        }
-
         if((new QuestionRepository())->estFini($idQuestion)){
             $question = (new QuestionRepository())->select($idQuestion);
 
@@ -298,12 +294,22 @@ class ControllerQuestion extends GenericController
 
     public static function finPhase() : void
     {
+        self::connexionRedirect('warning', 'Veuillez vous connecter');
         $idQuestion = $_GET['id'];
 
         $question = (new QuestionRepository())->select($idQuestion);
         $currentPhase=(new PhaseRepository())->getCurrentPhase($idQuestion);
+        if($currentPhase->isEmpty()){
+            MessageFlash::ajouter('info', 'il n\'y a pas de phase en cours');
+        }
+        else if(ConnexionUtilisateur::getLoginUtilisateurConnecte()==$question->getIdOrganisateur()){
+            $currentPhase=(new PhaseRepository())->getCurrentPhase($idQuestion);
 
-        (new PhaseRepository())->endPhase($currentPhase->getId());
+            (new PhaseRepository())->endPhase($currentPhase->getId());
+        }
+        else{
+            MessageFlash::ajouter('warning', 'Vous ne disposez pas des droits');
+        }
 
         $parametres = array(
             'pagetitle' => 'Détail Question',

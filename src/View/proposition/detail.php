@@ -1,12 +1,12 @@
 <?php
 use App\Model\DataObject\Proposition;
 use \App\Lib\ConnexionUtilisateur;
-use App\Model\Repository\VoteRepository;
-use App\Model\Repository\UserRepository;
 use  \App\Model\DataObject\Commentaire;
-/** @var Proposition $proposition */
-/** @var Array $commentaires */
-/** @var Commentaire $commentaire */?>
+/** @var Proposition $proposition
+ * @var Array $commentaires
+ * @var Commentaire $commentaire
+ * @var string $roleProposition
+ */?>
 <div class="block" >
     <div class="column">
     <div class="text-box">
@@ -16,22 +16,15 @@ use  \App\Model\DataObject\Commentaire;
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <div class="ligneExt">
             <?php
-            if(ConnexionUtilisateur::estConnecte()) {
-                if ((new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte()) == "organisateur") {
-
-                    echo '<a href=frontController.php?controller=proposition&action=update&id=' . rawurlencode($proposition->getIdProposition()) . ' class="optQuestion">Modifier</a>' .
-                        '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($proposition->getIdProposition()) . ' class="optQuestion">Supprimer</a>';
-                }
-                if ((ConnexionUtilisateur::getLoginUtilisateurConnecte()==$proposition->getIdResponsable())){
-                    $idProposition = $proposition->getId();
-                    echo '<a href="frontController.php?controller=proposition&action=readDemandeAuteur&id=' . $idProposition . '"> voir demandes </a>';
-                }
-                elseif (!(new \App\Model\Repository\PropositionRepository())->estAuteur(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $proposition)){
-                    echo '<a href="frontController.php?controller=proposition&action=addDemandeAuteur&id=' . $proposition->getId() . '"> devenir auteur de cette proposition</a>';
-
-                }
+            if ($roleProposition=='responsable'){
+                $idProposition = $proposition->getId();
+                echo '<a href=frontController.php?controller=proposition&action=update&id=' . rawurlencode($idProposition) . ' class="optQuestion">Modifier</a>' .
+                    '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($idProposition) . ' class="optQuestion">Supprimer</a>';
+                echo '<a href="frontController.php?controller=proposition&action=readDemandeAuteur&id=' . rawurlencode($idProposition) . '"> voir demandes </a>';
             }
-            ?>
+            elseif ($roleProposition!='auteur'){
+                echo '<a href="frontController.php?controller=proposition&action=addDemandeAuteur&id=' . $proposition->getId() . '"> devenir auteur de cette proposition</a>';
+            }?>
         </div>
 
         <?php

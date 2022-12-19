@@ -35,7 +35,7 @@ class PhaseRepository extends AbstractRepository
                         $objetFormatTableau['NBDEPLACES']);
     }
 
-    public function getCurrentPhase(string $idQuestion) : AbstractDataObject{
+    public function getCurrentPhase(string $idQuestion) : ?AbstractDataObject{
         $sql = "SELECT * FROM vue_PhasesDetail
 	            WHERE idQuestion = $idQuestion
 	            AND dateDebut<=SYSDATE AND dateFin>SYSDATE";
