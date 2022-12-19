@@ -131,7 +131,7 @@ class ControllerProposition extends GenericController
         $proposition = (new PropositionRepository())->select($idProposition);
         if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()){
             (new PropositionRepository())->delete($idProposition);
-            MessageFlash::ajouter('info', 'La proposition : "' . $proposition . '" a bien été suprimée');
+            MessageFlash::ajouter('info', 'La proposition : "' . $proposition->getIntitule() . '" a bien été suprimée');
             self::redirection('frontController.php?controller=proposition&action=readAll&id='. $proposition->getIdQuestion());
         }
         else{
@@ -273,7 +273,6 @@ class ControllerProposition extends GenericController
         else{
             MessageFlash::ajouter('warning', 'Vous ne pouvez pas accéder à cette fonctionnalité');
         }
-
         ControllerQuestion::readAll();
     }
 

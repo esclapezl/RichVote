@@ -30,6 +30,7 @@ class ControllerVote extends GenericController
 
     public static function voterScrutinMajoritaire() : void
     {
+        self::connexionRedirect('warning', 'Connectez-vous');
         $question = (new QuestionRepository())->select($_GET['idQuestion']);
         $propositions = (new PropositionRepository())->selectAllForQuestion($question->getId());
         $parametres = array(
@@ -43,6 +44,7 @@ class ControllerVote extends GenericController
 
     public static function voterScrutinMajoritairePlurinominal() : void
     {
+        self::connexionRedirect('warning', 'Connectez-vous');
         $question = (new QuestionRepository())->select($_GET['idQuestion']);
         $propositions = (new PropositionRepository())->selectAllWithScoreForUser($question->getCurrentPhase()->getId(), ConnexionUtilisateur::getLoginUtilisateurConnecte());
 
@@ -69,11 +71,9 @@ class ControllerVote extends GenericController
     }
 
     public static function scrutinMajoritairePlurinominalVoted(){
+        self::connexionRedirect('warning', 'Connectez-vous pour voter');
         $user = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-        if($user == null){
-            MessageFlash::ajouter('danger', 'vote refusé, vous n\'êtes pas connecté');
-        }
-        else if(isset($_POST['idPropositionPour'])){
+        if(isset($_POST['idPropositionPour'])){
             VoteRepository::voter($_POST['idPropositionPour'], $user, 1);
 
             MessageFlash::ajouter('success', 'Vous avez voté !');
@@ -90,11 +90,9 @@ class ControllerVote extends GenericController
     }
 
     public static function scrutinMajoritaireVoted(){
+        self::connexionRedirect('warning', 'Connectez-vous');
         $user = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-        if($user == null){
-            MessageFlash::ajouter('danger', 'vote refusé, vous n\'êtes pas connecté');
-        }
-        else if(isset($_POST['idProposition'])){
+        if(isset($_POST['idProposition'])){
             VoteRepository::voter($_POST['idProposition'], $user, 1);
 
             MessageFlash::ajouter('success', 'Vous avez voté !');
@@ -106,7 +104,6 @@ class ControllerVote extends GenericController
     }
     public static function consultation() : void
     {
-
         $parametres = array(
             'pagetitle' => 'Consultation',
             'cheminVueBody' => 'vote/consultation.php'
@@ -116,6 +113,7 @@ class ControllerVote extends GenericController
     }
 
     public static function demandeAcces() : void{
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $idQuestion = $_GET['idQuestion'];
 
