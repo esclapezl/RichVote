@@ -83,6 +83,7 @@ class QuestionRepository extends AbstractRepository
     {
         $question = parent::select($id);
         $question->setSections((new SectionRepository)->getSectionsQuestion($id));
+        $question->setPhases((new PhaseRepository())->getPhasesIdQuestion($id));
         return $question;
     }
 
@@ -145,7 +146,7 @@ class QuestionRepository extends AbstractRepository
 
 
 
-    public function estFini(String $idQuestion){
+    public function estFini(String $idQuestion) : bool{
         $sql = 'SELECT question_est_archive(:idQuestion) FROM DUAL';
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
@@ -154,8 +155,6 @@ class QuestionRepository extends AbstractRepository
             ['idQuestion' => $idQuestion]
         );
 
-
-        return $pdoStatement->fetch();
-        
+        return $pdoStatement->fetch()[0]=='1';
     }
 }

@@ -197,7 +197,7 @@ class UserRepository extends AbstractRepository
         return $pdoStatement->fetch()[0];
     }
 
-    public function getRole(string $id) : string{
+    public function getPrivilege(string $id) : string{
         $sql = 'SELECT "role" FROM souvignetn.Users WHERE "idUser" = :id';
         $pdo = DatabaseConnection::getInstance()::getPdo();
 

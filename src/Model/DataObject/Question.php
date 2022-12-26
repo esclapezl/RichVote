@@ -14,6 +14,7 @@ class Question extends AbstractDataObject
     private DateTime $dateCreation;
     private DateTime $dateFermeture;
     private Phase $currentPhase;
+    private array $phases;
 
     public function __construct(
         ?string $id,
@@ -22,7 +23,8 @@ class Question extends AbstractDataObject
         string $description,
         DateTime $dateCreation,
         DateTime $dateFermeture,
-        Phase $currentPhase
+        Phase $currentPhase,
+        array $phases=[]
     )
     {
         $this->id = $id;
@@ -32,6 +34,12 @@ class Question extends AbstractDataObject
         $this->dateCreation = $dateCreation;
         $this->dateFermeture = $dateFermeture;
         $this->currentPhase = $currentPhase;
+        if(sizeof($phases)==0){
+            $this->phases = [$currentPhase];
+        }
+        else {
+            $this->phases = $phases;
+        }
     }
 
     /**
@@ -138,6 +146,22 @@ class Question extends AbstractDataObject
     public function setCurrentPhase(Phase $currentPhase): void
     {
         $this->currentPhase = $currentPhase;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPhases(): array
+    {
+        return $this->phases;
+    }
+
+    /**
+     * @param array $phases
+     */
+    public function setPhases(array $phases): void
+    {
+        $this->phases = $phases;
     }
 
     public function isClosed(): bool{

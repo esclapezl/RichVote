@@ -4,7 +4,7 @@
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Proposition;
 /** @var array $propositions
- *  @var Phase $phase
+ * @var ?array $scores
  */
 ?>
 
@@ -20,8 +20,13 @@ use App\Model\DataObject\Proposition;
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <ul>
             <?php foreach ($propositions as $proposition) {
-                $archive = $proposition->estArchive()?'(archivé)':'';
-                echo '<li class="ligneExt"><a class="atxt" href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getIdProposition()) . '>' . htmlspecialchars($proposition->getIntitule()) . $archive . '</a></li>';
+                if(isset($scores)){
+                    $infoComplement = $scores[$proposition->getId()];
+                }
+                else{
+                    $infoComplement = $proposition->estArchive()?'(archivé)':'';
+                }
+                echo '<li class="ligneExt"><a class="atxt" href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getIdProposition()) . '>' . htmlspecialchars($proposition->getIntitule()) . $infoComplement . '</a></li>';
             }?>
         </ul>
     </div>

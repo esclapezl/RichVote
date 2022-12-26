@@ -39,28 +39,28 @@ class ControllerUser extends GenericController
             "cheminVueBody" => 'user/inscription.php'
         ]);
     }
-
-       public static function created() : void
-    {
-        $intitule = $_POST['titreQuestion'];
-        $nbSections = $_POST['nbSections'];
-
-        $question = new Question(null, $intitule, 'description');
-        $question = (new QuestionRepository)->sauvegarder($question);
-
-        for($i=0; $i<$nbSections; $i++){
-            $section = new Section(null, $question->getId(), "section n°$i", 'description');
-            (new SectionRepository())->sauvegarder($section);
-        }
-
-        $parametres = array(
-            'pagetitle' => 'continuer la création de la question',
-            'cheminVueBody' => 'question/update.php',
-            'question' => (new QuestionRepository())->select($question->getId())
-        );
-
-        self::afficheVue('view.php', $parametres);
-    }
+//
+//       public static function created() : void
+//    {
+//        $intitule = $_POST['titreQuestion'];
+//        $nbSections = $_POST['nbSections'];
+//
+//        $question = new Question(null, $intitule, 'description');
+//        $question = (new QuestionRepository)->sauvegarder($question);
+//
+//        for($i=0; $i<$nbSections; $i++){
+//            $section = new Section(null, $question->getId(), "section n°$i", 'description');
+//            (new SectionRepository())->sauvegarder($section);
+//        }
+//
+//        $parametres = array(
+//            'pagetitle' => 'continuer la création de la question',
+//            'cheminVueBody' => 'question/update.php',
+//            'question' => (new QuestionRepository())->select($question->getId())
+//        );
+//
+//        self::afficheVue('view.php', $parametres);
+//    }
 
 
     public static function connexion()

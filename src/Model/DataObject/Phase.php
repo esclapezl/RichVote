@@ -84,5 +84,9 @@ class Phase extends AbstractDataObject
         return new Phase(null, 'consultation', date_create(), date_create(), null);
     }
 
+    public function isEmpty():bool{
+        return $this->id==null;
+    }
+
 
 }

@@ -17,6 +17,7 @@ class ControllerProposition extends GenericController
 {
     public static function readAll() : void
     {
+        self::connexionRedirect('warning', 'Connectez-vous pour voir les propositions');
         $idQuestion = $_GET['id'];
 
         $listePropositions = (new PropositionRepository())->selectAllForQuestion($idQuestion);
@@ -32,10 +33,23 @@ class ControllerProposition extends GenericController
 
     public static function read() : void
     {
+        self::connexionRedirect('warning', 'Connectez-vous pour accéder aux propositions');
         $idProposition = $_GET['id'];
 
         $proposition = (new PropositionRepository())->select($idProposition);
 
+        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+        $roleProposition = '';
+        if($proposition->getIdResponsable()==$idUser){
+            $roleProposition='responsable';
+        }
+        else{
+            foreach ($proposition->getIdAuteurs() as $idAuteur){
+                if($idAuteur==$idUser){
+                    $roleProposition='auteur';
+                }
+            }
+        }
 
         $commentaires = (new CommentaireRepository())->selectAllProp($idProposition);
 
@@ -43,7 +57,8 @@ class ControllerProposition extends GenericController
             'pagetitle' => 'Détail Proposition',
             'cheminVueBody' => 'proposition/detail.php',
             'proposition' => $proposition,
-            'commentaires'=>$commentaires
+            'commentaires'=>$commentaires,
+            'roleProposition' => $roleProposition
         );
 
         self::afficheVue('view.php', $parametres);
@@ -66,6 +81,7 @@ class ControllerProposition extends GenericController
 
     public static function updated() : void
     {
+        self::connexionRedirect('warning', 'Veuillez vous connecter');
         $idProposition = $_GET['id'];
         $proposition = (new PropositionRepository())->select($idProposition);
         if($proposition==null){
@@ -73,7 +89,6 @@ class ControllerProposition extends GenericController
             self::redirection('frontController.php?controller=question&action=readAll');
         }
         else {
-
             $sectionsText = [];
 
             foreach ($_POST['texte'] as $idSection => $text) {
@@ -84,53 +99,55 @@ class ControllerProposition extends GenericController
             $proposition->setIntitule($_POST['intitule']);
 
             (new PropositionRepository())->update($proposition);
-
-            $parametres = array(
-                'pagetitle' => 'Détail Proposition',
-                'cheminVueBody' => 'question/detail.php',
-                'question' => (new QuestionRepository())->select($proposition->getIdQuestion())
-            );
-
-            self::afficheVue('view.php', $parametres);
+            self::read();
         }
     }
 
     public static function create(){
+        self::connexionRedirect('warning', 'Veuillez vous connecter');
         $idQuestion = $_GET['id'];
 
-        $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, ConnexionUtilisateur::getLoginUtilisateurConnecte(),null, null, false, []));
+        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+        if((new UserRepository())->getRoleQuestion($idUser, $idQuestion) == 'responsable'){
+            $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, ConnexionUtilisateur::getLoginUtilisateurConnecte(),null, null, false, []));
 
-        $parametres = array(
-            'pagetitle' => 'Créer Proposition',
-            'cheminVueBody' => 'proposition/update.php',
-            'proposition' => $proposition
-        );
-        self::afficheVue('view.php', $parametres);
+            $parametres = array(
+                'pagetitle' => 'Créer Proposition',
+                'cheminVueBody' => 'proposition/update.php',
+                'proposition' => $proposition
+            );
+            self::afficheVue('view.php', $parametres);
+        }
+        else{
+            MessageFlash::ajouter('warning', 'Vous ne disposez pas des droits pour créer une proposition');
+            self::redirection('frontController.php?controller=question&action=read&id='.$idQuestion);
+        }
     }
 
     public static function delete(){
+        self::connexionRedirect('warning', 'Veuillez vous connecter');
         $idProposition = $_GET['id'];
-        $proposition = (new PropositionRepository())->select($idProposition);
 
-        if($proposition==null){
+        $proposition = (new PropositionRepository())->select($idProposition);
+        if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()){
+            (new PropositionRepository())->delete($idProposition);
+            MessageFlash::ajouter('info', 'La proposition : "' . $proposition->getIntitule() . '" a bien été suprimée');
+            self::redirection('frontController.php?controller=proposition&action=readAll&id='. $proposition->getIdQuestion());
+        }
+        else{
+            MessageFlash::ajouter('warning', 'Vous ne pouvez pas supprimer cette proposition');
+            self::redirection('frontController.php?controller=proposition&action=read&id='. $proposition->getId());
+        }
+
+        // n'est pas utilisé en l'état
+        if($proposition==null) {
             MessageFlash::ajouter('warning', "La proposition n'existe pas");
             self::redirection('frontController.php?controller=question&action=readAll');
         }
-        else {
-            (new PropositionRepository())->delete($idProposition);
-            MessageFlash::ajouter('info', 'La proposition : "' . $proposition . '" a bien été suprimée');
-            self::redirection('frontController.php?controller=proposition&action=readAll&id='. $proposition->getIdQuestion());
-        }
-//        $parametres = array(
-//            'pagetitle' => 'Proposition Supprimée',
-//            'cheminVueBody' => 'question/detail.php',
-//            'question' => (new QuestionRepository())->select($proposition->getIdQuestion())
-//        );
-//
-//        self::afficheVue('view.php', $parametres);
     }
 
     public static function selectAllWithScore(){
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idPhase = $_GET['idPhase'];
         $scores = [];
         $propositions = [];
@@ -143,7 +160,7 @@ class ControllerProposition extends GenericController
 
         $param = [
             'pagetitle' => 'Scores',
-            'cheminVueBody' => '/proposition/listWithScore.php',
+            'cheminVueBody' => '/proposition/list.php',
             'propositions' => $propositions,
             'scores' => $scores
         ];
@@ -153,6 +170,7 @@ class ControllerProposition extends GenericController
 
     public static function ajtCommentaire()
     {
+        self::connexionRedirect('warning', 'Connectez-vous');
         $commentaire = $_POST['commentaire'];
         $userRepository = new UserRepository();
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
@@ -168,7 +186,8 @@ class ControllerProposition extends GenericController
     }
 
     public static function deleteCommentaire():void
-    {
+    {// s'assurer que le commentaire nous apppartient
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idCommentaire= $_GET['idCommentaire'];
         $idProposition= $_GET['id'];
 
@@ -181,27 +200,28 @@ class ControllerProposition extends GenericController
 
     public static function likeCommentaire():void
     {
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idCommentaire= $_GET['idCommentaire'];
         $idProposition= $_GET['id'];
 
         (new CommentaireRepository())->liker($idCommentaire);
 
-        MessageFlash::ajouter('info','Vous avez aimé ce commentaire');
         self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
     }
 
     public static function dislikeCommentaire():void
     {
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idCommentaire= $_GET['idCommentaire'];
         $idProposition= $_GET['id'];
 
         (new CommentaireRepository())->disliker($idCommentaire);
 
-        MessageFlash::ajouter('info','Commentaire supprimé.');
         self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
     }
 
     public static function addDemandeAuteur(){
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $idProposition =$_GET['id'];
 
@@ -210,35 +230,49 @@ class ControllerProposition extends GenericController
 
         DemandeRepository::sauvegarder($demande);
 
-        MessageFlash::ajouter('success', 'demande effectuée');
+        MessageFlash::ajouter('success', 'Demande effectuée');
         ControllerQuestion::readAll();
     }
 
     public static function readDemandeAuteur() : void{
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idProposition = $_GET['id'];
 
         $proposition = (new PropositionRepository())->select($idProposition);
-        $demandes = DemandeRepository::getDemandeAuteurProposition($proposition);
-        $action = 'frontController.php?action=demandesAccepted&controller=Proposition&id=' . $idProposition;
+        if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()){
+            $demandes = DemandeRepository::getDemandeAuteurProposition($proposition);
+            $action = 'frontController.php?action=demandesAccepted&controller=Proposition&id=' . $idProposition;
 
-        $parametres = [
-            'pagetitle' => 'demandes en attentes',
-            'cheminVueBody' => 'demande/listAccept.php',
-            'demandes' => $demandes,
-            'action' => $action
-        ];
-        self::afficheVue('view.php', $parametres);
+            $parametres = [
+                'pagetitle' => 'demandes en attentes',
+                'cheminVueBody' => 'demande/listAccept.php',
+                'demandes' => $demandes,
+                'action' => $action
+            ];
+            self::afficheVue('view.php', $parametres);
+        }
+        else{
+            MessageFlash::ajouter('warning', 'Vous ne pouvez pas accéder à cette fonctionnalité');
+            self::read();
+        }
     }
 
     public static function demandesAccepted(){
-        $idProposition = $_GET['id'];
-        $acceptees = [];
-        foreach ($_POST['user'] as $idUser) {
-            $acceptees[] = $idUser;
-        }
-        $proposition = (new PropositionRepository())->select($idProposition);
-        (new PropositionRepository())->addAuteursProposition($acceptees, $proposition);
+        self::connexionRedirect('warning', 'Connectez-vous');
 
+        $idProposition = $_GET['id'];
+        $proposition = (new PropositionRepository())->select($idProposition);
+        if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()) {
+            $acceptees = [];
+            foreach ($_POST['user'] as $idUser) {
+                $acceptees[] = $idUser;
+            }
+            (new PropositionRepository())->addAuteursProposition($acceptees, $proposition);
+            MessageFlash::ajouter('success', 'Toutes les demandes ont été acceptées');
+        }
+        else{
+            MessageFlash::ajouter('warning', 'Vous ne pouvez pas accéder à cette fonctionnalité');
+        }
         ControllerQuestion::readAll();
     }
 
