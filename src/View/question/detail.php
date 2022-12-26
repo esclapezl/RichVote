@@ -160,13 +160,12 @@ switch ($typePrecisPhase) {
                 }
 
 
-                echo '<div class="descP"></div>'
+                echo '<br>'
                     . ' <div class="ligneExt"><h2 id="desc">DESCRIPTION</h2></div>
-                        <p class="descG">' . htmlspecialchars($question->getDescription()) . '</p>';
-
+                        <p>' .$question->getDescription() . '</p><div class="descG"></div>';
         foreach ($question->getSections() as $section) {
             echo '<div class="ligneExt"><h3>' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
-            echo "<div class='ligne'></div> <p class='descP'>" . htmlspecialchars($section->getDescription()) . "</p>";
+            echo "<div class='ligne'></div> " . $section->getDescription() . "<br>";
         }
         }
             else{

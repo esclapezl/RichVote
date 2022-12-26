@@ -28,7 +28,7 @@ use App\Model\DataObject\Question;
             </p>
             <p>
             <h3>Description :</h3>
-            <textarea type="text" id="dq" name="descriptionQuestion" rows="4" cols="100"><?=ucfirst($question->getDescription())?></textarea>
+            <textarea type="text" id="mytextarea" name="descriptionQuestion" rows="4" cols="100"><?=ucfirst($question->getDescription())?></textarea>
             </p>
             <div class="descG"></div>
             <?php

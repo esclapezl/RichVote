@@ -517,6 +517,12 @@ footer .vague#vague4{
     border-radius: 80px;
 }
 
+#detaildesc{
+    width: 80%;
+    display: flex;
+    height: 100%;
+}
+
 #hprofil{
     font-size: 3.5em;
 }
@@ -791,6 +797,7 @@ button.valide > img{
     width: 80%;
     height: 80%;
 }
+
 
 .valide{
     display: flex;
