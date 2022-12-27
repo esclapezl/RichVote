@@ -11,7 +11,7 @@ use \App\Lib\ConnexionUtilisateur;
     <div class="text-box">
         <div class="ligneExt"> <h1>Liste des Utilisateurs :</h1> <?php
             if(ConnexionUtilisateur::estConnecte()){
-                echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>".ucfirst($privilegeUser)."</h3></div>";
+                echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>" . ucfirst($privilegeUser) . "</h3></div>";
             }
             else{
                 echo "<h3 class='responsive'>Vous n'êtes pas connecté</h3>";
