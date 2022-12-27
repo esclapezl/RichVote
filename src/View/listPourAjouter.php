@@ -5,6 +5,16 @@ use \App\Lib\ConnexionUtilisateur;
  * @var string $action
  * @var string $privilegeUser
  */
+// trouver un moyen de récupérer l'url pour faire un refresh
+$url = 'frontController.php?';
+$i = sizeof($_GET);
+
+foreach ($_GET as $key=>$value) {
+    if(array_search($value, $_GET)>0){
+        $url.='&';
+    }
+    $url.="$key=$value";
+}
 ?>
 
 <div class="block">
@@ -20,8 +30,8 @@ use \App\Lib\ConnexionUtilisateur;
             <div class="ligne"></div>
             <div class="ligne"></div>
         </div>
-<div class="ligneExt"><form class="ligneAlign" method="post" action="frontController.php?controller=user&action=readAllSelect">
-        <input type="search" class="opt" name="title" id="title" placeholder="Rechercher un Utilisateur">
+<div class="ligneExt"><form class="ligneAlign" method="post" action="<?=$url?>">
+        <input type="search" class="opt" name="filtre" id="filtre" placeholder="Rechercher un Utilisateur">
         <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
         <a href="frontController.php?controller=user&action=readAllSelect" id="refresh">
             <img src="../assets/img/icon-refresh.svg">
