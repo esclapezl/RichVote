@@ -65,18 +65,23 @@ class ControllerProposition extends GenericController
     }
 
     public static function update(){
-
+        self::connexionRedirect('warning', 'Veuillez vous connecter');
         $idProposition = $_GET['id'];
 
         $proposition = (new PropositionRepository())->select($idProposition);
+        if(in_array(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $proposition->getIdAuteurs())){
+            $parametres = array(
+                'pagetitle' => 'Modifier Proposition',
+                'cheminVueBody' => 'proposition/update.php',
+                'proposition' => $proposition
+            );
 
-        $parametres = array(
-            'pagetitle' => 'Modifier Proposition',
-            'cheminVueBody' => 'proposition/update.php',
-            'proposition' => $proposition
-        );
-
-        self::afficheVue('view.php', $parametres);
+            self::afficheVue('view.php', $parametres);
+        }
+        else{
+            MessageFlash::ajouter("danger", 'vous n\'avez pas le droit de modiifier cette proposition');
+            self::redirection("frontController.php?controller=proposition&action=read&id=$idProposition");
+        }
     }
 
     public static function updated() : void
