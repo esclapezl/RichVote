@@ -59,7 +59,7 @@ class ControllerQuestion extends GenericController
         if(ConnexionUtilisateur::estConnecte()) {
             $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
             $roleQuestion = (new UserRepository())->getRoleQuestion($idUser, $idQuestion);
-            $peutVoter = VoteRepository::peutVoter($idUser, $idQuestion);
+            $peutVoter = UserRepository::peutVoter($idUser, $idQuestion);
         }
 
         $parametres = array(
@@ -404,7 +404,7 @@ class ControllerQuestion extends GenericController
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $role = $_GET['role'];
 
-        $demande = new Demande($role, $question->getId(), $idUser, $question->getIdOrganisateur());
+        $demande = new Demande($role, $question->getId(), $idUser);
         if(DemandeRepository::sauvegarder($demande)){
             MessageFlash::ajouter('success', 'Votre demande a bien été enregistré');
         }

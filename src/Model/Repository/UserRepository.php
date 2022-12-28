@@ -396,7 +396,18 @@ class UserRepository extends AbstractRepository
     }
 
 
+    public static function peutVoter(string $idUser, string $idQuestion) : bool{
+        $sql = 'SELECT peutVoter(:idUser, :idQuestion) FROM DUAL';
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
 
+        $pdoStatement->execute([
+            'idQuestion' => $idQuestion,
+            'idUser' => $idUser
+        ]);
 
+        $result = $pdoStatement->fetch()[0];
 
+        return $result == 1;
+    }
 }

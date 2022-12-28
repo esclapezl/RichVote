@@ -43,12 +43,25 @@ class DemandeRepository
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
         $params = [
-            'typeDemande' => $demande->getType(),
-            'idUser' => $demande->getIdDemandeur(),
+            'typeDemande' => $demande->getRole(),
+            'idUser' => $demande->getIdUser(),
             'idQuestion' => $demande->getIdQuestion(),
             'idProposition' => $demande->getIdProposition()
         ];
 
         return $pdoStatement->execute($params);
+    }
+
+    public static function getDemandeUtilisateur(string $idUser): array{
+        $sql = 'select * from view_demandes where idUser=:idUser';
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $pdoStatement->execute(['idUser'=>$idUser]);
+
+        $result = [];
+        foreach ($pdoStatement as $tab){
+            $demande = new Demande($tab['ROLE'], $tab['IDQUESTION'], $tab['IDUSER'], $tab['IDPROPOSITION']);
+            $result[] = $demande;
+        }
+        return $result;
     }
 }

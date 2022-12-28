@@ -16,7 +16,7 @@ use App\Model\DataObject\Demande;
     }
     else{
         foreach ($demandes as $demande){
-            $idUser = $demande->getIdDemandeur();
+            $idUser = $demande->getIdUser();
             $htmlId = htmlspecialchars($idUser);
             echo "<div class='ligneExt'>
                             <li class='ligneExt'> <a href='frontController.php?controller=user&action=read&id=$idUser'> $htmlId</a></span></li>

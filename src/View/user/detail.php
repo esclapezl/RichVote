@@ -7,9 +7,11 @@ use App\Model\DataObject\User;
 use App\Lib\ConnexionUtilisateur;
 use \App\Model\Repository\UserRepository;
 
-/** @var Question[] $questions*/
-/** @var Proposition[] $propositions*/
-/** @var Groupe[] $groupes*/
+/** @var Question[] $questions
+ * @var Proposition[] $propositions
+ * @var Groupe[] $groupes
+ * @var array $demandesQuestions
+ */
 $user = (new UserRepository())->select($_GET['id']);
 
 $bool =false;
@@ -167,6 +169,13 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                     }
                 echo '</ul>';
             }
+            echo '<ul>';
+            foreach ($demandesQuestions as $ligne){
+                $demande = $ligne['demande'];
+                $question = $ligne['question'];
+                echo '<li>Demande pour être ' . $demande->getRole() . ' sur la question: ' . $question->getIntitule() . '</li>';
+            }
+            echo '</ul>';
 
 
 

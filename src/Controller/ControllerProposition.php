@@ -231,7 +231,7 @@ class ControllerProposition extends GenericController
         $idProposition =$_GET['id'];
 
         $proposition = (new PropositionRepository())->select($idProposition);
-        $demande = new Demande('auteur', $proposition->getIdQuestion(), $idUser, $proposition->getIdResponsable(), $idProposition);
+        $demande = new Demande('auteur', $proposition->getIdQuestion(), $idUser, $idProposition);
 
         DemandeRepository::sauvegarder($demande);
 

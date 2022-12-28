@@ -9,6 +9,7 @@ use App\Lib\VerificationEmail;
 use App\Model\DataObject\Commentaire;
 use App\Model\DataObject\User;
 use App\Model\HTTP\Cookie;
+use App\Model\Repository\DemandeRepository;
 use App\Model\Repository\GroupeRepository;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
@@ -299,7 +300,14 @@ class ControllerUser extends GenericController
         $propositions = (new PropositionRepository())->selectAllfromResponsable($_GET['id']);
         $user = (new UserRepository())->select($_GET['id']);
 
-
+        $demandes = DemandeRepository::getDemandeUtilisateur($_GET['id']);
+        $demandesQuestions = [];
+        foreach($demandes as $demande){
+            $demandesQuestions[] = [
+                'demande' => $demande,
+                'question' => (new QuestionRepository())->select($demande->getIdQuestion())
+            ];
+        }
 
         $parametres = array(
             'pagetitle' => 'Détails user',
@@ -307,7 +315,8 @@ class ControllerUser extends GenericController
             'user' => $user,
             'propositions' => $propositions,
             'questions' => $questions,
-            'groupes' => $groupes
+            'groupes' => $groupes,
+            'demandesQuestions' => $demandesQuestions
         );
 
         self::afficheVue('view.php', $parametres);
