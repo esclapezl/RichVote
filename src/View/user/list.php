@@ -34,21 +34,24 @@ use App\Model\Repository\UserRepository;
             if(ConnexionUtilisateur::estConnecte())
             {
 
-                if (isset($users) && empty($users)){
-                echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat a été trouvé pour " . htmlspecialchars($_POST['title']) . " .</h3></div>";
-                     }
-                else if (ConnexionUtilisateur::estAdministrateur() || ((isset($_POST['title']) && !empty($_POST['title'])))){
-                foreach ($users as $user) {
-                    echo '<div class="ligneExt"><li class="ligneExt"><a href=frontController.php?controller=user&action=read&id=' . rawurlencode($user->getId()) . '>' . ucfirst(htmlspecialchars($user->getId())) . '</a> <span>' . ucfirst(htmlspecialchars($user->getPrenom())) . ' ' . ucfirst(htmlspecialchars($user->getNom())) . '</span></span></li><h2>' . ucfirst(htmlspecialchars($user->getRole())) . '</h2></div>';
-                    $idUser = NULL;
+                if (isset($users) && empty($users))
+                {
+                    echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat a été trouvé pour " . htmlspecialchars($_POST['title']) . " .</h3></div>";
+                }
+                else if (ConnexionUtilisateur::estConnecte() || ((isset($_POST['title']) && !empty($_POST['title']))))
+                {
+                    foreach ($users as $user)
+                    {
+                        echo '<div class="ligneExt"><li class="ligneExt"><a href=frontController.php?controller=user&action=read&id=' . rawurlencode($user->getId()) . '>' . ucfirst(htmlspecialchars($user->getId())) . '</a> <span>' . ucfirst(htmlspecialchars($user->getPrenom())) . ' ' . ucfirst(htmlspecialchars($user->getNom())) . '</span></span></li><h2>' . ucfirst(htmlspecialchars($user->getRole())) . '</h2></div>';
+
+                    }
                 }
             }
-            }
             else
-                echo "<div class='descG'></div><div class='ligneCent'><h3> Vous devez être connecté pour visualiser les contributeurs.</h3></div>"
-
+            {
+                echo "<div class='descG'></div><div class='ligneCent'><h3> Vous devez être connecté pour visualiser les contributeurs.</h3></div>";
+            }
             ?>
-
         </ul>
     </div>
 </div>
