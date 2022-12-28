@@ -55,18 +55,20 @@ class ControllerGroupe extends GenericController
         $nomGroupe = $_GET['nomGroupe'];
         $groupe = (new GroupeRepository())->select($nomGroupe);
         if (ConnexionUtilisateur::getLoginUtilisateurConnecte() == $groupe->getIdResponsable()) {
+            $action = 'frontController.php?controller=groupe&action=usersAddedToGroupe&nomGroupe='.$nomGroupe;
+
             if(isset($_POST['filtre'])){
-                $filtre = $_POST['filtre'];
+                $users = (new UserRepository())->search($_POST['filtre']);
+            }
+            else{
+                $users = (new UserRepository())->selectAll();
             }
 
-            $action = 'frontController.php?controller=groupe&action=usersAddedToGroupe&nomGroupe='.$nomGroupe;
-            $users = (new UserRepository())->selectAll();
             $idMembres = $groupe->getIdMembres();
 
             foreach ($users as $user){
                 $idUser = $user->getId();
-                if(in_array($idUser, $idMembres) ||
-                    (isset($filtre) && !strpos($idUser, $filtre))) //applique le filtre s'il existe
+                if(in_array($idUser, $idMembres))
                 {
                     $index = array_search($user, $users);
                     unset($users[$index]);

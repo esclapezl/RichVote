@@ -225,15 +225,16 @@ class ControllerQuestion extends GenericController
         else{
             $idQuestion = $_GET['id'];
 
-            if (isset($_POST['title']) AND !empty($_POST['title'])){
-                $recherche= strtolower(htmlspecialchars($_POST['title']));
+            if (isset($_POST['filtre']) AND !empty($_POST['filtre'])){
+                $recherche= strtolower(htmlspecialchars($_POST['filtre']));
                 $users = (new UserRepository())->search($recherche);
             }
             else{
                 $users = (new UserRepository())->selectAll();
             }
+            //retirer les membres qui sont deja votant
 
-            $action = 'frontController.php?controller=question&action=votantAdded&idQuestion=' . $idQuestion;
+            $action = 'frontController.php?controller=question&action=votantAdded&id=' . $idQuestion;
 
             $privilegeUser = '';
             if(ConnexionUtilisateur::estConnecte()){
@@ -262,7 +263,7 @@ class ControllerQuestion extends GenericController
         }
         else {
             $idUsers = [];
-            $idQuestion = $_GET['idQuestion'];
+            $idQuestion = $_GET['id'];
             if (isset($_POST['user'])) {
                 foreach ($_POST['user'] as $idUser) {
                     $idUsers[] = $idUser;

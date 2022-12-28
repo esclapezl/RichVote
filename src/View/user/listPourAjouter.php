@@ -33,7 +33,7 @@ foreach ($_GET as $key=>$value) {
 <div class="ligneExt"><form class="ligneAlign" method="post" action="<?=$url?>">
         <input type="search" class="opt" name="filtre" id="filtre" placeholder="Rechercher un Utilisateur">
         <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
-        <a href="frontController.php?controller=user&action=readAllSelect" id="refresh">
+        <a href="<?=$url?>" id="refresh">
             <img src="../assets/img/icon-refresh.svg">
         </a>
     </form>
@@ -43,7 +43,7 @@ foreach ($_GET as $key=>$value) {
 <ul>
     <?php
     if (empty($users)){
-        echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat a été trouvé pour " . $_POST['title'] . " .</h3></div>
+        echo "<div class='descG'></div><div class='ligneCent'><h3> Il n'y a rien </h3></div>
                     <div class='descP'></div><div class='ligneCent'>
                     <a href=frontController.php?controller=user&action=readAllSelect>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
     }
