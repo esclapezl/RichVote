@@ -56,12 +56,30 @@ class ControllerGroupe extends GenericController
         $groupe = (new GroupeRepository())->select($nomGroupe);
         if (ConnexionUtilisateur::getLoginUtilisateurConnecte() == $groupe->getIdResponsable()) {
             $action = 'frontController.php?controller=groupe&action=usersAddedToGroupe&nomGroupe='.$nomGroupe;
-            $users = (new UserRepository())->selectAll();
+
+            if(isset($_POST['filtre'])){
+                $users = (new UserRepository())->search($_POST['filtre']);
+            }
+            else{
+                $users = (new UserRepository())->selectAll();
+            }
+
+            $idMembres = $groupe->getIdMembres();
+
+            foreach ($users as $user){
+                $idUser = $user->getId();
+                if(in_array($idUser, $idMembres))
+                {
+                    $index = array_search($user, $users);
+                    unset($users[$index]);
+                }
+            }
             $params = [
                 'pagetitle' => 'ajouter membres groupe',
                 'cheminVueBody' => '/listPourAjouter.php',
                 'action' => $action,
-                'users' => $users
+                'users' => $users,
+                'privilegeUser' => ConnexionUtilisateur::estAdministrateur()?'Administrateur':'Responsable'
             ];
             self::afficheVue('view.php', $params);
         }

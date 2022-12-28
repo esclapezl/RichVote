@@ -5,13 +5,23 @@ use \App\Lib\ConnexionUtilisateur;
  * @var string $action
  * @var string $privilegeUser
  */
+// trouver un moyen de récupérer l'url pour faire un refresh
+$url = 'frontController.php?';
+$i = sizeof($_GET);
+
+foreach ($_GET as $key=>$value) {
+    if(array_search($value, $_GET)>0){
+        $url.='&';
+    }
+    $url.="$key=$value";
+}
 ?>
 
 <div class="block">
     <div class="text-box">
         <div class="ligneExt"> <h1>Liste des Utilisateurs :</h1> <?php
             if(ConnexionUtilisateur::estConnecte()){
-                echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>".ucfirst($privilegeUser)."</h3></div>";
+                echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>" . ucfirst($privilegeUser) . "</h3></div>";
             }
             else{
                 echo "<h3 class='responsive'>Vous n'êtes pas connecté</h3>";
@@ -20,10 +30,10 @@ use \App\Lib\ConnexionUtilisateur;
             <div class="ligne"></div>
             <div class="ligne"></div>
         </div>
-<div class="ligneExt"><form class="ligneAlign" method="post" action="frontController.php?controller=user&action=readAllSelect">
-        <input type="search" class="opt" name="title" id="title" placeholder="Rechercher un Utilisateur">
+<div class="ligneExt"><form class="ligneAlign" method="post" action="<?=$url?>">
+        <input type="search" class="opt" name="filtre" id="filtre" placeholder="Rechercher un Utilisateur">
         <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
-        <a href="frontController.php?controller=user&action=readAllSelect" id="refresh">
+        <a href="<?=$url?>" id="refresh">
             <img src="../assets/img/icon-refresh.svg">
         </a>
     </form>
@@ -33,7 +43,7 @@ use \App\Lib\ConnexionUtilisateur;
 <ul>
     <?php
     if (empty($users)){
-        echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat a été trouvé pour " . $_POST['title'] . " .</h3></div>
+        echo "<div class='descG'></div><div class='ligneCent'><h3> Il n'y a rien </h3></div>
                     <div class='descP'></div><div class='ligneCent'>
                     <a href=frontController.php?controller=user&action=readAllSelect>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
     }
