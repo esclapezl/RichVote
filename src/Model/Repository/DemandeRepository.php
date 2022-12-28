@@ -9,7 +9,7 @@ use App\Model\DataObject\Question;
 class DemandeRepository
 {
     public static function getDemandeVoteQuestion(Question $question):array{
-        $sql = "SELECT idUser FROM VOTANTS WHERE idQuestion=:idQuestion AND demande='V'";
+        $sql = "SELECT idUser FROM DemandeVotant WHERE idQuestion=:idQuestion";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
         $idQuestion = $question->getId();
@@ -38,7 +38,7 @@ class DemandeRepository
         return $result;
     }
 
-    public static function sauvegarder(Demande $demande){
+    public static function sauvegarder(Demande $demande): bool{
         $sql = "call sauvegarderDemande(:typeDemande, :idUser, :idQuestion, :idProposition)";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
@@ -49,6 +49,6 @@ class DemandeRepository
             'idProposition' => $demande->getIdProposition()
         ];
 
-        $pdoStatement->execute($params);
+        return $pdoStatement->execute($params);
     }
 }

@@ -290,7 +290,7 @@ class UserRepository extends AbstractRepository
     }
 
     public function getDemandeVote(string $idQuestion) : array{
-        $sql = "SELECT * FROM Votants v WHERE idQuestion=:idQuestion AND demande='V'";
+        $sql = "SELECT * FROM DemmandeVotant WHERE idQuestion=:idQuestion";
         $pdo = DatabaseConnection::getInstance()::getPdo();
         $pdoStatement = $pdo->prepare($sql);
 

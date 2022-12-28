@@ -15,7 +15,7 @@ class Demande
         string $idQuestion,
         string $idDemandeur,
         string $idValideur,
-        ?string $idProposition
+        ?string $idProposition=null
     )
 {
     $this->type = $type;

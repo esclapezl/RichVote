@@ -113,6 +113,7 @@ class ControllerVote extends GenericController
     }
 
     public static function demandeAcces() : void{
+        MessageFlash::ajouter('danger', 'changer le fonctionnnement de cette fonction pour etre utilisé dans demandeRole pour question');
         self::connexionRedirect('warning', 'Connectez-vous');
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $idQuestion = $_GET['idQuestion'];

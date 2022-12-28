@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Lib\ConnexionUtilisateur;
+use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
@@ -14,6 +15,7 @@ use App\Model\Repository\SectionRepository;
 use App\Lib\MessageFlash;
 use App\Model\Repository\UserRepository;
 use App\Model\Repository\VoteRepository;
+use http\Message;
 
 class ControllerQuestion extends GenericController
 {
@@ -395,5 +397,20 @@ class ControllerQuestion extends GenericController
             $acceptees[] = $idUser;
         }
         (new QuestionRepository())->addUsersQuestion($acceptees, $idQuestion);
+    }
+
+    public static function demandeRoleQuestion(){
+        $question = (new QuestionRepository())->select($_GET['id']);
+        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+        $role = $_GET['role'];
+
+        $demande = new Demande($role, $question->getId(), $idUser, $question->getIdOrganisateur());
+        if(DemandeRepository::sauvegarder($demande)){
+            MessageFlash::ajouter('success', 'Votre demande a bien été enregistré');
+        }
+        else{
+            MessageFlash::ajouter('failure', 'Une erreur est survenu lors de l\'enregistrement de votre demande');
+        }
+        self::read();
     }
 }
