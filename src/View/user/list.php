@@ -38,7 +38,7 @@ use App\Model\Repository\UserRepository;
                 {
                     echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat a été trouvé pour " . htmlspecialchars($_POST['title']) . " .</h3></div>";
                 }
-                else if (ConnexionUtilisateur::estConnecte() || ((isset($_POST['title']) && !empty($_POST['title']))))
+                else if (ConnexionUtilisateur::estAdministrateur() || ((isset($_POST['title']) && !empty($_POST['title']))))
                 {
                     foreach ($users as $user)
                     {
