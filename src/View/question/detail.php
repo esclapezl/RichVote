@@ -112,8 +112,20 @@ switch ($typePrecisPhase) {
                 } else {
                     echo '<div class="ligneExt">
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
-                            <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats du Tirage</a>
+                            <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats de la précédente phase de vote</a>
                         </div>';
+
+                    $action = 'frontController.php?controller=question&action=demandeRoleQuestion&id='.$idQuestion;
+                    echo "<form method='get' action='$action'>
+                            <select name='role'>
+                                <option value='votant'>Devenir votant</option>
+                                <option value='responsable'>Devenir responsable</option>
+                            </select>
+                            <input type='hidden' name='controller' value='question'>
+                            <input type='hidden' name='action' value='demandeRoleQuestion'>
+                            <input type='hidden' name='id' value='$idQuestion'>
+                            <input type='submit' value='Demander'/>
+                          </form>";
                 }
 
 

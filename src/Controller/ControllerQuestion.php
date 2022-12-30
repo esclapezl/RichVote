@@ -375,17 +375,30 @@ class ControllerQuestion extends GenericController
     }
 
     public static function readDemandeVote() : void{
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idQuestion = $_GET['id'];
 
         $question = (new QuestionRepository())->select($idQuestion);
+        if($question->getIdOrganisateur()!=ConnexionUtilisateur::getLoginUtilisateurConnecte()){
+            MessageFlash::ajouter('danger', 'vous n\'etes pas autorisé à lire les demandes de vote');
+            self::redirection('frontController.php?controller=question&action=read&id='.$question->getId());
+        }
+
         $demandes = DemandeRepository::getDemandeVoteQuestion($question);
+        $users = [];
+        foreach ($demandes as $demande){
+            if($demande->getRole()=='votant'){
+                $users[] = $demande->getUser();
+            }
+        }
         $action = 'frontController.php?action=demandesAccepted&controller=question&id=' . $idQuestion;
 
         $parametres = [
-            'pagetitle' => 'demandes en attentes',
-            'cheminVueBody' => 'demande/listAccept.php',
-            'demandes' => $demandes,
-            'action' => $action
+            'pagetitle' => 'demandes de votants',
+            'cheminVueBody' => 'user/listPourAjouter.php',
+            'users' => $users,
+            'action' => $action,
+            'privilegeUser' => 'Organisateur'
         ];
         self::afficheVue('view.php', $parametres);
     }
@@ -400,11 +413,12 @@ class ControllerQuestion extends GenericController
     }
 
     public static function demandeRoleQuestion(){
+        self::connexionRedirect('warning', 'Connectez-vous afin de pouvoir demander');
         $question = (new QuestionRepository())->select($_GET['id']);
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $role = $_GET['role'];
 
-        $demande = new Demande($role, $question->getId(), $idUser);
+        $demande = new Demande($role, $question, (new UserRepository())->select($idUser));
         if(DemandeRepository::sauvegarder($demande)){
             MessageFlash::ajouter('success', 'Votre demande a bien été enregistré');
         }

@@ -44,11 +44,12 @@ class DemandeRepository
         $sql = "call sauvegarderDemande(:typeDemande, :idUser, :idQuestion, :idProposition)";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
+        $idProposition = $demande->getProposition()!=null?$demande->getProposition()->getId():null;
         $params = [
             'typeDemande' => $demande->getRole(),
             'idUser' => $demande->getUser()->getId(),
             'idQuestion' => $demande->getQuestion()->getId(),
-            'idProposition' => $demande->getProposition()->getId()
+            'idProposition' => $idProposition
         ];
 
         return $pdoStatement->execute($params);
