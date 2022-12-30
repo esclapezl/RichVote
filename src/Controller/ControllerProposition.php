@@ -277,11 +277,18 @@ class ControllerProposition extends GenericController
         $idProposition = $_GET['id'];
         $proposition = (new PropositionRepository())->select($idProposition);
         if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()) {
+            $demandesProposition = DemandeRepository::getDemandeAuteurProposition($proposition);
             $acceptees = [];
             foreach ($_POST['user'] as $idUser) {
                 $acceptees[] = $idUser;
             }
+            foreach($demandesProposition as $demande){
+                if(in_array($demande->getUser()->getId(), $acceptees)){
+                    DemandeRepository::delete($demande);
+                }
+            }
             (new PropositionRepository())->addAuteursProposition($acceptees, $proposition);
+
             MessageFlash::ajouter('success', 'Toutes les demandes ont été acceptées');
         }
         else{

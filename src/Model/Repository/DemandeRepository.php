@@ -68,4 +68,18 @@ class DemandeRepository
         }
         return $result;
     }
+
+    public static function delete(Demande $demande){
+        $sql = 'delete from view_demandes where idUser=:idUser AND idQuestion=:idQuestion AND idProposition=:idProposition';
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        $proposition = $demande->getProposition();
+        $param=[
+            'idUser' => $demande->getUser()->getId(),
+            'idQuestion' => $demande->getQuestion()->getId(),
+            'idProposition' => $proposition!=null?$proposition->getId():null
+        ];
+
+        $pdoStatement->execute($param);
+    }
 }
