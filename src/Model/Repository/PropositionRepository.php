@@ -224,8 +224,15 @@ class PropositionRepository extends AbstractRepository
 
     public function addAuteursProposition(array $users, Proposition $proposition){
         $sql = "INSERT INTO AuteurProposition(idAuteur, idProposition, idQuestion) VALUES (:idAuteur, :idProposition, :idQuestion)";
+
+        // pour s'assurer que l'utilisateur a bien le role d'auteur sur la question
+        $sqlRole = 'Call setRoleQuestion(:idAuteur, \'auteur\', :idQuestion)';
+
         $pdo = DatabaseConnection::getInstance()::getPdo();
+
         $pdoStatement = $pdo->prepare($sql);
+        $pdoStatementRole = $pdo->prepare($sqlRole);
+
         $idProposition = $proposition->getId();
         $idQuestion = $proposition->getIdQuestion();
         foreach ($users as $idUser){
@@ -234,6 +241,11 @@ class PropositionRepository extends AbstractRepository
                 'idProposition' => $idProposition,
                 'idQuestion' => $idQuestion
             ];
+            $paramRole = [
+                'idAuteur' => $idUser,
+                'idQuestion' => $idQuestion
+            ];
+            $pdoStatementRole->execute($paramRole);
             $pdoStatement->execute($param);
         }
     }

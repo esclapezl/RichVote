@@ -5,6 +5,7 @@ namespace App\Model\Repository;
 use App\Model\DataObject\Demande;
 use App\Model\DataObject\Proposition;
 use App\Model\DataObject\Question;
+use App\Model\DataObject\User;
 
 class DemandeRepository
 {
@@ -15,11 +16,10 @@ class DemandeRepository
         $idQuestion = $question->getId();
         $pdoStatement->execute(['idQuestion' => $idQuestion]);
 
-        $idOrganisateur = $question->getIdOrganisateur();
-
         $result = [];
         foreach ($pdoStatement as $id) {
-            $result[] = new Demande('vote', $idQuestion, $id['IDUSER'], $idOrganisateur, null);
+            $user = (new UserRepository())->select($id['IDUSER']);
+            $result[] = new Demande('votant', $question, $user, null);
         }
         return $result;
     }
@@ -33,7 +33,9 @@ class DemandeRepository
 
         $result = [];
         foreach ($pdoStatement as $id) {
-            $result[] = new Demande('auteur', $proposition->getIdQuestion(), $id['IDUSER'], $proposition->getIdResponsable(), $proposition->getId());
+            $user = (new UserRepository())->select($id['IDUSER']);
+            $question = (new QuestionRepository())->select($proposition->getIdQuestion());
+            $result[] = new Demande('auteur', $question, $user, $proposition);
         }
         return $result;
     }
@@ -44,22 +46,24 @@ class DemandeRepository
 
         $params = [
             'typeDemande' => $demande->getRole(),
-            'idUser' => $demande->getIdUser(),
-            'idQuestion' => $demande->getIdQuestion(),
-            'idProposition' => $demande->getIdProposition()
+            'idUser' => $demande->getUser()->getId(),
+            'idQuestion' => $demande->getQuestion()->getId(),
+            'idProposition' => $demande->getProposition()->getId()
         ];
 
         return $pdoStatement->execute($params);
     }
 
-    public static function getDemandeUtilisateur(string $idUser): array{
+    public static function getDemandeUtilisateur(User $user): array{
         $sql = 'select * from view_demandes where idUser=:idUser';
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
-        $pdoStatement->execute(['idUser'=>$idUser]);
+        $pdoStatement->execute(['idUser'=>$user->getId()]);
 
         $result = [];
         foreach ($pdoStatement as $tab){
-            $demande = new Demande($tab['ROLE'], $tab['IDQUESTION'], $tab['IDUSER'], $tab['IDPROPOSITION']);
+            $question = (new QuestionRepository())->select($tab['IDQUESTION']);
+            $proposition = isset($tab['IDPROPOSITION']) ? (new PropositionRepository())->select($tab['IDPROPOSITION']) : null;
+            $demande = new Demande($tab['ROLE'], $question, $user, $proposition);
             $result[] = $demande;
         }
         return $result;

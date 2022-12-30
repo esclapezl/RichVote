@@ -6,6 +6,7 @@ use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
 use App\Model\DataObject\Demande;
 use App\Model\DataObject\Proposition;
+use App\Model\DataObject\Question;
 use App\Model\Repository\CommentaireRepository;
 use App\Model\Repository\DatabaseConnection;
 use App\Model\Repository\DemandeRepository;
@@ -231,7 +232,9 @@ class ControllerProposition extends GenericController
         $idProposition =$_GET['id'];
 
         $proposition = (new PropositionRepository())->select($idProposition);
-        $demande = new Demande('auteur', $proposition->getIdQuestion(), $idUser, $idProposition);
+        $question = (new QuestionRepository())->select($proposition->getIdQuestion());
+        $user = (new UserRepository())->select($idUser);
+        $demande = new Demande('auteur', $question, $user, $proposition);
 
         DemandeRepository::sauvegarder($demande);
 
@@ -246,13 +249,19 @@ class ControllerProposition extends GenericController
         $proposition = (new PropositionRepository())->select($idProposition);
         if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()){
             $demandes = DemandeRepository::getDemandeAuteurProposition($proposition);
+            $users = [];
+            foreach ($demandes as $demande){
+                $users[] = $demande->getUser();
+            }
             $action = 'frontController.php?action=demandesAccepted&controller=Proposition&id=' . $idProposition;
 
+            $privilege = 'Responsable';
             $parametres = [
                 'pagetitle' => 'demandes en attentes',
-                'cheminVueBody' => 'demande/listAccept.php',
-                'demandes' => $demandes,
-                'action' => $action
+                'cheminVueBody' => 'user/listPourAjouter.php',
+                'users' => $users,
+                'action' => $action,
+                'privilegeUser' => $privilege
             ];
             self::afficheVue('view.php', $parametres);
         }

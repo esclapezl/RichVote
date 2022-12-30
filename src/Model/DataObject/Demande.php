@@ -5,21 +5,21 @@ namespace App\Model\DataObject;
 class Demande
 {
     private string $role;
-    private string $idQuestion;
-    private string $idUser;
-    private ?string $idProposition;
+    private Question $question;
+    private User $user;
+    private ?Proposition $proposition;
 
     public function __construct(
         string $type,
-        string $idQuestion,
-        string $idDemandeur,
-        ?string $idProposition=null
+        Question $question,
+        User $user,
+        ?Proposition $proposition=null
     )
 {
     $this->role = $type;
-    $this->idQuestion=$idQuestion;
-    $this->idUser=$idDemandeur;
-    $this->idProposition=$idProposition;
+    $this->question=$question;
+    $this->user=$user;
+    $this->proposition=$proposition;
 }
 
     /**
@@ -33,25 +33,25 @@ class Demande
     /**
      * @return string
      */
-    public function getIdQuestion(): string
+    public function getQuestion(): Question
     {
-        return $this->idQuestion;
+        return $this->question;
     }
 
     /**
      * @return string
      */
-    public function getIdUser(): string
+    public function getUser(): User
     {
-        return $this->idUser;
+        return $this->user;
     }
 
     /**
      * @return string|null
      */
-    public function getIdProposition(): ?string
+    public function getProposition(): ?Proposition
     {
-        return $this->idProposition;
+        return $this->proposition;
     }
 
 }

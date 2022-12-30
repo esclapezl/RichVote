@@ -300,14 +300,7 @@ class ControllerUser extends GenericController
         $propositions = (new PropositionRepository())->selectAllfromResponsable($_GET['id']);
         $user = (new UserRepository())->select($_GET['id']);
 
-        $demandes = DemandeRepository::getDemandeUtilisateur($_GET['id']);
-        $demandesQuestions = [];
-        foreach($demandes as $demande){
-            $demandesQuestions[] = [
-                'demande' => $demande,
-                'question' => (new QuestionRepository())->select($demande->getIdQuestion())
-            ];
-        }
+        $demandes = DemandeRepository::getDemandeUtilisateur($user);
 
         $parametres = array(
             'pagetitle' => 'Détails user',
@@ -316,7 +309,7 @@ class ControllerUser extends GenericController
             'propositions' => $propositions,
             'questions' => $questions,
             'groupes' => $groupes,
-            'demandesQuestions' => $demandesQuestions
+            'demandes' => $demandes
         );
 
         self::afficheVue('view.php', $parametres);

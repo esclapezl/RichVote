@@ -10,7 +10,7 @@ use \App\Model\Repository\UserRepository;
 /** @var Question[] $questions
  * @var Proposition[] $propositions
  * @var Groupe[] $groupes
- * @var array $demandesQuestions
+ * @var array $demandes
  */
 $user = (new UserRepository())->select($_GET['id']);
 
@@ -170,10 +170,8 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                 echo '</ul>';
             }
             echo '<ul>';
-            foreach ($demandesQuestions as $ligne){
-                $demande = $ligne['demande'];
-                $question = $ligne['question'];
-                echo '<li>Demande pour être ' . $demande->getRole() . ' sur la question: ' . $question->getIntitule() . '</li>';
+            foreach ($demandes as $demande){
+                echo '<li>Demande à être ' . $demande->getRole() . ($demande->getProposition()!=null ? ' pour la proposition: ' . $demande->getProposition()->getIntitule() : '') . ' sur la question: ' . $demande->getQuestion()->getIntitule()  . '</li>';
             }
             echo '</ul>';
 
