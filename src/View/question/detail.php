@@ -101,7 +101,7 @@ switch ($typePrecisPhase) {
                         </div>
                             <div id="col">
                          
-                                <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=addVotantToQuestion&id=' . $question->getId() .'">Ajouter des votants</a>
+                                <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=addUsersToQuestion&id=' . $question->getId() .'">Ajouter des utilisateurs</a>
                                 <p id="petit">Il y a ' . sizeof($demandes) . ' demande(s) de vote(s)</p>
                                 <a class="optQuestion" id="askVotants" href=frontController.php?controller=question&action=readDemandeVote&id='.$question->getId().'> Voir les demandes de votes</a>
                         

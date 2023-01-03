@@ -217,7 +217,7 @@ class ControllerQuestion extends GenericController
         }
     }
 
-    public static function addVotantToQuestion(){
+    public static function addUsersToQuestion(){
         self::connexionRedirect('warning', 'Connectez-vous');
         $question = (new QuestionRepository())->select($_GET['id']);
         if($question->getIdOrganisateur() != ConnexionUtilisateur::getLoginUtilisateurConnecte()){
@@ -236,12 +236,10 @@ class ControllerQuestion extends GenericController
             }
             //retirer les membres qui sont deja votant
 
-            $action = 'frontController.php?controller=question&action=votantAdded&id=' . $idQuestion;
+            $role = isset($_GET['role'])?'&role='.$_GET['role']:'';
+            $action = 'frontController.php?controller=question&action=usersAdded&id=' . $idQuestion . $role;
 
-            $privilegeUser = '';
-            if(ConnexionUtilisateur::estConnecte()){
-                $privilegeUser = (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte());
-            }
+            $privilegeUser = (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte());
 
             $param = [
                 'question' => (new QuestionRepository())->select($idQuestion),
@@ -249,14 +247,14 @@ class ControllerQuestion extends GenericController
                 'action' => $action,
                 'privilegeUser' => $privilegeUser,
                 'pagetitle' => 'test',
-                'cheminVueBody' => '/user/listPourAjouter.php'
+                'cheminVueBody' => 'question/listPourAjouter.php'
             ];
 
             self::afficheVue('view.php', $param);
         }
     }
 
-    public static function votantAdded(){
+    public static function usersAdded(){
         self::connexionRedirect('warning', 'Connectez-vous');
         $question = (new QuestionRepository())->select($_GET['id']);
         if($question->getIdOrganisateur() != ConnexionUtilisateur::getLoginUtilisateurConnecte()){
@@ -266,13 +264,15 @@ class ControllerQuestion extends GenericController
         else {
             $idUsers = [];
             $idQuestion = $_GET['id'];
+            $role = $_GET['role'];
             if (isset($_POST['user'])) {
                 foreach ($_POST['user'] as $idUser) {
                     $idUsers[] = $idUser;
                 }
-                (new QuestionRepository())->addUsersQuestion($idUsers, $idQuestion);
+                (new QuestionRepository())->addUsersQuestion($idUsers, $idQuestion, $role);
+                MessageFlash::ajouter('success', 'Utilisateur(s) ajouté(s)!');
             }
-            self::readAll();
+            self::redirection('frontController.php?controller=question&action=read&id='.$idQuestion);
         }
     }
 
@@ -395,7 +395,7 @@ class ControllerQuestion extends GenericController
 
         $parametres = [
             'pagetitle' => 'demandes de votants',
-            'cheminVueBody' => 'user/listPourAjouter.php',
+            'cheminVueBody' => 'question/listPourAjouter.php',
             'users' => $users,
             'action' => $action,
             'privilegeUser' => 'Organisateur'
@@ -428,7 +428,7 @@ class ControllerQuestion extends GenericController
         self::read();
     }
 
-    public static function addGroupeRoleQuestion()
+    public static function addGroupesRoleQuestion()
     {
         self::connexionRedirect('warning', 'Connectez-vous');
 
@@ -444,7 +444,7 @@ class ControllerQuestion extends GenericController
 
         $param = [
             'pagetitle' => 'Ajouter groupes',
-            'cheminVueBody' => 'groupe/listPourAjouter.php',
+            'cheminVueBody' => 'question/listPourAjouter.php',
             'groupes' => $groupes,
             'action' => $action,
             'privilegeUser' => $privilegeUser
