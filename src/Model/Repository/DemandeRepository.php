@@ -2,85 +2,101 @@
 
 namespace App\Model\Repository;
 
+use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Demande;
 use App\Model\DataObject\Proposition;
 use App\Model\DataObject\Question;
-use App\Model\DataObject\User;
 
-class DemandeRepository
-{
-    public static function getDemandeVoteQuestion(Question $question):array{
-        $sql = "SELECT idUser FROM DemandeVotant WHERE idQuestion=:idQuestion";
+
+abstract class DemandeRepository{
+    protected abstract function getNomTable():string;
+    protected abstract function getNomClePrimaire():string;
+    public final function selectAllDemandeVoteQuestion(Question $question){
+        $nomTable = $this->getNomTable();
+        $sql = "SELECT * FROM $nomTable WHERE idQuestion=:idQuestion";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
         $idQuestion = $question->getId();
-        $pdoStatement->execute(['idQuestion' => $idQuestion]);
+        $clePrimaire = $this->getNomClePrimaire();
+
+        $param = [
+            'idQuestion' => $idQuestion
+        ];
+
+        $pdoStatement->execute($param);
 
         $result = [];
         foreach ($pdoStatement as $id) {
-            $user = (new UserRepository())->select($id['IDUSER']);
-            $result[] = new Demande('votant', $question, $user, null);
+            $demandeur = $this->constructDemandeur($id[strtoupper($clePrimaire)]);
+            $result[] = new Demande('votant', $question, $demandeur, null);
         }
         return $result;
     }
 
-    public static function getDemandeAuteurProposition(Proposition $proposition) : array{
-        $sql = "SELECT idUser FROM DEMANDEAUTEUR WHERE idProposition=:idProposition";
+    public final function selectAllDemandeAuteurProposition(Proposition $proposition) : array{
+        $sql = "SELECT * FROM :nomTable WHERE idProposition=:idProposition";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
-        $idproposition = $proposition->getId();
-        $pdoStatement->execute(['idProposition' => $idproposition]);
+        $idProposition = $proposition->getId();
+        $clePrimaire = $this->getNomClePrimaire();
+        $nomTable = $this->getNomTable();
 
-        $result = [];
-        foreach ($pdoStatement as $id) {
-            $user = (new UserRepository())->select($id['IDUSER']);
-            $question = (new QuestionRepository())->select($proposition->getIdQuestion());
-            $result[] = new Demande('auteur', $question, $user, $proposition);
-        }
-        return $result;
-    }
-
-    public static function sauvegarder(Demande $demande): bool{
-        $sql = "call sauvegarderDemande(:typeDemande, :idUser, :idQuestion, :idProposition)";
-        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
-
-        $idProposition = $demande->getProposition()!=null?$demande->getProposition()->getId():null;
-        $params = [
-            'typeDemande' => $demande->getRole(),
-            'idUser' => $demande->getUser()->getId(),
-            'idQuestion' => $demande->getQuestion()->getId(),
+        $param = [
+            'nomTable' => $nomTable,
             'idProposition' => $idProposition
         ];
 
-        return $pdoStatement->execute($params);
+        $pdoStatement->execute($param);
+
+        $result = [];
+        foreach ($pdoStatement as $id) {
+            $demandeur = $this->constructDemandeur($id[strtoupper($clePrimaire)]);
+            $question = (new QuestionRepository())->select($proposition->getIdQuestion());
+            $result[] = new Demande('auteur', $question, $demandeur, $proposition);
+        }
+        return $result;
     }
 
-    public static function getDemandeUtilisateur(User $user): array{
-        $sql = 'select * from view_demandes where idUser=:idUser';
-        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
-        $pdoStatement->execute(['idUser'=>$user->getId()]);
+    public abstract function sauvegarder(Demande $demande):bool;
 
+    public final function selectAllDemandeDemandeur(string $idDemandeur){
+        $nomTable = $this->getNomTable();
+        $sql = "select * from $nomTable where :clePrimaire=:idDemandeur";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        $param = [
+            'clePrimaire' => $this->getNomClePrimaire(),
+            'idDemandeur' => $idDemandeur
+        ];
+
+        $pdoStatement->execute($param);
+
+        $demandeur = $this->constructDemandeur($idDemandeur);
         $result = [];
         foreach ($pdoStatement as $tab){
             $question = (new QuestionRepository())->select($tab['IDQUESTION']);
             $proposition = isset($tab['IDPROPOSITION']) ? (new PropositionRepository())->select($tab['IDPROPOSITION']) : null;
-            $demande = new Demande($tab['ROLE'], $question, $user, $proposition);
+            $demande = new Demande($tab['ROLE'], $question, $demandeur, $proposition);
             $result[] = $demande;
         }
         return $result;
     }
 
-    public static function delete(Demande $demande){
-        $sql = 'delete from view_demandes where idUser=:idUser AND idQuestion=:idQuestion AND idProposition=:idProposition';
+    public final function delete(Demande $demande){
+        $nomTable = $this->getNomTable();
+        $sql = "delete from $nomTable where :clePrimaire=:idDemandeur AND idQuestion=:idQuestion AND idProposition=:idProposition";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
         $proposition = $demande->getProposition();
         $param=[
-            'idUser' => $demande->getUser()->getId(),
+            'clePrimaire' => $this->getNomClePrimaire(),
+            'idDemandeur' => $demande->getDemandeur()->getId(),
             'idQuestion' => $demande->getQuestion()->getId(),
             'idProposition' => $proposition!=null?$proposition->getId():null
         ];
 
         $pdoStatement->execute($param);
     }
+
+    public abstract function constructDemandeur(string $idDemandeur):AbstractDataObject;
 }

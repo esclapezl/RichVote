@@ -6,19 +6,19 @@ class Demande
 {
     private string $role;
     private Question $question;
-    private User $user;
+    private User|Groupe $demandeur;
     private ?Proposition $proposition;
 
     public function __construct(
         string $type,
         Question $question,
-        User $user,
+        User|Groupe $user,
         ?Proposition $proposition=null
     )
 {
     $this->role = $type;
     $this->question=$question;
-    $this->user=$user;
+    $this->demandeur=$user;
     $this->proposition=$proposition;
 }
 
@@ -41,9 +41,9 @@ class Demande
     /**
      * @return string
      */
-    public function getUser(): User
+    public function getDemandeur(): User|Groupe
     {
-        return $this->user;
+        return $this->demandeur;
     }
 
     /**

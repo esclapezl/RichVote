@@ -10,6 +10,19 @@ use App\Model\DataObject\User;
 
 class PropositionRepository extends AbstractRepository
 {
+    public static function voter(string $idProposition, string $idUser, int $score)
+    {
+        $sql = "CALL voter(:idUser, :idProposition, :score)";
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdoStatement = $pdo->prepare($sql);
+
+        $param = ['idUser' => $idUser,
+            'idProposition' => $idProposition,
+            'score' => $score];
+        $pdoStatement->execute($param);
+    }
+
     protected function getNomTable(): string
     {
         return 'SOUVIGNETN.PROPOSITIONS';

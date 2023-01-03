@@ -74,12 +74,12 @@ class ControllerVote extends GenericController
         self::connexionRedirect('warning', 'Connectez-vous pour voter');
         $user = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         if(isset($_POST['idPropositionPour'])){
-            VoteRepository::voter($_POST['idPropositionPour'], $user, 1);
+            PropositionRepository::voter($_POST['idPropositionPour'], $user, 1);
 
             MessageFlash::ajouter('success', 'Vous avez voté !');
         }
         else if(isset($_POST['idPropositionContre'])){
-            VoteRepository::voter($_POST['idPropositionContre'], $user, 0);
+            PropositionRepository::voter($_POST['idPropositionContre'], $user, 0);
 
             MessageFlash::ajouter('success', 'Vous avez voté !');
         }
@@ -93,7 +93,7 @@ class ControllerVote extends GenericController
         self::connexionRedirect('warning', 'Connectez-vous');
         $user = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         if(isset($_POST['idProposition'])){
-            VoteRepository::voter($_POST['idProposition'], $user, 1);
+            PropositionRepository::voter($_POST['idProposition'], $user, 1);
 
             MessageFlash::ajouter('success', 'Vous avez voté !');
         }

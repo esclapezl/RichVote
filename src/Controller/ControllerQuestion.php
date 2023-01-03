@@ -7,7 +7,7 @@ use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
-use App\Model\Repository\DemandeRepository;
+use App\Model\Repository\DemandeUserRepository;
 use App\Model\Repository\PhaseRepository;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
@@ -50,7 +50,7 @@ class ControllerQuestion extends GenericController
 
         $question = (new QuestionRepository())->select($idQuestion);
 
-        $demandes = DemandeRepository::getDemandeVoteQuestion($question);
+        $demandes = (new DemandeUserRepository)->selectAllDemandeVoteQuestion($question);
 
         $phases=(new PhaseRepository())->getPhasesIdQuestion($idQuestion);
 
@@ -384,7 +384,7 @@ class ControllerQuestion extends GenericController
             self::redirection('frontController.php?controller=question&action=read&id='.$question->getId());
         }
 
-        $demandes = DemandeRepository::getDemandeVoteQuestion($question);
+        $demandes = (new DemandeUserRepository)->selectAllDemandeVoteQuestion($question);
         $users = [];
         foreach ($demandes as $demande){
             if($demande->getRole()=='votant'){
@@ -419,7 +419,7 @@ class ControllerQuestion extends GenericController
         $role = $_GET['role'];
 
         $demande = new Demande($role, $question, (new UserRepository())->select($idUser));
-        if(DemandeRepository::sauvegarder($demande)){
+        if(DemandeUserRepository::sauvegarder($demande)){
             MessageFlash::ajouter('success', 'Votre demande a bien été enregistré');
         }
         else{
