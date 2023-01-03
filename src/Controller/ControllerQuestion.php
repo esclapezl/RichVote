@@ -3,19 +3,19 @@
 namespace App\Controller;
 
 use App\Lib\ConnexionUtilisateur;
+use App\Lib\MessageFlash;
 use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
 use App\Model\Repository\DemandeUserRepository;
+use App\Model\Repository\GroupeRepository;
 use App\Model\Repository\PhaseRepository;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\SectionRepository;
-use App\Lib\MessageFlash;
 use App\Model\Repository\UserRepository;
 use App\Model\Repository\VoteRepository;
-use http\Message;
 
 class ControllerQuestion extends GenericController
 {
@@ -426,5 +426,44 @@ class ControllerQuestion extends GenericController
             MessageFlash::ajouter('failure', 'Une erreur est survenu lors de l\'enregistrement de votre demande');
         }
         self::read();
+    }
+
+    public static function addGroupeRoleQuestion()
+    {
+        self::connexionRedirect('warning', 'Connectez-vous');
+
+        $question = (new QuestionRepository())->select($_GET['id']);
+        if(ConnexionUtilisateur::getLoginUtilisateurConnecte()!=$question->getIdOrganisateur()){
+            MessageFlash::ajouter('danger', 'Vous n\'êtes pas organisateur de cette question!');
+            self::redirection('frontController.php?controller=question&action=read&id=' . htmlspecialchars($question->getId()));
+        }
+        $role = $_GET['role'];
+        $groupes = (new GroupeRepository())->selectAll();
+        $action = 'frontController.php?controller=question&action=addedGroupeRoleQuestion&role=' . htmlspecialchars($role) . '&id=' . htmlspecialchars($question->getId());
+        $privilegeUser = 'Organisateur';
+
+        $param = [
+            'pagetitle' => 'Ajouter groupes',
+            'cheminVueBody' => 'groupe/listPourAjouter.php',
+            'groupes' => $groupes,
+            'action' => $action,
+            'privilegeUser' => $privilegeUser
+        ];
+        self::afficheVue('view.php', $param);
+    }
+
+    public static function addedGroupeRoleQuestion(){
+        self::connexionRedirect('warning', 'Connectez-vous');
+
+        $question = (new QuestionRepository())->select($_GET['id']);
+        if(ConnexionUtilisateur::getLoginUtilisateurConnecte()!=$question->getIdOrganisateur()){
+            MessageFlash::ajouter('danger', 'Vous n\'êtes pas organisateur de cette question!');
+            self::redirection('frontController.php?controller=question&action=read&id=' . htmlspecialchars($question->getId()));
+        }
+        $role = $_GET['role'];
+        $groupes = $_POST['groupe'];
+        (new QuestionRepository())->addGroupesQuestion($groupes, $question->getId(), $role);
+        MessageFlash::ajouter('succes', 'Les groupes ont bien été ajouté!');
+        self::redirection('frontController.php?controller=question&action=read&id='.$question->getId());
     }
 }
