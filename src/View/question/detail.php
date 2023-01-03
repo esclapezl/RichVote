@@ -55,8 +55,8 @@ switch ($typePrecisPhase) {
                             $typePrecisPhase = ucfirst($typePrecisPhase);
                             echo "<a href=frontController.php?controller=vote&action=voter$typePrecisPhase&idQuestion=$idQuestion><h2>Vote en cliquant ici</h2></a>";
                         }
-                        else if($roleQuestion==null  && $typePhase== 'Voter juste Ici'){
-                            echo "<a href=frontController.php?controller=vote&action=demandeAcces&idQuestion=". rawurlencode($idQuestion) .">
+                        else if($roleQuestion==null){
+                            echo "<a href=frontController.php?controller=question&action=demandeRoleQuestion&role=votant&id=". rawurlencode($idQuestion) .">
                                 <h2>Vous souhaitez voter?</h2></a>";
                         }
                         else if($question->getCurrentPhase()->getType()=="termine" || $question->getCurrentPhase()->getType()=="consultation"){
@@ -101,7 +101,7 @@ switch ($typePrecisPhase) {
                         </div>
                             <div id="col">
                          
-                                <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=addVotantToQuestion&id=' . $question->getId() .'">Ajouter des votants</a>
+                                <a class="optQuestion" id="addVotants" href="frontController.php?controller=question&action=addUsersToQuestion&id=' . $question->getId() .'">Ajouter des utilisateurs</a>
                                 <p id="petit">Il y a ' . sizeof($demandes) . ' demande(s) de vote(s)</p>
                                 <a class="optQuestion" id="askVotants" href=frontController.php?controller=question&action=readDemandeVote&id='.$question->getId().'> Voir les demandes de votes</a>
                         
@@ -112,8 +112,20 @@ switch ($typePrecisPhase) {
                 } else {
                     echo '<div class="ligneExt">
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
-                            <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats du Tirage</a>
+                            <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats de la précédente phase de vote</a>
                         </div>';
+
+                    $action = 'frontController.php?controller=question&action=demandeRoleQuestion&id='.$idQuestion;
+                    echo "<form method='get' action='$action'>
+                            <select name='role'>
+                                <option value='votant'>Devenir votant</option>
+                                <option value='responsable'>Devenir responsable</option>
+                            </select>
+                            <input type='hidden' name='controller' value='question'>
+                            <input type='hidden' name='action' value='demandeRoleQuestion'>
+                            <input type='hidden' name='id' value='$idQuestion'>
+                            <input type='submit' value='Demander'/>
+                          </form>";
                 }
 
 

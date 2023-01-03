@@ -3,15 +3,17 @@
 namespace App\Controller;
 
 use App\Lib\ConnexionUtilisateur;
+use App\Lib\MessageFlash;
+use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
-use App\Model\Repository\DemandeRepository;
+use App\Model\Repository\DemandeUserRepository;
+use App\Model\Repository\GroupeRepository;
 use App\Model\Repository\PhaseRepository;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\SectionRepository;
-use App\Lib\MessageFlash;
 use App\Model\Repository\UserRepository;
 use App\Model\Repository\VoteRepository;
 
@@ -48,7 +50,7 @@ class ControllerQuestion extends GenericController
 
         $question = (new QuestionRepository())->select($idQuestion);
 
-        $demandes = DemandeRepository::getDemandeVoteQuestion($question);
+        $demandes = (new DemandeUserRepository)->selectAllDemandeVoteQuestion($question);
 
         $phases=(new PhaseRepository())->getPhasesIdQuestion($idQuestion);
 
@@ -57,7 +59,7 @@ class ControllerQuestion extends GenericController
         if(ConnexionUtilisateur::estConnecte()) {
             $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
             $roleQuestion = (new UserRepository())->getRoleQuestion($idUser, $idQuestion);
-            $peutVoter = VoteRepository::peutVoter($idUser, $idQuestion);
+            $peutVoter = UserRepository::peutVoter($idUser, $idQuestion);
         }
 
         $parametres = array(
@@ -215,7 +217,7 @@ class ControllerQuestion extends GenericController
         }
     }
 
-    public static function addVotantToQuestion(){
+    public static function addUsersToQuestion(){
         self::connexionRedirect('warning', 'Connectez-vous');
         $question = (new QuestionRepository())->select($_GET['id']);
         if($question->getIdOrganisateur() != ConnexionUtilisateur::getLoginUtilisateurConnecte()){
@@ -234,12 +236,10 @@ class ControllerQuestion extends GenericController
             }
             //retirer les membres qui sont deja votant
 
-            $action = 'frontController.php?controller=question&action=votantAdded&id=' . $idQuestion;
+            $role = isset($_GET['role'])?'&role='.$_GET['role']:'';
+            $action = 'frontController.php?controller=question&action=usersAdded&id=' . $idQuestion . $role;
 
-            $privilegeUser = '';
-            if(ConnexionUtilisateur::estConnecte()){
-                $privilegeUser = (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte());
-            }
+            $privilegeUser = (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte());
 
             $param = [
                 'question' => (new QuestionRepository())->select($idQuestion),
@@ -247,14 +247,14 @@ class ControllerQuestion extends GenericController
                 'action' => $action,
                 'privilegeUser' => $privilegeUser,
                 'pagetitle' => 'test',
-                'cheminVueBody' => '/user/listPourAjouter.php'
+                'cheminVueBody' => 'question/listPourAjouter.php'
             ];
 
             self::afficheVue('view.php', $param);
         }
     }
 
-    public static function votantAdded(){
+    public static function usersAdded(){
         self::connexionRedirect('warning', 'Connectez-vous');
         $question = (new QuestionRepository())->select($_GET['id']);
         if($question->getIdOrganisateur() != ConnexionUtilisateur::getLoginUtilisateurConnecte()){
@@ -264,13 +264,15 @@ class ControllerQuestion extends GenericController
         else {
             $idUsers = [];
             $idQuestion = $_GET['id'];
+            $role = $_GET['role'];
             if (isset($_POST['user'])) {
                 foreach ($_POST['user'] as $idUser) {
                     $idUsers[] = $idUser;
                 }
-                (new QuestionRepository())->addUsersQuestion($idUsers, $idQuestion);
+                (new QuestionRepository())->addUsersQuestion($idUsers, $idQuestion, $role);
+                MessageFlash::ajouter('success', 'Utilisateur(s) ajouté(s)!');
             }
-            self::readAll();
+            self::redirection('frontController.php?controller=question&action=read&id='.$idQuestion);
         }
     }
 
@@ -373,17 +375,30 @@ class ControllerQuestion extends GenericController
     }
 
     public static function readDemandeVote() : void{
+        self::connexionRedirect('warning', 'Connectez-vous');
         $idQuestion = $_GET['id'];
 
         $question = (new QuestionRepository())->select($idQuestion);
-        $demandes = DemandeRepository::getDemandeVoteQuestion($question);
+        if($question->getIdOrganisateur()!=ConnexionUtilisateur::getLoginUtilisateurConnecte()){
+            MessageFlash::ajouter('danger', 'vous n\'etes pas autorisé à lire les demandes de vote');
+            self::redirection('frontController.php?controller=question&action=read&id='.$question->getId());
+        }
+
+        $demandes = (new DemandeUserRepository)->selectAllDemandeVoteQuestion($question);
+        $users = [];
+        foreach ($demandes as $demande){
+            if($demande->getRole()=='votant'){
+                $users[] = $demande->getUser();
+            }
+        }
         $action = 'frontController.php?action=demandesAccepted&controller=question&id=' . $idQuestion;
 
         $parametres = [
-            'pagetitle' => 'demandes en attentes',
-            'cheminVueBody' => 'demande/listAccept.php',
-            'demandes' => $demandes,
-            'action' => $action
+            'pagetitle' => 'demandes de votants',
+            'cheminVueBody' => 'question/listPourAjouter.php',
+            'users' => $users,
+            'action' => $action,
+            'privilegeUser' => 'Organisateur'
         ];
         self::afficheVue('view.php', $parametres);
     }
@@ -395,5 +410,60 @@ class ControllerQuestion extends GenericController
             $acceptees[] = $idUser;
         }
         (new QuestionRepository())->addUsersQuestion($acceptees, $idQuestion);
+    }
+
+    public static function demandeRoleQuestion(){
+        self::connexionRedirect('warning', 'Connectez-vous afin de pouvoir demander');
+        $question = (new QuestionRepository())->select($_GET['id']);
+        $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+        $role = $_GET['role'];
+
+        $demande = new Demande($role, $question, (new UserRepository())->select($idUser));
+        if(DemandeUserRepository::sauvegarder($demande)){
+            MessageFlash::ajouter('success', 'Votre demande a bien été enregistré');
+        }
+        else{
+            MessageFlash::ajouter('failure', 'Une erreur est survenu lors de l\'enregistrement de votre demande');
+        }
+        self::read();
+    }
+
+    public static function addGroupesRoleQuestion()
+    {
+        self::connexionRedirect('warning', 'Connectez-vous');
+
+        $question = (new QuestionRepository())->select($_GET['id']);
+        if(ConnexionUtilisateur::getLoginUtilisateurConnecte()!=$question->getIdOrganisateur()){
+            MessageFlash::ajouter('danger', 'Vous n\'êtes pas organisateur de cette question!');
+            self::redirection('frontController.php?controller=question&action=read&id=' . htmlspecialchars($question->getId()));
+        }
+        $role = $_GET['role'];
+        $groupes = (new GroupeRepository())->selectAll();
+        $action = 'frontController.php?controller=question&action=addedGroupeRoleQuestion&role=' . htmlspecialchars($role) . '&id=' . htmlspecialchars($question->getId());
+        $privilegeUser = 'Organisateur';
+
+        $param = [
+            'pagetitle' => 'Ajouter groupes',
+            'cheminVueBody' => 'question/listPourAjouter.php',
+            'groupes' => $groupes,
+            'action' => $action,
+            'privilegeUser' => $privilegeUser
+        ];
+        self::afficheVue('view.php', $param);
+    }
+
+    public static function addedGroupeRoleQuestion(){
+        self::connexionRedirect('warning', 'Connectez-vous');
+
+        $question = (new QuestionRepository())->select($_GET['id']);
+        if(ConnexionUtilisateur::getLoginUtilisateurConnecte()!=$question->getIdOrganisateur()){
+            MessageFlash::ajouter('danger', 'Vous n\'êtes pas organisateur de cette question!');
+            self::redirection('frontController.php?controller=question&action=read&id=' . htmlspecialchars($question->getId()));
+        }
+        $role = $_GET['role'];
+        $groupes = $_POST['groupe'];
+        (new QuestionRepository())->addGroupesQuestion($groupes, $question->getId(), $role);
+        MessageFlash::ajouter('succes', 'Les groupes ont bien été ajouté!');
+        self::redirection('frontController.php?controller=question&action=read&id='.$question->getId());
     }
 }

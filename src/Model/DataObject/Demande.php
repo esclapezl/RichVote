@@ -4,65 +4,54 @@ namespace App\Model\DataObject;
 
 class Demande
 {
-    private string $type;
-    private string $idQuestion;
-    private string $idDemandeur;
-    private string $idValideur;
-    private ?string $idProposition;
+    private string $role;
+    private Question $question;
+    private User|Groupe $demandeur;
+    private ?Proposition $proposition;
 
     public function __construct(
         string $type,
-        string $idQuestion,
-        string $idDemandeur,
-        string $idValideur,
-        ?string $idProposition
+        Question $question,
+        User|Groupe $user,
+        ?Proposition $proposition=null
     )
 {
-    $this->type = $type;
-    $this->idQuestion=$idQuestion;
-    $this->idDemandeur=$idDemandeur;
-    $this->idValideur=$idValideur;
-    $this->idProposition=$idProposition;
+    $this->role = $type;
+    $this->question=$question;
+    $this->demandeur=$user;
+    $this->proposition=$proposition;
 }
 
     /**
      * @return string
      */
-    public function getType(): string
+    public function getRole(): string
     {
-        return $this->type;
+        return $this->role;
     }
 
     /**
      * @return string
      */
-    public function getIdQuestion(): string
+    public function getQuestion(): Question
     {
-        return $this->idQuestion;
+        return $this->question;
     }
 
     /**
      * @return string
      */
-    public function getIdDemandeur(): string
+    public function getDemandeur(): User|Groupe
     {
-        return $this->idDemandeur;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIdValideur(): string
-    {
-        return $this->idValideur;
+        return $this->demandeur;
     }
 
     /**
      * @return string|null
      */
-    public function getIdProposition(): ?string
+    public function getProposition(): ?Proposition
     {
-        return $this->idProposition;
+        return $this->proposition;
     }
 
 }

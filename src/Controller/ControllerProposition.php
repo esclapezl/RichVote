@@ -6,9 +6,10 @@ use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
 use App\Model\DataObject\Demande;
 use App\Model\DataObject\Proposition;
+use App\Model\DataObject\Question;
 use App\Model\Repository\CommentaireRepository;
 use App\Model\Repository\DatabaseConnection;
-use App\Model\Repository\DemandeRepository;
+use App\Model\Repository\DemandeUserRepository;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\UserRepository;
@@ -231,9 +232,11 @@ class ControllerProposition extends GenericController
         $idProposition =$_GET['id'];
 
         $proposition = (new PropositionRepository())->select($idProposition);
-        $demande = new Demande('auteur', $proposition->getIdQuestion(), $idUser, $proposition->getIdResponsable(), $idProposition);
+        $question = (new QuestionRepository())->select($proposition->getIdQuestion());
+        $user = (new UserRepository())->select($idUser);
+        $demande = new Demande('auteur', $question, $user, $proposition);
 
-        DemandeRepository::sauvegarder($demande);
+        DemandeUserRepository::sauvegarder($demande);
 
         MessageFlash::ajouter('success', 'Demande effectuée');
         ControllerQuestion::readAll();
@@ -245,14 +248,20 @@ class ControllerProposition extends GenericController
 
         $proposition = (new PropositionRepository())->select($idProposition);
         if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()){
-            $demandes = DemandeRepository::getDemandeAuteurProposition($proposition);
+            $demandes = DemandeUserRepository::selectAllDemandeAuteurProposition($proposition);
+            $users = [];
+            foreach ($demandes as $demande){
+                $users[] = $demande->getUser();
+            }
             $action = 'frontController.php?action=demandesAccepted&controller=Proposition&id=' . $idProposition;
 
+            $privilege = 'Responsable';
             $parametres = [
                 'pagetitle' => 'demandes en attentes',
-                'cheminVueBody' => 'demande/listAccept.php',
-                'demandes' => $demandes,
-                'action' => $action
+                'cheminVueBody' => 'user/listPourAjouter.php',
+                'users' => $users,
+                'action' => $action,
+                'privilegeUser' => $privilege
             ];
             self::afficheVue('view.php', $parametres);
         }
@@ -268,11 +277,18 @@ class ControllerProposition extends GenericController
         $idProposition = $_GET['id'];
         $proposition = (new PropositionRepository())->select($idProposition);
         if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()) {
+            $demandesProposition = (new DemandeUserRepository)->selectAllDemandeAuteurProposition($proposition);
             $acceptees = [];
             foreach ($_POST['user'] as $idUser) {
                 $acceptees[] = $idUser;
             }
+            foreach($demandesProposition as $demande){
+                if(in_array($demande->getUser()->getId(), $acceptees)){
+                    DemandeUserRepository::delete($demande);
+                }
+            }
             (new PropositionRepository())->addAuteursProposition($acceptees, $proposition);
+
             MessageFlash::ajouter('success', 'Toutes les demandes ont été acceptées');
         }
         else{

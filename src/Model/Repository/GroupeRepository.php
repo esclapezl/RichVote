@@ -4,6 +4,7 @@ namespace App\Model\Repository;
 
 use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Groupe;
+use Couchbase\Group;
 
 class GroupeRepository extends AbstractRepository
 {
@@ -62,15 +63,17 @@ class GroupeRepository extends AbstractRepository
         return $result;
     }
 
-    public function getNomGroupes(string $idMembre) : array{
-        $sql = 'SELECT nomGroupe FROM AppartientGroupe WHERE idUser=:idMembre';
+    public static function selectAllGroupeIdUser(string $idUser) : array{
+        $sql = 'SELECT nomGroupe from AppartientGroupe WHERE idUser=:idUser';
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $param = ['idUser' => $idUser];
+        $pdoStatement->execute($param);
 
-        $pdoStatement->execute(['idMembre'=>$idMembre]);
         $result = [];
-        foreach ($pdoStatement as $nomGroupe){
-            $result[] = $nomGroupe['NOMGROUPE'];
+        foreach ($pdoStatement as $tab){
+            $result[] = (new GroupeRepository())->select($tab['NOMGROUPE']);
         }
+
         return $result;
     }
 

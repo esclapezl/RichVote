@@ -7,9 +7,11 @@ use App\Model\DataObject\User;
 use App\Lib\ConnexionUtilisateur;
 use \App\Model\Repository\UserRepository;
 
-/** @var Question[] $questions*/
-/** @var Proposition[] $propositions*/
-/** @var Groupe[] $groupes*/
+/** @var Question[] $questions
+ * @var Proposition[] $propositions
+ * @var Groupe[] $groupes
+ * @var array $demandes
+ */
 $user = (new UserRepository())->select($_GET['id']);
 
 $bool =false;
@@ -107,8 +109,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
             else{
                 echo "<h3>" .htmlspecialchars(ucfirst($user->getId()))." fait parti des groupes suivants :</h3>";
                 foreach ($groupes as $groupe){
-                    echo /*'<a href="frontController.php?controller=groupe&action=read&id=' . rawurlencode($groupe->getId()).'">'.
- */'<a id="grp" href="frontController.php?controller=groupe&action=read&nomGroupe='.rawurldecode($groupe).'"> -' . htmlspecialchars($groupe).'</a>';
+                    echo '<a id="grp" href="frontController.php?controller=groupe&action=read&nomGroupe='.rawurldecode($groupe->getId()).'"> -' . htmlspecialchars($groupe->getId()).'</a>';
                 }
 
             }
@@ -167,6 +168,11 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                     }
                 echo '</ul>';
             }
+            echo '<ul>';
+            foreach ($demandes as $demande){
+                echo '<li>Demande à être ' . $demande->getRole() . ($demande->getProposition()!=null ? ' pour la proposition: ' . $demande->getProposition()->getIntitule() : '') . ' sur la question: ' . $demande->getQuestion()->getIntitule()  . '</li>';
+            }
+            echo '</ul>';
 
 
 

@@ -6,17 +6,12 @@ use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
 use App\Lib\MotDePasse;
 use App\Lib\VerificationEmail;
-use App\Model\DataObject\Commentaire;
 use App\Model\DataObject\User;
-use App\Model\HTTP\Cookie;
+use App\Model\Repository\DemandeUserRepository;
 use App\Model\Repository\GroupeRepository;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
-use App\Model\Repository\CommentaireRepository;
 use App\Model\Repository\UserRepository;
-use App\Model\Repository\DatabaseConnection;
-use App\Model\HTTP\Session;
-use Couchbase\Group;
 
 
 class ControllerUser extends GenericController
@@ -294,12 +289,13 @@ class ControllerUser extends GenericController
 
     public static function read():void
     {
-        $groupes = (new GroupeRepository())->getNomGroupes($_GET['id']);
+        self::connexionRedirect('warning', 'Connectez-vos');
+        $groupes = GroupeRepository::selectAllGroupeIdUser($_GET['id']);
         $questions = (new QuestionRepository())->selectAllfromOrganisateur($_GET['id']);
         $propositions = (new PropositionRepository())->selectAllfromResponsable($_GET['id']);
         $user = (new UserRepository())->select($_GET['id']);
 
-
+        $demandes = (new DemandeUserRepository)->selectAllDemandeDemandeur($_GET['id']);
 
         $parametres = array(
             'pagetitle' => 'Détails user',
@@ -307,7 +303,8 @@ class ControllerUser extends GenericController
             'user' => $user,
             'propositions' => $propositions,
             'questions' => $questions,
-            'groupes' => $groupes
+            'groupes' => $groupes,
+            'demandes' => $demandes
         );
 
         self::afficheVue('view.php', $parametres);

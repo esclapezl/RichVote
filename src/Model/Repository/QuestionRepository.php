@@ -95,13 +95,28 @@ class QuestionRepository extends AbstractRepository
         }
     }
 
-    public function addUsersQuestion(array $users, string $idQuestion){
-        $sql = "CALL setRoleQuestion(:idUser, 'votant', :idQuestion)";
+    public function addUsersQuestion(array $users, string $idQuestion, string $role){
+        $sql = "CALL setRoleQuestion(:idUser, :role, :idQuestion)";
         $pdo = DatabaseConnection::getInstance()::getPdo();
         $pdoStatement = $pdo->prepare($sql);
         foreach ($users as $idUser){
             $param = [
                 'idUser' => $idUser,
+                'idQuestion' => $idQuestion,
+                'role' => $role
+            ];
+            $pdoStatement->execute($param);
+        }
+    }
+
+    public function addGroupesQuestion(array $idGroupes, string $idQuestion, string $role){
+        $sql = 'CALL setRoleQuestionGroupe(:idGroupe, :role, :idQuestion)';
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+        foreach ($idGroupes as $id){
+            $param = [
+                'idGroupe' => $id,
+                'role' => $role,
                 'idQuestion' => $idQuestion
             ];
             $pdoStatement->execute($param);
