@@ -75,7 +75,6 @@ class ControllerQuestion extends GenericController
         self::afficheVue('view.php', $parametres);
     }
 
-
     public static function create() : void
     {
         self::connexionRedirect('warning', 'Connectez-vous');
@@ -299,7 +298,6 @@ class ControllerQuestion extends GenericController
         self::afficheVue('view.php', $param);
     }
 
-
     public static function readResult() : void
     {
         self::connexionRedirect('warning', 'Veuillez vous connecter pour accéder aux résultats');
@@ -354,7 +352,6 @@ class ControllerQuestion extends GenericController
 
         self::afficheVue('view.php', $parametres);
     }
-
 
     public static function debutPhase() : void
     {
