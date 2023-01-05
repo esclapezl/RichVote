@@ -33,6 +33,28 @@ abstract class DemandeRepository{
         return $result;
     }
 
+    public final function selectAllDemandeQuestion($question){
+        $nomTable = $this->getNomTable();
+        $sql = "SELECT * FROM $nomTable WHERE idQuestion=:idQuestion AND idProposition IS NULL";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        $idQuestion = $question->getId();
+        $clePrimaire = $this->getNomClePrimaire();
+
+        $param = [
+            'idQuestion' => $idQuestion
+        ];
+
+        $pdoStatement->execute($param);
+
+        $result = [];
+        foreach ($pdoStatement as $tab) {
+            $demandeur = $this->constructDemandeur($tab[strtoupper($clePrimaire)]);
+            $result[] = new Demande($tab['ROLE'], $question, $demandeur, null);
+        }
+        return $result;
+    }
+
     public final function selectAllDemandeAuteurProposition(Proposition $proposition) : array{
         $sql = "SELECT * FROM :nomTable WHERE idProposition=:idProposition";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
@@ -84,16 +106,21 @@ abstract class DemandeRepository{
 
     public final function delete(Demande $demande){
         $nomTable = $this->getNomTable();
-        $sql = "delete from $nomTable where :clePrimaire=:idDemandeur AND idQuestion=:idQuestion AND idProposition=:idProposition";
-        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $clePrimaire = $this->getNomClePrimaire();
 
-        $proposition = $demande->getProposition();
         $param=[
-            'clePrimaire' => $this->getNomClePrimaire(),
             'idDemandeur' => $demande->getDemandeur()->getId(),
             'idQuestion' => $demande->getQuestion()->getId(),
-            'idProposition' => $proposition!=null?$proposition->getId():null
+            'role' => $demande->getRole()
         ];
+        if($demande->getProposition()!=null){
+            $param['idProposition'] = $demande->getProposition()->getId();
+            $sql = "delete from $nomTable where $clePrimaire=:idDemandeur AND idQuestion=:idQuestion AND role=:role AND idProposition=:idProposition";
+        }
+        else{
+            $sql = "delete from $nomTable where $clePrimaire=:idDemandeur AND idQuestion=:idQuestion AND role=:role";
+        }
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
         $pdoStatement->execute($param);
     }
