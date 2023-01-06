@@ -217,6 +217,52 @@ class ControllerQuestion extends GenericController
         }
     }
 
+    public static function OrganisateursAdded(){
+        self::connexionRedirect('warning', 'Connectez-vous');
+        if((new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte()) != "administrateur"){
+            MessageFlash::ajouter('warning', 'Vous n\'avez pas les droits');
+            self::readAll();
+        }
+        else{
+            $idUsers = [];
+            var_dump($_GET);
+
+            if (isset($_POST['user'])) {
+                foreach ($_POST['user'] as $idUser) {
+                    $idUsers[] = $idUser;
+                }
+                (new QuestionRepository())->addOrganisateurs($idUsers);
+                MessageFlash::ajouter('success', 'Utilisateur(s) ajouté(s)!');
+            }
+        }
+        self::redirection('frontController.php?controller=question&action=readAll');
+    }
+
+    public static function addOrganisateurs(){
+        self::connexionRedirect('warning', 'Connectez-vous');
+
+        if((new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte()) != "administrateur"){
+            MessageFlash::ajouter('warning', 'Vous n\'avez pas les droits');
+            self::readAll();
+        }
+        else{
+            if (isset($_POST['title']) AND !empty($_POST['title'])){
+                $recherche= strtolower(htmlspecialchars($_POST['title']));
+                $arrayUser = (new UserRepository())->search($recherche);
+            }
+            else{
+                $arrayUser = (new UserRepository())->selectAllValide();
+            }
+
+            $parametres = array(
+                'pagetitle' => 'Ajout Organisateurs',
+                'cheminVueBody' => 'question/listAjoutOrganisateurs.php',
+                'users' => $arrayUser
+            );
+            self::afficheVue('view.php', $parametres);
+        }
+    }
+
     public static function addUsersToQuestion(){
         self::connexionRedirect('warning', 'Connectez-vous');
         $question = (new QuestionRepository())->select($_GET['id']);

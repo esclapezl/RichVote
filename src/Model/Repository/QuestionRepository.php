@@ -95,6 +95,19 @@ class QuestionRepository extends AbstractRepository
         }
     }
 
+    public function addOrganisateurs(array $users){
+        $sql = 'UPDATE SOUVIGNETN.users SET "role"=:role WHERE "idUser"=:idUser';
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+        foreach ($users as $idUser){
+            $param = [
+                'idUser' => $idUser,
+                'role' => 'organisateur'
+            ];
+            $pdoStatement->execute($param);
+        }
+    }
+
     public function addUsersQuestion(array $users, string $idQuestion, string $role){
         $sql = "CALL setRoleQuestion(:idUser, :role, :idQuestion)";
         $pdo = DatabaseConnection::getInstance()::getPdo();

@@ -36,6 +36,9 @@ use App\Model\Repository\UserRepository;
                 {
                     echo '<a class="optQuestion" href = "frontController.php?controller=question&action=create" > Créer une Question </a >';
                 }
+                else if((new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte()) == "administrateur"){
+                    echo '<a class="optQuestion" href = "frontController.php?controller=question&action=addOrganisateurs" > Ajouter des organisateurs </a >';
+            }
             }
             ?>
 <!--            <button class="opt">Trier Par</button>-->
