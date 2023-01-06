@@ -12,14 +12,14 @@ use App\Lib\ConnexionUtilisateur;
         <?php
         if((new ConnexionUtilisateur())->estAdministrateur())
         {
-            echo '<form method="post" action="frontController.php?controller=user&action=deleted&id='.$user->getId().'">
+            echo '<form method="post" id="formConnect" action="frontController.php?controller=user&action=deleted&id='.$user->getId().'">
            <div class="ligneExt"><div class="ligne"></div></div>
             <div class="ligneCent"> <input class="optQuestion" type="submit" value="Supprimer"/></div>
         </form>';
         }
         else
         {
-            echo '<form method="post" action="frontController.php?controller=user&action=deleted&id='.$user->getId().'">
+            echo '<form method="post" id="formConnect" action="frontController.php?controller=user&action=deleted&id='.$user->getId().'">
            <div class="ligneExt"><div class="ligne"></div></div>
             <div class="descG"></div>
             <p>

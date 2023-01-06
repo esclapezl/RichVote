@@ -187,7 +187,8 @@ switch ($typePrecisPhase) {
                         <p>' .$question->getDescription() . '</p><div class="descG"></div>';
         foreach ($question->getSections() as $section) {
             echo '<div class="ligneExt"><h3>' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
-            echo "<div class='ligne'></div> " . $section->getDescription() . "<br>";
+            echo "<div class='ligne'></div> " . $section->getDescription();
+            echo "<br>";
         }
         }
             else{

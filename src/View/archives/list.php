@@ -9,7 +9,7 @@ use App\Model\DataObject\Question;
 ?>
 <div class="block">
     <div class="text-box">
-        <div class="ligneExt"> <h1>Résultats publiés :</h1>
+        <div class="ligneExt"> <h1>Questions archivées :</h1>
 
             <?php
             if(ConnexionUtilisateur::estConnecte()){
@@ -20,8 +20,9 @@ use App\Model\DataObject\Question;
         <form class="ligneAlign" method="post" action="frontController.php?controller=question&action=readAllArchives">
                 <input type="search" class="opt" name="title" id="title" placeholder="Rechercher une Question archivée">
                 <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
-                <a href="frontController.php?controller=question&action=readAllResult" id="refresh"><img src="../assets/img/icon-refresh.svg"></a>
-            </form></div>
+                <a href="frontController.php?controller=question&action=readAllArchives" id="refresh"><img src="../assets/img/icon-refresh.svg"></a>
+            </form>
+            <h3>Résultats</h3></div>
  <ul>';
 
             if(empty($questions)){
@@ -34,26 +35,28 @@ use App\Model\DataObject\Question;
                     echo '
                 <div class="ligneExt">
         <li class="ligneExt">
-            <div>
-            <a href=frontController.php?controller=question&action=read&id=' . rawurlencode($question->getId()).'>
-                <div class="atxt">' .ucfirst(htmlspecialchars($question->getIntitule())).'</div>
-                <div class="descP"></div>
-                <p>'. htmlspecialchars($question->getApercuDescription()).'</p>
-                <p id="date">Du '. htmlspecialchars($question->dateToString($question->getDateCreation())) .' au ' .
+                            <div>
+                                <a href=frontController.php?controller=question&action=read&id=' . rawurlencode($question->getId()).'>
+                                    <div class="atxt">' .ucfirst(htmlspecialchars($question->getIntitule())).'</div>
+                                    <div class="descP"></div>
+                                    <p>'. htmlspecialchars($question->getApercuDescription()).'</p>
+                                    <p id="date">Du '. htmlspecialchars($question->dateToString($question->getDateCreation())) .' au ' .
                         htmlspecialchars($question->dateToString($question->getDateFermeture())) .'</p>
-            </a>
-           </div>
-            <div>
-            <a class="abis" href=frontController.php?controller=user&action=read&id=' .
+                                </a>
+                            </div>
+                            <div>
+                                <a class="abis" href=frontController.php?controller=user&action=read&id=' .
                         $question->getIdOrganisateur() . '>Organisateur<strong>' . $question->getIdOrganisateur() . '</strong>
-            </a>
-            </div>
-            </li>
+                                </a>
+                            </div>
+                        </li>
            
-            <a class="liste" href=frontController.php?controller=vote&action=' . rawurlencode($question->getCurrentPhase()->getType()) . '><h2>|----| 100%</h2></a>
+            <a class="liste" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '><h2><img src="../assets/img/icon-vote.png"></h2></a>
         
-            </div></ul>';
-                }};
+            </div>';
+                }
+                echo '</ul>';
+            }
             }
             else{
                 echo "<h3 class='responsive'>Vous n'êtes pas connecté</h3></div><div class='ligneExt'><div class='ligne'></div><div class='ligne'></div></div>

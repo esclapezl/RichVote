@@ -815,7 +815,7 @@ fieldset{
     width: 100%;
 
 }
-.block .text-box form#formConnect{
+#formConnect{
     align-content: center;
     text-align: center;
 }

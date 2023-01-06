@@ -1,6 +1,6 @@
 <div class="block">
     <div class="text-box">
-        <form method="post" action="frontController.php?controller=user&action=emailRecup">
+        <form method="post" id='formConnect' action="frontController.php?controller=user&action=emailRecup">
             <div class="ligneExt"> <h1>Récupération du mot de passe :</h1></div>
             <div class="ligneExt"><div class="ligne"></div></div>
 

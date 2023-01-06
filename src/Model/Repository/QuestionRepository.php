@@ -95,6 +95,20 @@ class QuestionRepository extends AbstractRepository
         }
     }
 
+    public function searchClosed(string $recherche): array{
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdoStatement = $pdo->query(
+            "SELECT * FROM SOUVIGNETN.QUESTIONS WHERE to_date(datefermeture, 'DD/MM/YY') <= SYSDATE AND LOWER(". $this->getIntitule() .") LIKE '%".$recherche."%' ORDER BY ". $this->getIntitule(). " DESC");
+
+        $tabRepo = array();
+        foreach($pdoStatement as $objetFormatTab){
+            $tabRepo[] = $this->construire($objetFormatTab);
+        }
+
+        return $tabRepo;
+    }
+
     public function addOrganisateurs(array $users){
         $sql = 'UPDATE SOUVIGNETN.users SET "role"=:role WHERE "idUser"=:idUser';
         $pdo = DatabaseConnection::getInstance()::getPdo();
@@ -162,7 +176,7 @@ class QuestionRepository extends AbstractRepository
 
     public function selectAllClosed(): array
     {
-        $sql = "SELECT * FROM QUESTIONS q WHERE to_date(datefermeture, 'DD/MM/YY') <= SYSDATE";
+        $sql = "SELECT * FROM QUESTIONS q WHERE to_date(datefermeture, 'DD/MM/YY') <= SYSDATE ORDER BY to_date(datefermeture, 'DD/MM/YY')";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->query($sql);
 
         $questions = [];

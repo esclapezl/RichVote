@@ -17,11 +17,11 @@ if($userRepository->selectMdpHache($_GET['id']) != null) $mdpOublie=true;
         <?php
         if (!$mdpOublie)
         {
-            echo    '<form method="post" action="frontController.php?controller=user&action=updated&id='.$user->getId().'">';
+            echo    '<form method="post" id="formConnect" action="frontController.php?controller=user&action=updated&id='.$user->getId().'">';
         }
         else
         {
-            echo    '<form method="post" action="frontController.php?controller=user&action=updatedMdpOublie&id='.$_GET['id'].'">';
+            echo    '<form method="post" id="formConnect" action="frontController.php?controller=user&action=updatedMdpOublie&id='.$_GET['id'].'">';
         }
         ?>
 

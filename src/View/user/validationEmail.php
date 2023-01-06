@@ -9,7 +9,7 @@ if(!isset($idUser))
 <div class="block">
     <div class="text-box">
         <div class="ligneExt"> <h1>Validation de l'email :</h1></div>
-        <form method="post" action="frontController.php?controller=user&action=userValide&idUser=<?=$idUser?>">
+        <form method="post" id="formConnect" action="frontController.php?controller=user&action=userValide&idUser=<?=$idUser?>">
             <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
             <div class="descG"></div>
             <h3>Code de verification :</h3>

@@ -327,7 +327,7 @@ class ControllerQuestion extends GenericController
     public static function readAllArchives(){
         if (isset($_POST['title']) AND !empty($_POST['title'])){
             $recherche= strtolower(htmlspecialchars($_POST['title']));
-            $questions = (new QuestionRepository)->search($recherche);
+            $questions = (new QuestionRepository)->searchClosed($recherche);
         }
         else{
             $questions = (new QuestionRepository())->selectAllClosed();

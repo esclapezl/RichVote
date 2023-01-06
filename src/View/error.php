@@ -5,10 +5,12 @@
  */
 ?>
 <div class="block">
-    <div class="text-box">
-        <h1><?=$code?>></h1>
-        <p><?=$message?>/p>
-        <div class="descG"></div>
-        <p><img src="../assets/img/logo.png" alt="RichVote" id="logo"></p>
+    <div class="text-box" id="formConnect">
+        <img src="../assets/img/logo.png" alt="RichVote" id="logo">
+        <h1><?=$code?></h1>
+        <br>
+        <p><?=$message?></p>
+        <br>
+
     </div>
 </div>
