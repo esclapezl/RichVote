@@ -812,13 +812,18 @@ fieldset{
     align-content: center;
     text-align: center;
 }*/
-.block .text-box form input[type=text],
+.block .text-box form fieldset input[type=text],
 .block .text-box form input[type=number],
 .block .text-box form input[type=date],
 .block .text-box form #selectwidth{
     width: 100%;
 
 }
+.block .text-box form#formConnect{
+    align-content: center;
+    text-align: center;
+}
+
 
 .block .text-box form h3{
     margin-bottom: 5px;
@@ -1037,7 +1042,7 @@ a h2,
 
 .block .text-box a h2.active,
 .block .text-box a h2:hover {
-    background: #7061d0;
+    background: rgba(0,0,0,0.2);
 }
 
 

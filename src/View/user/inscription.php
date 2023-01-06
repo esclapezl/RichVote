@@ -1,6 +1,6 @@
 <div class="block">
     <div class="text-box">
-        <form action="frontController.php?controller=user&action=inscrit" method="post">
+        <form id="formConnect" action="frontController.php?controller=user&action=inscrit" method="post">
             <div class="ligneExt"> <h1>Inscription :</h1> <div>Vous êtes déjà inscrit ?<h3><a href="frontController.php?controller=user&action=connexion">Connectez-vous</a></h3></div></div>
             <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
             <p>
