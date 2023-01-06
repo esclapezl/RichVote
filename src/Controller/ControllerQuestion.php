@@ -299,7 +299,6 @@ class ControllerQuestion extends GenericController
         self::afficheVue('view.php', $param);
     }
 
-
     public static function readResult() : void
     {
         self::connexionRedirect('warning', 'Veuillez vous connecter pour accéder aux résultats');
@@ -355,7 +354,6 @@ class ControllerQuestion extends GenericController
         self::afficheVue('view.php', $parametres);
     }
 
-
     public static function debutPhase() : void
     {
         $idQuestion = $_GET['id'];
@@ -384,19 +382,14 @@ class ControllerQuestion extends GenericController
             self::redirection('frontController.php?controller=question&action=read&id='.$question->getId());
         }
 
-        $demandes = (new DemandeUserRepository())->selectAllDemandeVoteQuestion($question);
-        $users = [];
-        foreach ($demandes as $demande){
-            if($demande->getRole()=='votant'){
-                $users[] = $demande->getDemandeur();
-            }
-        }
+        $demandes = (new DemandeUserRepository)->selectAllDemandeQuestion($question);
+
         $action = 'frontController.php?action=demandesAccepted&controller=question&id=' . $idQuestion;
 
         $parametres = [
             'pagetitle' => 'demandes de votants',
-            'cheminVueBody' => 'question/listPourAjouter.php',
-            'users' => $users,
+            'cheminVueBody' => 'gestionRoles/readDemandes.php',
+            'demandes' => $demandes,
             'action' => $action,
             'privilegeUser' => 'Organisateur'
         ];
@@ -405,11 +398,24 @@ class ControllerQuestion extends GenericController
 
     public static function demandesAccepted(){
         $idQuestion = $_GET['id'];
-        $acceptees = [];
+        $question = (new QuestionRepository())->select($idQuestion);
+        $accepteResponsable = [];
+        $accepteVotant = [];
         foreach ($_POST['user'] as $idUser) {
-            $acceptees[] = $idUser;
+            $role = $_POST['role'][$idUser];
+            $demande = new Demande($role, $question, (new UserRepository())->select($idUser));
+            (new DemandeUserRepository())->delete($demande);
+            if($role=='votant'){
+                $accepteVotant[] = $idUser;
+            }
+            elseif ($role=='responsable'){
+                $accepteResponsable[] = $idUser;
+            }
         }
-        (new QuestionRepository())->addUsersQuestion($acceptees, $idQuestion);
+        (new QuestionRepository())->addUsersQuestion($accepteVotant, $idQuestion, 'votant');
+        (new QuestionRepository())->addUsersQuestion($accepteResponsable, $idQuestion, 'responsable');
+        MessageFlash::ajouter('success', 'Utilisateurs correctement ajoutés!');
+        self::redirection('frontController.php?controller=question&action=read&id='.$idQuestion);
     }
 
     public static function demandeRoleQuestion(){

@@ -46,19 +46,19 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
     </form>
     <div><h3>Rôle</h3>
         <form method='get' action='<?=$url?>'>
-            <select name='role' onchange="this.form.submit();">
-                <option value='votant' <?=$role=='votant'?'selected':''?>>Ajouter des votants</option>
-                <option value='responsable' <?=$role=='responsable'?'selected':''?>>Ajouter des responsables</option>
+            <label for="r">Ajouter des </label>
+            <select name='role' id="r" onchange="this.form.submit();">
+                <option value='votant' <?=$role=='votant'?'selected':''?>>votants</option>
+                <option value='responsable' <?=$role=='responsable'?'selected':''?>>responsables</option>
             </select>
             <input type='hidden' name='controller' value='question'>
             <input type="hidden" name="action" value="<?=$controller=='user'?'addUsersToQuestion':'addGroupesRoleQuestion'?>">
-            <input type="submit" name="action" value="<?=$controller!='user'?'addUsersToQuestion':'addGroupesRoleQuestion'?>">
+            <button type="submit" name="action" value="<?=$controller!='user'?'addUsersToQuestion':'addGroupesRoleQuestion'?>">S'occuper des <?=$controller=='user'?'groupes':'utilisateurs'?></button>
             <input type='hidden' name='id' value='<?=$_GET['id']?>'>
         </form>
     </div>
     <h3>Ajouter</h3>
 </div>
-<ul>
     <?php
     if ((isset($users) && empty($users)) || (isset($groupes) && empty($groupes))){
         echo "<div class='descG'></div><div class='ligneCent'><h3> Il n'y a rien </h3></div>
@@ -66,7 +66,7 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
                     <a href=frontController.php?controller=$controller&action=readAllSelect>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
     }
     else {
-        echo "<form method='post' action='$action'>";
+        echo "<form method='post' action='$action'><ul>";
 
         if($controller=='user') {
             liste::users($users);
@@ -74,10 +74,9 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
         else {
             liste::groupes($groupes);
         }
-        echo '<div class="descG"></div> <div class="ligneCent"> <input type="submit" value="Ajouter les ' . $controller .'s selectionnés" class="optQuestion"></div></form>';
+        echo '</ul> <div class="ligneCent"> <input type="submit" value="Ajouter les ' . $controller .'s selectionnés" class="optQuestion"></div></form>';
     }
     ?>
-</ul>
 </div>
 </div>
 
@@ -92,11 +91,14 @@ class liste{
 
             echo "<div class='ligneExt'>
 
-                            <li class='ligneExt'> <a href='frontController.php?controller=user&action=read&id=$idUser'> $htmlId</a> <span> $prenom $nom </span></span></li>
-                            <label for='checkbox' class='checkbox'> 
-                                <input type='checkbox' id='cb[$idUser]' name='user[$idUser]' value='$idUser'>
+                            <li class='ligneExt'>
+                            <label for='cb[$idUser]' class='checkbox'>
+                                <a href='frontController.php?controller=user&action=read&id=$idUser'> $htmlId </a> 
+                                <span> ($prenom $nom) </span>
                             </label>
-                          </div>";
+                            <input type='checkbox' id='cb[$idUser]' name='user[$idUser]' value='$idUser'>
+                            </li>
+                            </div>";
         }
     }
 
