@@ -236,7 +236,7 @@ class ControllerQuestion extends GenericController
             }
             //retirer les membres qui sont deja votant
 
-            $role = isset($_GET['role'])?'&role='.$_GET['role']:'';
+            $role = isset($_GET['role'])?'&role='.$_GET['role']:'&role=votant';
             $action = 'frontController.php?controller=question&action=usersAdded&id=' . $idQuestion . $role;
 
             $privilegeUser = (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte());
@@ -263,6 +263,7 @@ class ControllerQuestion extends GenericController
         }
         else {
             $idUsers = [];
+            var_dump($_GET);
             $idQuestion = $_GET['id'];
             $role = $_GET['role'];
             if (isset($_POST['user'])) {
