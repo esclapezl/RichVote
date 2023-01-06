@@ -26,7 +26,7 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
 
     <div class="block">
         <div class="text-box">
-            <div class="ligneExt"> <h1>Liste des Utilisateurs :</h1> <?php
+            <div class="ligneExt"> <h1>Liste des Demandes :</h1> <?php
                 if(ConnexionUtilisateur::estConnecte()){
                     echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>" . ucfirst($privilegeUser) . "</h3></div>";
                 }
@@ -48,7 +48,7 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
             </div>
             <?php
             if ((isset($users) && empty($users)) || (isset($groupes) && empty($groupes))){
-                echo "<div class='descG'></div><div class='ligneCent'><h3> Il n'y a rien </h3></div>
+                echo "<div class='descG'></div><div class='ligneCent'><h3> Aucun résultat trouvé </h3></div>
                     <div class='descP'></div><div class='ligneCent'>
                     <a href=frontController.php?controller=$controller&action=readAllSelect>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
             }
@@ -66,9 +66,10 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
                                     <a href='frontController.php?controller=user&action=read&id=$idDemandeur'> $htmlId </a> 
                                     <span> ($role) </span>
                                 </label>
-                                <input type='checkbox' id='cb[$idDemandeur' name='user[$idDemandeur]' value='$idDemandeur'>
+                               
                                 <input type='hidden' name='role[$idDemandeur]' value='$role'>
                                 </li>
+                                <input type='checkbox' id='cb[$idDemandeur' name='user[$idDemandeur]' value='$idDemandeur'>
                                 </div>";
                 }
                 echo '</ul> <div class="ligneCent"> <input type="submit" value="Ajouter les utilisateurs selectionnés" class="optQuestion"></div></form>';

@@ -44,7 +44,11 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
             <img src="../assets/img/icon-refresh.svg">
         </a>
     </form>
-    <div><h3>Rôle</h3>
+    <h3>Ajouter</h3>
+</div>
+
+
+    <div class="ligneAlign">
         <form method='get' action='<?=$url?>'>
             <label for="r">Ajouter des </label>
             <select name='role' id="r" onchange="this.form.submit();">
@@ -53,12 +57,10 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
             </select>
             <input type='hidden' name='controller' value='question'>
             <input type="hidden" name="action" value="<?=$controller=='user'?'addUsersToQuestion':'addGroupesRoleQuestion'?>">
-            <button type="submit" name="action" value="<?=$controller!='user'?'addUsersToQuestion':'addGroupesRoleQuestion'?>">S'occuper des <?=$controller=='user'?'groupes':'utilisateurs'?></button>
+            <button type="submit" name="action" class="optButton" value="<?=$controller!='user'?'addUsersToQuestion':'addGroupesRoleQuestion'?>">Sélectionner des <?=$controller=='user'?'groupes':'utilisateurs'?></button>
             <input type='hidden' name='id' value='<?=$_GET['id']?>'>
         </form>
     </div>
-    <h3>Ajouter</h3>
-</div>
     <?php
     if ((isset($users) && empty($users)) || (isset($groupes) && empty($groupes))){
         echo "<div class='descG'></div><div class='ligneCent'><h3> Il n'y a rien </h3></div>
@@ -96,8 +98,9 @@ class liste{
                                 <a href='frontController.php?controller=user&action=read&id=$idUser'> $htmlId </a> 
                                 <span> ($prenom $nom) </span>
                             </label>
-                            <input type='checkbox' id='cb[$idUser]' name='user[$idUser]' value='$idUser'>
+                        
                             </li>
+                            <input type='checkbox' id='cb[$idUser]' name='user[$idUser]' value='$idUser'>
                             </div>";
         }
     }

@@ -81,7 +81,7 @@ switch ($typePrecisPhase) {
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
                 if ($roleQuestion == "organisateur") {
-                    echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
+                    echo '<fieldset><h2>Interface organisateur</h2><br><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
      <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats du Tirage</a>
 </div>'
 
@@ -108,14 +108,22 @@ switch ($typePrecisPhase) {
                                 <div class="ligne">
                             </div>
                         </div>
-                        </div>';
-                } else {
+                        </div></fieldset>';
+                } else if($roleQuestion=="responsable"){
                     echo '<div class="ligneExt">
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
-                            <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats de la précédente phase de vote</a>
+                            <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats dernière phase de vote</a>
+                        </div>';
+                    echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
+                        Créer proposition</a></div>';
+                }
+                else{
+                    echo '<div class="ligneExt">
+                            <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
+                            <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats dernière phase de vote</a>
                         </div>';
 
-                    $action = 'frontController.php?controller=question&action=demandeRoleQuestion&id='.$idQuestion;
+                    /*$action = 'frontController.php?controller=question&action=demandeRoleQuestion&id='.$idQuestion;
                     echo "<form method='get' action='$action'>
                             <select name='role'>
                                 <option value='votant'>Devenir votant</option>
@@ -125,7 +133,9 @@ switch ($typePrecisPhase) {
                             <input type='hidden' name='action' value='demandeRoleQuestion'>
                             <input type='hidden' name='id' value='$idQuestion'>
                             <input type='submit' value='Demander'/>
-                          </form>";
+                          </form>";*/
+                    echo "<a class='optQuestion' href=frontController.php?controller=question&action=demandeRoleQuestion&role=responsable&id=". rawurlencode($idQuestion) .">
+                                Demander à écrire une proposition</a>";
                 }
 
 

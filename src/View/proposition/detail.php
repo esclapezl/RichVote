@@ -6,21 +6,21 @@ use  \App\Model\DataObject\Commentaire;
  * @var Array $commentaires
  * @var Commentaire $commentaire
  * @var string $roleProposition
- */?>
+ */
+$idProposition = $proposition->getId();
+?>
 <div class="block" >
     <div class="column">
     <div class="text-box">
-        <a id="fleche" class="optQuestion" href="frontController.php?controller=question&action=read&id=<?=$proposition->getIdQuestion()?>">↩</a>
+        <div class="ligneExt"> <a id="fleche" class="optQuestion" href="frontController.php?controller=question&action=read&id=<?=$proposition->getIdQuestion()?>">↩</a><a  class="optQuestion" href="frontController.php?controller=proposition&action=readDemandeAuteur&id=<?=rawurlencode($idProposition)?>"> Demandes de Co-Auteurs </a></div>
         <div class="ligneExt">
                 <h1><?=htmlspecialchars($proposition->getIntitule())?></h1><h3>Détail de la proposition</h3></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <div class="ligneExt">
             <?php
             if ($roleProposition=='responsable'){
-                $idProposition = $proposition->getId();
                 echo '<a href=frontController.php?controller=proposition&action=update&id=' . rawurlencode($idProposition) . ' class="optQuestion">Modifier</a>' .
                     '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($idProposition) . ' class="optQuestion">Supprimer</a>';
-                echo '<a href="frontController.php?controller=proposition&action=readDemandeAuteur&id=' . rawurlencode($idProposition) . '"> voir demandes </a>';
             }
             elseif ($roleProposition!='auteur'){
                 echo '<a href="frontController.php?controller=proposition&action=addDemandeAuteur&id=' . $proposition->getId() . '"> devenir auteur de cette proposition</a>';
@@ -30,7 +30,7 @@ use  \App\Model\DataObject\Commentaire;
         <?php
         foreach ($proposition->getSectionsTexte() as $texte) {
             echo '<div class="ligneExt"><h3>' . ucfirst(htmlspecialchars($proposition->getIntitule())) . "</h3></div>";
-            echo "<div class='ligne'></div> <p class='descP'>" . htmlspecialchars($texte) . "</p>";
+            echo "<div class='ligne'></div>" . $texte ;
         }?>
     </div>
 

@@ -15,7 +15,7 @@ use App\Model\DataObject\Question;
             $phases = $question->getPhases();
             for($i=0; $i<count($phases); $i++){
             $phase = $phases[$i];
-            echo '<h3> Phase '.$i + 1 .'</h3>';
+            echo '<h3> Phase '.$i + 1 .' : </h3>';
             echo '<div class="descP"></div>';
             require __DIR__ .'/../phase/update.php';
             echo '<div class="descG"></div>';
@@ -36,7 +36,7 @@ use App\Model\DataObject\Question;
             $sections = $question->getSections();
             for($i=0; $i<count($sections); $i++){
                 $section = $sections[$i];
-                echo '<h3> Section '.$i + 1 .'</h3>';
+                echo '<h3> Section '.$i + 1 .' : </h3>';
                 require __DIR__ .'/../section/update.php';
                 echo '<div class="descP"></div>';
             }

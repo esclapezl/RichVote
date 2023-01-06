@@ -572,7 +572,8 @@ footer .vague#vague4{
 
 input[type=date],
 select,
-input[type=number]{
+input[type=number],
+.optButton{
     background: rgb(112,116,213);
 }
 input[type=text],
@@ -593,7 +594,8 @@ input[type=email],
 input[type=prenom],
 input[type=nom],
 textarea,
-select{
+select,
+.optButton{
 
     font-weight: bold;
     border: 2px solid white;
@@ -610,6 +612,20 @@ input[type=search]{
 input#blue{
     border: 2px solid mediumblue;
     color: mediumblue;
+}
+
+.optButton{
+    transition: 1s;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.optButton:hover,
+.optButton.active{
+    background: white;
+    color: rgb(112,116,213);
+
+
 }
 
 
@@ -642,6 +658,16 @@ h3#mail{
     align-content: end;
 }
 
+fieldset{
+    border-radius: 30px;
+    color: white;
+    border: 2px solid white;
+    padding: 30px 60px 30px 60px;
+}
+
+.block .text-box form input.optQuestion{
+    margin-top: 20px;
+}
 
 
 .fleche{
@@ -693,7 +719,7 @@ h3#mail{
 /*}*/
 
 #margintimeline{
-    margin: 0 0 120px 0;
+    margin: 0 0 50px 0;
 }
 
 #smallmargintimeline{
@@ -780,11 +806,22 @@ h3#mail{
 .block .text-box form legend{
     text-align: center;
 }
-
-.block .text-box form
+/*
+.block .text-box form #quest
 {
     align-content: center;
     text-align: center;
+}*/
+.block .text-box form input[type=text],
+.block .text-box form input[type=number],
+.block .text-box form input[type=date],
+.block .text-box form #selectwidth{
+    width: 100%;
+
+}
+
+.block .text-box form h3{
+    margin-bottom: 5px;
 }
 
 .ligneExt h3:nth-child(2),
@@ -821,7 +858,7 @@ button.valide.active{
     border-radius: 50%;
 }
 .icons:hover{
-    border: 1.5px solid mediumblue;
+    background: rgb(112,116,213);
 }
 
 
@@ -1004,11 +1041,12 @@ a h2,
 }
 
 
-
+.block .text-box li > a{
+    cursor: pointer;
+}
 
 .block .text-box li {
     display: flex;
-    cursor: pointer;
     padding: 20px;
     color: mediumblue;
     margin: 8px 50px 8px 0;
