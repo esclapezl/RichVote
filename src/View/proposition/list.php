@@ -19,15 +19,25 @@ use App\Model\DataObject\Proposition;
         </div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <ul>
-            <?php foreach ($propositions as $proposition) {
-                if(isset($scores)){
-                    $infoComplement = $scores[$proposition->getId()];
+
+
+            <?php
+
+                if (empty($propositions)) {
+                    echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat a été trouvé pour ". htmlspecialchars($_POST['title'])." .</h3></div>
+                    <div class='descP'></div><div class='ligneCent'>";
                 }
-                else{
-                    $infoComplement = $proposition->estArchive()?'(archivé)':'';
-                }
-                echo '<li class="ligneExt"><a class="atxt" href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getIdProposition()) . '>' . htmlspecialchars($proposition->getIntitule()) . $infoComplement . '</a></li>';
-            }?>
+                else {
+
+                    foreach ($propositions as $proposition) {
+                    if (isset($scores)) {
+                        $infoComplement = $scores[$proposition->getId()];
+                    } else {
+                        $infoComplement = $proposition->estArchive() ? '(archivé)' : '';
+                    }
+                    echo '<li class="ligneExt"><a class="atxt" href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getIdProposition()) . '>' . htmlspecialchars($proposition->getIntitule()) . $infoComplement . '</a></li>';
+                    }
+                }?>
         </ul>
     </div>
 </div>
