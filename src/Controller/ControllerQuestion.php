@@ -266,6 +266,7 @@ class ControllerQuestion extends GenericController
             var_dump($_GET);
             $idQuestion = $_GET['id'];
             $role = $_GET['role'];
+
             if (isset($_POST['user'])) {
                 foreach ($_POST['user'] as $idUser) {
                     $idUsers[] = $idUser;

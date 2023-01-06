@@ -72,7 +72,16 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
                                 <input type='checkbox' id='cb[$idDemandeur' name='user[$idDemandeur]' value='$idDemandeur'>
                                 </div>";
                 }
-                echo '</ul> <div class="ligneCent"> <input type="submit" value="Ajouter les utilisateurs selectionnés" class="optQuestion"></div></form>';
+
+                if(empty($demandes))
+                {
+                    echo '</ul><div class="ligneCent">Aucunes demandes</div><div class="descG"></div></form>';
+                }
+                else
+                {
+                    echo '</ul> <div class="ligneCent"> <input type="submit" value="Ajouter les utilisateurs selectionnés" class="optQuestion"></div></form>';
+                }
+
             }
             ?>
         </div>

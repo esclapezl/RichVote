@@ -45,7 +45,7 @@ use App\Model\Repository\UserRepository;
         <?php
         if(empty($questions))
         {
-            echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat a été trouvé pour ". htmlspecialchars($_POST['title'])." .</h3></div>
+            echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat n'a été trouvé</h3></div>
                     <div class='descP'></div><div class='ligneCent'>";
                     //<a href=frontController.php?controller=question&action=readAll>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
         }

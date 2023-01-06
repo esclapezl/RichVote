@@ -15,7 +15,7 @@
             <div class="descP"></div>
 
             <h3>Email :</h3>
-            <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="email" name="email" placeholder="email" size="50"  required
+            <input type="email" pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="email" name="email" placeholder="email" size="50"  required
                 <?php if(isset($persistanceValeurs["email"]))
                 {
                     echo 'value="'.$persistanceValeurs["email"].'"';

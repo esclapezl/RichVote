@@ -17,8 +17,8 @@ use App\Model\DataObject\Question;
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         
         <div class="ligneExt">
-        <form class="ligneAlign" method="post" action="frontController.php?controller=question&action=readAllResult">
-                <input type="search" class="opt" name="title" id="title" placeholder="Rechercher une Question">
+        <form class="ligneAlign" method="post" action="frontController.php?controller=question&action=readAllArchives">
+                <input type="search" class="opt" name="title" id="title" placeholder="Rechercher une Question archivée">
                 <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
                 <a href="frontController.php?controller=question&action=readAllResult" id="refresh"><img src="../assets/img/icon-refresh.svg"></a>
             </form></div>
@@ -27,7 +27,7 @@ use App\Model\DataObject\Question;
             if(empty($questions)){
                 echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat n'a été trouvé</h3></div>
                     <div class='descP'></div><div class='ligneCent'>
-                    <a href=frontController.php?controller=question&action=readAllResult>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
+                    <a href=frontController.php?controller=question&action=readAllArchives>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
             }
             else{
                 foreach ($questions as $question){
