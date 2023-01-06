@@ -61,7 +61,7 @@ nav{
 
 .navBar{
     position: relative;
-    padding: 50px 50px 0;
+    padding: 30px 50px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -260,10 +260,8 @@ a#phases{
 }
 
 a#grp{
-    color: white;
+    color: mediumblue;
     font-size: 1.2em;
-    padding: 5px;
-    margin-top: 5px;
 
 }
 
@@ -455,15 +453,15 @@ footer .vague#vague4{
     position: relative;
     margin-top: 20px;
     color: white;
-    padding: 40px 70px 70px 70px;
+    padding: 25px;
     width: 95%;
 
 
-    background: rgba( 0, 0, 0, 0.25 );
+    /*background: rgba( 0, 0, 0, 0.25 );*/
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.5 );
     backdrop-filter: blur( 15.5px );
     -webkit-backdrop-filter: blur( 15.5px );
-    border-radius: 50px;
+    border-radius: 20px;
 
 }
 .results > h2{
@@ -830,6 +828,7 @@ button.valide.active{
 .optQuestion{
     padding: 20px;
     border: none;
+    text-align: center;
 }
 a.optQuestion,
 .opt{
@@ -1001,7 +1000,7 @@ a h2,
 
 .block .text-box a h2.active,
 .block .text-box a h2:hover {
-    transform: scale(0.95);
+    background: #7061d0;
 }
 
 
@@ -1117,6 +1116,7 @@ h1{
 .ligneCent > a{
     color: white;
 }
+
 a{
     color: mediumblue;
 }

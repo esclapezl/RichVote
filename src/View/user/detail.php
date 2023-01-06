@@ -49,7 +49,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                         {
                             echo '<div class="ligneCent"><p class="names" id="petit">Nom :</p><h3 class="names">' . htmlspecialchars(ucfirst($user->getNom())) . '
                                 </h3><a href="frontController.php?controller=user&action=read&id='.$user->getId().'&modif=nom" id="modif">
-                                <img alt="coche" src="../assets/img/icons8-paramètres.svg"></a></div>';
+                                <img alt="coche" src="../assets/img/icons8-services.svg"></a></div>';
                         }
                         else
                         {
@@ -68,7 +68,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                             echo '<div class="ligneCent"><p class="names" id="petit">Prénom :</p><h3 class="names">' .
                                 htmlspecialchars(ucfirst($user->getPrenom())) . '</h3>
                                 <a href="frontController.php?controller=user&action=read&id='.$user->getId().'&modif=prenom" id="modif">
-                                <img alt="coche" src="../assets/img/icons8-paramètres.svg"></a></div>';
+                                <img alt="coche" src="../assets/img/icons8-services.svg"></a></div>';
                         }
                         else
                         {

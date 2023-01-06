@@ -384,11 +384,11 @@ class ControllerQuestion extends GenericController
             self::redirection('frontController.php?controller=question&action=read&id='.$question->getId());
         }
 
-        $demandes = (new DemandeUserRepository)->selectAllDemandeVoteQuestion($question);
+        $demandes = (new DemandeUserRepository())->selectAllDemandeVoteQuestion($question);
         $users = [];
         foreach ($demandes as $demande){
             if($demande->getRole()=='votant'){
-                $users[] = $demande->getUser();
+                $users[] = $demande->getDemandeur();
             }
         }
         $action = 'frontController.php?action=demandesAccepted&controller=question&id=' . $idQuestion;
@@ -419,7 +419,7 @@ class ControllerQuestion extends GenericController
         $role = $_GET['role'];
 
         $demande = new Demande($role, $question, (new UserRepository())->select($idUser));
-        if(DemandeUserRepository::sauvegarder($demande)){
+        if((new DemandeUserRepository())->sauvegarder(($demande))){
             MessageFlash::ajouter('success', 'Votre demande a bien été enregistré');
         }
         else{

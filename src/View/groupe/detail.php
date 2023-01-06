@@ -8,14 +8,17 @@ $membres = $groupe->getIdMembres();
 ?>
 <div class="block">
     <div class="text-box">
-        <h1> Groupe: <?=$nomGroupe?> </h1>
-        <?=$responsable!=null?'<h2> Responsable: '.$responsable . '</h2>':''?>
-
-        <h2> Membres: </h2>
+        <h1> Groupe : <?=ucfirst($nomGroupe)?> </h1>
+        <br>
+        <?=$responsable!=null?'<h2> Responsable : '.ucfirst(htmlspecialchars($responsable)) . '</h2>':''?>
+        <br>
+        <br>
+        <h3> Membres : </h3>
+        <br>
         <ul>
             <?php
             foreach ($membres as $membre){
-                echo '<li>' . htmlspecialchars($membre) . '</li>';
+                echo '<li class="ligneCent"><a id="grp" href="frontController.php?controller=user&action=read&id=' . rawurlencode($membre) . '">' . htmlspecialchars($membre) . '</a></li>';
             }?>
         </ul>
         <?php

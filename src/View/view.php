@@ -50,14 +50,6 @@ use App\Model\Repository\UserRepository;
                     <li><a href="frontController.php?controller=user&action=readAll">Contributeurs</a></li>
                 </ul>
 
-                    <?php
-                    if((new ConnexionUtilisateur())->estAdministrateur() )
-                    {
-                        echo '<div id="btn-role"> Administrateur</div>';
-                    }
-                    ?>
-
-
 
                     <?php
                     if((new ConnexionUtilisateur())->estConnecte()) {
