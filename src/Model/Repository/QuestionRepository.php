@@ -46,7 +46,7 @@ class QuestionRepository extends AbstractRepository
         );
     }
 
-    public function creerQuestion(Question $question, $nbSections, int $nbPhases)
+    public function creerQuestion(Question $question, $nbSections, int $nbPhases): Question
     { // tentative pour réduire le temps d'attente apres la creatioin d'une question
         $intitule = $question->getIntitule();
         $idOganisateur = $question->getIdOrganisateur();
