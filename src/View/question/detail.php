@@ -47,10 +47,6 @@ switch ($typePrecisPhase) {
                             echo "<h3>Vous n'avez pas de rôle sur cette question.</h3>";
                         }
 
-
-
-
-
                         if($peutVoter && $typePrecisPhase!="termine" && $typePrecisPhase!="consultation") {
                             $typePrecisPhase = ucfirst($typePrecisPhase);
                             echo "<a href=frontController.php?controller=vote&action=voter$typePrecisPhase&idQuestion=$idQuestion><h2>Vote en cliquant ici</h2></a>";
@@ -82,15 +78,13 @@ switch ($typePrecisPhase) {
             if(ConnexionUtilisateur::estConnecte()) {
                 if ($roleQuestion == "organisateur") {
                     echo '<fieldset><h2>Interface organisateur</h2><br><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
-     <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats du Tirage</a>
-</div>'
-
-
+                        <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats du Tirage</a>
+                        </div>'
                         . '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
-    Créer proposition</a>
-    <div class="ligneAlign"><a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '><img class="icons" alt="modifier" src="../assets/img/icons8-crayon-48.png"></a> <a href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '><img class="icons" id="poubelle" alt="supprimer question" src="../assets/img/icons8-poubelle.svg"></a>
-    </div>
-    </div>' . '
+                        Créer proposition</a>
+                        <div class="ligneAlign"><a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '><img class="icons" alt="modifier" src="../assets/img/icons8-crayon-48.png"></a> <a href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '><img class="icons" id="poubelle" alt="supprimer question" src="../assets/img/icons8-poubelle.svg"></a>
+                        </div>
+                        </div>' . '
                         
                         <div class="ligneExt">
                         <div>
@@ -108,7 +102,8 @@ switch ($typePrecisPhase) {
                                 <div class="ligne">
                             </div>
                         </div>
-                        </div></fieldset>';
+                        </div>
+                        </fieldset>';
                 } else if($roleQuestion=="responsable"){
                     echo '<div class="ligneExt">
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
@@ -144,12 +139,8 @@ switch ($typePrecisPhase) {
 
                 //TIMELINE
                 if(!(empty($phases))){
-
-
                     echo '<h3 id="prog">Progression :</h3><div class="ligneP"></div>';
-
                     echo '<div class="timeline">
-    
                         <p id="pet">Introduction</p>';
                     $widthLigne=(80/(sizeof($phases)+1));
                     foreach ($phases as $phase){
@@ -159,16 +150,16 @@ switch ($typePrecisPhase) {
                     echo '<div class="ligneT" style="background: transparent"></div><p id="pet">Conclusion</p></div>';
 
                     //DEBUT
-                    echo '<div class="timeline"><a href=frontController.php?controller=vote&action=' . rawurlencode($question->getCurrentPhase()->getType()) . ' id="circle"></a>';
+                    echo '<div class="timeline"><a href=frontController.php?controller=vote&action=' . rawurlencode($question->getPhases()[0]->getType()) . ' id="circle"></a>';
 
                     $widthLigne= 90/(sizeof($phases)+1);
 
                     foreach ($phases as $phase){
                         echo '<style>.ligneT{width: '.$widthLigne.'%;}</style>';
-                        echo '<div class="ligneT"></div><a href=frontController.php?controller=vote&action=' . rawurlencode($phase->getType()) . ' id="circle"></a>';
+                        echo '<div class="ligneT"></div><a href=frontController.php?controller=question&action=readResultPhase&id=' . $question->getId() . '&idPhase='. $phase->getId() .' id="circle"></a>';
                     }
                     //FIN
-                    echo '<div class="ligneT"></div><a href=frontController.php?controller=vote&action=' . rawurlencode($question->getCurrentPhase()->getType()) . ' id="circle"></a></div>';
+                    echo '<div class="ligneT"></div><a href=frontController.php?controller=question&action=readResult&id=' . $question->getId() . ' id="circle"></a></div>';
 
 
                     echo '<div class="timeline" id="margintimeline"><p id="pet">'.htmlspecialchars($question->dateToString($question->getDateCreation())).'</p>';

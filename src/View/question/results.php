@@ -19,6 +19,9 @@ use App\Model\Repository\PropositionRepository;
         <a class="optQuestion" id="fleche" href=frontController.php?controller=question&action=read&id=<?=$question->getId()?>>↩</a>
         <div class="column">
             <div class="results">
+                <h2>Résultats Finaux</h2><h3 id="quest"><?=htmlspecialchars($question->getIntitule())?></h3>
+                <div class="ligne"></div>
+                <br>
                 <?php
                 if ($phase->getType() == "consultation") {
                     echo "<p>Il n'y a pas eu de vote sur cette question.</p>";
@@ -32,9 +35,6 @@ use App\Model\Repository\PropositionRepository;
                     $cpt = 0;
                     $scorebis=null;
                     $classement=0;
-                    echo '<h2>Résultats Finaux</h2><h3 id="quest">' . htmlspecialchars($question->getIntitule()) . '</h3>
-                               <div class="ligne"></div>
-                               <br>';
                     $scoretotal=0;
                     $cptligne=0;
                     foreach ($propositions as $proposition) {

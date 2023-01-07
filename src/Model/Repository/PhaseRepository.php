@@ -73,6 +73,18 @@ class PhaseRepository extends AbstractRepository
         return $result;
     }
 
+    public function estFini(string $idPhase) : bool{
+        $sql = "SELECT :idPhase FROM Phases p WHERE to_date(datefin, 'DD/MM/YY') >= SYSDATE";
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute(
+            ['idPhase' => $idPhase]
+        );
+
+        return $pdoStatement->fetch()[0]=='1';
+    }
+
     protected function getIntitule(): string
     {
         return "";

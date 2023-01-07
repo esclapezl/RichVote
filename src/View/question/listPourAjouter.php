@@ -48,33 +48,35 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
 </div>
 
 
-    <div class="ligneAlign">
-        <form method='get' action='<?=$url?>'>
-            <?php
-            if(!isset($_GET['nomGroupe'])){
-                echo "<label for='r'>Ajouter des </label>
+        <div class="ligneAlign">
+            <form method='get' action='<?=$url?>'>
+                <?php
+                if(!isset($_GET['nomGroupe'])){
+                    echo "<label for='r'>Ajouter des </label>
                 <select name='role' id='r' onchange='this.form.submit();'>
                 <option value='votant' ";
-                if($role=='votant'){
-                 echo 'selected';
+                    if($role=='votant'){
+                        echo 'selected';
+                    }
+                    echo ">votants</option><option value='responsable'";
+                    if($role=='responsable'){
+                        echo 'selected';
+                    }
+                    echo ">responsables</option></select>";
                 }
-                echo ">votants</option><option value='responsable'";
-                if($role=='responsable'){
-                 echo 'selected';
-                }
-                echo ">responsables</option></select>";
-            }
-            ?>
+                ?>
+                <input type='hidden' name='controller' value='question'>
+                <input type="hidden" name="action" value="<?=$controller=='user'?'addUsersToQuestion':'addGroupesRoleQuestion'?>">
+                <?=(!isset($_GET['nomGroupe']))?'<button type="submit" name="action" class="optButton"':''?>
+                <?=(!isset($_GET['nomGroupe']))?$controller!='user'?' value="addUsersToQuestion"':' value="addGroupesRoleQuestion"':''?>
+                <?=(!isset($_GET['nomGroupe']))?'">Sélectionner des ':''?>
+                <?=(!isset($_GET['nomGroupe']))?$controller=='user'?'groupes':'utilisateurs':''?>
+                <?=(!isset($_GET['nomGroupe']))?'</button>':''?>
+                <input type='hidden' name='id' value='<?=$_GET['id']?>'>
+            </form>
+        </div>
 
-
-
-            <input type='hidden' name='controller' value='question'>
-            <input type="hidden" name="action" value="<?=$controller=='user'?'addUsersToQuestion':'addGroupesRoleQuestion'?>">
-            <button type="submit" name="action" class="optButton" value="<?=$controller!='user'?'addUsersToQuestion':'addGroupesRoleQuestion'?>">Sélectionner des <?=$controller=='user'?'groupes':'utilisateurs'?></button>
-            <input type='hidden' name='id' value='<?=$_GET['id']?>'>
-        </form>
-    </div>
-    <?php
+        <?php
     if ((isset($users) && empty($users)) || (isset($groupes) && empty($groupes))){
         echo "<div class='descG'></div><div class='ligneCent'><h3> Il n'y a rien </h3></div>
                     <div class='descP'></div><div class='ligneCent'>
