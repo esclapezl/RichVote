@@ -127,4 +127,30 @@ class ControllerVote extends GenericController
 
         ControllerQuestion::readAll();
     }
+
+    public static function voterJugementMajoritaire(){
+        self::connexionRedirect('warning', 'Connectez-vous pour voter');
+        $question = (new QuestionRepository())->select($_GET['idQuestion']);
+        $propositionsWithScore = (new PropositionRepository())->selectAllWithScoreForUser($question->getCurrentPhase()->getId(), ConnexionUtilisateur::getLoginUtilisateurConnecte());
+
+        $parametres = array(
+            'pagetitle' => 'Scrutin Majoritaire',
+            'cheminVueBody' => 'vote/voter/jugementMajoritaire.php',
+            'question' => $question,
+            'propositionsWithScore' => $propositionsWithScore
+        );
+        self::afficheVue('view.php', $parametres);
+    }
+
+    public static function jugementMajoritaireVoted(){
+        self::connexionRedirect('warning', 'Connectez-vous pour voter');
+        $user = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+
+        foreach($_POST['score'] as $idProposition=>$score){
+            PropositionRepository::voter($idProposition, $user, $score);
+        }
+        MessageFlash::ajouter('success', 'Votre voix à bien été entendue');
+        ControllerQuestion::readAll();
+    }
+
 }

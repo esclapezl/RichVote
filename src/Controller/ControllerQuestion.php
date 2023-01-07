@@ -196,7 +196,7 @@ class ControllerQuestion extends GenericController
                 }
 
                 MessageFlash::ajouter('success', 'La question : "' . $titreQuestion . '" est désormais à jour.');
-                self::redirection('frontController.php?controller=question&action=readAll');
+                self::redirection('frontController.php?controller=question&action=read&id=' . $question->getId());
             }
         }
     }
