@@ -51,4 +51,11 @@ class ConnexionUtilisateur
             return false;
         }
     }
+
+    public static function getRole() : string
+    {
+        $userRepository = new UserRepository;
+        $user = $userRepository->select(self::getLoginUtilisateurConnecte());
+        return ($user->getRole());
+    }
 }

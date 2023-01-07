@@ -104,6 +104,12 @@ class ControllerQuestion extends GenericController
             $nbPhases = $_POST['nbPhases'];
             $dateCreation = date_create();
             $dateFermeture = date_create($_POST['dateFermeture']);
+            if(date_create($_POST['dateFermeture']) < $dateCreation)
+            {
+                MessageFlash::ajouter('info','Date antérieure non valide');
+                self::redirection('frontController.php?controller=question&action=create');
+            }
+
             $question = new Question(null, ConnexionUtilisateur::getLoginUtilisateurConnecte() , $intitule, 'description', $dateCreation, $dateFermeture, Phase::emptyPhase());
             $question = (new QuestionRepository())->creerQuestion($question, $nbSections, $nbPhases);
 
@@ -552,4 +558,8 @@ class ControllerQuestion extends GenericController
         MessageFlash::ajouter('succes', 'Les groupes ont bien été ajouté!');
         self::redirection('frontController.php?controller=question&action=read&id='.$question->getId());
     }
+
+
+
+
 }

@@ -42,6 +42,16 @@ class ControllerVote extends GenericController
         self::afficheVue('view.php', $parametres);
     }
 
+    public static function jugementMajoritaire() : void
+    {
+        $parametres = array(
+            'pagetitle' => 'jugementMajoritaire',
+            'cheminVueBody' => 'vote/jugementMajoritaire.php'
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
     public static function voterScrutinMajoritairePlurinominal() : void
     {
         self::connexionRedirect('warning', 'Connectez-vous');

@@ -51,7 +51,7 @@ switch ($typePrecisPhase) {
                             $typePrecisPhase = ucfirst($typePrecisPhase);
                             echo "<a href=frontController.php?controller=vote&action=voter$typePrecisPhase&idQuestion=$idQuestion><h2>Vote en cliquant ici</h2></a>";
                         }
-                        else if($roleQuestion==null){
+                        else if($roleQuestion==null && ($typePrecisPhase!="termine" || $typePrecisPhase!="consultation")){
                             echo "<a href=frontController.php?controller=question&action=demandeRoleQuestion&role=votant&id=". rawurlencode($idQuestion) .">
                                 <h2>Vous souhaitez voter?</h2></a>";
                         }
