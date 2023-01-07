@@ -50,11 +50,24 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
 
     <div class="ligneAlign">
         <form method='get' action='<?=$url?>'>
-            <label for="r">Ajouter des </label>
-            <select name='role' id="r" onchange="this.form.submit();">
-                <option value='votant' <?=$role=='votant'?'selected':''?>>votants</option>
-                <option value='responsable' <?=$role=='responsable'?'selected':''?>>responsables</option>
-            </select>
+            <?php
+            if(!isset($_GET['nomGroupe'])){
+                echo "<label for='r'>Ajouter des </label>
+                <select name='role' id='r' onchange='this.form.submit();'>
+                <option value='votant' ";
+                if($role=='votant'){
+                 echo 'selected';
+                }
+                echo ">votants</option><option value='responsable'";
+                if($role=='responsable'){
+                 echo 'selected';
+                }
+                echo ">responsables</option></select>";
+            }
+            ?>
+
+
+
             <input type='hidden' name='controller' value='question'>
             <input type="hidden" name="action" value="<?=$controller=='user'?'addUsersToQuestion':'addGroupesRoleQuestion'?>">
             <button type="submit" name="action" class="optButton" value="<?=$controller!='user'?'addUsersToQuestion':'addGroupesRoleQuestion'?>">Sélectionner des <?=$controller=='user'?'groupes':'utilisateurs'?></button>
@@ -107,7 +120,7 @@ class liste{
 
     public static function groupes(array $groupes){
         foreach ($groupes as $groupe) {
-            $nomGroupe = rawurlencode($groupe->getId());
+            $nomGroupe = htmlspecialchars($groupe->getId());
             $htmlnom = ucfirst(htmlspecialchars($nomGroupe));
 
             echo "<div class='ligneExt'>

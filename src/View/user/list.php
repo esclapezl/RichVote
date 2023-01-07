@@ -26,6 +26,13 @@ use App\Model\Repository\UserRepository;
                 <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
                 <a href="frontController.php?controller=user&action=readAll" id="refresh"><img src="../assets/img/icon-refresh.svg"></a>
             </form><h3>Rôle</h3></div>';
+                if((new UserRepository())->getPrivilege($idUser)=='administrateur'){
+                    echo '<div class="ligneAlign">
+                            <a class="optButton" href="frontController.php?controller=groupe&action=readAll">Voir Groupes</a>
+                            <a class="optButton" href="frontController.php?controller=groupe&action=create">Créer Groupe</a>
+                          </div>';
+
+                }
             } ?>
 
         <ul>

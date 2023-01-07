@@ -10,18 +10,37 @@ use App\Model\Repository\UserRepository;
 
 class ControllerGroupe extends GenericController
 {
+
+    public static function readAll() : void
+    {
+        if (isset($_POST['title']) AND !empty($_POST['title'])){
+            $recherche= strtolower(htmlspecialchars($_POST['title']));
+            $groupes = (new GroupeRepository())->search($recherche);
+        }
+        else{
+            $groupes = (new GroupeRepository())->selectAll();
+        }
+
+
+        $parametres = array(
+            'pagetitle' => 'Liste Groupes',
+            'cheminVueBody' => 'groupe/list.php',
+            'groupes' => $groupes
+        );
+        self::afficheVue('view.php', $parametres);
+    }
+
+
     public static function read(){
         self::connexionRedirect('warning', 'Connectez-vous pour voir les membres');
 
         $nomGroupe = $_GET['nomGroupe'];
         $groupe = (new GroupeRepository())->select($nomGroupe);
-        $canAdd = $groupe->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte();
 
         $params=[
             'pagetitle' => 'Details groupe',
             'cheminVueBody' => '/groupe/detail.php',
-            'groupe' => $groupe,
-            'canAdd' => $canAdd
+            'groupe' => $groupe
         ];
         self::afficheVue('view.php', $params);
     }
@@ -41,12 +60,7 @@ class ControllerGroupe extends GenericController
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $groupe = new Groupe($nomGroup, $idUser);
         (new GroupeRepository())->sauvegarder($groupe);
-        $params = [
-            'pagetitle' => 'detail groupe',
-            'cheminVueBody' => '/groupe/detail.php',
-            'groupe' => $groupe
-        ];
-        self::afficheVue('view.php', $params);
+        self::redirection('frontController.php?controller=groupe&action=readAll');
     }
 
     public static function addUserToGroupe(){
@@ -76,7 +90,7 @@ class ControllerGroupe extends GenericController
             }
             $params = [
                 'pagetitle' => 'ajouter membres groupe',
-                'cheminVueBody' => '/listPourAjouter.php',
+                'cheminVueBody' => 'question/listPourAjouter.php',
                 'action' => $action,
                 'users' => $users,
                 'privilegeUser' => ConnexionUtilisateur::estAdministrateur()?'Administrateur':'Responsable'

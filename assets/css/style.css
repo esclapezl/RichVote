@@ -615,6 +615,9 @@ input#blue{
     cursor: pointer;
     margin-bottom: 10px;
 }
+a.optButton{
+    margin-right: 15px;
+}
 
 .optButton:hover,
 .optButton.active{
@@ -989,6 +992,10 @@ textarea{
     width: 15%;
     display: flex;
     justify-content: space-between;
+}
+
+#resp{
+    height: 100%;
 }
 
 .liste{

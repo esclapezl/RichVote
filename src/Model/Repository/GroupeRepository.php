@@ -20,7 +20,7 @@ class GroupeRepository extends AbstractRepository
 
     protected function getIntitule(): string
     {
-        return '';
+        return 'nomGroupe';
     }
 
     protected function getNomsColonnes(): array
