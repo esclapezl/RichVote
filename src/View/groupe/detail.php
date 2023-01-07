@@ -8,7 +8,7 @@ $membres = $groupe->getIdMembres();
 ?>
 <div class="block">
     <div class="text-box">
-        <a class="optQuestion" id="fleche" href=frontController.php?controller=groupe&action=readAll>↩</a>
+        <a class="optQuestion" id="fleche" href=<?=$_SERVER['HTTP_REFERER']?>>↩</a>
         <h1> Groupe : <?=ucfirst($nomGroupe)?> </h1>
         <br>
         <?=$responsable!=null?'<h2> Responsable : '.ucfirst(htmlspecialchars($responsable)) . '</h2>':''?>
