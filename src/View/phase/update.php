@@ -21,10 +21,10 @@ $nbPlaces = $phase->getNbDePlaces();
     <div>
         Type de phase :
         <select id="selectwidth" name="<?="type[$id]"?>">
-            <option value="consultation">Phase de consultation</option>
-            <option value="scrutinMajoritaire">Phase de vote par scrutin majoritaire</option>
-            <option value="scrutinMajoritairePlurinominal">Phase de vote par scutin majoritaire plurinominal</option>
-            <option value="jugementMajoritaire">Phase de vote par jugement majoritaire</option>
+            <option value="consultation" <?=$type=='consultation'?'selected':''?>>Phase de consultation</option>
+            <option value="scrutinMajoritaire" <?=$type=='scrutinMajoritaire'?'selected':''?>>Phase de vote par scrutin majoritaire</option>
+            <option value="scrutinMajoritairePlurinominal" <?=$type=='scrutinMajoritairePlurinominal'?'selected':''?>>Phase de vote par scutin majoritaire plurinominal</option>
+            <option value="jugementMajoritaire" <?=$type=='jugementMajoritaire'?'selected':''?>>Phase de vote par jugement majoritaire</option>
         </select>
     </div>
 
