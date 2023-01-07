@@ -248,18 +248,15 @@ class ControllerProposition extends GenericController
 
         $proposition = (new PropositionRepository())->select($idProposition);
         if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()){
-            $demandes = DemandeUserRepository::selectAllDemandeAuteurProposition($proposition);
-            $users = [];
-            foreach ($demandes as $demande){
-                $users[] = $demande->getUser();
-            }
+            $demandes = (new DemandeUserRepository)->selectAllDemandeAuteurProposition($proposition);
+
             $action = 'frontController.php?action=demandesAccepted&controller=Proposition&id=' . $idProposition;
 
             $privilege = 'Responsable';
             $parametres = [
                 'pagetitle' => 'demandes en attentes',
-                'cheminVueBody' => 'user/listPourAjouter.php',
-                'users' => $users,
+                'cheminVueBody' => 'gestionRoles/readDemandes.php',
+                'demandes' => $demandes,
                 'action' => $action,
                 'privilegeUser' => $privilege
             ];

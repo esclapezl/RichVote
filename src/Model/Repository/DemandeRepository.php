@@ -56,15 +56,14 @@ abstract class DemandeRepository{
     }
 
     public final function selectAllDemandeAuteurProposition(Proposition $proposition) : array{
-        $sql = "SELECT * FROM :nomTable WHERE idProposition=:idProposition";
+        $nomTable = $this->getNomTable();
+        $sql = "SELECT * FROM $nomTable WHERE idProposition=:idProposition";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
         $idProposition = $proposition->getId();
         $clePrimaire = $this->getNomClePrimaire();
-        $nomTable = $this->getNomTable();
 
         $param = [
-            'nomTable' => $nomTable,
             'idProposition' => $idProposition
         ];
 
