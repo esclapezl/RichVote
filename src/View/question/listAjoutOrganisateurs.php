@@ -40,8 +40,8 @@ use App\Model\Repository\UserRepository;
                     $nom = ucfirst(htmlspecialchars($user->getNom()));
 
                     $role = (new UserRepository())->getPrivilege($idUser);
-
-                    echo "<div class='ligneExt'>
+                    if($role=="invité"){
+                        echo "<div class='ligneExt'>
 
                             <li class='ligneExt'> <a href='frontController.php?controller=user&action=read&id=$idUser'> $htmlId</a> <span> $prenom $nom </span></span></li>
                             <h2>" . ucfirst($role) . " </h2>
@@ -49,6 +49,9 @@ use App\Model\Repository\UserRepository;
                                 <input type='checkbox' id='cb[$idUser]' name='user[$idUser]' value='$idUser'>
                             </label>
                           </div>";
+                    }
+
+
                 }
                 echo '<div class="descG"></div> <div class="ligneCent"> <input type="submit" value="Ajouter les utilisateurs selectionnés" class="optQuestion"></div></form>';
             }
