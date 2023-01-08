@@ -63,7 +63,7 @@ class SectionRepository extends AbstractRepository
                 JOIN PROPOSITIONS p ON p.idQuestion=s.idQuestion
                 JOIN PROPOSERTEXTE pt ON pt.idProposition=p.idProposition
                 WHERE p.idProposition=:idProposition
-                GROUP BY (s.idSection, s.idQuestion, intituleSection, descriptionSection, texte)";
+                GROUP BY (s.idSection, s.idQuestion, intituleSection, descriptionSection, texte)"; // ca compte pas le nb de like idiot
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
         $pdoStatement->execute(['idProposition' => $idProposition]);
 

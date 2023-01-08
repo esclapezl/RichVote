@@ -12,6 +12,7 @@ use App\Model\Repository\DatabaseConnection;
 use App\Model\Repository\DemandeUserRepository;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
+use App\Model\Repository\SectionRepository;
 use App\Model\Repository\UserRepository;
 
 class ControllerProposition extends GenericController
@@ -95,10 +96,10 @@ class ControllerProposition extends GenericController
             self::redirection('frontController.php?controller=question&action=readAll');
         }
         else {
-            $sectionsText = [];
+            $sectionsText = $proposition->getSectionsTexte();
 
-            foreach ($_POST['texte'] as $idSection => $text) {
-                $sectionsText[$idSection] = $text;
+            foreach ($sectionsText as $infos){
+                $infos['texte'] = $_POST['texte'][$infos['section']->getId()];
             }
 
             $proposition->setSectionsTexte($sectionsText);
