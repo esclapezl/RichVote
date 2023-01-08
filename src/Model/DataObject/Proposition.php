@@ -151,4 +151,15 @@ class Proposition extends AbstractDataObject
         $pdoStatement->execute();
     }
 
+    public function getNbLike():string
+    {
+        $sql = "SELECT COUNT * FROM souvignetn.likesSections WHERE idproposition = '".this->getIdProposition()."'";
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute();
+
+        return $pdoStatement->fetch();
+    }
+
 }
