@@ -24,10 +24,7 @@ use App\Model\DataObject\Proposition;
                     $idSection = $infos['section']->getId();
                     $text = $infos['texte'];
                     echo ' <div class="descP"></div><h3>Description : </h3>
-
-    </textarea>
-    <form method="post">
- <textarea rows="4" cols="80" maxlength="1000" id="mytextarea" name=texte[' . $idSection . '] >' . $text . '</textarea></form>';
+                        <textarea rows="4" cols="80" maxlength="1000" id="mytextarea" name=texte[' . $idSection . '] >' . $text . '</textarea></form>';
                 }
                 ?>
             <div class="descG"></div>
