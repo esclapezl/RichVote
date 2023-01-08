@@ -28,9 +28,9 @@ $idProposition = $proposition->getId();
         </div>
 
         <?php
-        foreach ($proposition->getSectionsTexte() as $texte) {
+        foreach ($proposition->getSectionsTexte() as $infos) {
             echo '<div class="ligneExt"><h3>' . ucfirst(htmlspecialchars($proposition->getIntitule())) . "</h3></div>";
-            echo "<div class='ligne'></div>" . $texte ;
+            echo "<div class='ligne'></div>" . $infos['texte'] ;
         }?>
     </div>
 

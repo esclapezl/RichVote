@@ -63,17 +63,7 @@ class PropositionRepository extends AbstractRepository
     public function select(string $idProposition) : AbstractDataObject{
         $proposition = parent::select($idProposition);
 
-        // on structure le tableau des sections avec leur texte de proposition
-        $sql = 'select * from SOUVIGNETN.PROPOSERTEXTE where idproposition= :id';
-        $pdo = DatabaseConnection::getInstance()::getPdo();
-        $pdoStatement = $pdo->prepare($sql);
-
-        $pdoStatement->execute(array('id' => $proposition->getIdProposition()));
-        $sectionsTexte = array();
-
-        foreach ($pdoStatement as $section){
-            $sectionsTexte[$section['IDSECTION']] = $section['TEXTE']; // jdois faire un fichier proposerTexte.php?
-        }
+        $sectionsTexte = (new SectionRepository())->getSectionsProposition($proposition->getId());
 
         $proposition->setSectionsTexte($sectionsTexte);
 
@@ -137,11 +127,11 @@ class PropositionRepository extends AbstractRepository
         $sql = "update SOUVIGNETN.PROPOSERTEXTE SET texte = :texte WHERE idProposition = :idProposition AND idSection = :idSection";
         $pdoStatement = $pdo->prepare($sql);
 
-        foreach($object->getSectionsTexte() as $key=>$text){
+        foreach($object->getSectionsTexte() as $infos){
             $params = array(
                 'idProposition' => $object->getIdProposition(),
-                'idSection' => $key,
-                'texte' => $text
+                'idSection' => $infos['section']->getId(),
+                'texte' => $infos['texte']
             );
             $pdoStatement->execute($params);
         }

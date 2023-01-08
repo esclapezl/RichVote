@@ -11,7 +11,7 @@ class Proposition extends AbstractDataObject
 {
     private ?string $idProposition;
     private string $idQuestion;
-    private ?array $sectionsTexte; // pour chaque idSection, une chaine de caractere sera associée
+    private ?array $sectionsTexte; // format: [[section, nbLike, texte],[section2...]]
     private ?string $intitule;
     private string $idResponsable;
     private bool $archive;

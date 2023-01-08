@@ -3,6 +3,7 @@
 namespace App\Model\Repository;
 
 use App\Model\DataObject\AbstractDataObject;
+use App\Model\DataObject\Proposition;
 use App\Model\DataObject\Section;
 use App\Model\Repository\DatabaseConnection;
 
@@ -32,10 +33,10 @@ class SectionRepository extends AbstractRepository
     protected function construire(array $objetFormatTableau): AbstractDataObject
     {
         return new Section(
-            $objetFormatTableau['idSection'],
-            $objetFormatTableau['idQuestion'],
-            $objetFormatTableau['intitule'],
-            $objetFormatTableau['description']
+            $objetFormatTableau['IDSECTION'],
+            $objetFormatTableau['IDQUESTION'],
+            $objetFormatTableau['INTITULESECTION'],
+            $objetFormatTableau['DESCRIPTIONSECTION']
         );
     }
 
@@ -51,14 +52,29 @@ class SectionRepository extends AbstractRepository
 
         $sections = array();
         foreach ($pdoStatement as $section){
-            $sections[] = $this->construire(array(
-                'idSection' => $section['IDSECTION'],
-                'idQuestion' => $section['IDQUESTION'],
-                'intitule' => $section['INTITULESECTION'],
-                'description' => $section['DESCRIPTIONSECTION']
-            ));
+            $sections[] = $this->construire($section);
         }
         return $sections;
+    }
+
+    public function getSectionsProposition(string $idProposition): array{
+        $sql = "SELECT s.idSection, s.idQuestion, intituleSection, descriptionSection, COUNT(s.idSection) as nbLike, texte
+                FROM SECTIONS s
+                JOIN PROPOSITIONS p ON p.idQuestion=s.idQuestion
+                JOIN PROPOSERTEXTE pt ON pt.idProposition=p.idProposition
+                WHERE p.idProposition=:idProposition
+                GROUP BY (s.idSection, s.idQuestion, intituleSection, descriptionSection, texte)";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $pdoStatement->execute(['idProposition' => $idProposition]);
+
+        $result = [];
+        foreach ($pdoStatement as $infos){
+            $section = $this->construire($infos);
+            $result[] = ['section' => $section,
+                        'nbLike' => $infos['NBLIKE'],
+                        'texte' => $infos['TEXTE']];
+        }
+        return $result;
     }
 
 
@@ -92,5 +108,14 @@ class SectionRepository extends AbstractRepository
         $sql = "DELETE FROM SOUVIGNETN.LIKESSECTIONS WHERE IDSECTION=".$idSection." AND IDUSER = :IDUSER";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
         $pdoStatement->execute(['IDUSER' => $idUser]);
+    }
+
+    public function getNbLikes(Section $section): string
+    {
+        $sql = "SELECT COUNT(*) FROM souvignetn.likesSections WHERE IDSECTION = '" . $section->getIdSection() . "'";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $pdoStatement->execute();
+        $p = $pdoStatement->fetch()[0];
+        return $p;
     }
 }

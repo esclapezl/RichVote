@@ -86,12 +86,4 @@ class Section extends AbstractDataObject
         );
     }
 
-    public function getNbLikes():string
-    {
-        $sql = "SELECT COUNT(*) FROM souvignetn.likesSections WHERE IDSECTION = '".$this->getIdSection()."'";
-        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
-        $pdoStatement->execute();
-        $p = $pdoStatement->fetch()[0];
-        return $p;
-    }
 }

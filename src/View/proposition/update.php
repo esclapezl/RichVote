@@ -20,7 +20,9 @@ use App\Model\DataObject\Proposition;
 
                 <?php
                 $sectionsText = $proposition->getSectionsTexte();
-                foreach ($sectionsText as $idSection=>$text){
+                foreach ($sectionsText as $infos){
+                    $idSection = $infos['section']->getId();
+                    $text = $infos['texte'];
                     echo ' <div class="descP"></div><h3>Description : </h3>
 
     </textarea>
