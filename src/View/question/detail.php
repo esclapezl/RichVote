@@ -20,7 +20,7 @@ switch ($typePrecisPhase) {
     case 'consultation':
         $typePhase= 'En cours de consultation';
         break;
-    case 'scrutinMajoritaire' || 'scrutinMajoritairePlurinominal' :
+    case 'scrutinMajoritaire' || 'scrutinMajoritairePlurinominal' || 'jugementMajoritaire' :
         $typePhase= 'Voter juste Ici';
         break;
     case 'termine':

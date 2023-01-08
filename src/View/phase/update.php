@@ -6,8 +6,8 @@ use App\Model\DataObject\Section;
  * @var int $numeroPhase
  */
 $id = $phase->getId();
-$dateDebut = '20' . $phase->getDateDebut()->format('y-m-d');
-$dateFin = '20' . $phase->getDateFin()->format('y-m-d');
+$dateDebut = $phase->getDateDebut()->format('yy-m-d');
+$dateFin =  $phase->getDateFin()->format('yy-m-d');
 $type = $phase->getType();
 $nbPlaces = $phase->getNbDePlaces();
 ?>

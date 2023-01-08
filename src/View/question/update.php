@@ -19,7 +19,7 @@ use App\Model\DataObject\Question;
             for($i=0; $i<count($phases); $i++){
             $phase = $phases[$i];
             $numeroPhase = $i +1;
-                if($phase->estCommence() ||$phase->estFinie())
+                if(!($phase->estCommence() ||$phase->estFinie()))
                 {
                     require __DIR__ .'/../phase/update.php';
                 }

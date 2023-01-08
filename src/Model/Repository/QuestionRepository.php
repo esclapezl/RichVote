@@ -201,8 +201,8 @@ class QuestionRepository extends AbstractRepository
 
 
 
-    public function estFini(String $idQuestion) : bool{
-        $sql = 'SELECT question_est_archive(:idQuestion) FROM DUAL';
+    public function estFini(string $idQuestion) : bool{
+        $sql = "SELECT :idQuestion FROM Questions q WHERE to_date(datefermeture, 'DD/MM/YY') >= SYSDATE";
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $pdoStatement = $pdo->prepare($sql);
