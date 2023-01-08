@@ -114,9 +114,9 @@ class SectionRepository extends AbstractRepository
         $pdoStatement->execute(['IDUSER' => $idUser]);
     }
 
-    public function getNbLikes(int $idSection): string
+    public function getNbLikes(int $idSection, int $idProposition): string
     {
-        $sql = "SELECT COUNT(*) FROM souvignetn.likesSections WHERE IDSECTION = '" . $idSection . "'";
+        $sql = "SELECT COUNT(IDSECTION) FROM souvignetn.likesSections WHERE IDSECTION = '" . $idSection . "' AND  IDPROPOSITION = ". $idProposition;
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
         $pdoStatement->execute();
         $p = $pdoStatement->fetch()[0];
