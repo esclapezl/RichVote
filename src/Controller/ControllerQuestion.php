@@ -363,15 +363,7 @@ class ControllerQuestion extends GenericController
 
             $phases = $question->getPhases();
             $phase = $phases[sizeof($phases)-1];
-            $propositionsScore = (new PropositionRepository())->selectAllWithScore($phase->getId());
-
-            self::afficheVue('view.php',[
-                "pagetitle" => "Resultat Question",
-                "cheminVueBody" => 'question/results.php',
-                'question' => $question,
-                'phase' => $phase,
-                'propositionsScore' => $propositionsScore
-            ]);
+            self::afficheResultPhase($phase, $question);
         }
         else{
             MessageFlash::ajouter('info', 'La question n\'est pas encore finie, revenez plus tard');
@@ -387,19 +379,12 @@ class ControllerQuestion extends GenericController
         $idPhase = $_GET['idPhase'];
 
         if($idPhase!=null) {
-            if ((new PhaseRepository())->estFini($idPhase)) {
-                $phase = (new PhaseRepository())->select($idPhase);
+            $phase = (new PhaseRepository())->select($idPhase);
+
+            if ($phase->estFinie()) {
                 $question = (new QuestionRepository())->select($idQuestion);
 
-                $propositionsScore = (new PropositionRepository())->selectAllWithScore($idPhase);
-
-                self::afficheVue('view.php', [
-                    "pagetitle" => "Resultat Phase",
-                    "cheminVueBody" => 'question/results.php',
-                    'question' => $question,
-                    'phase' => $phase,
-                    'propositionsScore' => $propositionsScore
-                ]);
+                self::afficheResultPhase($phase, $question);
             } else {
                 MessageFlash::ajouter('info', 'La phase n\'est pas encore finie, revenez plus tard');
                 self::redirection('frontController.php?controller=question&action=read&id=' . $idQuestion);
@@ -409,6 +394,27 @@ class ControllerQuestion extends GenericController
             MessageFlash::ajouter('info', 'Cette phase est une consultation donc il n\'y a pas de vote');
             self::redirection('frontController.php?controller=question&action=read&id=' . $idQuestion);
         }
+    }
+
+    private static function afficheResultPhase(Phase $phase, Question $question){
+        $params = [
+            'pagetitle' => 'Résultats',
+            'question' => $question,
+            'phase' => $phase,
+            "cheminVueBody" => 'question/results.php'
+        ];
+
+        if($phase->getType()=='scrutinMajoritaire' || $phase->getType()=='scrutinMajoritairePlurinominal'){
+            $result = (new PropositionRepository())->selectAllWithScore($phase->getId());
+            $params["cheminVueBody"] = 'question/results.php';
+            $params['propositionsScore'] = $result;
+        }
+        elseif ($phase->getType()=='jugementMajoritaire'){
+            $result = (new PropositionRepository())->selectAllWithScoreJugement($phase->getId());
+            $params["cheminVueBody"] = 'question/results.php';
+            $params['propositionsScore'] = $result;
+        }
+        self::afficheVue('view.php', $params);
     }
 
 

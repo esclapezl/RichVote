@@ -184,6 +184,30 @@ class PropositionRepository extends AbstractRepository
         $pdoStatement->execute(['idQuestion' => $idQuestio
     }*/
 
+    // utile que pour récupérer le score lors d'un jugement majoritaire
+    public function selectAllWithScoreJugement(string $idPhase): array // forme [Poposition, [% tres bien, % assez bien, ...]]
+    {
+        $sql = 'SELECT idProposition, scoreVote, count(scoreVote) as nbVote 
+                FROM votantProposition vp
+                WHERE idPhaseVote=:idPhase
+                GROUP BY (idProposition, scoreVote)';
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        $pdoStatement->execute(['idPhase' => $idPhase]);
+
+        $idPropositionScore = [];
+        foreach ($pdoStatement as $infoVote){
+            $idPropositionScore[$infoVote['IDPROPOSITION']][$infoVote['SCOREVOTE']] = $infoVote['NBVOTE'];
+        }
+
+        $result = [];
+        foreach ($idPropositionScore as $idProposition => $infoScore){
+            $result[] = [$this->select($idProposition), $infoScore];
+        }
+
+        return $result;
+    }
+
     public function selectAllWithScore(string $idPhase): array{ // forme [Proposition, score]
         $sql = 'SELECT p.idProposition, idResponsable, p.idQuestion, intitule, archive, score  
                 FROM sessionVote sv

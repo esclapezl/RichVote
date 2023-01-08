@@ -88,5 +88,9 @@ class Phase extends AbstractDataObject
         return $this->id==null;
     }
 
+    public function estFinie():bool{
+        return $this->getDateFin()->format('y-m-d')<date("y-m-d");
+    }
+
 
 }
