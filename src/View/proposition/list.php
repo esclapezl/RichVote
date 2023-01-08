@@ -43,8 +43,12 @@ use App\Model\DataObject\Proposition;
                         $infoComplement = $proposition->estArchive() ? '(archivé)' : '';
                     }
                     echo '<li class="ligneExt"><a class="atxt" href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getIdProposition()) . '>'
-                        . htmlspecialchars($proposition->getIntitule()) . $infoComplement . '</a></li>';
+                        . htmlspecialchars($proposition->getIntitule()) . $infoComplement . '</a>';
+
+
                     }
+
+
                 }?>
         </ul>
     </div>

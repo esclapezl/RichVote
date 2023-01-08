@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Model\DataObject;
+use App\Model\Repository\DatabaseConnection;
 
 class Section extends AbstractDataObject
 {
@@ -83,5 +84,14 @@ class Section extends AbstractDataObject
             "idQuestionTag" => $this->getIdQuestion(),
             "idSectionTag" => $this->getIdSection()
         );
+    }
+
+    public function getNbLikes():string
+    {
+        $sql = "SELECT COUNT(*) FROM souvignetn.likesSections WHERE IDSECTION = '".$this->getIdSection()."'";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $pdoStatement->execute();
+        $p = $pdoStatement->fetch()[0];
+        return $p;
     }
 }

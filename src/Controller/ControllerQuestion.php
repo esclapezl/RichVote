@@ -560,6 +560,35 @@ class ControllerQuestion extends GenericController
     }
 
 
+    public static function likeSection()
+    {
+        $idSection = $_GET['id'];
+        $idQuestion = $_GET['idQuestion'];
+
+        if(ConnexionUtilisateur::estConnecte())
+        {
+            $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+            $sectionRepository = new SectionRepository();
+            if($sectionRepository->userALike($idSection,$idUser))
+            {
+                $sectionRepository->deliker($idSection,$idUser);
+            }
+            else
+            {
+                $sectionRepository->liker($idSection,$idUser);
+            }
+        }
+        self::redirection('frontController.php?controller=question&action=read&id='.$idQuestion);
+
+
+
+
+
+
+
+    }
+
+
 
 
 }

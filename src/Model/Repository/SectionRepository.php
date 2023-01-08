@@ -66,4 +66,31 @@ class SectionRepository extends AbstractRepository
     {
         return "intituleSection";
     }
+
+    public function userALike(int $idSection, string $idUser):bool
+    {
+        $sql = "SELECT COUNT(*) FROM souvignetn.likesSections WHERE IDSECTION = ".$idSection." AND IDUSER = :IDUSER";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $pdoStatement->execute(['IDUSER' => $idUser]);
+
+
+
+        if($pdoStatement->fetch()[0] == 0)
+         return false;
+        else return true;
+    }
+
+    public function liker(int $idSection, string $idUser):void
+    {
+        $sql = "INSERT INTO SOUVIGNETN.LIKESSECTIONS VALUES(".$idSection.",:IDUSER)";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $pdoStatement->execute(['IDUSER' => $idUser]);
+    }
+
+    public function deliker(int $idSection, string $idUser):void
+    {
+        $sql = "DELETE FROM SOUVIGNETN.LIKESSECTIONS WHERE IDSECTION=".$idSection." AND IDUSER = :IDUSER";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $pdoStatement->execute(['IDUSER' => $idUser]);
+    }
 }
