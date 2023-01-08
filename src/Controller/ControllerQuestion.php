@@ -104,6 +104,12 @@ class ControllerQuestion extends GenericController
             $nbPhases = $_POST['nbPhases'];
             $dateCreation = date_create();
             $dateFermeture = date_create($_POST['dateFermeture']);
+            if(date_create($_POST['dateFermeture']) < $dateCreation)
+            {
+                MessageFlash::ajouter('info','Date antérieure non valide');
+                self::redirection('frontController.php?controller=question&action=create');
+            }
+
             $question = new Question(null, ConnexionUtilisateur::getLoginUtilisateurConnecte() , $intitule, 'description', $dateCreation, $dateFermeture, Phase::emptyPhase());
             $question = (new QuestionRepository())->creerQuestion($question, $nbSections, $nbPhases);
 
@@ -371,8 +377,40 @@ class ControllerQuestion extends GenericController
             MessageFlash::ajouter('info', 'La question n\'est pas encore finie, revenez plus tard');
             self::redirection('frontController.php?controller=question&action=read&id='.$idQuestion);
         }
-
     }
+
+    public static function readResultPhase() : void
+    {
+        self::connexionRedirect('warning', 'Veuillez vous connecter pour accéder aux résultats');
+
+        $idQuestion = $_GET['id'];
+        $idPhase = $_GET['idPhase'];
+
+        if($idPhase!=null) {
+            if ((new PhaseRepository())->estFini($idPhase)) {
+                $phase = (new PhaseRepository())->select($idPhase);
+                $question = (new QuestionRepository())->select($idQuestion);
+
+                $propositionsScore = (new PropositionRepository())->selectAllWithScore($idPhase);
+
+                self::afficheVue('view.php', [
+                    "pagetitle" => "Resultat Phase",
+                    "cheminVueBody" => 'question/results.php',
+                    'question' => $question,
+                    'phase' => $phase,
+                    'propositionsScore' => $propositionsScore
+                ]);
+            } else {
+                MessageFlash::ajouter('info', 'La phase n\'est pas encore finie, revenez plus tard');
+                self::redirection('frontController.php?controller=question&action=read&id=' . $idQuestion);
+            }
+        }
+        else{
+            MessageFlash::ajouter('info', 'Cette phase est une consultation donc il n\'y a pas de vote');
+            self::redirection('frontController.php?controller=question&action=read&id=' . $idQuestion);
+        }
+    }
+
 
     public static function finPhase() : void
     {
@@ -520,4 +558,8 @@ class ControllerQuestion extends GenericController
         MessageFlash::ajouter('succes', 'Les groupes ont bien été ajouté!');
         self::redirection('frontController.php?controller=question&action=read&id='.$question->getId());
     }
+
+
+
+
 }

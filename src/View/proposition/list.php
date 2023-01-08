@@ -1,6 +1,7 @@
 <?php
 //liste des propositions pour une question donnée
 
+use \App\Lib\ConnexionUtilisateur;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Proposition;
 /** @var array $propositions
@@ -13,9 +14,15 @@ use App\Model\DataObject\Proposition;
         <a class="optQuestion" id="fleche" href=frontController.php?controller=question&action=read&id=<?= rawurlencode($_GET['id'])?>>↩</a>
         <div class="ligneExt">
             <div>
-
-                <h1>Propositions publiées :</h1></div>
-            <div>Vous êtes connecté en tant que : <h3>Organisateur </h3></div>
+                <h1>Propositions publiées :</h1>
+            </div>
+            <?php
+            if(ConnexionUtilisateur::estConnecte()){
+            echo '<div class="responsive">Vous êtes connecté en tant que :<h3>'.ucfirst(ConnexionUtilisateur::getRole()).'</h3></div></div>
+<div class="ligneExt"><ul>';
+            }
+            ?>
+        <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         </div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <ul>
@@ -24,7 +31,7 @@ use App\Model\DataObject\Proposition;
             <?php
 
                 if (empty($propositions)) {
-                    echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat n'a été trouvé pour</h3></div>
+                    echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat n'a été trouvé</h3></div>
                     <div class='descP'></div><div class='ligneCent'>";
                 }
                 else {
@@ -35,7 +42,8 @@ use App\Model\DataObject\Proposition;
                     } else {
                         $infoComplement = $proposition->estArchive() ? '(archivé)' : '';
                     }
-                    echo '<li class="ligneExt"><a class="atxt" href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getIdProposition()) . '>' . htmlspecialchars($proposition->getIntitule()) . $infoComplement . '</a></li>';
+                    echo '<li class="ligneExt"><a class="atxt" href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getIdProposition()) . '>'
+                        . htmlspecialchars($proposition->getIntitule()) . $infoComplement . '</a></li>';
                     }
                 }?>
         </ul>
