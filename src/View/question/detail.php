@@ -77,10 +77,9 @@ switch ($typePrecisPhase) {
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
                 if ($roleQuestion == "organisateur") {
-                    echo '<fieldset><h2>Interface organisateur</h2><br><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
-                        <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats du Tirage</a>
-                        </div>'
-                        . '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
+                    echo '<fieldset><h2>Interface organisateur</h2><br><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
+                    echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
+                        echo '</div><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
                         Créer proposition</a>
                         <div class="ligneAlign"><a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '><img class="icons" alt="modifier" src="../assets/img/icons8-crayon-48.png"></a> <a href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '><img class="icons" id="poubelle" alt="supprimer question" src="../assets/img/icons8-poubelle.svg"></a>
                         </div>
@@ -106,36 +105,19 @@ switch ($typePrecisPhase) {
                         </fieldset>';
                 } else if($roleQuestion=="responsable"){
                     echo '<div class="ligneExt">
-                            <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
-                            <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats dernière phase de vote</a>
-                        </div>';
-                    echo '<div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
+                            <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
+                            echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
+
+                    echo '</div><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
                         Créer proposition</a></div>';
                 }
                 else{
                     echo '<div class="ligneExt">
-                            <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>
-                            <a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats dernière phase de vote</a>
-                        </div>';
-
-                    /*$action = 'frontController.php?controller=question&action=demandeRoleQuestion&id='.$idQuestion;
-                    echo "<form method='get' action='$action'>
-                            <select name='role'>
-                                <option value='votant'>Devenir votant</option>
-                                <option value='responsable'>Devenir responsable</option>
-                            </select>
-                            <input type='hidden' name='controller' value='question'>
-                            <input type='hidden' name='action' value='demandeRoleQuestion'>
-                            <input type='hidden' name='id' value='$idQuestion'>
-                            <input type='submit' value='Demander'/>
-                          </form>";*/
-                    echo "<a class='optQuestion' href=frontController.php?controller=question&action=demandeRoleQuestion&role=responsable&id=". rawurlencode($idQuestion) .">
+                            <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
+                            echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
+                    echo "</div><a class='optQuestion' href=frontController.php?controller=question&action=demandeRoleQuestion&role=responsable&id=". rawurlencode($idQuestion) .">
                                 Demander à écrire une proposition</a>";
                 }
-
-
-
-
 
                 //TIMELINE
                 if(!(empty($phases))){
@@ -172,15 +154,25 @@ switch ($typePrecisPhase) {
                     echo '<div class="ligneTbis" style="background: transparent"></div><p id="pet">'.htmlspecialchars($question->dateToString($question->getDateFermeture())).'</p></div>';
                 }
 
+                echo '<br><div class="description">';
+                echo '<div class="ligneAlign"><h1>Description :</h1></div><div class="ligne"></div><br><p>
+                        ' .$question->getDescription() . '</p><div class="descG"></div>';
+                echo '<div class="ligneCent"><div class="ligne"></div></div><div class="ligneCent"><h1>Sommaire</h1></div>';
+                $y=0;
+                foreach ($question->getSections() as $section) {
+                    $y++;
+                    echo '<div class="ligneCent"><h3 id="sections">' . $y . '. ' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
+                }
+                echo '<br><div class="ligneCent"><div class="ligne"></div></div><br><br>';
 
-                echo '<br>'
-                    . ' <div class="ligneExt"><h2 id="desc">DESCRIPTION</h2></div>
-                        <p>' .$question->getDescription() . '</p><div class="descG"></div>';
-        foreach ($question->getSections() as $section) {
-            echo '<div class="ligneExt"><h3>' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
-            echo "<div class='ligne'></div> " . $section->getDescription();
-            echo "<br>";
-        }
+                $i=0;
+                foreach ($question->getSections() as $section) {
+                    $i++;
+                    echo '<div class="ligneExt"><h3 id="sections">'. $i .'. ' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
+                    echo "<div class='ligne'></div><p>" . $section->getDescription();
+                    echo "</p><br>";
+                }
+                echo '</div>';
         }
             else{
                 echo "<div class='LigneCent'><h3>Vous n'êtes pas connecté. Connectez-vous pour plus d'informations !</h3></div>";

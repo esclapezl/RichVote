@@ -241,6 +241,7 @@ a#phases{
 
 
 
+
 .photo{
     width: 5em;
     height: 5em;
@@ -663,7 +664,7 @@ h3#mail{
     align-content: end;
 }
 
-fieldset{
+fieldset,.description{
     border-radius: 30px;
     color: white;
     border: 2px solid white;
@@ -998,6 +999,14 @@ textarea{
     width: 15%;
     display: flex;
     justify-content: space-between;
+}
+
+.sousquestion{
+    width: 50%;
+}
+
+#sections{
+    font-size: 1.4em;
 }
 
 #resp{
