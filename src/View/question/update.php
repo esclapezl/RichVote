@@ -15,10 +15,8 @@ use App\Model\DataObject\Question;
             $phases = $question->getPhases();
             for($i=0; $i<count($phases); $i++){
             $phase = $phases[$i];
-            echo '<h3> Phase '.$i + 1 .' : </h3>';
-            echo '<div class="descP"></div>';
+            $numeroPhase = $i +1;
             require __DIR__ .'/../phase/update.php';
-            echo '<div class="descG"></div>';
             }?>
 
             <p>
