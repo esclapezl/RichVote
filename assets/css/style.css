@@ -877,6 +877,7 @@ button.valide.active{
     padding: 20px;
     border: none;
     text-align: center;
+
 }
 a.optQuestion,
 .opt{
@@ -902,7 +903,7 @@ input.optQuestion{
     font-weight: bold;
     justify-content: center;
     align-items: center;
-    transition: 1s;
+    transition: 0.2s;
     margin-bottom: 15px;
     border-radius: 15px;
 }
