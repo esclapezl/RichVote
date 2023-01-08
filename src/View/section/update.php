@@ -5,6 +5,10 @@ $idQuestion = $section->getIdQuestion();
 $intitule = $section -> getIntitule();
 $description = $section->getDescription();
 $idSection = $section->getIdSection();
+if($intitule == 'intitulé')
+{
+    $intitule = ' ';
+}
 ?>
 
 <input type="text" size="50"  id=<?='i'.$idSection?> name=<?='intitule['.$idSection.']'?> value="<?=$intitule?>">

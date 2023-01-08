@@ -238,7 +238,7 @@ class ControllerProposition extends GenericController
         $user = (new UserRepository())->select($idUser);
         $demande = new Demande('auteur', $question, $user, $proposition);
 
-        DemandeUserRepository::sauvegarder($demande);
+        (new DemandeUserRepository)->sauvegarder($demande);
 
         MessageFlash::ajouter('success', 'Demande effectuée');
         ControllerQuestion::readAll();
