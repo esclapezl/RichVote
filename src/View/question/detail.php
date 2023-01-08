@@ -155,7 +155,7 @@ switch ($typePrecisPhase) {
                 }
 
                 echo '<br><div class="description">';
-                echo '<div class="ligneAlign"><h1>Description :</h1></div><div class="ligne"></div><br><p>
+                echo '<div class="ligneAlign"><h1>Description :</h1></div><div class="ligne"></div><br><p id="sections">
                         ' .$question->getDescription() . '</p><div class="descG"></div>';
                 echo '<div class="ligneCent"><div class="ligne"></div></div><div class="ligneCent"><h1>Sommaire</h1></div>';
                 $y=0;
