@@ -23,19 +23,27 @@ $idProposition = $proposition->getId();
                     '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($idProposition) . ' class="optQuestion">Supprimer</a>';
             }
             elseif ($roleProposition!='auteur'){
-                echo '<a href="frontController.php?controller=proposition&action=addDemandeAuteur&id=' . $proposition->getId() . '"> devenir auteur de cette proposition</a>';
+                echo '<a class="optQuestion" href="frontController.php?controller=proposition&action=addDemandeAuteur&id=' . $proposition->getId() . '"> devenir auteur de cette proposition</a>';
             }?>
         </div>
+        <br>
 
         <?php
         foreach ($proposition->getSectionsTexte() as $infos){
             $idSection = $infos['section']->getId();
             $texte = $infos['texte'];
-            $nbLikes = (new \App\Model\Repository\SectionRepository())->getNbLikes($idSection);
+            $nbLikes = (new \App\Model\Repository\SectionRepository())->getNbLikes($idSection,$idProposition);
 
-            echo '<div class="ligneExt"><h3>' . ucfirst(htmlspecialchars($proposition->getIntitule())) . "</h3></div>";
+            echo '<div class="ligneExt"><h3>' . ucfirst(htmlspecialchars($infos['section']->getIntitule())) . "</h3></div>";
             echo "<div class='ligne'></div>" . $texte ;
-            echo '<div><a href="frontController.php?controller=proposition&action=likeSectionProposition&id='.$idSection.'&idQuestion='.$proposition->getIdQuestion().'&idProposition='.$proposition->getId().'"><img src="../assets/img/icons8-jaimeBlanc.png"></a>     '.$nbLikes.'</div></li>';
+            if((new \App\Model\Repository\SectionRepository())->userALike($idSection,ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idProposition))
+            {
+                echo '<div><a href="frontController.php?controller=proposition&action=likeSectionProposition&id='.$idSection.'&idQuestion='.$proposition->getIdQuestion().'&idProposition='.$proposition->getId().'"><img src="../assets/img/icons8-jaimeBleu.png"></a>     '.$nbLikes.'</div></li>';
+            }
+            else
+            {
+                echo '<div><a href="frontController.php?controller=proposition&action=likeSectionProposition&id='.$idSection.'&idQuestion='.$proposition->getIdQuestion().'&idProposition='.$proposition->getId().'"><img src="../assets/img/icons8-jaimeBlanc.png"></a>     '.$nbLikes.'</div></li>';
+            }
             echo '<br>';
         }?>
     </div>
