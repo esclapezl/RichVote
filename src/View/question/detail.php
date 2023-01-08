@@ -170,7 +170,11 @@ switch ($typePrecisPhase) {
                     $i++;
                     echo '<div class="ligneExt"><h3 id="sections">'. $i .'. ' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
                     echo "<div class='ligne'></div><p>" . $section->getDescription();
+                    echo '<br>';
+                    //echo '<div><a href="frontController.php?controller=question&action=likeSection&id='.$section->getId().'&idQuestion='.$_GET['id'].'"><img src="../assets/img/icons8-jaimeBlanc.png"></a>     '.$section->getNbLikes().'</div></li>';
+                    echo '<br>';
                     echo "</p><br>";
+
                 }
                 echo '</div>';
         }

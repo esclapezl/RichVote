@@ -92,5 +92,11 @@ class Phase extends AbstractDataObject
         return $this->getDateFin()->format('y-m-d')<date("y-m-d");
     }
 
+    public function estCommence():bool
+    {
+        return ($this->getDateDebut()->format('y-m-d')<=date("y-m-d")
+            &&  $this->getDateFin()->format('y-m-d')>=date("y-m-d"));
+    }
+
 
 }

@@ -27,7 +27,7 @@ class ControllerQuestion extends GenericController
             $questions = (new QuestionRepository)->search($recherche);
         }
         else{
-            $questions = (new QuestionRepository)->selectAll();
+            $questions = (new QuestionRepository)->selectAllByDate();
         }
 
         $privilegeUser='';
@@ -110,7 +110,7 @@ class ControllerQuestion extends GenericController
                 self::redirection('frontController.php?controller=question&action=create');
             }
 
-            $question = new Question(null, ConnexionUtilisateur::getLoginUtilisateurConnecte() , $intitule, 'description', $dateCreation, $dateFermeture, Phase::emptyPhase());
+            $question = new Question(null, ConnexionUtilisateur::getLoginUtilisateurConnecte() , $intitule, ' ', $dateCreation, $dateFermeture, Phase::emptyPhase());
             $question = (new QuestionRepository())->creerQuestion($question, $nbSections, $nbPhases);
 
             $parametres = array(
@@ -571,25 +571,16 @@ class ControllerQuestion extends GenericController
         $idSection = $_GET['id'];
         $idQuestion = $_GET['idQuestion'];
 
-        if(ConnexionUtilisateur::estConnecte())
-        {
+        if (ConnexionUtilisateur::estConnecte()) {
             $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
             $sectionRepository = new SectionRepository();
-            if($sectionRepository->userALike($idSection,$idUser))
-            {
-                $sectionRepository->deliker($idSection,$idUser);
-            }
-            else
-            {
-                $sectionRepository->liker($idSection,$idUser);
+            if ($sectionRepository->userALike($idSection, $idUser)) {
+                $sectionRepository->deliker($idSection, $idUser);
+            } else {
+                $sectionRepository->liker($idSection, $idUser);
             }
         }
-        self::redirection('frontController.php?controller=question&action=read&id='.$idQuestion);
-
-
-
-
-
+        self::redirection('frontController.php?controller=question&action=read&id=' . $idQuestion);
 
 
     }

@@ -127,6 +127,7 @@ class PropositionRepository extends AbstractRepository
         $sql = "update SOUVIGNETN.PROPOSERTEXTE SET texte = :texte WHERE idProposition = :idProposition AND idSection = :idSection";
         $pdoStatement = $pdo->prepare($sql);
 
+        var_dump( $object->getSectionsTexte());
         foreach($object->getSectionsTexte() as $infos){
             $params = array(
                 'idProposition' => $object->getIdProposition(),

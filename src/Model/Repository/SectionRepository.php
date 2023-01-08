@@ -83,9 +83,9 @@ class SectionRepository extends AbstractRepository
         return "intituleSection";
     }
 
-    public function userALike(int $idSection, string $idUser):bool
+    public function userALike(int $idSection, string $idUser,int $idProposition):bool
     {
-        $sql = "SELECT COUNT(*) FROM souvignetn.likesSections WHERE IDSECTION = ".$idSection." AND IDUSER = :IDUSER";
+        $sql = "SELECT COUNT(*) FROM souvignetn.likesSections WHERE IDSECTION = ".$idSection." AND IDUSER = :IDUSER AND IDPROPOSITION = ".$idProposition;
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
         $pdoStatement->execute(['IDUSER' => $idUser]);
 
@@ -96,23 +96,23 @@ class SectionRepository extends AbstractRepository
         else return true;
     }
 
-    public function liker(int $idSection, string $idUser):void
+    public function liker(int $idSection, string $idUser,int $idProposition):void
     {
-        $sql = "INSERT INTO SOUVIGNETN.LIKESSECTIONS VALUES(".$idSection.",:IDUSER)";
+        $sql = "INSERT INTO SOUVIGNETN.LIKESSECTIONS VALUES(".$idSection.",:IDUSER,".$idProposition.")";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
         $pdoStatement->execute(['IDUSER' => $idUser]);
     }
 
-    public function deliker(int $idSection, string $idUser):void
+    public function deliker(int $idSection, string $idUser,int $idProposition):void
     {
-        $sql = "DELETE FROM SOUVIGNETN.LIKESSECTIONS WHERE IDSECTION=".$idSection." AND IDUSER = :IDUSER";
+        $sql = "DELETE FROM SOUVIGNETN.LIKESSECTIONS WHERE IDSECTION=".$idSection." AND IDUSER = :IDUSER AND IDPROPOSITION=".$idProposition;
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
         $pdoStatement->execute(['IDUSER' => $idUser]);
     }
 
-    public function getNbLikes(Section $section): string
+    public function getNbLikes(int $idSection): string
     {
-        $sql = "SELECT COUNT(*) FROM souvignetn.likesSections WHERE IDSECTION = '" . $section->getIdSection() . "'";
+        $sql = "SELECT COUNT(*) FROM souvignetn.likesSections WHERE IDSECTION = '" . $idSection . "'";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
         $pdoStatement->execute();
         $p = $pdoStatement->fetch()[0];

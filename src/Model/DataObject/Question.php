@@ -20,7 +20,7 @@ class Question extends AbstractDataObject
         ?string $id,
         string $idOrganisateur,
         string $intitule,
-        string $description,
+        ?string $description,
         DateTime $dateCreation,
         DateTime $dateFermeture,
         Phase $currentPhase,
@@ -30,6 +30,10 @@ class Question extends AbstractDataObject
         $this->id = $id;
         $this->idOrganisateur = $idOrganisateur;
         $this->intitule = $intitule;
+        if($description == null)
+        {
+            $description = ' ';
+        }
         $this->description = $description;
         $this->dateCreation = $dateCreation;
         $this->dateFermeture = $dateFermeture;

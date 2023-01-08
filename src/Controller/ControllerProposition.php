@@ -96,10 +96,10 @@ class ControllerProposition extends GenericController
             self::redirection('frontController.php?controller=question&action=readAll');
         }
         else {
-            $sectionsText = $proposition->getSectionsTexte();
+            $sectionsText = [];
 
-            foreach ($sectionsText as $infos){
-                $infos['texte'] = $_POST['texte'][$infos['section']->getId()];
+            foreach ($_POST['texte'] as $idSection => $text) {
+                $sectionsText[$idSection] = $text;
             }
 
             $proposition->setSectionsTexte($sectionsText);
@@ -293,6 +293,26 @@ class ControllerProposition extends GenericController
             MessageFlash::ajouter('warning', 'Vous ne pouvez pas accéder à cette fonctionnalité');
         }
         ControllerQuestion::readAll();
+    }
+
+    public static function likeSectionProposition()
+    {
+        $idSection = $_GET['id'];
+        $idQuestion = $_GET['idQuestion'];
+        $idProposition = $_GET['idProposition'];
+
+        if (ConnexionUtilisateur::estConnecte()) {
+            $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+            $sectionRepository = new SectionRepository();
+            if ($sectionRepository->userALike($idSection, $idUser,$idProposition)) {
+                $sectionRepository->deliker($idSection, $idUser,$idProposition);
+            } else {
+                $sectionRepository->liker($idSection, $idUser,$idProposition);
+            }
+        }
+        self::redirection('frontController.php?controller=proposition&action=read&id=' . $idProposition);
+
+
     }
 
 

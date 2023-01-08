@@ -11,12 +11,19 @@ use App\Model\DataObject\Question;
             <h1><legend>Votre Question</legend></h1>
             <div class="ligneCent"><div class="ligne"></div></div>
             <div class="descG"></div>
+
+
             <?php
+
             $phases = $question->getPhases();
             for($i=0; $i<count($phases); $i++){
             $phase = $phases[$i];
             $numeroPhase = $i +1;
-            require __DIR__ .'/../phase/update.php';
+                if($phase->estCommence() ||$phase->estFinie())
+                {
+                    require __DIR__ .'/../phase/update.php';
+                }
+
             }?>
 
             <p>
