@@ -96,10 +96,11 @@ class ControllerProposition extends GenericController
             self::redirection('frontController.php?controller=question&action=readAll');
         }
         else {
-            $sectionsText = [];
+            $sectionsText = $proposition->getSectionsTexte();
 
-            foreach ($_POST['texte'] as $idSection => $text) {
-                $sectionsText[$idSection] = $text;
+            foreach ($sectionsText as $index=>$infos){
+                $infos['texte'] = $_POST['texte'][$infos['section']->getId()];
+                $sectionsText[$index] = $infos;
             }
 
             $proposition->setSectionsTexte($sectionsText);

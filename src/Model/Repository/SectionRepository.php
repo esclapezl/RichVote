@@ -58,20 +58,24 @@ class SectionRepository extends AbstractRepository
     }
 
     public function getSectionsProposition(string $idProposition): array{
-        $sql = "SELECT s.idSection, s.idQuestion, intituleSection, descriptionSection, COUNT(s.idSection) as nbLike, texte
+        $sql = "SELECT s.idSection, s.idQuestion, intituleSection, descriptionSection, texte
                 FROM SECTIONS s
-                JOIN PROPOSITIONS p ON p.idQuestion=s.idQuestion
-                JOIN PROPOSERTEXTE pt ON pt.idProposition=p.idProposition
-                WHERE p.idProposition=:idProposition
-                GROUP BY (s.idSection, s.idQuestion, intituleSection, descriptionSection, texte)"; // ca compte pas le nb de like idiot
+                JOIN PROPOSERTEXTE p ON p.idSection=s.idSection
+                WHERE p.idProposition=:idProposition"; // ca compte pas le nb de like idiot
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
         $pdoStatement->execute(['idProposition' => $idProposition]);
+
+        $sqlNbLike = "SELECT COUNT(idProposition) FROM LIKESSECTIONS WHERE idProposition=:idProposition AND idSection=:idSection";
+        $pdoStatementNbLike = DatabaseConnection::getPdo()->prepare($sqlNbLike);
 
         $result = [];
         foreach ($pdoStatement as $infos){
             $section = $this->construire($infos);
+
+            $pdoStatementNbLike->execute(['idSection'=>$section->getId(), 'idProposition'=>$idProposition]);
+
             $result[] = ['section' => $section,
-                        'nbLike' => $infos['NBLIKE'],
+                        'nbLike' => $pdoStatementNbLike->fetch()[0],
                         'texte' => $infos['TEXTE']];
         }
         return $result;

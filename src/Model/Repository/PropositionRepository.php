@@ -121,14 +121,13 @@ class PropositionRepository extends AbstractRepository
     public function update(AbstractDataObject $object): void
     {
         parent::update($object);
-
         $pdo = DatabaseConnection::getInstance()::getPdo();
 
         $sql = "update SOUVIGNETN.PROPOSERTEXTE SET texte = :texte WHERE idProposition = :idProposition AND idSection = :idSection";
         $pdoStatement = $pdo->prepare($sql);
 
-        var_dump( $object->getSectionsTexte());
-        foreach($object->getSectionsTexte() as $infos){
+        $newSectionsTexte = $object->getSectionsTexte();
+        foreach($newSectionsTexte as $infos){
             $params = array(
                 'idProposition' => $object->getIdProposition(),
                 'idSection' => $infos['section']->getId(),
