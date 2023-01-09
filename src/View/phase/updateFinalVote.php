@@ -2,12 +2,13 @@
 
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Section;
+use App\Model\DataObject\Question;
 /** @var Phase $phase
  * @var int $numeroPhase
  */
 $id = $phase->getId();
-$dateDebut = $phase->getDateDebut()->format('yy-m-d');
-$dateFin =  $phase->getDateFin()->format('yy-m-d');
+$dateDebut = '20' . $phase->getDateDebut()->format('y-m-d');
+$dateFin = '20' . $phase->getDateFin()->format('y-m-d');
 $type = $phase->getType();
 $nbPlaces = $phase->getNbDePlaces();
 ?>
@@ -25,9 +26,9 @@ $nbPlaces = $phase->getNbDePlaces();
         }
     }
 </script>
-<br>
-<div class="ligneCent"><input type="button" class="optButton" onclick="visibilite('phase<?=$id?>');" value="Modifier la phase n°<?=$numeroPhase?>"></div>
-<div id="phase<?=$id?>" style="display: none">
+<div class="descP"></div>
+Modifier la phase de vote final
+<div id="phase<?=$id?>">
     <div>Début :
     <input type="date" id=<?='dD'.$id?> name=<?='dateDebut['.$id.']'?> value="<?=$dateDebut?>">
     </div><div class="descP"></div>
@@ -38,7 +39,6 @@ $nbPlaces = $phase->getNbDePlaces();
     <div>
         Type de phase :
         <select id="selectwidth" name="<?="type[$id]"?>">
-            <option value="consultation" <?=$type=='consultation'?'selected':''?>>Phase de consultation</option>
             <option value="scrutinMajoritaire" <?=$type=='scrutinMajoritaire'?'selected':''?>>Phase de vote par scrutin majoritaire</option>
             <option value="scrutinMajoritairePlurinominal" <?=$type=='scrutinMajoritairePlurinominal'?'selected':''?>>Phase de vote par scutin majoritaire plurinominal</option>
             <option value="jugementMajoritaire" <?=$type=='jugementMajoritaire'?'selected':''?>>Phase de vote par jugement majoritaire</option>
@@ -47,8 +47,7 @@ $nbPlaces = $phase->getNbDePlaces();
 
 
 <div class="descP"></div>
-    <label for=<?='nbP'.$id?>>S'il s'agit d'un vote, indiquez le nombre de propositions qui seront sélectionnées à l'issue du vote</label>
-    <input type="number" min="1" max="20" id=<?='nbP'.$id?> name=<?='nbDePlaces['.$id.']'?> value="<?=$nbPlaces==null?1:$nbPlaces?>">
+    <input type="hidden" id=<?='nbP'.$id?> name=<?='nbDePlaces['.$id.']'?> value=1>
 
 </div>
 <div class="descG"></div>
