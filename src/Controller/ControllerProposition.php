@@ -40,6 +40,8 @@ class ControllerProposition extends GenericController
 
         $proposition = (new PropositionRepository())->select($idProposition);
 
+        $demandes = (new DemandeUserRepository)->selectAllDemandeAuteurProposition($proposition);
+
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $roleProposition = '';
         if($proposition->getIdResponsable()==$idUser){
@@ -59,6 +61,7 @@ class ControllerProposition extends GenericController
             'pagetitle' => 'Détail Proposition',
             'cheminVueBody' => 'proposition/detail.php',
             'proposition' => $proposition,
+            'demandes' => $demandes,
             'commentaires'=>$commentaires,
             'roleProposition' => $roleProposition
         );
