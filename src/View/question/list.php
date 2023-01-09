@@ -9,6 +9,7 @@ use App\Model\Repository\UserRepository;
 
 ?>
 <div class="block">
+
     <div class="text-box">
         <div class="ligneExt">
             <h1>Questions publiées :</h1>
@@ -27,7 +28,7 @@ use App\Model\Repository\UserRepository;
             <form class="ligneAlign" method="post" action="frontController.php?controller=question&action=readAll">
                 <input type="search" class="opt" name="title" id="title" placeholder="Rechercher une Question">
                 <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
-                <a href="frontController.php?controller=question&action=readAll" id="refresh"><img src="../assets/img/icon-refresh.svg"></a>
+                <a href="frontController.php?controller=question&action=readAll" id="refresh"><img src="../assets/img/icons8-refresh-50.png"></a>
             </form>
             <?php
             if(ConnexionUtilisateur::estConnecte())

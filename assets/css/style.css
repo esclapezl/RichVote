@@ -19,7 +19,8 @@ html{
 
 html{
     background: rgb(9,4,84);
-    background: linear-gradient( rgb(113, 117, 213) 0%, rgba(57,78,222,1) 54%, rgb(30, 39, 89) 100%);
+    /*background: linear-gradient( rgb(113, 117, 213) 0%, rgba(57,78,222,1) 54%, rgb(30, 39, 89) 100%);*/
+    background: linear-gradient( rgb(113, 117, 213) 0%, rgb(78, 81, 164) 100%);
 }
 
 body {
@@ -197,6 +198,7 @@ nav{
     align-items: center;
     transition: 1s;
 }
+
 
 .navBar #btn-connexion.active,
 .navBar #btn-connexion:hover,
@@ -460,11 +462,11 @@ footer .vague#vague4{
     width: 95%;
 
 
-    /*background: rgba( 0, 0, 0, 0.25 );*/
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.5 );
+    background: none;
+    /*box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.5 );*/
     backdrop-filter: blur( 15.5px );
     -webkit-backdrop-filter: blur( 15.5px );
-    border-radius: 20px;
+    border-radius: 15px;
 
 }
 .results > h2{
@@ -756,7 +758,7 @@ fieldset,.description{
 }
 .ligneT,
 .ligneTbis{
-    height: 5px;
+    height: 20px;
 }
 
 
@@ -771,10 +773,10 @@ fieldset,.description{
     position: relative;
     border-radius: 100%;
     background: rgb(112,116,213);
-    height: 20px;
-    width: 20px;
+    height: 30px;
+    width: 30px;
     border: 1px solid white;
-    margin: 0 5px 0 5px;
+    margin: 0 10px 0 10px;
 }
 
 #circle:hover,
@@ -1103,7 +1105,7 @@ a h2,
     color: mediumblue;
     margin: 8px 50px 8px 0;
     background: whitesmoke;
-    box-shadow: 0 8px 60px 0 rgba(31, 38, 135, 0.5);
+    /*box-shadow: 0 8px 60px 0 rgba(31, 38, 135, 0.5);*/
     backdrop-filter: blur(11px);
     -webkit-backdrop-filter: blur(11px);
     border-radius: 20px;

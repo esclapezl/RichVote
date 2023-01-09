@@ -54,7 +54,7 @@ use App\Model\Repository\UserRepository;
                     <?php
                     if((new ConnexionUtilisateur())->estConnecte()) {
                         echo  '<div class="ligneAlign"><a id="btn-connexion" href="frontController.php?controller=user&action=read&id='.(new ConnexionUtilisateur())->getLoginUtilisateurConnecte() .'">'. (new ConnexionUtilisateur())->getLoginUtilisateurConnecte().' </a>
-                                <a id="btn-connexion" href="frontController.php?controller=user&action=deconnexion">Deconnexion </a></div>';
+                                <a id="btn-connexion" href="frontController.php?controller=user&action=deconnexion">Déconnexion </a></div>';
 
                     }
                     else {echo  '<a id="btn-connexion" href="frontController.php?controller=user&action=connexion">Connexion </a>';}
