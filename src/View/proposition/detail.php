@@ -40,8 +40,9 @@ $idProposition = $proposition->getId();
             $texte = $infos['texte'];
             $nbLikes = (new \App\Model\Repository\SectionRepository())->getNbLikes($idSection,$idProposition);
 
-            echo '<div class="ligneExt"><h3>' . ucfirst(htmlspecialchars($infos['section']->getIntitule())) . "</h3></div>";
-            echo "<div class='ligne'></div>" . $texte ;
+            //echo '<div class="ligneExt"><h3>' . ucfirst(htmlspecialchars($infos['section']->getIntitule())) . "</h3></div>";
+            //echo "<div class='ligne'></div>" . $texte ;
+            echo $texte ;
             if((new \App\Model\Repository\SectionRepository())->userALike($idSection,ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idProposition))
             {
                 echo '<div><a href="frontController.php?controller=proposition&action=likeSectionProposition&id='.$idSection.'&idQuestion='.$proposition->getIdQuestion().'&idProposition='.$proposition->getId().'"><img src="../assets/img/icons8-jaimeBleu.png"></a>     '.$nbLikes.'</div></li>';
