@@ -64,8 +64,8 @@ class Phase extends AbstractDataObject
     public function formatTableau(): array
     {
         return ['idPhaseTag' => $this->id,
-            'dateDebutTag' => $this->dateDebut->format('d/m/Y'),
-            'dateFinTag' => $this->dateFin->format('d/m/Y'),
+            'dateDebutTag' => $this->dateDebut->format('d/m/yy'),
+            'dateFinTag' => $this->dateFin->format('d/m/yy'),
             'typePhaseTag' => $this->type,
             'nbDePlacesTag' => $this->nbDePlaces];
     }
@@ -89,13 +89,13 @@ class Phase extends AbstractDataObject
     }
 
     public function estFinie():bool{
-        return $this->getDateFin()->format('y-m-d')<date("y-m-d");
+        return $this->getDateFin()->format('yy-m-d')<date("yy-m-d");
     }
 
     public function estCommence():bool
     {
-        return ($this->getDateDebut()->format('y-m-d')<=date("y-m-d")
-            &&  $this->getDateFin()->format('y-m-d')>=date("y-m-d"));
+        return ($this->getDateDebut()->format('yy-m-d')<=date("yy-m-d")
+            &&  $this->getDateFin()->format('yy-m-d')>=date("yy-m-d"));
     }
 
 

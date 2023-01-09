@@ -30,7 +30,8 @@ use App\Model\DataObject\Question;
         </select>";
             }
             ?>
-            <input type="submit" name="Valider votre choix">
+            <div class="ligneCent">
+            <button type="submit" class="opt"><img src="../assets/img/icon-vote.png"></button></div>
         </form>
     </div>
 </div>
