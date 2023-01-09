@@ -25,7 +25,7 @@ $idProposition = $proposition->getId();
             if ($roleProposition=='responsable'){
                 echo '<div class="ligneAlign">'.
                     '<a href=frontController.php?controller=proposition&action=update&id=' . rawurlencode($idProposition) . ' ><img class="icons" alt="modifier" src="../assets/img/icons8-crayon-48.png"></a>' .
-                    '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($idProposition) . ' ><img class="icons" id="poubelle" alt="supprimer question" src="../assets/img/icons8-effacer.svg"></a>'
+                    '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($idProposition) . ' ><img class="icons" id="poubelle" alt="supprimer question" src="../assets/img/icons8-poubelleBlanc.svg"></a>'
                     .'</div>';
             }
             elseif ($roleProposition!='auteur'){
@@ -70,11 +70,11 @@ $idProposition = $proposition->getId();
             {
                 if($commentaire->getIDUSER() == ConnexionUtilisateur::getLoginUtilisateurConnecte() || ConnexionUtilisateur::estAdministrateur())
                 {
-                    echo '<li class="ligneExt"><div><div  class="descP">'.$commentaire->getIDUSER().'</div><div class="descP" style="margin-left: 20px;color: black">'.$commentaire->getTEXTE(). ' </div><div style="color: #adadad;">' .$commentaire->getDATECOMMENTAIRE().' </div></div>   <div><a href="frontController.php?controller=proposition&action=likeCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE().'"><img src="../assets/img/icons8-jaime.png"></a><a href="frontController.php?controller=proposition&action=dislikeCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE().'"><img src="../assets/img/icons8-jaimepas.png"></a> '.$commentaire->getNBLIKE().'<a href="frontController.php?controller=proposition&action=deleteCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE() .'"><img src="../assets/img/icons8-poubelle.png"></a></div></li>';
+                    echo '<li class="ligneExt"><div><div  class="descP">'.$commentaire->getIDUSER().'</div><div class="descP" style="margin-left: 20px;color: black">'.$commentaire->getTEXTE(). ' </div><div style="color: #adadad;">' .$commentaire->getDATECOMMENTAIRE().' </div></div>   <div><a href="frontController.php?controller=proposition&action=deleteCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE() .'"><img src="../assets/img/icons8-poubelleNoir.svg"></a></div></li>';
                 }
                 else
                 {
-                    echo '<li class="ligneExt"><div><div  class="descP">'.$commentaire->getIDUSER().'</div><div class="descP" style="margin-left: 20px;color: black">'.$commentaire->getTEXTE(). ' </div><div style="color: #adadad;">' .$commentaire->getDATECOMMENTAIRE().' </div></div>   <div><a href="frontController.php?controller=proposition&action=likeCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE().'"><img src="../assets/img/icons8-jaime.png"></a><a href="frontController.php?controller=proposition&action=dislikeCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE().'"><img src="../assets/img/icons8-jaimepas.png"></a> '.$commentaire->getNBLIKE().'</div></li>';
+                    echo '<li class="ligneExt"><div><div  class="descP">'.$commentaire->getIDUSER().'</div><div class="descP" style="margin-left: 20px;color: black">'.$commentaire->getTEXTE(). ' </div><div style="color: #adadad;">' .$commentaire->getDATECOMMENTAIRE().' </div></div>   </li>';
                 }
              }
         }

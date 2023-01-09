@@ -16,16 +16,21 @@ use App\Model\DataObject\Proposition;
             <div>
                 <h1>Propositions publiées :</h1>
             </div>
-            <?php
+            <!-- <?php
             if(ConnexionUtilisateur::estConnecte()){
             echo '<div class="responsive">Vous êtes connecté en tant que :<h3>'.ucfirst(ConnexionUtilisateur::getRole()).'</h3></div></div>
 <div class="ligneExt"><ul>';
             }
             ?>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
-        </div>
-        <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
-        <ul>
+        </div> -->
+
+    </div>
+
+
+
+    <div class="ligneExt"><div class="ligne"></div></div>
+    <ul>
 
 
             <?php

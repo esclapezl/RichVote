@@ -292,5 +292,18 @@ class PropositionRepository extends AbstractRepository
         return $result>0;
     }
 
+    public function selectAllByDate($idQuestion): ?array
+    {
+        $sql = "SELECT * FROM SOUVIGNETN.PROPOSITIONS  WHERE idQuestion = ".$idQuestion."ORDER BY  idquestion DESC";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->query($sql);
+
+        $propositions = [];
+        foreach ($pdoStatement as $questionTab){
+            $propositions[] = $this->construire($questionTab);
+        }
+
+        return $propositions;
+    }
+
 
 }

@@ -98,7 +98,7 @@ switch ($typePrecisPhase) {
                         Créer proposition</a>
                         <div class="ligneAlign">
                             <a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '><img class="icons" alt="modifier" src="../assets/img/icons8-crayon-48.png"></a> 
-                            <a href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '><img class="icons" id="poubelle" alt="supprimer question" src="../assets/img/icons8-effacer.svg"></a>
+                            <a href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '><img class="icons" id="poubelle" alt="supprimer question" src="../assets/img/icons8-poubelleBlanc.svg"></a>
                             <a href="frontController.php?controller=question&action=addUsersToQuestion&id=' . $question->getId() .'"><img class="icons" alt="ajtParticipants" src="../assets/img/icons8-ajtUserBlanc-48.png"></a>
                         </div>
                         </div>

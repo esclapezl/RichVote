@@ -22,7 +22,7 @@ class ControllerProposition extends GenericController
         self::connexionRedirect('warning', 'Connectez-vous pour voir les propositions');
         $idQuestion = $_GET['id'];
 
-        $listePropositions = (new PropositionRepository())->selectAllForQuestion($idQuestion);
+        $listePropositions = (new PropositionRepository())->selectAllByDate($idQuestion);
 
         $parametres = array(
             'pagetitle' => 'Liste Propositions',

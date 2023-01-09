@@ -173,7 +173,7 @@ class QuestionRepository extends AbstractRepository
 
     public function selectAllByDate(): ?array
     {
-        $sql = "SELECT * FROM SOUVIGNETN.QUESTIONS ORDER BY DATECREATION DESC";
+        $sql = "SELECT * FROM SOUVIGNETN.QUESTIONS ORDER BY  idquestion DESC";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->query($sql);
 
         $questions = [];
