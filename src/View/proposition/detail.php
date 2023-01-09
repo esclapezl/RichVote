@@ -6,14 +6,25 @@ use  \App\Model\DataObject\Commentaire;
  * @var Array $commentaires
  * @var Commentaire $commentaire
  * @var string $roleProposition
+ * @var Demande[] $demandes
  */
+$nbDemandes= sizeof($demandes);
 $idProposition = $proposition->getId();
 ?>
 <div class="block" >
     <div class="column">
     <div class="text-box">
-        <div class="ligneExt"> <a id="fleche" class="optQuestion" href="frontController.php?controller=question&action=read&id=<?=$proposition->getIdQuestion()?>">↩</a><a  class="optQuestion" href="frontController.php?controller=proposition&action=readDemandeAuteur&id=<?=rawurlencode($idProposition)?>"> Demandes de Co-Auteurs </a></div>
-        <div class="ligneExt">
+        <div class="ligneExt"> <a id="fleche" class="optQuestion" href="frontController.php?controller=question&action=read&id=<?=$proposition->getIdQuestion()?>">↩</a>
+            <?php
+            if($nbDemandes > 0)
+            {
+                echo  '<div id="iconsNotifiaction">'.$nbDemandes.'</div>';
+                echo '<a  class="optQuestion" href="frontController.php?controller=proposition&action=readDemandeAuteur&id=<?=rawurlencode($idProposition)?>"> Demandes de Co-Auteurs </a></div> ';
+            }
+
+
+            ?>
+            <div class="ligneExt">
                 <h1><?=htmlspecialchars($proposition->getIntitule())?></h1><h3>Détail de la proposition</h3></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <div class="ligneExt">

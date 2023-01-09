@@ -42,8 +42,16 @@ use App\Model\DataObject\Proposition;
                     } else {
                         $infoComplement = $proposition->estArchive() ? '(archivé)' : '';
                     }
+                    if($proposition->getIntitule() == '')
+                    {
+                        $intitule = 'sans nom';
+                    }
+                    else
+                    {
+                        $intitule = $proposition->getIntitule();
+                    }
                     echo '<li class="ligneExt"><a class="atxt" href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getIdProposition()) . '>'
-                        . htmlspecialchars($proposition->getIntitule()) . $infoComplement . '</a>';
+                        . htmlspecialchars($intitule) . $infoComplement . '</a>';
 
 
                     }
