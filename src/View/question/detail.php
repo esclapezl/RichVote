@@ -77,6 +77,19 @@ switch ($typePrecisPhase) {
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
                 if ($roleQuestion == "organisateur") {
+                    $btnPhase = '<a class="optQuestion" id="phases" href="frontController.php?controller=question&action=changePhase&id=' . $question->getId() .'">Passer à la prochaine phase</a>';
+                    $currentDate = date_create("now");
+
+                    foreach ($question->getPhases() as $phase){
+                        $dateDebut = $phase->getDateDebut();
+                        $dateFin = $phase->getDateFin();
+                        $bool1 = ($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 1);
+                        $bool2 = ($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 1);
+                        if($bool1 || $bool2){
+                            $btnPhase = '<a class="optQuestion" id="phases" href="frontController.php?controller=question&action=changePhase&id=' . $question->getId() .'">Passer à la prochaine phase</a>';
+                        }
+                    }
+
                     echo '<fieldset><h2>Interface organisateur</h2><br><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
                     echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
                         echo '</div><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
@@ -87,8 +100,7 @@ switch ($typePrecisPhase) {
                         
                         <div class="ligneExt">
                         <div>
-                        <div class="ligneAlign"> <a class="optQuestion" id="phases" href="frontController.php?controller=question&action=debutPhase&id=' . $question->getId() .'">Debut phase</a>
-                        <a class="optQuestion" id="phases" href="frontController.php?controller=question&action=finPhase&id=' . $question->getId() .'">Fin phase</a>
+                        <div class="ligneAlign">' . $btnPhase . '
                         </div>
                     
                         </div>

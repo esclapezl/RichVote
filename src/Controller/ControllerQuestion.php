@@ -418,50 +418,30 @@ class ControllerQuestion extends GenericController
     }
 
 
-    public static function finPhase() : void
+    public static function changePhase() : void
     {
         self::connexionRedirect('warning', 'Veuillez vous connecter');
         $idQuestion = $_GET['id'];
 
         $question = (new QuestionRepository())->select($idQuestion);
         $currentPhase=(new PhaseRepository())->getCurrentPhase($idQuestion);
-        if($currentPhase->isEmpty()){
-            MessageFlash::ajouter('info', 'il n\'y a pas de phase en cours');
-        }
-        else if(ConnexionUtilisateur::getLoginUtilisateurConnecte()==$question->getIdOrganisateur()){
-            $currentPhase=(new PhaseRepository())->getCurrentPhase($idQuestion);
 
+        $dateFin = $currentPhase->getDateFin();
+        $currentDate = date_create("now");
+//        var_dump($dateFin);
+//        var_dump(date_diff($dateFin, $currentDate)->d);
+        if($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 1){
             (new PhaseRepository())->endPhase($currentPhase->getId());
         }
-        else{
-            MessageFlash::ajouter('warning', 'Vous ne disposez pas des droits');
+
+        foreach ($question->getPhases() as $phase){
+            $dateDebut = $phase->getDateDebut();
+            if($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 1){
+                (new PhaseRepository())->startPhase($phase->getId());
+            }
         }
 
-        $parametres = array(
-            'pagetitle' => 'Détail Question',
-            'cheminVueBody' => 'question/detail.php',
-            'question' => $question
-        );
-
-        self::afficheVue('view.php', $parametres);
-    }
-
-    public static function debutPhase() : void
-    {
-        $idQuestion = $_GET['id'];
-
-        $question = (new QuestionRepository())->select($idQuestion);
-        $currentPhase=(new PhaseRepository())->getCurrentPhase($idQuestion);
-
-        (new PhaseRepository())->startPhase($currentPhase->getId());
-
-        $parametres = array(
-            'pagetitle' => 'Détail Question',
-            'cheminVueBody' => 'question/detail.php',
-            'question' => $question
-        );
-
-        self::afficheVue('view.php', $parametres);
+        //self::redirection("frontController.php?controller=question&action=read&id=".$question->getId());
     }
 
     public static function readDemandeVote() : void{
