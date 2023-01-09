@@ -23,6 +23,10 @@ use App\Model\DataObject\Proposition;
                 foreach ($sectionsText as $infos){
                     $idSection = $infos['section']->getId();
                     $text = $infos['texte'];
+                    if($text == 'à remplir')
+                    {
+                        $text = ' ';
+                    }
                     echo ' <div class="descP"></div><h3>Description : </h3>
                         <textarea rows="4" cols="80" maxlength="1000" id="mytextarea" name=texte[' . $idSection . '] >' . $text . '</textarea></form>';
                 }
