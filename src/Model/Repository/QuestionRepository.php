@@ -28,13 +28,19 @@ class QuestionRepository extends AbstractRepository
             "intituleQuestion",
             "descriptionQuestion",
             "dateCreation",
-            "dateFermeture"
+            "dateFermeture",
+            "idCurrentPhase"
         ];
     }
 
     protected function construire(array $objetFormatTableau): AbstractDataObject
     {
-        $currentPhase = (new PhaseRepository())->getCurrentPhase($objetFormatTableau['IDQUESTION']);
+        if(isset($objetFormatTableau['IDCURRENTPHASE'])) {
+            $currentPhase = (new PhaseRepository())->select($objetFormatTableau['IDCURRENTPHASE']);
+        }
+        else{
+            $currentPhase = Phase::emptyPhase();
+        }
         return new Question(
             $objetFormatTableau['IDQUESTION'],
             $objetFormatTableau['IDORGANISATEUR'],
