@@ -113,7 +113,7 @@ switch ($typePrecisPhase) {
 
                         if($nbDemandes>0)
                         {
-                            echo  '<div id="iconsNotifiaction">'.$nbDemandes.'</div>
+                            echo  '<div class="iconsNotifs" id="iconsNotifiaction">'.$nbDemandes.'</div>
                             <a class="optQuestion" id="askVotants" href=frontController.php?controller=question&action=readDemandeVote&id='.$question->getId().'> Demandes</a>';
 
                         }

@@ -15,23 +15,18 @@ $idProposition = $proposition->getId();
     <div class="column">
     <div class="text-box">
         <div class="ligneExt"> <a id="fleche" class="optQuestion" href="frontController.php?controller=question&action=read&id=<?=$proposition->getIdQuestion()?>">↩</a>
-            <?php
-            if($nbDemandes > 0)
-            {
-                echo  '<div id="iconsNotifiaction">'.$nbDemandes.'</div>';
-                echo '<a  class="optQuestion" href="frontController.php?controller=proposition&action=readDemandeAuteur&id=<?=rawurlencode($idProposition)?>"> Demandes de Co-Auteurs </a></div> ';
-            }
-
-
-            ?>
+            <?=($roleProposition=='responsable'&&$nbDemandes > 0)?'<div class="ligneExt"><span></span><div class="iconsNotifs" id="iconNotification2">'.$nbDemandes.'</div></div><a  class="optQuestion" href="frontController.php?controller=proposition&action=readDemandeAuteur&id=' . rawurlencode($idProposition) .'"> Demandes de Co-Auteurs </a>':''?>
+        </div>
             <div class="ligneExt">
                 <h1><?=htmlspecialchars($proposition->getIntitule())?></h1><h3>Détail de la proposition</h3></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <div class="ligneExt">
             <?php
             if ($roleProposition=='responsable'){
-                echo '<a href=frontController.php?controller=proposition&action=update&id=' . rawurlencode($idProposition) . ' class="optQuestion">Modifier</a>' .
-                    '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($idProposition) . ' class="optQuestion">Supprimer</a>';
+                echo '<div class="ligneAlign">'.
+                    '<a href=frontController.php?controller=proposition&action=update&id=' . rawurlencode($idProposition) . ' ><img class="icons" alt="modifier" src="../assets/img/icons8-crayon-48.png"></a>' .
+                    '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($idProposition) . ' ><img class="icons" id="poubelle" alt="supprimer question" src="../assets/img/icons8-effacer.svg"></a>'
+                    .'</div>';
             }
             elseif ($roleProposition!='auteur'){
                 echo '<a class="optQuestion" href="frontController.php?controller=proposition&action=addDemandeAuteur&id=' . $proposition->getId() . '"> devenir auteur de cette proposition</a>';
@@ -64,7 +59,7 @@ $idProposition = $proposition->getId();
         <form action="frontController.php?controller=proposition&action=ajtCommentaire&id=<?php echo $_GET['id'] ?>" method="post">
             <input  type="text" name="commentaire" id="commentaire" required>
             <div class="ligneExt"><div></div>
-                <input type="image" src="../assets/img/icons8-coche.svg" border="0" alt="Submit" /></div>
+                <input type="image" src="../assets/img/icons8-coche-white.svg" border="0" alt="Submit" /></div>
         </form>
         <div class="descG"></div>
 

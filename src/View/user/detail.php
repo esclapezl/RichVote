@@ -43,7 +43,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                         if(isset($_GET['modif'])&&$_GET['modif']=='nom'&& $peutModif)
                         {
                             echo '<div class="ligneCent"><input type="text" id="blue" name="nom" value="'. htmlspecialchars(ucfirst($user->getNom())) .
-                                '" size="10" required> <button type="submit" class="valide"><img alt="coche" src="../assets/img/icons8-coche.svg"></button></div>';
+                                '" size="10" required> <button type="submit" class="valide"><img alt="coche" src="../assets/img/icons8-coche-blue.svg"></button></div>';
                         }
                         else if($peutModif)
                         {
@@ -61,7 +61,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                         {
                             echo '<div class="ligneCent"><input type="text" id="blue" name="prenom" value=' .
                                 htmlspecialchars(ucfirst($user->getPrenom())) . ' size="10" required> <button type="submit" class="valide">
-                                <img alt="coche" src="../assets/img/icons8-coche.svg"></button></div>';
+                                <img alt="coche" src="../assets/img/icons8-coche-blue.svg"></button></div>';
                         }
                         else if($peutModif)
                         {
@@ -157,10 +157,8 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                                 <div>
                                     <a href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getId()).'>
                                     <div class="atxt">' .ucfirst(htmlspecialchars($proposition->getIntitule())).'</div>
-                                    <div class="descP"></div>
-                                    <p>Pour la question : ' . /*(new App\Model\Repository\PropositionRepository)->getIntituleQuestion($proposition->getId()).*/'</p>
-                                    <p id="date">Du '. htmlspecialchars($question->dateToString($question->getDateCreation())) .' au ' .
-                                    htmlspecialchars($question->dateToString($question->getDateFermeture())) .'</p>
+                                    <br>
+                               
                                     </a>
                                 </div>
                             </li>
