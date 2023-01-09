@@ -44,7 +44,7 @@ use App\Model\DataObject\Proposition;
                     }
                     if($proposition->getIntitule() == '')
                     {
-                        $intitule = 'sans nom';
+                        $intitule = 'proposition sans nom';
                     }
                     else
                     {

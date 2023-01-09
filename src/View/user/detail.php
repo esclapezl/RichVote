@@ -152,17 +152,26 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
 
                 echo '<ul>';
                     foreach ($propositions as $proposition){
+                        if($proposition->getIntitule() == '')
+                        {
+                            $intitule = 'proposition sans nom';
+                        }
+                        else
+                        {
+                            $intitule = $proposition->getIntitule();
+                        }
+
                         echo '
                             <li class="ligneExt">
                                 <div>
+                                
                                     <a href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getId()).'>
-                                    <div class="atxt">' .ucfirst(htmlspecialchars($proposition->getIntitule())).'</div>
+                                    <div class="atxt">' .ucfirst(htmlspecialchars($intitule)).'</div>
                                     <br>
                                
                                     </a>
                                 </div>
-                            </li>
-                        ';
+                            </li>';
                     }
                 echo '</ul>';
             }
