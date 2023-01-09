@@ -77,14 +77,14 @@ switch ($typePrecisPhase) {
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
                 if ($roleQuestion == "organisateur") {
-                    $btnPhase = '<a class="optQuestion" id="phases" href="frontController.php?controller=question&action=changePhase&id=' . $question->getId() .'">Passer à la prochaine phase</a>';
+                    $btnPhase = '';
                     $currentDate = date_create("now");
 
                     foreach ($question->getPhases() as $phase){
                         $dateDebut = $phase->getDateDebut();
                         $dateFin = $phase->getDateFin();
-                        $bool1 = ($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 1);
-                        $bool2 = ($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 1);
+                        $bool1 = ($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 0);
+                        $bool2 = ($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 0);
                         if($bool1 || $bool2){
                             $btnPhase = '<a class="optQuestion" id="phases" href="frontController.php?controller=question&action=changePhase&id=' . $question->getId() .'">Passer à la prochaine phase</a>';
                         }

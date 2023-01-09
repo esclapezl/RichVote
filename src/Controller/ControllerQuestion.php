@@ -428,9 +428,7 @@ class ControllerQuestion extends GenericController
 
         $dateFin = $currentPhase->getDateFin();
         $currentDate = date_create("now");
-//        var_dump($dateFin);
-//        var_dump(date_diff($dateFin, $currentDate)->d);
-        if($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 1){
+        if($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 0){
             (new PhaseRepository())->endPhase($currentPhase->getId());
         }
 
@@ -441,7 +439,7 @@ class ControllerQuestion extends GenericController
             }
         }
 
-        //self::redirection("frontController.php?controller=question&action=read&id=".$question->getId());
+        self::redirection("frontController.php?controller=question&action=read&id=".$question->getId());
     }
 
     public static function readDemandeVote() : void{

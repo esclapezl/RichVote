@@ -30,8 +30,8 @@ class PhaseRepository extends AbstractRepository
     {
         return new Phase($objetFormatTableau['IDPHASE'],
                         $objetFormatTableau['TYPEPHASE'],
-                        date_create_from_format('d/m/Y',$objetFormatTableau['DATEDEBUT']),
-                        date_create_from_format('d/m/Y',$objetFormatTableau['DATEFIN']),
+                        date_create_from_format('d/m/y',$objetFormatTableau['DATEDEBUT']),
+                        date_create_from_format('d/m/y',$objetFormatTableau['DATEFIN']),
                         $objetFormatTableau['NBDEPLACES']);
     }
 
