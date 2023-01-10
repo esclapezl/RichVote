@@ -4,6 +4,7 @@ use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
 use \App\Lib\ConnexionUtilisateur;
 use \App\Model\Repository\UserRepository;
+use \App\Model\Repository\DemandeUserRepository;
 
 /** @var Question $question
  * @var Demande[] $demandes
@@ -138,9 +139,18 @@ switch ($typePrecisPhase) {
                 else{
                     echo '<div class="ligneExt">
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
-                            echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
-                    echo "</div><a class='optQuestion' href=frontController.php?controller=question&action=demandeRoleQuestion&role=responsable&id=". rawurlencode($idQuestion) .">
+                    echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a></div>';
+
+                    if(!(new DemandeUserRepository())->aDejaDemande(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion))
+                    {
+                       echo "<a class='optQuestion' href=frontController.php?controller=question&action=demandeRoleQuestion&role=responsable&id=". rawurlencode($idQuestion) .">
                                 Demander à écrire une proposition</a>";
+                    }
+                    else
+                    {
+                        echo "<div class='optQuestionEnAttente'>Demande en attente de confirmation</div>";
+                    }
+
                 }
 
                 //TIMELINE

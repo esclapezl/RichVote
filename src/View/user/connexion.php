@@ -8,13 +8,13 @@
             <div class="descG"></div>
             <h3>Identifiant :</h3>
             <input type="text" id="id" name="id" placeholder="Identifiant" size="50"  required>
-            <?php if(isset($msgErreurId)) {echo '<div style="color:#5d58ff;">' .$msgErreurId.'</div>';}?>
+            <?php if(isset($msgErreurId)) {echo '<div style="color:#ffffff;">' .$msgErreurId.'</div>';}?>
             <div class="descP"></div>
 
 
             <h3>Mot de passe :</h3>
             <input type="password" id="mdp" name="mdp" placeholder="********" size="50" required>
-            <?php if(isset($msgErreurMdp)) {echo '<div style="color:#5d58ff;">' .$msgErreurMdp.'</div>';}?>
+            <?php if(isset($msgErreurMdp)) {echo '<div style="color:#ffffff;">' .$msgErreurMdp.'</div>';}?>
             <div></div>
             <a style="color: #aca9ff" href="frontController.php?controller=user&action=mdpOublie"> Mot de passe oublié ? </a>
             <div class="descG"></div>

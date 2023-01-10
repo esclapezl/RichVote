@@ -118,7 +118,7 @@ class ControllerQuestion extends GenericController
         else{
             $intitule = $_POST['titreQuestion'];
             $nbSections = $_POST['nbSections'];
-            $nbPhases = $_POST['nbPhases']+1; //Pour ajouter aux phase de votes la pahse de redaction et la phase de vote final
+            $nbPhases = $_POST['nbPhases']; //Pour ajouter aux phase de votes la phase de redaction
             $dateCreation = date_create();
             $dateFermeture = date_create($_POST['dateFermeture']);
             if(date_create($_POST['dateFermeture']) < $dateCreation)
@@ -531,7 +531,10 @@ class ControllerQuestion extends GenericController
 
         $demande = new Demande($role, $question, (new UserRepository())->select($idUser));
         if(!((new UserRepository())->estOrganisateurSurQuestion($idUser,$question->getId()))
-            && (new DemandeUserRepository())->sauvegarder(($demande))){
+            && !(new DemandeUserRepository())->aDejaDemande($idUser,$question->getId())
+            && (new DemandeUserRepository())->sauvegarder(($demande))
+            )
+        {
             MessageFlash::ajouter('success', 'Votre demande a bien été enregistré');
         }
         else{
