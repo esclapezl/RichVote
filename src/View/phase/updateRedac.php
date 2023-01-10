@@ -20,7 +20,7 @@ Modifier la phase de rédaction
     </div><div class="descP"></div>
     <div>Fin :
         <input type="date" id=<?='dF'.$id?> name=<?='dateFin['.$id.']'?> value="<?=$dateFin?>">
-        <input type="hidden"  name="type" value="redaction">
+        <input type="hidden"  name="<?="type[$id]"?>" value="redaction">
     </div><div class="descP"></div>
 
     <div class="descG"></div>

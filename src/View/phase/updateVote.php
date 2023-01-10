@@ -12,7 +12,8 @@ $dateFin =  $phase->getDateFin()->format('yy-m-d');
 $type = $phase->getType();
 $nbPlaces = $phase->getNbDePlaces();
 ?>
-<div id="phase<?=$id?>" style="display: none">
+<div id="phase<?=$id?>">
+    Modifier la phase de vote <?=$numeroPhase?>
     <div>Début :
     <input type="date" id=<?='dD'.$id?> name=<?='dateDebut['.$id.']'?> value="<?=$dateDebut?>">
     </div><div class="descP"></div>
