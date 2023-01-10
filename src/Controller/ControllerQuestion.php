@@ -397,7 +397,8 @@ class ControllerQuestion extends GenericController
         self::connexionRedirect('warning', 'Veuillez vous connecter pour accéder aux résultats');
 
         $idQuestion = $_GET['id'];
-        if((new QuestionRepository())->estFini($idQuestion)){
+        $question = (new QuestionRepository())->select($_GET['id']);
+        if($question->isClosed()){
             $question = (new QuestionRepository())->select($idQuestion);
 
             $phases = $question->getPhases();
