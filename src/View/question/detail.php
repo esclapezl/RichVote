@@ -3,6 +3,7 @@ use App\Model\DataObject\Question;
 use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
 use \App\Lib\ConnexionUtilisateur;
+use App\Model\Repository\QuestionRepository;
 use \App\Model\Repository\UserRepository;
 use \App\Model\Repository\DemandeUserRepository;
 
@@ -95,7 +96,12 @@ switch ($typePrecisPhase) {
                     }
 
                     echo '<h2>Interface Organisateur</h2><br><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
-                    echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
+                    if((new QuestionRepository())->estFini($idQuestion))
+                    {
+                        echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
+                    }
+
+
                         echo '</div><div class="ligneExt"><div class="ligneExt">' .$btnPhase .
                         '</div><div class="ligneAlign">
                             <a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '><img class="icons" title="Modifier Question" alt="Modifier" src="../assets/img/icons8-crayon-48.png"></a> 
@@ -128,7 +134,10 @@ switch ($typePrecisPhase) {
                 } else if($roleQuestion=="responsable"){
                     echo '<div class="ligneExt">
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
-                            echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
+                    if((new QuestionRepository())->estFini($idQuestion)) {
+                        echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
+                    }
+
 
                             if(!(new UserRepository())->aDejaCreeProp(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion))
                             {
@@ -146,7 +155,10 @@ switch ($typePrecisPhase) {
                 else{
                     echo '<div class="ligneExt">
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
-                    echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a></div>';
+                    if((new QuestionRepository())->estFini($idQuestion)) {
+                        echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
+                    }
+                    echo '</div>';
 
                     if(!(new DemandeUserRepository())->aDejaDemande(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion))
                     {

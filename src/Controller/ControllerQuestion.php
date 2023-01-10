@@ -47,6 +47,10 @@ class ControllerQuestion extends GenericController
 
     public static function read() : void
     {
+        if(!isset($_GET['id']))
+        {
+            self::redirection('frontController.php?controller=question&action=readAll');
+        }
         $idQuestion = $_GET['id'];
 
         $question = (new QuestionRepository())->select($idQuestion);
