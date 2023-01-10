@@ -1,11 +1,16 @@
 <?php
 use App\Model\DataObject\Proposition;
 /** @var Proposition $proposition */
+$intitule = $proposition->getIntitule();
+if($intitule = null)
+{
+    $intitule = " ";
+}
 ?>
 
 <div class="block">
     <div class="text-box">
-        <form method="post" action="frontController.php?controller=proposition&action=updated&id=<?=$proposition->getIdProposition()?>">
+        <form method="post" action="frontController.php?controller=proposition&action=updated&id=<?=$proposition->getId()?>">
             <fieldset>
                 <h1>Votre Proposition</h1>
                 <div class="ligneCent"><div class="ligne"></div></div>
@@ -13,7 +18,7 @@ use App\Model\DataObject\Proposition;
 
 
                 <h3>Proposition :</h3>
-                <input type="text" name="intitule" size="50" value='<?=ucfirst($proposition->getIntitule())?>' >
+                <input type="text" name="intitule" size="50" value='<?=$intitule?>' >
                 <br><br>
 
 
