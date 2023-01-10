@@ -19,7 +19,7 @@ $idProposition = $proposition->getId();
         </div>
             <div class="ligneExt">
                 <h1><?=htmlspecialchars($proposition->getIntitule())?></h1></div>
-        <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
+        <div class="ligneExt"><div class="ligne"></div></div>
         <div class="ligneExt">
             <?php
             if ($roleProposition=='responsable'){

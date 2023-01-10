@@ -8,6 +8,7 @@ use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
+use App\Model\DataObject\User;
 use App\Model\Repository\DemandeUserRepository;
 use App\Model\Repository\GroupeRepository;
 use App\Model\Repository\PhaseRepository;
@@ -284,7 +285,7 @@ class ControllerQuestion extends GenericController
                 $users = (new UserRepository())->search($recherche);
             }
             else{
-                $users = (new UserRepository())->selectAll();
+                $users = (new UserRepository())->selectAllSaufOrganisateur($idQuestion);
             }
             //retirer les membres qui sont deja votant
 
@@ -495,11 +496,12 @@ class ControllerQuestion extends GenericController
         $role = $_GET['role'];
 
         $demande = new Demande($role, $question, (new UserRepository())->select($idUser));
-        if((new DemandeUserRepository())->sauvegarder(($demande))){
+        if(!((new UserRepository())->estOrganisateurSurQuestion($idUser,$question->getId()))
+            && (new DemandeUserRepository())->sauvegarder(($demande))){
             MessageFlash::ajouter('success', 'Votre demande a bien été enregistré');
         }
         else{
-            MessageFlash::ajouter('failure', 'Une erreur est survenu lors de l\'enregistrement de votre demande');
+            MessageFlash::ajouter('info', 'Une erreur est survenu lors de l\'enregistrement de votre demande');
         }
         self::read();
     }
