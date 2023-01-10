@@ -106,6 +106,7 @@ class liste{
             $prenom = ucfirst(htmlspecialchars($user->getPrenom()));
             $nom = ucfirst(htmlspecialchars($user->getNom()));
 
+            if($idUser != (new \App\Model\Repository\QuestionRepository())->selectOrganisateur($_GET['id']))
             echo "<div class='ligneExt'>
 
                             <li class='ligneExt'>
@@ -124,6 +125,7 @@ class liste{
         foreach ($groupes as $groupe) {
             $nomGroupe = htmlspecialchars($groupe->getId());
             $htmlnom = ucfirst(htmlspecialchars($nomGroupe));
+
 
             echo "<div class='ligneExt'>
 

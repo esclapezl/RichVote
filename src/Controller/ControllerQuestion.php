@@ -319,7 +319,7 @@ class ControllerQuestion extends GenericController
                 $users = (new UserRepository())->search($recherche);
             }
             else{
-                $users = (new UserRepository())->selectAllSaufOrganisateur($idQuestion);
+                $users = (new UserRepository())->selectAll();
             }
             //retirer les membres qui sont deja votant
             foreach ($users as $key=>$user){

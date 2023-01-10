@@ -218,4 +218,14 @@ class QuestionRepository extends AbstractRepository
 
         return $pdoStatement->fetch()[0]=='1';
     }
+    public function selectOrganisateur(string $idQuestion): string{
+        $sql = 'SELECT idOrganisateur FROM SOUVIGNETN.questions WHERE IDQUESTION = '.$idQuestion;
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute();
+
+        return $pdoStatement->fetch()[0];
+    }
+
 }

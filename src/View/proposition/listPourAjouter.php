@@ -91,7 +91,9 @@ class liste{
             $prenom = ucfirst(htmlspecialchars($user->getPrenom()));
             $nom = ucfirst(htmlspecialchars($user->getNom()));
 
-            echo "<div class='ligneExt'>
+            if($user->getId() != (new \App\Model\Repository\PropositionRepository())->selectResponsable($_GET['id']))
+            {
+                echo "<div class='ligneExt'>
 
                             <li class='ligneExt'>
                             <label for='cb[$idUser]' class='checkbox'>
@@ -102,6 +104,8 @@ class liste{
                             </li>
                             <input type='checkbox' name='list[$idUser]' value='$idUser'>
                             </div>";
+            }
+
         }
     }
 
