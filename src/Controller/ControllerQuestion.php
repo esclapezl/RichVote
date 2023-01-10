@@ -497,7 +497,10 @@ class ControllerQuestion extends GenericController
 
         $demande = new Demande($role, $question, (new UserRepository())->select($idUser));
         if(!((new UserRepository())->estOrganisateurSurQuestion($idUser,$question->getId()))
-            && (new DemandeUserRepository())->sauvegarder(($demande))){
+            && !(new DemandeUserRepository())->aDejaDemande($idUser,$question->getId())
+            && (new DemandeUserRepository())->sauvegarder(($demande))
+            )
+        {
             MessageFlash::ajouter('success', 'Votre demande a bien été enregistré');
         }
         else{

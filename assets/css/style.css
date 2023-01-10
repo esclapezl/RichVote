@@ -986,6 +986,26 @@ input.optQuestion{
     border-radius: 15px;
 }
 
+.optQuestionEnAttente{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    background-color: #34348a;
+    color: #ffffff;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+    margin-bottom: 15px;
+    border-radius: 15px;
+}
+div.optQuestionEnAttente
+{
+    width: 25%;
+    padding: 10px;
+}
+
 form input.optQuestion{
     font-size: 1.5em;
     width: 50%;
