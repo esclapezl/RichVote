@@ -26,7 +26,7 @@ $idProposition = $proposition->getId();
                 echo '<div class="ligneAlign">'.
                     '<a href=frontController.php?controller=proposition&action=update&id=' . rawurlencode($idProposition) . ' ><img class="icons" alt="modifier" src="../assets/img/icons8-crayon-48.png"></a>' .
                     '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($idProposition) . ' ><img class="icons" id="poubelle" alt="supprimer question" src="../assets/img/icons8-poubelleBlanc.svg"></a>' .
-                    '<a class="optQuestion" href="frontController.php?controller=proposition&action=addAuteursToProposition&id=' . rawurldecode($idProposition) .'"> ajouter des auteurs </a>'
+                    '<a href="frontController.php?controller=proposition&action=addAuteursToProposition&id=' . rawurldecode($idProposition) .'"><img class="icons" title="Ajouter Auteurs" alt="Ajouter Auteurs" src="../assets/img/icons8-ajtUserBlanc-48.png"></a>'
                     .'</div>';
             }
             elseif ($roleProposition!='auteur'){
@@ -87,4 +87,3 @@ $idProposition = $proposition->getId();
     </div>
 </div>
 </div>
-

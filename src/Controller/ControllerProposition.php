@@ -276,6 +276,23 @@ class ControllerProposition extends GenericController
     public static function auteursAdded(){
         self::connexionRedirect('warning', 'Connectez-vous');
         $proposition = (new PropositionRepository())->select($_GET['id']);
+
+        if(isset($_GET['entite'])){
+            $entite = $_GET['entite'];
+        }
+        else{
+            $entite = 'user';
+        }
+
+        if($entite=='user'){
+            (new PropositionRepository())->addAuteursProposition($_POST['list'], $proposition);
+        }
+        else{
+            (new PropositionRepository())->addGroupeAuteur($_POST['list'], $proposition);
+        }
+        MessageFlash::ajouter('success', 'Auteurs ajoutés');
+
+        self::redirection('frontController.php?controller=proposition&action=read&id='.$proposition->getId());
     }
 
     public static function addDemandeAuteur(){

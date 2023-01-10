@@ -25,7 +25,7 @@ $controller = isset($groupes)?'groupe':'user';
 
 <div class="block">
     <div class="text-box">
-        <div class="ligneExt"> <h1>Liste des Utilisateurs :</h1> <?php
+        <div class="ligneExt"> <h1>Ajouter des auteurs :</h1> <?php
             if(ConnexionUtilisateur::estConnecte()){
                 echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>" . ucfirst($privilegeUser) . "</h3></div>";
             }
@@ -49,12 +49,13 @@ $controller = isset($groupes)?'groupe':'user';
 
         <div class="ligneAlign">
             <?php
-            $newEntite = $controller=='user'?'groupe':'user'?>
-            Ajouter des Auteurs
+            $newEntite = $controller=='user'?'groupe':'user';
+            $nomEntite = $controller=='user'?'utilisateur':'groupe';
+            ?>
             <form method='get' action='<?=$url?>'>
                 <input type='hidden' name='controller' value='proposition'>
                 <input type="hidden" name="action" value="addAuteursToProposition">
-                <button type="submit" name="entite" value="<?=$newEntite?>">Sélectionner les <?=$newEntite?></button>
+                <button class="optButton" type="submit" name="entite" value="<?=$newEntite?>"> Sélectionner les <?=$nomEntite?>s</button>
                 <input type='hidden' name='id' value='<?=$_GET['id']?>'>
             </form>
         </div>
@@ -66,7 +67,7 @@ $controller = isset($groupes)?'groupe':'user';
                     <a href=frontController.php?controller=$controller&action=readAllSelect>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
     }
     else {
-        echo "<form method='post' action='$action'><ul>";
+        echo "<form method='post' action='$action&entite=" . $controller . "'><ul>";
 
         if($controller=='user') {
             liste::users($users);
@@ -74,7 +75,7 @@ $controller = isset($groupes)?'groupe':'user';
         else {
             liste::groupes($groupes);
         }
-        echo '</ul> <div class="ligneCent"> <input type="submit" value="Ajouter les ' . $controller .'s selectionnés" class="optQuestion"></div></form>';
+        echo '</ul> <div class="ligneCent"> <input type="submit" value="Ajouter les ' . $nomEntite .'s selectionnés" class="optQuestion"></div></form>';
     }
     ?>
 </div>
@@ -98,7 +99,7 @@ class liste{
                             </label>
                         
                             </li>
-                            <input type='checkbox' id='cb[$idUser]' name='user[$idUser]' value='$idUser'>
+                            <input type='checkbox' name='list[$idUser]' value='$idUser'>
                             </div>";
         }
     }
@@ -112,7 +113,7 @@ class liste{
 
                             <li class='ligneExt'> <a href='frontController.php?controller=groupe&action=read&nomGroupe=$nomGroupe'> $htmlnom</a></span></li>
                             <label for='checkbox' class='checkbox'> 
-                                <input type='checkbox' id='cb[$nomGroupe]' name='groupe[$nomGroupe]' value='$nomGroupe'>
+                                <input type='checkbox' name='list[$nomGroupe]' value='$nomGroupe'>
                             </label>
                           </div>";
         }

@@ -101,7 +101,6 @@ switch ($typePrecisPhase) {
                             <a href="frontController.php?controller=question&action=addUsersToQuestion&id=' . $question->getId() .'"><img class="icons" title="Ajouter Utilisateurs" alt="Ajouter Utilisateurs" src="../assets/img/icons8-ajtUserBlanc-48.png"></a>
                         </div>
                         </div>
-                        
                         <div class="ligneExt">
                         <div>
                         
