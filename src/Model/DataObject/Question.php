@@ -190,7 +190,8 @@ class Question extends AbstractDataObject
             "intituleQuestionTag" => $this->getIntitule(),
             "descriptionQuestionTag" => $this->getDescription(),
             "dateCreationTag" => $this->dateCreation->format('d/m/Y'),
-            "dateFermetureTag" => $this->dateFermeture->format('d/m/Y')
+            "dateFermetureTag" => $this->dateFermeture->format('d/m/Y'),
+            "idCurrentPhaseTag" => $this->currentPhase->getId()
         );
     }
 }

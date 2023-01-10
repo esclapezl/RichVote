@@ -608,7 +608,7 @@ select,
     font-weight: bold;
     border: 2px solid white;
     padding: 8px;
-    border-radius: 20px;
+    border-radius: 5px;
     color: white;
     text-align: center;
 }
@@ -717,8 +717,15 @@ fieldset,.description{
 
 
 #pet{
+
+    font-size: 1em;
+    text-align: center;
+}
+
+#prop{
     font-style: italic;
     font-size: 0.7em;
+    text-align: center;
 }
 /*#margintimeline p:first-child,*/
 /*.timeline p:last-child{*/
@@ -834,6 +841,44 @@ fieldset,.description{
     align-content: center;
     text-align: center;
 }
+
+#formVote{
+    align-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+#formVote select{
+    width: 25%;
+    font-size: 1.2em;
+}
+
+#formVote .ligneCent h1{
+    margin-right: 15px;
+}
+
+#formVote button.optButton{
+    font-size: 1.5em;
+    margin-right: 5px;
+}
+
+#formVote h2{
+    border: none;
+    font-style: italic;
+}
+#formVote fieldset#caseVote{
+    border: 1px solid rgba(255,255,255,0.2);
+    min-height: 150px;
+}
+
+#formVote a.opt img{
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+
+
 
 
 .block .text-box form h3{
@@ -994,7 +1039,9 @@ button.opt{
 button.opt:hover,
 button.opt.active,
 #refresh:hover,
-#refresh.active{
+#refresh.active,
+#formVote a.opt img:hover,
+#formVote a.opt img.active{
     background: rgba(255,255,255,0.2);
 }
 
