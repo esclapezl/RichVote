@@ -119,7 +119,13 @@ class ControllerProposition extends GenericController
         $idQuestion = $_GET['id'];
 
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-        if((new UserRepository())->getRoleQuestion($idUser, $idQuestion) == 'responsable'){
+        if((new UserRepository())->getRoleQuestion($idUser, $idQuestion) == 'responsable')
+        {
+            if((new UserRepository())->aDejaCreeProp($idUser, $idQuestion))
+            {
+                MessageFlash::ajouter('info','Vous avez déjà créé une question, vous pouvez modifier ou supprimer celle existante.');
+                Self::redirection('frontController.php?controller=proposition&action=read&id='.(new UserRepository())->getPropDejaCree);
+            }
             $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, ConnexionUtilisateur::getLoginUtilisateurConnecte(),null, null, false, []));
 
             $parametres = array(

@@ -410,4 +410,31 @@ class UserRepository extends AbstractRepository
 
         return $result == 1;
     }
+
+    public static function aDejaCreeProp(string $idUser, int $idQuestion):bool
+    {
+        $sql = "SELECT * FROM SOUVIGNETN.PROPOSITIONS WHERE IDRESPONSABLE = :IDUSER AND IDQUESTION =".$idQuestion;
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute([
+            'idUser' => $idUser
+        ]);
+        $result = $pdoStatement->fetch()[0];
+        return $result != null;
+    }
+
+    public static function getPropDejaCree(string $idUser, int $idQuestion):int
+    {
+        $sql = "SELECT IDPROPOSITION FROM SOUVIGNETN.PROPOSITIONS WHERE IDRESPONSABLE = :IDUSER AND IDQUESTION =".$idQuestion;
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute([
+            'idUser' => $idUser
+        ]);
+        $result = $pdoStatement->fetch()[0];
+
+        return $result;
+    }
 }
