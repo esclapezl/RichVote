@@ -22,6 +22,10 @@ class ControllerProposition extends GenericController
     {
         self::connexionRedirect('warning', 'Connectez-vous pour voir les propositions');
         $idQuestion = $_GET['id'];
+        if($_GET['id']=='')
+        {
+            self::redirection('frontController.php?controller=question&action=readAll');
+        }
 
         $listePropositions = (new PropositionRepository())->selectAllByDate($idQuestion);
 
@@ -36,7 +40,11 @@ class ControllerProposition extends GenericController
 
     public static function read() : void
     {
-        self::connexionRedirect('warning', 'Connectez-vous pour accéder aux propositions');
+        self::connexionRedirect('info', 'Connectez-vous pour accéder aux propositions');
+        if($_GET['id']=='')
+        {
+            self::redirection('frontController.php?controller=question&action=readAll');
+        }
         $idProposition = $_GET['id'];
 
         $proposition = (new PropositionRepository())->select($idProposition);
