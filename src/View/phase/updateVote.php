@@ -12,7 +12,6 @@ $dateFin =  $phase->getDateFin()->format('yy-m-d');
 $type = $phase->getType();
 $nbPlaces = $phase->getNbDePlaces();
 ?>
-<div class="ligneCent"><input type="button" class="optButton" onclick="visibilite('phase<?=$id?>');" value="Modifier la phase n°<?=$numeroPhase?>"></div>
 <div id="phase<?=$id?>" style="display: none">
     <div>Début :
     <input type="date" id=<?='dD'.$id?> name=<?='dateDebut['.$id.']'?> value="<?=$dateDebut?>">

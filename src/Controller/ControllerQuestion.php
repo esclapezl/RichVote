@@ -192,13 +192,27 @@ class ControllerQuestion extends GenericController
                 foreach ($_POST['nbDePlaces'] as $key => $nbDePlace) {
                     $phases[$key]['nbDePlaces'] = $nbDePlace;
                 }
+                $phases = (new PhaseRepository())->getPhasesIdQuestion($question->getId());
                 foreach ($phases as $id => $tabPhase) {
+                    $type = $tabPhase['type'];
+                    $nbDePlace = $tabPhase['nbDePlaces'];
+                    if($id == $phases[0]->getId()){// la premiere phase n'est autre que la phase de rédaction
+                        $type='redaction';
+                        $nbDePlace = 0;
+                    }
+                    if($id == $phases[sizeof($phases)-1]){// il s'agit de la phase de vote finale
+                        if($type!='scrutinMajoritaire' || $type != 'jugementMajoritaire' || $type != 'scrutinMajoritairePlurinominal'){
+                            $type = 'scrutinMajoritaire';
+                        }
+                        $nbDePlace = 1;
+                    }
                     $p = new Phase(
                         $id,
-                        $tabPhase['type'],
+                        $type,
                         date_create($tabPhase['dateDebut']),
                         date_create($tabPhase['dateFin']),
-                        $tabPhase['nbDePlaces']);
+                        $nbDePlace);
+
                     (new PhaseRepository())->update($p);
                 }
 
