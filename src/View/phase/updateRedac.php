@@ -12,20 +12,6 @@ $dateFin = '20' . $phase->getDateFin()->format('y-m-d');
 $type = $phase->getType();
 $nbPlaces = $phase->getNbDePlaces();
 ?>
-
-<script type="text/javascript">
-    function visibilite(id)
-    {
-
-        var element = document.getElementById(id);
-        if(element.style.display === "none"){
-            element.style.display ="";
-        }
-        else{
-            element.style.display = "none";
-        }
-    }
-</script>
 <div class="descP"></div>
 Modifier la phase de rédaction
 <div id="phase<?=$id?>">

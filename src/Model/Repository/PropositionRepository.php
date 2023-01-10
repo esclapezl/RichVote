@@ -277,6 +277,21 @@ class PropositionRepository extends AbstractRepository
         }
     }
 
+    public function addGroupeAuteur(array $groupes, Proposition $proposition){
+        $sql = 'call setRolePropositionGroupe(:nomGroupe, :role, :idProposition)';
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+
+        $idProposition = $proposition->getId();
+        foreach($groupes as $nomGroupe){
+            $param = [
+                'nomGroupe' => $nomGroupe,
+                'role' => 'auteur',
+                'idProposition' => $idProposition
+            ];
+            $pdoStatement->execute($param);
+        }
+    }
+
     public function estAuteur(string $idUser, Proposition $proposition) : bool{
         $sql = "SELECT COUNT(idAuteur) FROM AUTEURPROPOSITION
                 WHERE idAuteur=:idUser AND idProposition=:idProposition";

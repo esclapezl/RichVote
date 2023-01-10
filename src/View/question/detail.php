@@ -11,9 +11,10 @@ use \App\Model\Repository\DemandeUserRepository;
  * @var Phase[] $phases
  * @var string $roleQuestion
  * @var bool $peutVoter
+ * @var bool $peutPasser
  */
-if(!isset($demandes)){
-    $demandes=[];
+if(!isset($demandes)) {
+    $demandes = [];
 }
 
 $nbDemandes=sizeof($demandes);
@@ -81,17 +82,10 @@ switch ($typePrecisPhase) {
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
                 if ($roleQuestion == "organisateur") {
-                    $btnPhase = '';
-                    $currentDate = date_create("now");
-
-                    foreach ($question->getPhases() as $phase){
-                        $dateDebut = $phase->getDateDebut();
-                        $dateFin = $phase->getDateFin();
-                        $bool1 = ($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 0);
-                        $bool2 = ($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 0);
-                        if($bool1 || $bool2){
-                            $btnPhase = '<a class="optQuestion" href="frontController.php?controller=question&action=changePhase&id=' . $question->getId() .'">Passer à la prochaine phase</a>';
-                        }
+                    if($peutPasser) {
+                        $btnPhase = '<a class="optQuestion" href="frontController.php?controller=question&action=changePhase&id=' . $question->getId() . '">Passer à la prochaine phase</a>';
+                    }else{
+                        $btnPhase = '';
                     }
 
                     echo '<h2>Interface Organisateur</h2><br><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
@@ -103,7 +97,6 @@ switch ($typePrecisPhase) {
                             <a href="frontController.php?controller=question&action=addUsersToQuestion&id=' . $question->getId() .'"><img class="icons" title="Ajouter Utilisateurs" alt="Ajouter Utilisateurs" src="../assets/img/icons8-ajtUserBlanc-48.png"></a>
                         </div>
                         </div>
-                        
                         <div class="ligneExt">
                         <div>
                         
@@ -182,16 +175,19 @@ switch ($typePrecisPhase) {
                             case 'jugementMajoritaire' :
                                 $type='Jugement Majoritaire';
                                 break;
+                            case 'redaction':
+                                $type='rédaction';
+                                break;
                         }
 
                         echo '<style>.ligneTbis{width: '.$widthLigne.'%;}</style>';
                         echo '<div class="ligneT" style="background: transparent"></div>
                         <p id="pet">'.$type.'<br><span id="prop">(' . $phase->getNbDePlaces();
                         if($phase->getNbDePlaces()>1){
-                            echo ' propositions selectionnées';
+                            echo ' propositions selectionnées ';
                         }
                         else{
-                            echo ' proposition selectionée';
+                            echo ' proposition selectionée ';
                         }
                             echo ')</span></p>';
                     }
