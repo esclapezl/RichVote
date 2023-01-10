@@ -410,4 +410,65 @@ class UserRepository extends AbstractRepository
 
         return $result == 1;
     }
+
+    public static function aDejaCreeProp(string $idUser, int $idQuestion):bool
+    {
+        $sql = "SELECT * FROM SOUVIGNETN.PROPOSITIONS WHERE IDRESPONSABLE = :IDUSER AND IDQUESTION =".$idQuestion;
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute([
+            'idUser' => $idUser
+        ]);
+        $result = $pdoStatement->fetch()[0];
+        return $result != null;
+    }
+
+    public static function getPropDejaCree(string $idUser, int $idQuestion):int
+    {
+        $sql = "SELECT IDPROPOSITION FROM SOUVIGNETN.PROPOSITIONS WHERE IDRESPONSABLE = :IDUSER AND IDQUESTION =".$idQuestion;
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute([
+            'idUser' => $idUser
+        ]);
+        $result = $pdoStatement->fetch()[0];
+
+        return $result;
+    }
+
+    public static function estOrganisateurSurQuestion(string $idUser, int $idQuestion):bool
+    {
+        $sql = "SELECT * FROM SOUVIGNETN.QUESTIONS WHERE IDORGANISATEUR = :IDUSER AND IDQUESTION =".$idQuestion;
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute([
+            'idUser' => $idUser
+        ]);
+        if(!$pdoStatement->fetch())
+        {
+            return false;
+        }
+        else
+        return true;
+    }
+
+    public function selectAllSaufOrganisateur(string $idQuestion): array{
+        $sql = 'SELECT * FROM souvignetn.users WHERE "idUser" NOT IN(SELECT IDORGANISATEUR FROM souvignetn.users u JOIN souvignetn.questions q ON q.IDORGANISATEUR = u."idUser" WHERE IDQUESTION ='.$idQuestion.')';
+
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute();
+
+
+        $tabRepo = array();
+        foreach($pdoStatement as $objetFormatTab){
+            $tabRepo[] = $this->construire($objetFormatTab);
+        }
+
+        return $tabRepo;
+    }
 }

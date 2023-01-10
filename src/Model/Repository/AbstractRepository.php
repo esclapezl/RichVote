@@ -56,7 +56,6 @@ abstract class AbstractRepository{
         $nomId = $this->getNomClePrimaire();
 
         $sql = "SELECT * FROM $nomTable WHERE $nomId = '" . $id."'";
-
         $pdostatement = $pdo->query($sql);
 
         $objectTab = $pdostatement->fetch();
