@@ -260,7 +260,12 @@ class ControllerProposition extends GenericController
             ];
 
             if($entite=='user') {
-                $users = (new UserRepository())->selectAll();
+                if(isset($_POST['filtre'])){
+                    $users = (new UserRepository())->search($_POST['filtre']);
+                }
+                else{
+                    $users = (new UserRepository())->selectAll();
+                }
 
                 $idAuteurs = $proposition->getIdAuteurs();
                 foreach ($users as $index => $user) {
@@ -271,7 +276,12 @@ class ControllerProposition extends GenericController
                 $param['users'] = $users;
             }
             else{
-                $groupes = (new GroupeRepository())->selectAll();
+                if(isset($_POST['filtre'])){
+                    $groupes = (new GroupeRepository())->search($_POST['filtre']);
+                }
+                else{
+                    $groupes = (new GroupeRepository())->selectAll();
+                }
                 $param['groupes'] = $groupes;
             }
 
