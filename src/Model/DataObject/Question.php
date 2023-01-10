@@ -169,7 +169,7 @@ class Question extends AbstractDataObject
     }
 
     public function isClosed(): bool{
-        return $this->getDateFermeture()->format('dd-mm-YY') < date_create()->format('dd-mm-YY');
+        return $this->getDateFermeture() < date_create("now");
     }
 
 
