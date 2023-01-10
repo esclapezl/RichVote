@@ -15,7 +15,6 @@ use App\Model\DataObject\Question;
             $phases = $question->getPhases();
             $phase = $phases[0];
             require __DIR__ .'/../phase/updateRedac.php';
-            var_dump($phases);
             for($numeroPhase=1; $numeroPhase<count($phases)-1; $numeroPhase++)
             {
 
