@@ -10,6 +10,7 @@ use App\Model\DataObject\Question;
 use App\Model\Repository\CommentaireRepository;
 use App\Model\Repository\DatabaseConnection;
 use App\Model\Repository\DemandeUserRepository;
+use App\Model\Repository\GroupeRepository;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\SectionRepository;
@@ -231,12 +232,64 @@ class ControllerProposition extends GenericController
         self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
     }
 
+    public static function addAuteursToProposition(){
+        self::connexionRedirect('warning', 'Connectez-vous');
+        $proposition = (new PropositionRepository())->select($_GET['id']);
+
+        if(isset($_GET['entite'])){
+            $entite = $_GET['entite'];
+        }
+        else{
+            $entite = 'user';
+        }
+
+        if($proposition->getIdResponsable() == ConnexionUtilisateur::getLoginUtilisateurConnecte()){
+
+            $action = 'frontController.php?controller=proposition&action=auteursAdded&id='.$proposition->getId();
+            $param = [
+                'pagetitle' => 'ajout d\'auteurs',
+                'cheminVueBody' => 'proposition/listPourAjouter.php',
+                'privilegeUser' => 'responsable',
+                'action' => $action
+            ];
+
+            if($entite=='user') {
+                $users = (new UserRepository())->selectAll();
+
+                $idAuteurs = $proposition->getIdAuteurs();
+                foreach ($users as $index => $user) {
+                    if (in_array($user->getId(), $idAuteurs)) {
+                        unset($users[$index]);
+                    }
+                }
+                $param['users'] = $users;
+            }
+            else{
+                $groupes = (new GroupeRepository())->selectAll();
+                $param['groupes'] = $groupes;
+            }
+
+            self::afficheVue('view.php', $param);
+        }
+    }
+
+    public static function auteursAdded(){
+        self::connexionRedirect('warning', 'Connectez-vous');
+        $proposition = (new PropositionRepository())->select($_GET['id']);
+    }
+
     public static function addDemandeAuteur(){
         self::connexionRedirect('warning', 'Connectez-vous');
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $idProposition =$_GET['id'];
 
         $proposition = (new PropositionRepository())->select($idProposition);
+
+        if($proposition->getIdResponsable() == $idUser){
+            MessageFlash::ajouter('danger', 'Vous n\'êtes pas authorisé');
+            self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
+        }
+
         $question = (new QuestionRepository())->select($proposition->getIdQuestion());
         $user = (new UserRepository())->select($idUser);
         $demande = new Demande('auteur', $question, $user, $proposition);
@@ -285,8 +338,8 @@ class ControllerProposition extends GenericController
                 $acceptees[] = $idUser;
             }
             foreach($demandesProposition as $demande){
-                if(in_array($demande->getUser()->getId(), $acceptees)){
-                    DemandeUserRepository::delete($demande);
+                if(in_array($demande->getDemandeur()->getId(), $acceptees)){
+                    (new DemandeUserRepository)->delete($demande);
                 }
             }
             (new PropositionRepository())->addAuteursProposition($acceptees, $proposition);
@@ -296,7 +349,7 @@ class ControllerProposition extends GenericController
         else{
             MessageFlash::ajouter('warning', 'Vous ne pouvez pas accéder à cette fonctionnalité');
         }
-        ControllerQuestion::readAll();
+        self::redirection('frontController.php?controller=proposition&action=read&id='.$idProposition);
     }
 
     public static function likeSectionProposition()
