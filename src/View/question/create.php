@@ -9,7 +9,7 @@
 
             <p>
                 <h3>Question :</h3>
-                <input type="text" id="tq" name="titreQuestion" placeholder="Titre de la question" size="50" required>
+                <input type="text" id="tq" maxlength="100" name="titreQuestion" placeholder="Titre de la question" size="50" required>
             <div class="descP"></div>
             </p>
 
@@ -27,7 +27,7 @@
 
             <p>
             <div class="descP"></div>
-                <h3><label for="nbPhases"> Nombre de phases :</label></h3>
+                <h3><label for="nbPhases"> Nombre de phases de votes :</label></h3>
                 <input type="number" min="1" max="10" id="np" name="nbPhases" value="1" placeholder="1">
             <div class="descG"></div>
             </p>

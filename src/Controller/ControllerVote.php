@@ -86,12 +86,12 @@ class ControllerVote extends GenericController
         if(isset($_POST['idPropositionPour'])){
             PropositionRepository::voter($_POST['idPropositionPour'], $user, 1);
 
-            MessageFlash::ajouter('success', 'Vous avez voté !');
+            MessageFlash::ajouter('success', 'Votre vote a bien été pris en compte !');
         }
         else if(isset($_POST['idPropositionContre'])){
             PropositionRepository::voter($_POST['idPropositionContre'], $user, 0);
 
-            MessageFlash::ajouter('success', 'Vous avez voté !');
+            MessageFlash::ajouter('success', 'Votre vote a bien été pris en compte !');
         }
         else{
             MessageFlash::ajouter('danger', "Votre vote n'est pas passé.");
@@ -105,7 +105,7 @@ class ControllerVote extends GenericController
         if(isset($_POST['idProposition'])){
             PropositionRepository::voter($_POST['idProposition'], $user, 1);
 
-            MessageFlash::ajouter('success', 'Vous avez voté !');
+            MessageFlash::ajouter('success', 'Votre vote a bien été pris en compte !');
         }
         else{
             MessageFlash::ajouter('danger', "Votre vote n'est pas passé.");
@@ -159,7 +159,7 @@ class ControllerVote extends GenericController
         foreach($_POST['score'] as $idProposition=>$score){
             PropositionRepository::voter($idProposition, $user, $score);
         }
-        MessageFlash::ajouter('success', 'Votre voix à bien été entendue');
+        MessageFlash::ajouter('success', 'Votre vote a bien été pris en compte !');
         ControllerQuestion::readAll();
     }
 

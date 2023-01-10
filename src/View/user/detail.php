@@ -24,7 +24,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
 
 <div class="block">
     <div class="text-box">
-        <div class="ligneExt"><a class="optQuestion" id="fleche" href=<?=$_SERVER['HTTP_REFERER']?>>↩</a><h3>Detail user</h3></div>
+        <!-- <div class="ligneExt"><a class="optQuestion" id="fleche" href=<?=$_SERVER['HTTP_REFERER']?>>↩</a><h3>Detail user</h3></div>-->
 
         <div class="ligneExt"><div></div><div class="ligne"></div></div>
         <br>
@@ -49,7 +49,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                         {
                             echo '<div class="ligneCent"><p class="names" id="petit">Nom :</p><h3 class="names">' . htmlspecialchars(ucfirst($user->getNom())) . '
                                 </h3><a href="frontController.php?controller=user&action=read&id='.$user->getId().'&modif=nom" id="modif">
-                                <img alt="coche" src="../assets/img/icons8-services.svg"></a></div>';
+                                <img alt="coche" src="../assets/img/icons8-paramètres.svg"></a></div>';
                         }
                         else
                         {
@@ -68,7 +68,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                             echo '<div class="ligneCent"><p class="names" id="petit">Prénom :</p><h3 class="names">' .
                                 htmlspecialchars(ucfirst($user->getPrenom())) . '</h3>
                                 <a href="frontController.php?controller=user&action=read&id='.$user->getId().'&modif=prenom" id="modif">
-                                <img alt="coche" src="../assets/img/icons8-services.svg"></a></div>';
+                                <img alt="coche" src="../assets/img/icons8-paramètres.svg"></a></div>';
                         }
                         else
                         {
@@ -168,7 +168,10 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                                     <a href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getId()).'>
                                     <div class="atxt">' .ucfirst(htmlspecialchars($intitule)).'</div>
                                     <br>
-                               
+                                    </a>
+                                    
+                                    <a href=frontController.php?controller=question&action=read&id=' . rawurlencode($proposition->getIdQuestion()).'>
+                                    <div >' .ucfirst(htmlspecialchars(((new \App\Model\Repository\QuestionRepository())->select($proposition->getIdQuestion()))->getIntitule())).'</div>
                                     </a>
                                 </div>
                             </li>';

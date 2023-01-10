@@ -101,7 +101,7 @@ class ControllerQuestion extends GenericController
         else{
             $intitule = $_POST['titreQuestion'];
             $nbSections = $_POST['nbSections'];
-            $nbPhases = $_POST['nbPhases'];
+            $nbPhases = $_POST['nbPhases']+1; //Pour ajouter aux phase de votes la pahse de redaction et la phase de vote final
             $dateCreation = date_create();
             $dateFermeture = date_create($_POST['dateFermeture']);
             if(date_create($_POST['dateFermeture']) < $dateCreation)

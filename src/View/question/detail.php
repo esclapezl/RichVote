@@ -88,25 +88,23 @@ switch ($typePrecisPhase) {
                         $bool1 = ($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 0);
                         $bool2 = ($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 0);
                         if($bool1 || $bool2){
-                            $btnPhase = '<a class="optQuestion" id="phases" href="frontController.php?controller=question&action=changePhase&id=' . $question->getId() .'">Passer à la prochaine phase</a>';
+                            $btnPhase = '<a class="optQuestion" href="frontController.php?controller=question&action=changePhase&id=' . $question->getId() .'">Passer à la prochaine phase</a>';
                         }
                     }
 
-                    echo '<h2>Interface organisateur</h2><br><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
+                    echo '<h2>Interface Organisateur</h2><br><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
                     echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
-                        echo '</div><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
-                        Créer proposition</a>
-                        <div class="ligneAlign">
-                            <a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '><img class="icons" alt="modifier" src="../assets/img/icons8-crayon-48.png"></a> 
-                            <a href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '><img class="icons" id="poubelle" alt="supprimer question" src="../assets/img/icons8-poubelleBlanc.svg"></a>
-                            <a href="frontController.php?controller=question&action=addUsersToQuestion&id=' . $question->getId() .'"><img class="icons" alt="ajtParticipants" src="../assets/img/icons8-ajtUserBlanc-48.png"></a>
+                        echo '</div><div class="ligneExt"><div class="ligneExt">' .$btnPhase .
+                        '</div><div class="ligneAlign">
+                            <a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '><img class="icons" title="Modifier" alt="Modifier" src="../assets/img/icons8-crayon-48.png"></a> 
+                            <a href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '><img class="icons" id="poubelle" title="Supprimer Question" alt="Supprimer Question" src="../assets/img/icons8-poubelleBlanc.svg"></a>
+                            <a href="frontController.php?controller=question&action=addUsersToQuestion&id=' . $question->getId() .'"><img class="icons" title="Ajouter Utilisateurs" alt="Ajouter Utilisateurs" src="../assets/img/icons8-ajtUserBlanc-48.png"></a>
                         </div>
                         </div>
                         
                         <div class="ligneExt">
                         <div>
-                        <div class="ligneAlign">' . $btnPhase . '
-                        </div>
+                        
                     
                         </div>
                             <div id="col">';
@@ -145,20 +143,46 @@ switch ($typePrecisPhase) {
                 if(!(empty($phases))){
                     echo '<h3 id="prog">Progression :</h3><div class="ligneP"></div>';
                     echo '<div class="timeline">
-                        <p id="pet">Introduction</p>';
+                        <p id="pet">Phase de rédaction</p>';
                     $widthLigne=(80/(sizeof($phases)+1));
                     foreach ($phases as $phase){
+                        $type='';
+                        $typeP=$phase->getType();
+                        switch ($typeP) {
+                            case 'consultation':
+                                $type= 'Consultation';
+                                break;
+                            case 'scrutinMajoritaire':
+                                $type= 'Scrutin Majoritaire';
+                                break;
+                            case 'scrutinMajoritairePlurinominal':
+                                $type= "Scrutin Plurinominal";
+                                break;
+                            case 'jugementMajoritaire' :
+                                $type='Jugement Majoritaire';
+                                break;
+                        }
+
                         echo '<style>.ligneTbis{width: '.$widthLigne.'%;}</style>';
-                        echo '<div class="ligneT" style="background: transparent"></div><p id="pet">'.htmlspecialchars(ucfirst($phase->getType())).'</p>';
+                        echo '<div class="ligneT" style="background: transparent"></div>
+                        <p id="pet">'.$type.'<br><span id="prop">(' . $phase->getNbDePlaces();
+                        if($phase->getNbDePlaces()>1){
+                            echo ' propositions selectionnées';
+                        }
+                        else{
+                            echo ' proposition selectionée';
+                        }
+                            echo ')</span></p>';
                     }
-                    echo '<div class="ligneT" style="background: transparent"></div><p id="pet">Conclusion</p></div>';
+                    echo '<div class="ligneT" style="background: transparent"></div><p id="pet">Résultats publics</p></div>';
 
                     //DEBUT
-                    echo '<div class="timeline"><a href=frontController.php?controller=vote&action=' . rawurlencode($question->getPhases()[0]->getType()) . ' id="circle"></a>';
+                    echo '<div class="timeline"><a href=frontController.php?controller=vote&action=' . rawurlencode($question->getPhases()[0]->getType()) . ' title="La phase de rédaction est la période où les responsables auteurs écrivent leur proposition." id="circle"></a>';
 
                     $widthLigne= 90/(sizeof($phases)+1);
 
                     foreach ($phases as $phase){
+
                         echo '<style>.ligneT{width: '.$widthLigne.'%;}</style>';
                         echo '<div class="ligneT"></div><a href=frontController.php?controller=question&action=readResultPhase&id=' . $question->getId() . '&idPhase='. $phase->getId() .' id="circle"></a>';
                     }

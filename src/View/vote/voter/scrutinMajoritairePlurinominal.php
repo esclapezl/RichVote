@@ -14,32 +14,37 @@ use App\Model\DataObject\Proposition;
 
 <div class="block">
     <div class="text-box">
-        <form method="post" action="frontController.php?controller=vote&action=scrutinMajoritairePlurinominalVoted&idQuestion=<?=$question->getId()?>">
-            <div class="ligneCent"> <h1>Vous pouvez voter.</h1></div>
+        <form method="post" id="formVote" action="frontController.php?controller=vote&action=scrutinMajoritairePlurinominalVoted&idQuestion=<?=$question->getId()?>">
+            <fieldset>
+             <h1>Vous pouvez voter.</h1>
 
             <div class="ligneCent"><div class="ligne"></div></div><br>
-            <div class="ligneCent"> <h3>Votre choix restera confidentiel.</h3></div>
+            <h3>Votre choix restera confidentiel.</h3>
+                <h2>CLiquez sur la proposition si vous souhaitez la déplacer de case.</h2>
             <div class="descG"></div>
 
-            <h1> Vous avez voté pour: </h1>
+            <h1> Vous avez voté pour :</h1>
+                <fieldset id="caseVote">
             <?php
             foreach ($propositionsPour as $propalPour){
                 $idProposition = $propalPour->getId();
                 $intituleProposition = htmlspecialchars($propalPour->getIntitule());
-                echo "<button name='idPropositionContre' value='$idProposition'>$intituleProposition</button>";
+                echo "<button class='optButton' name='idPropositionContre' value='$idProposition'>$intituleProposition</button>";
             }
-            ?>
-
-            <h1> Vous avez voté contre: </h1>
+            ?></fieldset>
+                <div class="descG"></div>
+            <h1> Vous avez voté contre :</h1>
+                <fieldset id="caseVote">
             <?php
             foreach ($propositionsContre as $propalContre){
                 $idProposition = $propalContre->getId();
                 $intituleProposition = htmlspecialchars($propalContre->getIntitule());
-                echo "<button name='idPropositionPour' value='$idProposition'>$intituleProposition</button>";
+                echo "<button class='optButton' id='' name='idPropositionPour' value='$idProposition'>$intituleProposition</button>";
             }
-            ?>
-            <div class="descG"></div>
-            <div class="ligneCent"><button type="submit" class="opt"><img src="../assets/img/icon-vote.png"></button></div>
+            ?></fieldset>
+                <div class="descG"></div>
+                <a href=frontController.php?controller=question&action=read&id=<?=$question->getId()?> class="opt"><img src="../assets/img/icon-vote.png"></a>
+            </fieldset>
         </form>
     </div>
 </div>

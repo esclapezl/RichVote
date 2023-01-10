@@ -1,10 +1,11 @@
 <div class="block">
     <div class="text-box">
-    <form method="post" action="frontController.php?controller=vote&action=scrutinMajoritaireVoted">
-        <div class="ligneCent"> <h1>Vous pouvez voter.</h1></div>
+    <form method="post" id="formVote" action="frontController.php?controller=vote&action=scrutinMajoritaireVoted">
+        <fieldset>
+        <h1>Vous pouvez voter.</h1>
 
         <div class="ligneCent"><div class="ligne"></div></div><br>
-        <div class="ligneCent"> <h3>Votre choix restera confidentiel.</h3></div>
+        <h3>Votre choix restera confidentiel.</h3>
         <div class="descG"></div>
 
 
@@ -20,7 +21,9 @@
         }
         ?>
         <div class="descG"></div>
-        <div class="ligneCent"><button type="submit" class="opt"><img src="../assets/img/icon-vote.png"></button></div>
+        <button type="submit" class="opt"><img src="../assets/img/icon-vote.png"></button>
+
+            </fieldset>
 
 
 
