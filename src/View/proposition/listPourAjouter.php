@@ -51,11 +51,12 @@ $controller = isset($groupes)?'groupe':'user';
             <?php
             $newEntite = $controller=='user'?'groupe':'user';
             $nomEntite = $controller=='user'?'utilisateur':'groupe';
+            $nomNewEntite = $controller!='user'?'utilisateur':'groupe'
             ?>
             <form method='get' action='<?=$url?>'>
                 <input type='hidden' name='controller' value='proposition'>
                 <input type="hidden" name="action" value="addAuteursToProposition">
-                <button class="optButton" type="submit" name="entite" value="<?=$newEntite?>"> Sélectionner les <?=$nomEntite?>s</button>
+                <button class="optButton" type="submit" name="entite" value="<?=$newEntite?>"> Sélectionner les <?=$nomNewEntite?>s</button>
                 <input type='hidden' name='id' value='<?=$_GET['id']?>'>
             </form>
         </div>
