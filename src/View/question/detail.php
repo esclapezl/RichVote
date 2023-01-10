@@ -10,9 +10,10 @@ use \App\Model\Repository\UserRepository;
  * @var Phase[] $phases
  * @var string $roleQuestion
  * @var bool $peutVoter
+ * @var bool $peutPasser
  */
-if(!isset($demandes)){
-    $demandes=[];
+if(!isset($demandes)) {
+    $demandes = [];
 }
 
 $nbDemandes=sizeof($demandes);
@@ -80,17 +81,10 @@ switch ($typePrecisPhase) {
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
                 if ($roleQuestion == "organisateur") {
-                    $btnPhase = '';
-                    $currentDate = date_create("now");
-
-                    foreach ($question->getPhases() as $phase){
-                        $dateDebut = $phase->getDateDebut();
-                        $dateFin = $phase->getDateFin();
-                        $bool1 = ($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 0);
-                        $bool2 = ($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 0);
-                        if($bool1 || $bool2){
-                            $btnPhase = '<a class="optQuestion" href="frontController.php?controller=question&action=changePhase&id=' . $question->getId() .'">Passer à la prochaine phase</a>';
-                        }
+                    if($peutPasser) {
+                        $btnPhase = '<a class="optQuestion" href="frontController.php?controller=question&action=changePhase&id=' . $question->getId() . '">Passer à la prochaine phase</a>';
+                    }else{
+                        $btnPhase = '';
                     }
 
                     echo '<h2>Interface Organisateur</h2><br><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
