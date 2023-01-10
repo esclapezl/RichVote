@@ -12,23 +12,7 @@ $dateFin =  $phase->getDateFin()->format('yy-m-d');
 $type = $phase->getType();
 $nbPlaces = $phase->getNbDePlaces();
 ?>
-
-<script type="text/javascript">
-    function visibilite(id)
-    {
-
-        var element = document.getElementById(id);
-        if(element.style.display === "none"){
-            element.style.display ="";
-        }
-        else{
-            element.style.display = "none";
-        }
-    }
-</script>
-<br>
-<div class="ligneCent"><input type="button" class="optButton" onclick="visibilite('phase<?=$id?>');" value="Modifier la phase n°<?=$numeroPhase?>"></div>
-<div id="phase<?=$id?>" >
+<div id="phase<?=$id?>" style="display: none">
     <div>Début :
     <input type="date" id=<?='dD'.$id?> name=<?='dateDebut['.$id.']'?> value="<?=$dateDebut?>">
     </div><div class="descP"></div>

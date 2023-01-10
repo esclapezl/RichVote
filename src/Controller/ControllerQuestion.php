@@ -61,10 +61,24 @@ class ControllerQuestion extends GenericController
 
         $roleQuestion='';
         $peutVoter = false;
+        $peutPasser = false;
         if(ConnexionUtilisateur::estConnecte()) {
             $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
             $roleQuestion = (new UserRepository())->getRoleQuestion($idUser, $idQuestion);
             $peutVoter = UserRepository::peutVoter($idUser, $idQuestion);
+            $peutPasser = false;
+            if($roleQuestion=='organisateur') {
+                $currentDate = date_create("now");
+                foreach ($question->getPhases() as $phase) {
+                    $dateDebut = $phase->getDateDebut();
+                    $dateFin = $phase->getDateFin();
+                    $bool1 = ($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 0);
+                    $bool2 = ($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 0);
+                    if(!$peutPasser) {
+                        $peutPasser = $bool1 || $bool2;
+                    }
+                }
+            }
         }
 
         $parametres = array(
@@ -74,8 +88,10 @@ class ControllerQuestion extends GenericController
             'demandes' => $demandes,
             'phases' => $phases,
             'roleQuestion' => $roleQuestion,
-            'peutVoter' => $peutVoter
+            'peutVoter' => $peutVoter,
+            'peutPasser' => $peutPasser
         );
+
 
         self::afficheVue('view.php', $parametres);
     }
@@ -196,13 +212,27 @@ class ControllerQuestion extends GenericController
                 foreach ($_POST['nbDePlaces'] as $key => $nbDePlace) {
                     $phases[$key]['nbDePlaces'] = $nbDePlace;
                 }
+                $phasesCurrent = (new PhaseRepository())->getPhasesIdQuestion($question->getId());
                 foreach ($phases as $id => $tabPhase) {
+                    $type = $tabPhase['type'];
+                    $nbDePlace = $tabPhase['nbDePlaces'];
+                    if($id == $phasesCurrent[0]->getId()){// la premiere phase n'est autre que la phase de rédaction
+                        $type='redaction';
+                        $nbDePlace = 0;
+                    }
+                    if($id == $phasesCurrent[sizeof($phases)-1]){// il s'agit de la phase de vote finale
+                        if($type!='scrutinMajoritaire' || $type != 'jugementMajoritaire' || $type != 'scrutinMajoritairePlurinominal'){
+                            $type = 'scrutinMajoritaire';
+                        }
+                        $nbDePlace = 1;
+                    }
                     $p = new Phase(
                         $id,
-                        $tabPhase['type'],
+                        $type,
                         date_create($tabPhase['dateDebut']),
                         date_create($tabPhase['dateFin']),
-                        $tabPhase['nbDePlaces']);
+                        $nbDePlace);
+
                     (new PhaseRepository())->update($p);
                 }
 
@@ -292,6 +322,11 @@ class ControllerQuestion extends GenericController
                 $users = (new UserRepository())->selectAllSaufOrganisateur($idQuestion);
             }
             //retirer les membres qui sont deja votant
+            foreach ($users as $key=>$user){
+                if($user->getId() == ConnexionUtilisateur::getLoginUtilisateurConnecte()){
+                    unset($users[$key]);
+                }
+            }
 
             $role = isset($_GET['role'])?'&role='.$_GET['role']:'&role=votant';
             $action = 'frontController.php?controller=question&action=usersAdded&id=' . $idQuestion . $role;
@@ -320,7 +355,6 @@ class ControllerQuestion extends GenericController
         }
         else {
             $idUsers = [];
-            var_dump($_GET);
             $idQuestion = $_GET['id'];
             $role = $_GET['role'];
 
@@ -429,7 +463,7 @@ class ControllerQuestion extends GenericController
         $idQuestion = $_GET['id'];
 
         $question = (new QuestionRepository())->select($idQuestion);
-        $currentPhase=(new PhaseRepository())->getCurrentPhase($idQuestion);
+        $currentPhase = $question->getCurrentPhase();
 
         $dateFin = $currentPhase->getDateFin();
         $currentDate = date_create("now");
@@ -439,7 +473,7 @@ class ControllerQuestion extends GenericController
 
         foreach ($question->getPhases() as $phase){
             $dateDebut = $phase->getDateDebut();
-            if($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 1){
+            if($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 0){
                 (new PhaseRepository())->startPhase($phase->getId());
             }
         }
@@ -571,8 +605,4 @@ class ControllerQuestion extends GenericController
 
 
     }
-
-
-
-
 }
