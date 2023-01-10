@@ -287,6 +287,11 @@ class ControllerQuestion extends GenericController
                 $users = (new UserRepository())->selectAll();
             }
             //retirer les membres qui sont deja votant
+            foreach ($users as $key=>$user){
+                if($user->getId() == ConnexionUtilisateur::getLoginUtilisateurConnecte()){
+                    unset($users[$key]);
+                }
+            }
 
             $role = isset($_GET['role'])?'&role='.$_GET['role']:'&role=votant';
             $action = 'frontController.php?controller=question&action=usersAdded&id=' . $idQuestion . $role;
@@ -315,7 +320,6 @@ class ControllerQuestion extends GenericController
         }
         else {
             $idUsers = [];
-            var_dump($_GET);
             $idQuestion = $_GET['id'];
             $role = $_GET['role'];
 
