@@ -7,23 +7,23 @@ use App\Model\DataObject\Section;
  * @var int $numeroPhase
  */
 $id = $phase->getId();
-$dateDebut = $phase->getDateDebut()->format('yy-m-d');
-$dateFin =  $phase->getDateFin()->format('yy-m-d');
+$dateDebut = $phase->getDateDebut()->format('Y-m-d');
+$dateFin =  $phase->getDateFin()->format('Y-m-d');
 $type = $phase->getType();
 $nbPlaces = $phase->getNbDePlaces();
 ?>
 <div id="phase<?=$id?>">
     Modifier la phase de vote <?=$numeroPhase?>
     <div>Début :
-    <input type="date" id=<?='dD'.$id?> name=<?='dateDebut['.$id.']'?> value="<?=$dateDebut?>">
+    <input type="date" name="dateDebut[<?=$id?>]" value="<?=$dateDebut?>">
     </div><div class="descP"></div>
     <div>Fin :
-    <input type="date" id=<?='dF'.$id?> name=<?='dateFin['.$id.']'?> value="<?=$dateFin?>">
+    <input type="date" name="dateFin[<?=$id?>]" value="<?=$dateFin?>">
     </div><div class="descP"></div>
 
     <div>
         Type de phase :
-        <select id="selectwidth" name="<?="type[$id]"?>">
+        <select id="selectwidth" name="type[<?=$id?>]">
             <option value="scrutinMajoritaire" <?=$type=='scrutinMajoritaire'?'selected':''?>>Phase de vote par scrutin majoritaire</option>
             <option value="scrutinMajoritairePlurinominal" <?=$type=='scrutinMajoritairePlurinominal'?'selected':''?>>Phase de vote par scutin majoritaire plurinominal</option>
             <option value="jugementMajoritaire" <?=$type=='jugementMajoritaire'?'selected':''?>>Phase de vote par jugement majoritaire</option>
