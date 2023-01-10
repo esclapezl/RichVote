@@ -3,6 +3,7 @@ use App\Model\DataObject\Question;
 use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
 use \App\Lib\ConnexionUtilisateur;
+use \App\Model\Repository\UserRepository;
 
 /** @var Question $question
  * @var Demande[] $demandes
@@ -96,7 +97,7 @@ switch ($typePrecisPhase) {
                     echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
                         echo '</div><div class="ligneExt"><div class="ligneExt">' .$btnPhase .
                         '</div><div class="ligneAlign">
-                            <a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '><img class="icons" title="Modifier" alt="Modifier" src="../assets/img/icons8-crayon-48.png"></a> 
+                            <a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '><img class="icons" title="Modifier Question" alt="Modifier" src="../assets/img/icons8-crayon-48.png"></a> 
                             <a href=frontController.php?controller=question&action=delete&id=' . rawurlencode($question->getId()) . '><img class="icons" id="poubelle" title="Supprimer Question" alt="Supprimer Question" src="../assets/img/icons8-poubelleBlanc.svg"></a>
                             <a href="frontController.php?controller=question&action=addUsersToQuestion&id=' . $question->getId() .'"><img class="icons" title="Ajouter Utilisateurs" alt="Ajouter Utilisateurs" src="../assets/img/icons8-ajtUserBlanc-48.png"></a>
                         </div>
@@ -128,8 +129,18 @@ switch ($typePrecisPhase) {
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
                             echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
 
-                    echo '</div><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
+                            if(!(new UserRepository())->aDejaCreeProp(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion))
+                            {
+
+                                echo '</div><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
                         Créer proposition</a></div>';
+                            }
+                            else //a deja une prop de crée pour cette q
+                            {
+                                echo '</div><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=read&id=' .(new UserRepository())->getPropDejaCree(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion) . '>
+                        Gérer votre proposition</a></div>';
+                            }
+
                 }
                 else{
                     echo '<div class="ligneExt">

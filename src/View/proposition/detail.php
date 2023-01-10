@@ -18,14 +18,14 @@ $idProposition = $proposition->getId();
             <?=($roleProposition=='responsable'&&$nbDemandes > 0)?'<div class="ligneExt"><span></span><div class="iconsNotifs" id="iconNotification2">'.$nbDemandes.'</div></div><a  class="optQuestion" href="frontController.php?controller=proposition&action=readDemandeAuteur&id=' . rawurlencode($idProposition) .'"> Demandes de Co-Auteurs </a>':''?>
         </div>
             <div class="ligneExt">
-                <h1><?=htmlspecialchars($proposition->getIntitule())?></h1><h3>Détail de la proposition</h3></div>
-        <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
+                <h1><?=htmlspecialchars($proposition->getIntitule())?></h1></div>
+        <div class="ligneExt"><div class="ligne"></div></div>
         <div class="ligneExt">
             <?php
             if ($roleProposition=='responsable'){
                 echo '<div class="ligneAlign">'.
-                    '<a href=frontController.php?controller=proposition&action=update&id=' . rawurlencode($idProposition) . ' ><img class="icons" alt="modifier" src="../assets/img/icons8-crayon-48.png"></a>' .
-                    '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($idProposition) . ' ><img class="icons" id="poubelle" alt="supprimer question" src="../assets/img/icons8-poubelleBlanc.svg"></a>'
+                    '<a href=frontController.php?controller=proposition&action=update&id=' . rawurlencode($idProposition) . ' ><img class="icons" title="Modifier Proposition" alt="Modifier Proposition" src="../assets/img/icons8-crayon-48.png"></a>' .
+                    '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($idProposition) . ' ><img class="icons" id="poubelle" title="Supprimer Proposition" alt="Supprimer Proposition" src="../assets/img/icons8-poubelleBlanc.svg"></a>'
                     .'</div>';
             }
             elseif ($roleProposition!='auteur'){

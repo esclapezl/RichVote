@@ -128,7 +128,8 @@ class ControllerVote extends GenericController
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $idQuestion = $_GET['idQuestion'];
 
-        if((new UserRepository())->demanderAccesVote($idUser, $idQuestion)){
+        if((new UserRepository())->demanderAccesVote($idUser, $idQuestion)
+        && !(new UserRepository())->estOrganisateurSurQuestion($idUser, $idQuestion)){
             MessageFlash::ajouter('success', 'Votre demande a bien été enregistrée.');
         }
         else{

@@ -26,7 +26,6 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
     <div class="text-box">
         <!-- <div class="ligneExt"><a class="optQuestion" id="fleche" href=<?=$_SERVER['HTTP_REFERER']?>>↩</a><h3>Detail user</h3></div>-->
 
-        <div class="ligneExt"><div></div><div class="ligne"></div></div>
         <br>
         <?php
         if(ConnexionUtilisateur::estConnecte()){
@@ -171,7 +170,7 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                                     </a>
                                     
                                     <a href=frontController.php?controller=question&action=read&id=' . rawurlencode($proposition->getIdQuestion()).'>
-                                    <div >' .ucfirst(htmlspecialchars(((new \App\Model\Repository\QuestionRepository())->select($proposition->getIdQuestion()))->getIntitule())).'</div>
+                                    <div >Liée à la question : ' .ucfirst(htmlspecialchars(((new \App\Model\Repository\QuestionRepository())->select($proposition->getIdQuestion()))->getIntitule())).'</div>
                                     </a>
                                 </div>
                             </li>';
