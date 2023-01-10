@@ -28,7 +28,7 @@ $nbPlaces = $phase->getNbDePlaces();
 </script>
 <br>
 <div class="ligneCent"><input type="button" class="optButton" onclick="visibilite('phase<?=$id?>');" value="Modifier la phase n°<?=$numeroPhase?>"></div>
-<div id="phase<?=$id?>" style="display: none">
+<div id="phase<?=$id?>" >
     <div>Début :
     <input type="date" id=<?='dD'.$id?> name=<?='dateDebut['.$id.']'?> value="<?=$dateDebut?>">
     </div><div class="descP"></div>
