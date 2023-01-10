@@ -171,16 +171,19 @@ switch ($typePrecisPhase) {
                             case 'jugementMajoritaire' :
                                 $type='Jugement Majoritaire';
                                 break;
+                            case 'redaction':
+                                $type='rédaction';
+                                break;
                         }
 
                         echo '<style>.ligneTbis{width: '.$widthLigne.'%;}</style>';
                         echo '<div class="ligneT" style="background: transparent"></div>
                         <p id="pet">'.$type.'<br><span id="prop">(' . $phase->getNbDePlaces();
                         if($phase->getNbDePlaces()>1){
-                            echo ' propositions selectionnées';
+                            echo ' propositions selectionnées ';
                         }
                         else{
-                            echo ' proposition selectionée';
+                            echo ' proposition selectionée ';
                         }
                             echo ')</span></p>';
                     }
