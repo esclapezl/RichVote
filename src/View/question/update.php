@@ -8,44 +8,45 @@ use App\Model\DataObject\Question;
     <form method="post" action="frontController.php?controller=question&action=updated&id=<?=$question->getId()?>">
         <fieldset>
             <div class="descP"></div>
-            <h1><legend>Votre Question</legend></h1>
+            <h1>Votre Question</h1>
             <div class="ligneCent"><div class="ligne"></div></div>
             <div class="descG"></div>
             <?php
             $phases = $question->getPhases();
             $phase = $phases[0];
-            $numeroPhase = 1;
             require __DIR__ .'/../phase/updateRedac.php';
-            for($i=0; $i<count($phases)-1; $i++)
+            for($numeroPhase=1; $numeroPhase<count($phases)-1; $numeroPhase++)
             {
 
-                $phase = $phases[$i];
-                $numeroPhase = $i +1;
+                $phase = $phases[$numeroPhase];
                 if(!($phase->estCommence() ||$phase->estFinie()))
                 {
                     require __DIR__ .'/../phase/updateVote.php';
                 }
             }
 
+            $numeroPhase = count($phases)-1;
+            $phase = $phases[$numeroPhase];
+
+
             require __DIR__ .'/../phase/updateFinalVote.php';
             ?>
 
-            <p>
-            <h3>Question :</h3>
+
+            <h3><label for="tq">Question :</label></h3>
             <input type="text" id="tq" name="titreQuestion" size="50" value="<?=ucfirst($question->getIntitule())?>">
             <div class="descP"></div>
-            </p>
-            <p>
-            <h3>Description :</h3>
-            <textarea type="text" id="mytextarea" name="descriptionQuestion" rows="4" maxlength="1000" cols="100"><?=ucfirst($question->getDescription())?></textarea>
-            </p>
+
+            <h3><label for="mytextarea">Description :</label></h3>
+            <textarea id="mytextarea" name="descriptionQuestion" rows="4" maxlength="1000" cols="100"><?=ucfirst($question->getDescription())?></textarea>
+
             <div class="descG"></div>
             <?php
 
             $sections = $question->getSections();
             for($i=0; $i<count($sections); $i++){
                 $section = $sections[$i];
-                echo '<h3> Section '.$i + 1 .' : </h3>';
+                echo '<h3> Section '. ($i + 1) . ' : </h3>';
                 require __DIR__ .'/../section/update.php';
                 echo '<div class="descP"></div>';
             }

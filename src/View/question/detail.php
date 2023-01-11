@@ -2,10 +2,8 @@
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
-use \App\Lib\ConnexionUtilisateur;
-use App\Model\Repository\QuestionRepository;
-use \App\Model\Repository\UserRepository;
-use \App\Model\Repository\DemandeUserRepository;
+use App\Lib\ConnexionUtilisateur;
+
 
 /** @var Question $question
  * @var Demande[] $demandes
@@ -13,6 +11,10 @@ use \App\Model\Repository\DemandeUserRepository;
  * @var string $roleQuestion
  * @var bool $peutVoter
  * @var bool $peutPasser
+ * @var bool $estFini
+ * @var bool $dejaResponsable
+ * @var int $propositionDejaExistante
+ * @var bool $dejaDemande
  */
 if(!isset($demandes)) {
     $demandes = [];
@@ -26,6 +28,9 @@ switch ($typePrecisPhase) {
     case 'consultation':
         $typePhase= 'En cours de consultation';
         break;
+    case 'redaction':
+        $typePhase= 'En cours de rédaction';
+        break;
     case 'scrutinMajoritaire' || 'scrutinMajoritairePlurinominal' || 'jugementMajoritaire' :
         $typePhase= 'Voter juste Ici';
         break;
@@ -33,8 +38,6 @@ switch ($typePrecisPhase) {
         echo "Vote(s) terminé(s)";
         break;
 }
-
-
 ?>
 
 <div class="block">
@@ -53,15 +56,15 @@ switch ($typePrecisPhase) {
                             echo "<h3>Vous n'avez pas de rôle sur cette question.</h3>";
                         }
 
-                        if($peutVoter && $typePrecisPhase!="termine" && $typePrecisPhase!="consultation") {
+                        if($peutVoter && $typePrecisPhase!="termine" && $typePrecisPhase!="consultation"&& $typePrecisPhase!="redaction") {
                             $typePrecisPhase = ucfirst($typePrecisPhase);
                             echo "<a href=frontController.php?controller=vote&action=voter$typePrecisPhase&idQuestion=$idQuestion id='boutonVote'><h2>Vote en cliquant ici</h2></a>";
                         }
-                        else if($roleQuestion==null && ($typePrecisPhase!="termine" || $typePrecisPhase!="consultation")){
+                        else if($roleQuestion==null && ($typePrecisPhase!="termine")){
                             echo "<a href=frontController.php?controller=question&action=demandeRoleQuestion&role=votant&id=". rawurlencode($idQuestion) .">
                                 <h2>Vous souhaitez voter?</h2></a>";
                         }
-                        else if($question->getCurrentPhase()->getType()=="termine" || $question->getCurrentPhase()->getType()=="consultation"){
+                        else if($question->getCurrentPhase()->getType()=="termine" || $question->getCurrentPhase()->getType()=="consultation"|| $question->getCurrentPhase()->getType()=="redaction"){
                             echo '<h2>' . $typePhase . '</h2>';
                         }
                         else{
@@ -69,8 +72,6 @@ switch ($typePrecisPhase) {
                         }
 
                         echo '</div>';
-
-
                     }
                     else{
                       echo '<div><h2 id="desc">Aucunes informations disponibles.</h2></div>';
@@ -90,7 +91,7 @@ switch ($typePrecisPhase) {
                     }
 
                     echo '<h2>Interface Organisateur</h2><br><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
-                    if((new QuestionRepository())->estFini($idQuestion))
+                    if($estFini)
                     {
                         echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
                     }
@@ -127,12 +128,12 @@ switch ($typePrecisPhase) {
                 } else if($roleQuestion=="responsable"){
                     echo '<div class="ligneExt">
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
-                    if((new QuestionRepository())->estFini($idQuestion)) {
+                    if($estFini) {
                         echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
                     }
 
 
-                            if(!(new UserRepository())->aDejaCreeProp(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion))
+                            if(!$dejaResponsable)
                             {
 
                                 echo '</div><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
@@ -140,7 +141,7 @@ switch ($typePrecisPhase) {
                             }
                             else //a deja une prop de crée pour cette q
                             {
-                                echo '</div><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=read&id=' .(new UserRepository())->getPropDejaCree(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion) . '>
+                                echo '</div><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=read&id=' .$propositionDejaExistante . '>
                         Gérer votre proposition</a></div>';
                             }
 
@@ -148,12 +149,12 @@ switch ($typePrecisPhase) {
                 else{
                     echo '<div class="ligneExt">
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
-                    if((new QuestionRepository())->estFini($idQuestion)) {
+                    if($estFini) {
                         echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
                     }
                     echo '</div>';
 
-                    if(!DemandeUserRepository::aDejaDemande(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion))
+                    if(!$dejaDemande)
                     {
                        echo "<a class='optQuestion' href=frontController.php?controller=question&action=demandeRoleQuestion&role=responsable&id=". rawurlencode($idQuestion) .">
                                 Demander à écrire une proposition</a>";
@@ -168,9 +169,8 @@ switch ($typePrecisPhase) {
                 //TIMELINE
                 if(!(empty($phases))){
                     echo '<h3 id="prog">Progression :</h3><div class="ligneP"></div>';
-                    echo '<div class="timeline">
-                        <p id="pet">Phase de rédaction</p>';
-                    $widthLigne=(80/(sizeof($phases)+1));
+                    echo '<div class="timeline">';
+
                     foreach ($phases as $phase){
                         $type='';
                         $typeP=$phase->getType();
@@ -188,45 +188,46 @@ switch ($typePrecisPhase) {
                                 $type='Jugement Majoritaire';
                                 break;
                             case 'redaction':
-                                $type='rédaction';
+                                $type='Rédaction';
                                 break;
                         }
 
-                        echo '<style>.ligneTbis{width: '.$widthLigne.'%;}</style>';
-                        echo '<div class="ligneT" style="background: transparent"></div>
-                        <p id="pet">'.$type.'<br><span id="prop">(' . $phase->getNbDePlaces();
+                        echo '
+                        <p id="pet">'.$type.'<br>';
                         if($phase->getNbDePlaces()>1){
-                            echo ' propositions selectionnées ';
+                            echo ' <span id="prop">(' . $phase->getNbDePlaces() . ' propositions selectionnées)</span> ';
                         }
-                        else{
-                            echo ' proposition selectionée ';
+                        else if($phase->getNbDePlaces()==1){
+                            echo ' <span id="prop">(' . $phase->getNbDePlaces() . ' proposition selectionnée)</span> ';
                         }
-                            echo ')</span></p>';
+                            echo "</p><div class='ligneT' style='background: transparent'></div>";
+
+
                     }
-                    echo '<div class="ligneT" style="background: transparent"></div><p id="pet">Résultats publics</p></div>';
+                    echo '<p id="pet">Résultats publics</p></div>';
 
                     //DEBUT
-                    echo '<div class="timeline"><a href=frontController.php?controller=vote&action=' . rawurlencode($question->getPhases()[0]->getType()) . ' title="La phase de rédaction est la période où les responsables auteurs écrivent leur proposition." id="circle"></a>';
+                    echo '<div class="timeline">';
 
-                    $widthLigne= 90/(sizeof($phases)+1);
+                    $widthLigne= 90/(sizeof($phases));
 
                     foreach ($phases as $phase){
 
                         echo '<style>.ligneT{width: '.$widthLigne.'%;}</style>';
-                        echo '<div class="ligneT"></div><a href=frontController.php?controller=question&action=readResultPhase&id=' . $question->getId() . '&idPhase='. $phase->getId() .' id="circle"></a>';
+                        echo '<a href=frontController.php?controller=question&action=readResultPhase&id=' . $question->getId() . '&idPhase='. $phase->getId() .' id="circle"></a><div class="ligneT"></div>';
                     }
                     //FIN
-                    echo '<div class="ligneT"></div><a href=frontController.php?controller=question&action=readResult&id=' . $question->getId() . ' id="circle"></a></div>';
+                    echo '<a href=frontController.php?controller=question&action=readResult&id=' . $question->getId() . ' id="circle"></a></div>';
 
 
-                    echo '<div class="timeline" id="margintimeline"><p id="pet">'.htmlspecialchars($question->dateToString($question->getDateCreation())).'</p>';
-                    $widthLigne=(70/(sizeof($phases)+1));
+                    echo '<div class="timeline" id="margintimeline">';
+                    $widthLigne=(100/(sizeof($phases)+1));
                     foreach ($phases as $phase){
                         echo '<style>.ligneTbis{width: '.$widthLigne.'%;}</style>';
-                        echo '<div class="ligneTbis" style="background: transparent"></div><p id="pet">Du '.htmlspecialchars($question->dateToString($phase->getDateDebut())).' au
-                        '.htmlspecialchars($question->dateToString($phase->getDateFin())).'</p>';
+                        echo '<p id="pet">Du '.htmlspecialchars($question->dateToString($phase->getDateDebut())).'<br> au
+                        '.htmlspecialchars($question->dateToString($phase->getDateFin())).'</p><div class="ligneTbis" style="background: transparent"></div>';
                     }
-                    echo '<div class="ligneTbis" style="background: transparent"></div><p id="pet">'.htmlspecialchars($question->dateToString($question->getDateFermeture())).'</p></div>';
+                    echo '<p id="pet">'.htmlspecialchars($question->dateToString($question->getDateFermeture())).'</p></div>';
                 }
 
                 echo '<br><div class="description">';
@@ -236,14 +237,14 @@ switch ($typePrecisPhase) {
                 $y=0;
                 foreach ($question->getSections() as $section) {
                     $y++;
-                    echo '<div class="ligneCent"><h3 id="sections">' . $y . '. ' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
+                    echo '<div class="ligneCent"><a href="#section'. $y .'"><h3 id="sections">' . $y . '. ' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></a></div>";
                 }
                 echo '<br><div class="ligneCent"><div class="ligne"></div></div><br><br>';
 
                 $i=0;
                 foreach ($question->getSections() as $section) {
                     $i++;
-                    echo '<div class="ligneExt"><h3 id="sections">'. $i .'. ' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
+                    echo '<div class="ligneExt" id="section'. $i .'"><h3 id="sections">'. $i .'. ' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
                     echo "<div class='ligne'></div><p>" . $section->getDescription();
                     echo '<br>';
                     //echo '<div><a href="frontController.php?controller=question&action=likeSection&id='.$section->getId().'&idQuestion='.$_GET['id'].'"><img src="../assets/img/icons8-jaimeBlanc.png"></a>     '.$section->getNbLikes().'</div></li>';

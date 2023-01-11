@@ -19,4 +19,3 @@ foreach ($propositionsScore as [$proposition,$score]) {
     echo '<div class="ligneExt"><div class="lineresults'.$cptligne.'"></div><p id="petit">'.$widthLigne.' %</p></div>';
     $cptligne++;
 }
-?>

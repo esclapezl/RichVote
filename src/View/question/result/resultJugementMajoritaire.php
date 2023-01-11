@@ -31,6 +31,5 @@ foreach ($propositionsScore as [$proposition, $scores]){
     }
     echo '</ol>';
 }
-?>
 
 

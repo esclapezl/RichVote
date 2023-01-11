@@ -54,6 +54,7 @@ class ControllerQuestion extends GenericController
         $idQuestion = $_GET['id'];
 
         $question = (new QuestionRepository())->select($idQuestion);
+        $estFini = (new QuestionRepository())->estFini($idQuestion);
 
         $demandes = DemandeUserRepository::selectAllDemandeVoteQuestion($question);
 
@@ -62,10 +63,18 @@ class ControllerQuestion extends GenericController
         $roleQuestion='';
         $peutVoter = false;
         $peutPasser = false;
+        $dejaResponsable = false;
+        $dejaDemande=null;
+        $propositionDejaExistante=null;
         if(ConnexionUtilisateur::estConnecte()) {
             $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
             $roleQuestion = (new UserRepository())->getRoleQuestion($idUser, $idQuestion);
             $peutVoter = UserRepository::peutVoter($idUser, $idQuestion);
+            $dejaResponsable = (new UserRepository())->aDejaCreeProp(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion);
+            if($dejaResponsable){
+                $propositionDejaExistante = (new UserRepository())->getPropDejaCree(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion);
+            }
+            $dejaDemande=(new DemandeUserRepository())->aDejaDemande(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion);
             $peutPasser = false;
             if($roleQuestion=='organisateur') {
                 $currentDate = date_create("now");
@@ -89,7 +98,11 @@ class ControllerQuestion extends GenericController
             'phases' => $phases,
             'roleQuestion' => $roleQuestion,
             'peutVoter' => $peutVoter,
-            'peutPasser' => $peutPasser
+            'peutPasser' => $peutPasser,
+            'estFini' => $estFini,
+            'dejaResponsable' => $dejaResponsable,
+            'propositionDejaExistante' => $propositionDejaExistante,
+            'dejaDemande' => $dejaDemande
         );
 
 
@@ -122,7 +135,7 @@ class ControllerQuestion extends GenericController
         else{
             $intitule = $_POST['titreQuestion'];
             $nbSections = $_POST['nbSections'];
-            $nbPhases = $_POST['nbPhases']; //Pour ajouter aux phase de votes la phase de redaction
+            $nbPhases = $_POST['nbPhases'] + 1; // inclus la phase de rédaction
             $dateCreation = date_create();
             $dateFermeture = date_create($_POST['dateFermeture']);
             if(date_create($_POST['dateFermeture']) < $dateCreation)
@@ -213,6 +226,7 @@ class ControllerQuestion extends GenericController
                     $phases[$key]['nbDePlaces'] = $nbDePlace;
                 }
                 $phasesCurrent = (new PhaseRepository())->getPhasesIdQuestion($question->getId());
+                $phaseUpdated = []; // liste des phases mises à jour
                 foreach ($phases as $id => $tabPhase) {
                     $type = $tabPhase['type'];
                     $nbDePlace = $tabPhase['nbDePlaces'];
@@ -220,8 +234,8 @@ class ControllerQuestion extends GenericController
                         $type='redaction';
                         $nbDePlace = 0;
                     }
-                    if($id == $phasesCurrent[sizeof($phases)-1]){// il s'agit de la phase de vote finale
-                        if($type!='scrutinMajoritaire' || $type != 'jugementMajoritaire' || $type != 'scrutinMajoritairePlurinominal'){
+                    if($id == $phasesCurrent[sizeof($phases)-1]->getId()){// il s'agit de la phase de vote finale
+                        if($type!='scrutinMajoritaire' && $type != 'jugementMajoritaire' && $type != 'scrutinMajoritairePlurinominal'){
                             $type = 'scrutinMajoritaire';
                         }
                         $nbDePlace = 1;
@@ -232,8 +246,22 @@ class ControllerQuestion extends GenericController
                         date_create($tabPhase['dateDebut']),
                         date_create($tabPhase['dateFin']),
                         $nbDePlace);
+                    $phaseUpdated[] = $p;
+                }
 
-                    (new PhaseRepository())->update($p);
+                // on s'assure que chaque phase ne chevauche pas une autre phase
+                $dateFinPrecedente = $question->getDateCreation();
+                foreach ($phaseUpdated as $newPhase){
+                    $dateDeb = $newPhase->getDateDebut();
+                    if($dateDeb<=$dateFinPrecedente){
+                        MessageFlash::ajouter('warning', 'Mettre une phase après l\'autre');
+                        self::redirection('frontController.php?controller=question&action=update&id='. $_GET['id']);
+                    }
+                    $dateFinPrecedente = $newPhase->getDateFin();
+                }
+
+                foreach ($phaseUpdated as $phase){
+                    (new PhaseRepository())->update($phase);
                 }
 
                 MessageFlash::ajouter('success', 'La question : "' . $titreQuestion . '" est désormais à jour.');
@@ -266,7 +294,6 @@ class ControllerQuestion extends GenericController
         }
         else{
             $idUsers = [];
-            var_dump($_GET);
 
             if (isset($_POST['user'])) {
                 foreach ($_POST['user'] as $idUser) {
@@ -319,7 +346,7 @@ class ControllerQuestion extends GenericController
                 $users = (new UserRepository())->search($recherche);
             }
             else{
-                $users = (new UserRepository())->selectAllSaufOrganisateur($idQuestion);
+                $users = (new UserRepository())->selectAll();
             }
             //retirer les membres qui sont deja votant
             foreach ($users as $key=>$user){
@@ -423,10 +450,13 @@ class ControllerQuestion extends GenericController
 
             if ($phase->estFinie()) {
                 $question = (new QuestionRepository())->select($idQuestion);
-
                 self::afficheResultPhase($phase, $question);
-            } else {
+            } else if($phase->estCommence() && !($phase->estFinie())){
                 MessageFlash::ajouter('info', 'La phase n\'est pas encore finie, revenez plus tard');
+                self::redirection('frontController.php?controller=question&action=read&id=' . $idQuestion);
+            }
+            else{
+                MessageFlash::ajouter('info', 'La phase n\'est pas encore commencée, revenez plus tard');
                 self::redirection('frontController.php?controller=question&action=read&id=' . $idQuestion);
             }
         }

@@ -1,6 +1,4 @@
 <?php
-
-use App\Model\DataObject\Question;
 use App\Model\DataObject\User;
 use \App\Lib\ConnexionUtilisateur;
 use App\Model\Repository\UserRepository;
@@ -19,9 +17,10 @@ use App\Model\Repository\UserRepository;
             }?></div>
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <div class="ligneExt"><form class="ligneAlign" method="post" action='frontController.php?controller=question&action=addOrganisateurs'>
+                <label for="title"></label>
                 <input type="search" class="opt" name="title" id="title" placeholder="Rechercher un Utilisateur">
-                <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
-                <a href='frontController.php?controller=question&action=addOrganisateurs' id="refresh"><img src="../assets/img/icon-refresh.svg"></a>
+                <button type="submit" class="opt"><img alt="recherche" src="../assets/img/icon-chercher.svg"></button>
+                <a href='frontController.php?controller=question&action=addOrganisateurs' id="refresh"><img alt="rafraichir la page" src="../assets/img/icon-refresh.svg"></a>
             </form><h3>Ajouter</h3></div>
         <ul>
             <?php

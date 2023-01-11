@@ -94,7 +94,7 @@ class Phase extends AbstractDataObject
 
     public function estCommence():bool
     {
-        return ($this->getDateDebut()<=date("now")
+        return ($this->getDateDebut()<=date_create("now")
             &&  $this->getDateFin()>=date_create("now"));
     }
 

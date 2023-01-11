@@ -19,4 +19,5 @@ if($description == 'description' || $description == 'Description')
     $description = ' ';
 }
 ?>
-<textarea type="text" rows="4" cols="100" id="mytextarea" name=<?='description['.$idSection.']'?>> <?=$description?> </textarea>
+<label for="mytextarea"></label>
+<textarea rows="4" cols="100" id="mytextarea" name=<?='description['.$idSection.']'?>> <?=$description?> </textarea>

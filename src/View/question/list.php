@@ -1,8 +1,7 @@
 <?php
 
-use \App\Lib\ConnexionUtilisateur;
-use App\Model\Repository\VoteRepository;
-use App\Model\Repository\UserRepository;
+use App\Lib\ConnexionUtilisateur;
+use App\Model\DataObject\Question;
 /** @var Question[] $questions
  * @var string $privilegeUser
  */
@@ -26,18 +25,19 @@ use App\Model\Repository\UserRepository;
         <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
         <div class="ligneExt">
             <form class="ligneAlign" method="post" action="frontController.php?controller=question&action=readAll">
+                <label for="title"></label>
                 <input type="search" class="opt" name="title" id="title" placeholder="Rechercher une Question">
-                <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
-                <a href="frontController.php?controller=question&action=readAll" id="refresh"><img src="../assets/img/icons8-refresh-50.png"></a>
+                <button type="submit" class="opt"><img alt="recherche" src="../assets/img/icon-chercher.svg"></button>
+                <a href="frontController.php?controller=question&action=readAll" id="refresh"><img alt="rafraichir la page" src="../assets/img/icons8-refresh-50.png"></a>
             </form>
             <?php
             if(ConnexionUtilisateur::estConnecte())
             {
-                if ((new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte()) == "organisateur")
+                if ($privilegeUser == "organisateur")
                 {
                     echo '<a class="optQuestion" href = "frontController.php?controller=question&action=create" > Créer une Question </a >';
                 }
-                else if((new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte()) == "administrateur"){
+                else if($privilegeUser == "administrateur"){
                     echo '<a class="optQuestion" href = "frontController.php?controller=question&action=addOrganisateurs" > Ajouter des organisateurs </a >';
             }
             }
