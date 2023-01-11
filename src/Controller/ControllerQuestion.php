@@ -8,7 +8,6 @@ use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
-use App\Model\DataObject\User;
 use App\Model\Repository\DemandeUserRepository;
 use App\Model\Repository\GroupeRepository;
 use App\Model\Repository\PhaseRepository;
@@ -16,7 +15,7 @@ use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\SectionRepository;
 use App\Model\Repository\UserRepository;
-use App\Model\Repository\VoteRepository;
+
 
 class ControllerQuestion extends GenericController
 {
@@ -75,7 +74,7 @@ class ControllerQuestion extends GenericController
                 $propositionDejaExistante = (new UserRepository())->getPropDejaCree(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion);
             }
             $dejaDemande=(new DemandeUserRepository())->aDejaDemande(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion);
-            $peutPasser = false;
+
             if($roleQuestion=='organisateur') {
                 $currentDate = date_create("now");
                 foreach ($question->getPhases() as $phase) {
@@ -362,7 +361,7 @@ class ControllerQuestion extends GenericController
             }
 
             //users à enlever:
-            $userEnlever = [];
+
             if($role=='votant'){
                 $userEnlever = (new QuestionRepository())->getAllIdVotant($idQuestion);
             }
@@ -518,7 +517,7 @@ class ControllerQuestion extends GenericController
         $currentPhase = $question->getCurrentPhase();
 
         $dateFin = $currentPhase->getDateFin();
-        $currentDate = date_create("now");
+        $currentDate = date_create();
         if($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 0){
             (new PhaseRepository())->endPhase($currentPhase->getId());
         }
@@ -641,7 +640,7 @@ class ControllerQuestion extends GenericController
         self::redirection('frontController.php?controller=question&action=read&id='.$question->getId());
     }
 
-
+    /*
     public static function likeSection()
     {
         $idSection = $_GET['id'];
@@ -657,7 +656,6 @@ class ControllerQuestion extends GenericController
             }
         }
         self::redirection('frontController.php?controller=question&action=read&id=' . $idQuestion);
-
-
     }
+    */
 }

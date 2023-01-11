@@ -82,7 +82,7 @@ class ControllerUser extends GenericController
         /** @var User $user */
         $user = $userRepository->select($id);
 
-
+        $parametres=[];
         if($user != null
             &&( $userRepository->checkCmdp($user->getMdpHache(),$userRepository->setMdpHache($mdp)) ||
              MotDePasse::verifier($mdp, $user->getMdpHache()))
@@ -103,6 +103,7 @@ class ControllerUser extends GenericController
 
                 MessageFlash::ajouter('info', 'Connecté.');
                 self::redirection('frontController.php?controller=user&action=accueil');
+
             }
 
         }
@@ -139,8 +140,8 @@ class ControllerUser extends GenericController
         $prenom = $_POST['prenom'];
         $nom = $_POST['nom'];
         $email = $_POST['email'];
-        $estAdmin = false;
 
+        $parametres = [];
         $mdpconfig = new MotDePasse();
         $userRepository = new UserRepository();
         $user = new User($idUser, $mdpconfig->hacher($mdp), $prenom, $nom, 'invité', $email);
@@ -148,7 +149,7 @@ class ControllerUser extends GenericController
         if ($userRepository->checkCmdp($mdp, $cmdp)          //check si aucune contrainte n'a été violée
             && $userRepository->checkId($idUser)
             && $userRepository->checkEmail($email)
-            && $userRepository->checkMdp($mdp) == true)
+            && $userRepository->checkMdp($mdp))
         {
             $userRepository->sauvegarder($user);
             $parametres = array(
@@ -217,7 +218,8 @@ class ControllerUser extends GenericController
         $userRepository = new UserRepository();
         $user = $userRepository->select($_GET['idUser']);
 
-        if($userRepository->checkCmdp($user->getNonce(),$_POST['nonce']))
+        if($userRepository->checkCmdp($user->getNonce(),$_POST['nonce'])
+        && $user != null)
         {
             $userRepository->validerUser($user);
             $connexion = new ConnexionUtilisateur();
@@ -244,14 +246,25 @@ class ControllerUser extends GenericController
     {
         $idUser = $_GET['idUser'];
         $userRepository = new UserRepository();
-        $userRepository->mailDeValidation($userRepository->select($idUser));
-        $parametres = array(
-            'pagetitle' => 'Valider l\'inscription.',
-            'cheminVueBody' => 'user/validationEmail.php',
-            'idUser'=> $idUser
-        );
-        MessageFlash::ajouter('info', 'Code renvoyé.');
-        self::afficheVue('view.php', $parametres);
+        $user = $userRepository->select($idUser);
+        if($user != null)
+        {
+            $userRepository->mailDeValidation($user);
+            $parametres = array(
+                'pagetitle' => 'Valider l\'inscription.',
+                'cheminVueBody' => 'user/validationEmail.php',
+                'idUser'=> $idUser
+            );
+            MessageFlash::ajouter('info', 'Code renvoyé.');
+            self::afficheVue('view.php', $parametres);
+        }
+        else
+        {
+            MessageFlash::ajouter('info', 'erreur');
+            self::redirection('frontController.php?controller=user&action=connexion');
+        }
+
+
 
     }
 
@@ -353,6 +366,7 @@ class ControllerUser extends GenericController
         $userRepository = new UserRepository();
         $mdp = new MotDePasse();
         $user = $userRepository->select($_GET['id']);
+        $parametres=[];
 
         if( isset($_POST['aMdp']))
         {
@@ -473,6 +487,7 @@ class ControllerUser extends GenericController
 
     public static function deleted()
     {
+
         if(!(new ConnexionUtilisateur())->estAdministrateur())
         {
             $mdp = $_POST['mdp'];
@@ -552,8 +567,6 @@ class ControllerUser extends GenericController
     {
         $userRepository = new UserRepository();
         $id = $_GET['id'];
-
-        $mdpConfig = new MotDePasse();
         $user = $userRepository->selectMdpHache($_GET['id']);
         $nMdp = $_POST['nMdp'];
         $cNMdp = $_POST['cNMdp'];

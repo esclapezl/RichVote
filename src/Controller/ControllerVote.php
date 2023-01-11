@@ -4,11 +4,10 @@ namespace App\Controller;
 
 use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
-use App\Model\HTTP\Session;
 use App\Model\Repository\PropositionRepository;
 use App\Model\Repository\QuestionRepository;
 use App\Model\Repository\UserRepository;
-use App\Model\Repository\VoteRepository;
+
 
 class ControllerVote extends GenericController
 {

@@ -6,9 +6,7 @@ use App\Lib\ConnexionUtilisateur;
 use App\Lib\MessageFlash;
 use App\Model\DataObject\Demande;
 use App\Model\DataObject\Proposition;
-use App\Model\DataObject\Question;
 use App\Model\Repository\CommentaireRepository;
-use App\Model\Repository\DatabaseConnection;
 use App\Model\Repository\DemandeUserRepository;
 use App\Model\Repository\GroupeRepository;
 use App\Model\Repository\PropositionRepository;
@@ -147,7 +145,7 @@ class ControllerProposition extends GenericController
             if((new UserRepository())->aDejaCreeProp($idUser, $idQuestion))
             {
                 MessageFlash::ajouter('info','Vous avez déjà créé une question, vous pouvez modifier ou supprimer celle existante.');
-                Self::redirection('frontController.php?controller=proposition&action=read&id='.(new UserRepository())->getPropDejaCree);
+                self::redirection('frontController.php?controller=proposition&action=read&id='.(new UserRepository())->getPropDejaCree($idUser,$idQuestion));
             }
             $proposition = (new PropositionRepository())->sauvegarder(new Proposition(null, $idQuestion, ConnexionUtilisateur::getLoginUtilisateurConnecte(),null, null, false, []));
 
@@ -412,7 +410,6 @@ class ControllerProposition extends GenericController
     public static function likeSectionProposition()
     {
         $idSection = $_GET['id'];
-        $idQuestion = $_GET['idQuestion'];
         $idProposition = $_GET['idProposition'];
 
         if (ConnexionUtilisateur::estConnecte()) {
