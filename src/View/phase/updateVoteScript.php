@@ -30,10 +30,10 @@ $nbPlaces = $phase->getNbDePlaces();
 <input type="button" onclick="visibilite('phase<?=$id?>');" value="Modifier la phase de vote <?=$numeroPhase?>">
 <div id="phase<?=$id?>" style="display: none">
     <div>Début :
-    <input type="date" id=<?='dD'.$id?> name=<?='dateDebut['.$id.']'?> value="<?=$dateDebut?>">
+    <input type="date" id=<?='dD'.$id?> name=<?='dateDebut['.$id.']'?> value="<?=$dateDebut?>" <?=($phase->estCommence()||$phase->estFinie())?'readonly':''?>>
     </div><div class="descP"></div>
     <div>Fin :
-    <input type="date" id=<?='dF'.$id?> name=<?='dateFin['.$id.']'?> value="<?=$dateFin?>">
+    <input type="date" id=<?='dF'.$id?> name=<?='dateFin['.$id.']'?> value="<?=$dateFin?>" <?=($phase->estCommence()||$phase->estFinie())?'readonly':''?>>
     </div><div class="descP"></div>
 
     <div>

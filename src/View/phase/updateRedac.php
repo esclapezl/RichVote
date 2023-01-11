@@ -16,10 +16,10 @@ $nbPlaces = $phase->getNbDePlaces();
 Modifier la phase de rédaction
 <div id="phase<?=$id?>">
     <div>Début :
-        <input type="date" name="dateDebut[<?=$id?>]" value="<?=$dateDebut?>">
+        <input type="date" name="dateDebut[<?=$id?>]" value="<?=$dateDebut?>" <?=($phase->estCommence()||$phase->estFinie())?'readonly':''?>>
     </div><div class="descP"></div>
     <div>Fin :
-        <input type="date" name="dateFin[<?=$id?>]" value="<?=$dateFin?>">
+        <input type="date" name="dateFin[<?=$id?>]" value="<?=$dateFin?>" <?=($phase->estCommence()||$phase->estFinie())?'readonly':''?>>
     </div><div class="descP"></div>
 
     <div class="descG"></div>

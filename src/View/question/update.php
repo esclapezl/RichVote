@@ -14,7 +14,12 @@ use App\Model\DataObject\Question;
             <?php
             $phases = $question->getPhases();
             $phase = $phases[0];
-            require __DIR__ .'/../phase/updateRedac.php';
+            if(!($phase->estCommence() ||$phase->estFinie())) {
+                require __DIR__ . '/../phase/updateRedac.php';
+            }
+            else{
+                echo 'Si une phase n\'apparait pas, c\'est qu\'elle n\'est plus modifiable';
+            }
             for($numeroPhase=1; $numeroPhase<count($phases)-1; $numeroPhase++)
             {
 
@@ -28,8 +33,9 @@ use App\Model\DataObject\Question;
             $numeroPhase = count($phases)-1;
             $phase = $phases[$numeroPhase];
 
-
-            require __DIR__ .'/../phase/updateFinalVote.php';
+            if(!($phase->estCommence() ||$phase->estFinie())) {
+                require __DIR__ . '/../phase/updateFinalVote.php';
+            }
             ?>
 
 
