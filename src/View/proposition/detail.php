@@ -23,7 +23,8 @@ $idProposition = $proposition->getId();
                 <?=($roleProposition=='responsable'&&$nbDemandes > 0)?'<div class="ligneExt"><span></span><div class="iconsNotifs" id="iconNotification2">'.$nbDemandes.'</div></div><a  class="optQuestion" href="frontController.php?controller=proposition&action=readDemandeAuteur&id=' . rawurlencode($idProposition) .'"> Demandes de Co-Auteurs </a>':''?>
             </div>
             <div class="ligneExt">
-                <h1><?=htmlspecialchars($proposition->getIntitule())?></h1></div>
+                <h1><?=htmlspecialchars($proposition->getIntitule())?></h1>
+                <h3>Rédigée par : <?=htmlspecialchars($proposition->getIdResponsable())?></h3></div>
         <div class="ligneExt"><div class="ligne"></div></div>
         <div class="ligneExt">
             <?php
