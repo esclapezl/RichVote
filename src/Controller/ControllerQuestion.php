@@ -213,6 +213,7 @@ class ControllerQuestion extends GenericController
                     $phases[$key]['nbDePlaces'] = $nbDePlace;
                 }
                 $phasesCurrent = (new PhaseRepository())->getPhasesIdQuestion($question->getId());
+                $phaseUpdated = []; // liste des phases mises à jour
                 foreach ($phases as $id => $tabPhase) {
                     $type = $tabPhase['type'];
                     $nbDePlace = $tabPhase['nbDePlaces'];
@@ -221,7 +222,7 @@ class ControllerQuestion extends GenericController
                         $nbDePlace = 0;
                     }
                     if($id == $phasesCurrent[sizeof($phases)-1]->getId()){// il s'agit de la phase de vote finale
-                        if($type!='scrutinMajoritaire' || $type != 'jugementMajoritaire' || $type != 'scrutinMajoritairePlurinominal'){
+                        if($type!='scrutinMajoritaire' && $type != 'jugementMajoritaire' && $type != 'scrutinMajoritairePlurinominal'){
                             $type = 'scrutinMajoritaire';
                         }
                         $nbDePlace = 1;
@@ -232,8 +233,22 @@ class ControllerQuestion extends GenericController
                         date_create($tabPhase['dateDebut']),
                         date_create($tabPhase['dateFin']),
                         $nbDePlace);
+                    $phaseUpdated[] = $p;
+                }
 
-                    (new PhaseRepository())->update($p);
+                // on s'assure que chaque phase ne chevauche pas une autre phase
+                $dateFinPrecedente = $question->getDateCreation();
+                foreach ($phaseUpdated as $newPhase){
+                    $dateDeb = $newPhase->getDateDebut();
+                    if($dateDeb<=$dateFinPrecedente){
+                        MessageFlash::ajouter('warning', 'Mettre une phase après l\'autre');
+                        self::redirection('frontController.php?controller=question&action=update&id='. $_GET['id']);
+                    }
+                    $dateFinPrecedente = $newPhase->getDateFin();
+                }
+
+                foreach ($phaseUpdated as $phase){
+                    (new PhaseRepository())->update($phase);
                 }
 
                 MessageFlash::ajouter('success', 'La question : "' . $titreQuestion . '" est désormais à jour.');
