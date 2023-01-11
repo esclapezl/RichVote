@@ -16,6 +16,7 @@ use App\Lib\ConnexionUtilisateur;
  * @var int $propositionDejaExistante
  * @var bool $dejaDemande
  */
+
 if(!isset($demandes)) {
     $demandes = [];
 }
@@ -221,7 +222,7 @@ switch ($typePrecisPhase) {
 
 
                     echo '<div class="timeline" id="margintimeline">';
-                    $widthLigne=(100/(sizeof($phases)+1));
+                    $widthLigne=(85/(sizeof($phases)));
                     foreach ($phases as $phase){
                         echo '<style>.ligneTbis{width: '.$widthLigne.'%;}</style>';
                         echo '<p id="pet">Du '.htmlspecialchars($question->dateToString($phase->getDateDebut())).'<br> au
