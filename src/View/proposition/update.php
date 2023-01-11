@@ -17,8 +17,8 @@ if($intitule = null)
                 <div class="descG"></div>
 
 
-                <h3>Proposition :</h3>
-                <input type="text" name="intitule" size="50" value='<?=$intitule?>' >
+                <h3><label for="int">Proposition :</label></h3>
+                <input type="text" name="intitule" id="int" size="50" value='<?=$intitule?>' >
                 <br><br>
 
 

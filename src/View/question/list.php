@@ -28,7 +28,7 @@ use App\Model\DataObject\Question;
                 <label for="title"></label>
                 <input type="search" class="opt" name="title" id="title" placeholder="Rechercher une Question">
                 <button type="submit" class="opt"><img alt="recherche" src="../assets/img/icon-chercher.svg"></button>
-                <a href="frontController.php?controller=question&action=readAll" id="refresh"><img alt="rafraichir la page" src="../assets/img/icons8-refresh-50.png"></a>
+                <a href="frontController.php?controller=question&action=readAll" id="refresh"><img alt="actualiser la liste" src="../assets/img/icons8-refresh-50.png"></a>
             </form>
             <?php
             if(ConnexionUtilisateur::estConnecte())

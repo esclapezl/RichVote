@@ -1,5 +1,5 @@
 <?php
-use \App\Lib\ConnexionUtilisateur;
+use App\Lib\ConnexionUtilisateur;
 use App\Model\DataObject\Demande;
 use App\Model\DataObject\Groupe;
 use App\Model\DataObject\User;
@@ -9,6 +9,7 @@ use App\Model\DataObject\User;
  * @var string $action
  * @var string $privilegeUser
  */
+
 // trouver un moyen de récupérer l'url pour faire un refresh
 $url = 'frontController.php?';
 $i = sizeof($_GET);
@@ -38,10 +39,11 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
                 <div class="ligne"></div>
             </div>
             <div class="ligneExt"><form class="ligneAlign" method="post" action="<?=$url?>">
+                    <label for="filtre"></label>
                     <input type="search" class="opt" name="filtre" id="filtre" placeholder="Rechercher un Utilisateur">
-                    <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
+                    <button type="submit" class="opt"><img alt="recherche" src="../assets/img/icon-chercher.svg"></button>
                     <a href="<?=$url?>" id="refresh">
-                        <img src="../assets/img/icon-refresh.svg">
+                        <img alt="rafraîchir la page" src="../assets/img/icon-refresh.svg">
                     </a>
                 </form>
                 <h3>Ajouter</h3>

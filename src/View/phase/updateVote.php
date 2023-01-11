@@ -1,8 +1,7 @@
 <?php
 
 use App\Model\DataObject\Phase;
-use App\Model\DataObject\Question;
-use App\Model\DataObject\Section;
+
 /** @var Phase $phase
  * @var int $numeroPhase
  */
@@ -22,7 +21,7 @@ $nbPlaces = $phase->getNbDePlaces();
     </div><div class="descP"></div>
 
     <div>
-        Type de phase :
+        <label for="selectwidth">Type de phase :</label>
         <select id="selectwidth" name="type[<?=$id?>]">
             <option value="scrutinMajoritaire" <?=$type=='scrutinMajoritaire'?'selected':''?>>Phase de vote par scrutin majoritaire</option>
             <option value="scrutinMajoritairePlurinominal" <?=$type=='scrutinMajoritairePlurinominal'?'selected':''?>>Phase de vote par scutin majoritaire plurinominal</option>

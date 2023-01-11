@@ -1,8 +1,7 @@
 <?php
 
-use App\Model\DataObject\Question;
 use App\Model\DataObject\Phase;
-use App\Model\DataObject\Section;
+
 /** @var Phase $phase
  * @var int $numeroPhase
  */

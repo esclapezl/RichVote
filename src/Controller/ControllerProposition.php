@@ -52,6 +52,8 @@ class ControllerProposition extends GenericController
         $demandes = DemandeUserRepository::selectAllDemandeAuteurProposition($proposition);
 
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+
+
         $roleProposition = '';
         if($proposition->getIdResponsable()==$idUser){
             $roleProposition='responsable';
@@ -261,6 +263,7 @@ class ControllerProposition extends GenericController
     public static function addAuteursToProposition(){
         self::connexionRedirect('warning', 'Connectez-vous');
         $proposition = (new PropositionRepository())->select($_GET['id']);
+        $responsableProposition = (new PropositionRepository())->selectResponsable($_GET['id']);
 
         if(isset($_GET['entite'])){
             $entite = $_GET['entite'];
@@ -276,7 +279,8 @@ class ControllerProposition extends GenericController
                 'pagetitle' => 'ajout d\'auteurs',
                 'cheminVueBody' => 'proposition/listPourAjouter.php',
                 'privilegeUser' => 'responsable',
-                'action' => $action
+                'action' => $action,
+                'responsableProposition' => $responsableProposition
             ];
 
             if($entite=='user') {

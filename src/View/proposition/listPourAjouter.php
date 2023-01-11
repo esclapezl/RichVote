@@ -1,5 +1,5 @@
 <?php
-use \App\Lib\ConnexionUtilisateur;
+use App\Lib\ConnexionUtilisateur;
 use App\Model\DataObject\Groupe;
 use App\Model\DataObject\User;
 
@@ -8,6 +8,7 @@ use App\Model\DataObject\User;
  * @var ?Groupe[] $groupes
  * @var string $action
  * @var string $privilegeUser
+ * @var string $responsableProposition
  */
 // trouver un moyen de récupérer l'url pour faire un refresh
 $url = 'frontController.php?';
@@ -36,15 +37,16 @@ $controller = isset($groupes)?'groupe':'user';
             <div class="ligne"></div>
             <div class="ligne"></div>
         </div>
-<div class="ligneExt"><form class="ligneAlign" method="post" action="<?=$url?>">
-        <input type="search" class="opt" name="filtre" id="filtre" placeholder="Rechercher un Utilisateur">
-        <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
-        <a href="<?=$url?>" id="refresh">
-            <img src="../assets/img/icon-refresh.svg">
-        </a>
-    </form>
-    <h3>Ajouter</h3>
-</div>
+        <div class="ligneExt"><form class="ligneAlign" method="post" action="<?=$url?>">
+                <label for="filtre"></label>
+                <input type="search" class="opt" name="filtre" id="filtre" placeholder="Rechercher un Utilisateur">
+                <button type="submit" class="opt"><img alt="recherche" src="../assets/img/icon-chercher.svg"></button>
+                <a href="<?=$url?>" id="refresh">
+                    <img alt="rafraichir la page" src="../assets/img/icon-refresh.svg">
+                </a>
+            </form>
+            <h3>Ajouter</h3>
+        </div>
 
 
         <div class="ligneAlign">
@@ -71,29 +73,15 @@ $controller = isset($groupes)?'groupe':'user';
         echo "<form method='post' action='$action&entite=" . $controller . "'><ul>";
 
         if($controller=='user') {
-            liste::users($users);
-        }
-        else {
-            liste::groupes($groupes);
-        }
-        echo '</ul> <div class="ligneCent"> <input type="submit" value="Ajouter les ' . $nomEntite .'s selectionnés" class="optQuestion"></div></form>';
-    }
-    ?>
-</div>
-</div>
+            foreach ($users as $user) {
+                $idUser = rawurlencode($user->getId());
+                $htmlId = ucfirst(htmlspecialchars($idUser));
+                $prenom = ucfirst(htmlspecialchars($user->getPrenom()));
+                $nom = ucfirst(htmlspecialchars($user->getNom()));
 
-<?php
-class liste{
-    public static function users(array $users){
-        foreach ($users as $user) {
-            $idUser = rawurlencode($user->getId());
-            $htmlId = ucfirst(htmlspecialchars($idUser));
-            $prenom = ucfirst(htmlspecialchars($user->getPrenom()));
-            $nom = ucfirst(htmlspecialchars($user->getNom()));
-
-            if($user->getId() != (new \App\Model\Repository\PropositionRepository())->selectResponsable($_GET['id']))
-            {
-                echo "<div class='ligneExt'>
+                if($user->getId() != $responsableProposition)
+                {
+                    echo "<div class='ligneExt'>
 
                             <li class='ligneExt'>
                             <label for='cb[$idUser]' class='checkbox'>
@@ -104,24 +92,26 @@ class liste{
                             </li>
                             <input type='checkbox' name='list[$idUser]' value='$idUser'>
                             </div>";
+                }
+
             }
-
         }
-    }
+        else {
+            foreach ($groupes as $groupe) {
+                $nomGroupe = htmlspecialchars($groupe->getId());
+                $htmlnom = ucfirst(htmlspecialchars($nomGroupe));
 
-    public static function groupes(array $groupes){
-        foreach ($groupes as $groupe) {
-            $nomGroupe = htmlspecialchars($groupe->getId());
-            $htmlnom = ucfirst(htmlspecialchars($nomGroupe));
-
-            echo "<div class='ligneExt'>
+                echo "<div class='ligneExt'>
 
                             <li class='ligneExt'> <a href='frontController.php?controller=groupe&action=read&nomGroupe=$nomGroupe'> $htmlnom</a></span></li>
                             <label for='checkbox' class='checkbox'> 
                                 <input type='checkbox' name='list[$nomGroupe]' value='$nomGroupe'>
                             </label>
                           </div>";
+            }
         }
+        echo '</ul> <div class="ligneCent"> <input type="submit" value="Ajouter les ' . $nomEntite .'s selectionnés" class="optQuestion"></div></form>';
     }
-}
-?>
+    ?>
+</div>
+</div>
