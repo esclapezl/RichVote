@@ -5,17 +5,13 @@ use App\Model\DataObject\Question;
 use App\Model\DataObject\Proposition;
 use App\Model\DataObject\User;
 use App\Lib\ConnexionUtilisateur;
-use \App\Model\Repository\UserRepository;
 
 /** @var Question[] $questions
  * @var Proposition[] $propositions
  * @var Groupe[] $groupes
  * @var array $demandes
+ * @var User $user
  */
-$user = (new UserRepository())->select($_GET['id']);
-
-$bool =false;
-echo $bool;
 
 $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$user->getId() || (new ConnexionUtilisateur())->estAdministrateur());
 

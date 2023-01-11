@@ -10,7 +10,7 @@ if($intitule == 'intitulé')
     $intitule = ' ';
 }
 ?>
-
+<label for="<?='i'.$idSection?>"></label>
 <input type="text" size="50"  id=<?='i'.$idSection?> name=<?='intitule['.$idSection.']'?> value="<?=$intitule?>">
 <div class="descP"></div><h3>Description : </h3>
 <?php
