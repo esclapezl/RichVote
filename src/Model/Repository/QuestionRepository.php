@@ -7,6 +7,7 @@ use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Section;
 use App\Lib\ConnexionUtilisateur;
+use mysql_xdevapi\Result;
 
 class QuestionRepository extends AbstractRepository
 {
@@ -140,6 +141,30 @@ class QuestionRepository extends AbstractRepository
             ];
             $pdoStatement->execute($param);
         }
+    }
+
+    public function getAllIdVotant(string $idQuestion){
+        $sql = "SELECT idUser FROM votants where idQuestion=:idQuestion";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $pdoStatement->execute(['idQuestion' => $idQuestion]);
+
+        $result = [];
+        foreach ($pdoStatement as $info){
+            $result[] = $info['IDUSER'];
+        }
+        return $result;
+    }
+
+    public function getAllIdResponsable(string $idQuestion){
+        $sql = "SELECT idAuteur FROM responsables where idQuestion=:idQuestion";
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $pdoStatement->execute(['idQuestion' => $idQuestion]);
+
+        $result = [];
+        foreach ($pdoStatement as $info){
+            $result[] = $info['IDAUTEUR'];
+        }
+        return $result;
     }
 
     public function addGroupesQuestion(array $idGroupes, string $idQuestion, string $role){

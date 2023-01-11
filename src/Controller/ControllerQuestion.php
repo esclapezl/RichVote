@@ -336,6 +336,8 @@ class ControllerQuestion extends GenericController
     public static function addUsersToQuestion(){
         self::connexionRedirect('warning', 'Connectez-vous');
         $question = (new QuestionRepository())->select($_GET['id']);
+        $role = isset($_GET['role'])?$_GET['role']:'votant';
+
         if($question->getIdOrganisateur() != ConnexionUtilisateur::getLoginUtilisateurConnecte()){
             MessageFlash::ajouter('warning', 'Vous n\'avez pas les droits');
             self::readAll();
@@ -350,15 +352,24 @@ class ControllerQuestion extends GenericController
             else{
                 $users = (new UserRepository())->selectAll();
             }
+
+            //users à enlever:
+            $userEnlever = [];
+            if($role=='votant'){
+                $userEnlever = (new QuestionRepository())->getAllIdVotant($idQuestion);
+            }
+            else{
+                $userEnlever = (new QuestionRepository())->getAllIdResponsable($idQuestion);
+            }
+
             //retirer les membres qui sont deja votant
             foreach ($users as $key=>$user){
-                if($user->getId() == ConnexionUtilisateur::getLoginUtilisateurConnecte()){
+                if($user->getId() == ConnexionUtilisateur::getLoginUtilisateurConnecte() || in_array($user->getId(), $userEnlever)){
                     unset($users[$key]);
                 }
             }
 
-            $role = isset($_GET['role'])?'&role='.$_GET['role']:'&role=votant';
-            $action = 'frontController.php?controller=question&action=usersAdded&id=' . $idQuestion . $role;
+            $action = 'frontController.php?controller=question&action=usersAdded&id=' . $idQuestion . '&role=' .  $role;
 
             $privilegeUser = (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte());
 

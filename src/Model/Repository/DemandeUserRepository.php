@@ -14,7 +14,7 @@ class DemandeUserRepository
 
     public static final function selectAllDemandeVoteQuestion(Question $question){
         $nom = self::$nomTable;
-        $sql = "SELECT * FROM $nom WHERE idQuestion=:idQuestion";
+        $sql = "SELECT * FROM $nom WHERE idQuestion=:idQuestion AND role='votant'";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
 
         $idQuestion = $question->getId();
