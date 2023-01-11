@@ -122,7 +122,7 @@ class ControllerQuestion extends GenericController
         else{
             $intitule = $_POST['titreQuestion'];
             $nbSections = $_POST['nbSections'];
-            $nbPhases = $_POST['nbPhases']; //Pour ajouter aux phase de votes la phase de redaction
+            $nbPhases = $_POST['nbPhases'] + 1; // inclus la phase de rédaction
             $dateCreation = date_create();
             $dateFermeture = date_create($_POST['dateFermeture']);
             if(date_create($_POST['dateFermeture']) < $dateCreation)
@@ -220,7 +220,7 @@ class ControllerQuestion extends GenericController
                         $type='redaction';
                         $nbDePlace = 0;
                     }
-                    if($id == $phasesCurrent[sizeof($phases)-1]){// il s'agit de la phase de vote finale
+                    if($id == $phasesCurrent[sizeof($phases)-1]->getId()){// il s'agit de la phase de vote finale
                         if($type!='scrutinMajoritaire' || $type != 'jugementMajoritaire' || $type != 'scrutinMajoritairePlurinominal'){
                             $type = 'scrutinMajoritaire';
                         }
@@ -266,7 +266,6 @@ class ControllerQuestion extends GenericController
         }
         else{
             $idUsers = [];
-            var_dump($_GET);
 
             if (isset($_POST['user'])) {
                 foreach ($_POST['user'] as $idUser) {

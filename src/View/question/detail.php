@@ -236,14 +236,14 @@ switch ($typePrecisPhase) {
                 $y=0;
                 foreach ($question->getSections() as $section) {
                     $y++;
-                    echo '<div class="ligneCent"><h3 id="sections">' . $y . '. ' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
+                    echo '<div class="ligneCent"><a href="#section'. $y .'"><h3 id="sections">' . $y . '. ' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></a></div>";
                 }
                 echo '<br><div class="ligneCent"><div class="ligne"></div></div><br><br>';
 
                 $i=0;
                 foreach ($question->getSections() as $section) {
                     $i++;
-                    echo '<div class="ligneExt"><h3 id="sections">'. $i .'. ' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
+                    echo '<div class="ligneExt" id="section'. $i .'"><h3 id="sections">'. $i .'. ' . ucfirst(htmlspecialchars($section->getIntitule())) . "</h3></div>";
                     echo "<div class='ligne'></div><p>" . $section->getDescription();
                     echo '<br>';
                     //echo '<div><a href="frontController.php?controller=question&action=likeSection&id='.$section->getId().'&idQuestion='.$_GET['id'].'"><img src="../assets/img/icons8-jaimeBlanc.png"></a>     '.$section->getNbLikes().'</div></li>';

@@ -14,13 +14,11 @@ use App\Model\DataObject\Question;
             <?php
             $phases = $question->getPhases();
             $phase = $phases[0];
-            $numeroPhase = 1;
             require __DIR__ .'/../phase/updateRedac.php';
-            for($i=0; $i<count($phases)-1; $i++)
+            for($numeroPhase=1; $numeroPhase<count($phases)-1; $numeroPhase++)
             {
 
-                $phase = $phases[$i];
-                $numeroPhase = $i +1;
+                $phase = $phases[$numeroPhase];
                 if(!($phase->estCommence() ||$phase->estFinie()))
                 {
                     require __DIR__ .'/../phase/updateVote.php';
