@@ -295,7 +295,7 @@ class ControllerUser extends GenericController
         $propositions = (new PropositionRepository())->selectAllfromResponsable($_GET['id']);
         $user = (new UserRepository())->select($_GET['id']);
 
-        $demandes = (new DemandeUserRepository)->selectAllDemandeDemandeur($_GET['id']);
+        $demandes = DemandeUserRepository::selectAllDemandeDemandeur($_GET['id']);
 
         $parametres = array(
             'pagetitle' => 'Détails user',
