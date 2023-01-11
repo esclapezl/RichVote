@@ -32,11 +32,11 @@ use App\Model\DataObject\User;
         {
             echo    '<h3><label for="aMdp">Ancien mot de passe :</label></h3>
             <input type="password" id="aMdp" name="aMdp" placeholder="********" size="50"  required>
-            <div class="descP"></div>';
+            <div class="descG"></div>';
         } ?>
         <h3><label for="nMdp">Nouveau mot de passe :</label></h3>
             <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" id="nMdp" name="nMdp" placeholder="********" size="50" required>
-            <div class="descG"></div>
+            <div class="descP"></div>
 
             <h3><label for="cNMdp">Confirmer le nouveau mot de passe :</label></h3>
             <input type="password" id="cNMdp" name="cNMdp" placeholder="********" size="50" required>
