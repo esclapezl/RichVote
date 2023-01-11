@@ -6,6 +6,7 @@
             <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
             <p>
             <div class="descG"></div>
+
             <h3>Identifiant :</h3>
             <input type="text" id="id" name="id" placeholder="Identifiant" size="50"  required>
             <?php if(isset($msgErreurId)) {echo '<div style="color:#ffffff;">' .$msgErreurId.'</div>';}?>
