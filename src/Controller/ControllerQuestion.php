@@ -225,6 +225,8 @@ class ControllerQuestion extends GenericController
                 foreach ($_POST['nbDePlaces'] as $key => $nbDePlace) {
                     $phases[$key]['nbDePlaces'] = $nbDePlace;
                 }
+
+                // on regarde les phases pour empecher toute modification qui ne seraient pas autorisés pour redaction et vote final
                 $phasesCurrent = (new PhaseRepository())->getPhasesIdQuestion($question->getId());
                 $phaseUpdated = []; // liste des phases mises à jour
                 foreach ($phases as $id => $tabPhase) {
@@ -253,7 +255,7 @@ class ControllerQuestion extends GenericController
                 $dateFinPrecedente = $question->getDateCreation();
                 foreach ($phaseUpdated as $newPhase){
                     $dateDeb = $newPhase->getDateDebut();
-                    if($dateDeb<=$dateFinPrecedente){
+                    if($dateDeb<$dateFinPrecedente){
                         MessageFlash::ajouter('warning', 'Mettre une phase après l\'autre');
                         self::redirection('frontController.php?controller=question&action=update&id='. $_GET['id']);
                     }
