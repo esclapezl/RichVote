@@ -103,7 +103,7 @@ use App\Lib\ConnexionUtilisateur;
             <ul>
                 <li><a href="frontController.php?controller=user&action=accueil">Accueil</a></li>
                 <li><a href="frontController.php?controller=question&action=readAll">Questions</a></li>
-                <li><a href="frontController.php?controller=question&action=readAll">Résultats</a></li>
+                <li><a href="frontController.php?controller=question&action=readAllArchives">Archives</a></li>
                 <li><a href="frontController.php?controller=user&action=about">Contributeurs</a></li>
             </ul>
 
