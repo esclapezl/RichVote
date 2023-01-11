@@ -173,11 +173,14 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                     }
                 echo '</ul>';
             }
+            /*
             echo '<ul>';
+
             foreach ($demandes as $demande){
                 echo '<li>Demande à être ' . $demande->getRole() . ($demande->getProposition()!=null ? ' pour la proposition: ' . $demande->getProposition()->getIntitule() : '') . ' sur la question: ' . $demande->getQuestion()->getIntitule()  . '</li>';
             }
             echo '</ul>';
+            */
 
 
 
