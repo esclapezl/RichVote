@@ -54,6 +54,7 @@ class ControllerQuestion extends GenericController
         $idQuestion = $_GET['id'];
 
         $question = (new QuestionRepository())->select($idQuestion);
+        $estFini = (new QuestionRepository())->estFini($idQuestion);
 
         $demandes = (new DemandeUserRepository)->selectAllDemandeVoteQuestion($question);
 
@@ -62,10 +63,16 @@ class ControllerQuestion extends GenericController
         $roleQuestion='';
         $peutVoter = false;
         $peutPasser = false;
+        $dejaResponsable = false;
+        $propositionDejaExistante=null;
+        $dejaDemande=null;
         if(ConnexionUtilisateur::estConnecte()) {
             $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
             $roleQuestion = (new UserRepository())->getRoleQuestion($idUser, $idQuestion);
             $peutVoter = UserRepository::peutVoter($idUser, $idQuestion);
+            $dejaResponsable = (new UserRepository())->aDejaCreeProp(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion);
+            $propositionDejaExistante = (new UserRepository())->getPropDejaCree(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion);
+            $dejaDemande=(new DemandeUserRepository())->aDejaDemande(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion);
             $peutPasser = false;
             if($roleQuestion=='organisateur') {
                 $currentDate = date_create("now");
@@ -89,7 +96,11 @@ class ControllerQuestion extends GenericController
             'phases' => $phases,
             'roleQuestion' => $roleQuestion,
             'peutVoter' => $peutVoter,
-            'peutPasser' => $peutPasser
+            'peutPasser' => $peutPasser,
+            'estFini' => $estFini,
+            'dejaResponsable' => $dejaResponsable,
+            'propositionDejaExistante' => $propositionDejaExistante,
+            'dejaDemande' => $dejaDemande
         );
 
 

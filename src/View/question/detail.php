@@ -2,10 +2,8 @@
 use App\Model\DataObject\Question;
 use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
-use \App\Lib\ConnexionUtilisateur;
-use App\Model\Repository\QuestionRepository;
-use \App\Model\Repository\UserRepository;
-use \App\Model\Repository\DemandeUserRepository;
+use App\Lib\ConnexionUtilisateur;
+
 
 /** @var Question $question
  * @var Demande[] $demandes
@@ -13,6 +11,10 @@ use \App\Model\Repository\DemandeUserRepository;
  * @var string $roleQuestion
  * @var bool $peutVoter
  * @var bool $peutPasser
+ * @var bool $estFini
+ * @var bool $dejaResponsable
+ * @var int $propositionDejaExistante
+ * @var bool $dejaDemande
  */
 if(!isset($demandes)) {
     $demandes = [];
@@ -33,8 +35,6 @@ switch ($typePrecisPhase) {
         echo "Vote(s) terminé(s)";
         break;
 }
-
-
 ?>
 
 <div class="block">
@@ -88,7 +88,7 @@ switch ($typePrecisPhase) {
                     }
 
                     echo '<h2>Interface Organisateur</h2><br><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
-                    if((new QuestionRepository())->estFini($idQuestion))
+                    if($estFini)
                     {
                         echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
                     }
@@ -125,12 +125,12 @@ switch ($typePrecisPhase) {
                 } else if($roleQuestion=="responsable"){
                     echo '<div class="ligneExt">
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
-                    if((new QuestionRepository())->estFini($idQuestion)) {
+                    if($estFini) {
                         echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
                     }
 
 
-                            if(!(new UserRepository())->aDejaCreeProp(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion))
+                            if(!$dejaResponsable)
                             {
 
                                 echo '</div><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=create&id=' . rawurlencode($question->getId()) . '>
@@ -138,7 +138,7 @@ switch ($typePrecisPhase) {
                             }
                             else //a deja une prop de crée pour cette q
                             {
-                                echo '</div><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=read&id=' .(new UserRepository())->getPropDejaCree(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion) . '>
+                                echo '</div><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=read&id=' .$propositionDejaExistante . '>
                         Gérer votre proposition</a></div>';
                             }
 
@@ -146,12 +146,12 @@ switch ($typePrecisPhase) {
                 else{
                     echo '<div class="ligneExt">
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
-                    if((new QuestionRepository())->estFini($idQuestion)) {
+                    if($estFini) {
                         echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
                     }
                     echo '</div>';
 
-                    if(!(new DemandeUserRepository())->aDejaDemande(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion))
+                    if(!$dejaDemande)
                     {
                        echo "<a class='optQuestion' href=frontController.php?controller=question&action=demandeRoleQuestion&role=responsable&id=". rawurlencode($idQuestion) .">
                                 Demander à écrire une proposition</a>";
@@ -168,7 +168,6 @@ switch ($typePrecisPhase) {
                     echo '<h3 id="prog">Progression :</h3><div class="ligneP"></div>';
                     echo '<div class="timeline">';
 
-                    $widthLigne=(80/(sizeof($phases)+1));
                     foreach ($phases as $phase){
                         $type='';
                         $typeP=$phase->getType();
@@ -190,7 +189,6 @@ switch ($typePrecisPhase) {
                                 break;
                         }
 
-                        echo '<style>.ligneTbis{width: '.$widthLigne.'%;}</style>';
                         echo '
                         <p id="pet">'.$type.'<br>';
                         if($phase->getNbDePlaces()>1){
@@ -208,7 +206,7 @@ switch ($typePrecisPhase) {
                     //DEBUT
                     echo '<div class="timeline">';
 
-                    $widthLigne= 85/(sizeof($phases));
+                    $widthLigne= 90/(sizeof($phases));
 
                     foreach ($phases as $phase){
 
