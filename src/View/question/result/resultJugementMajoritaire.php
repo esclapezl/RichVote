@@ -2,8 +2,10 @@
 /**
  * @var array $propositionsScore
  */
+
+echo '<h1>Gagnant : </h1>';
 foreach ($propositionsScore as [$proposition, $scores]){
-    echo $proposition->getIntitule() . '    scores: <ol>';
+    echo '<br>' . $proposition->getIntitule() . '   -> scores: <ol>';
     foreach ($scores as $nomScore=>$score){
         $tradNom = "";
         switch ($nomScore){
