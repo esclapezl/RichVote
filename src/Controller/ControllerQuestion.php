@@ -55,7 +55,7 @@ class ControllerQuestion extends GenericController
 
         $question = (new QuestionRepository())->select($idQuestion);
 
-        $demandes = (new DemandeUserRepository)->selectAllDemandeVoteQuestion($question);
+        $demandes = DemandeUserRepository::selectAllDemandeVoteQuestion($question);
 
         $phases=(new PhaseRepository())->getPhasesIdQuestion($idQuestion);
 
@@ -492,7 +492,7 @@ class ControllerQuestion extends GenericController
             self::redirection('frontController.php?controller=question&action=read&id='.$question->getId());
         }
 
-        $demandes = (new DemandeUserRepository)->selectAllDemandeQuestion($question);
+        $demandes = DemandeUserRepository::selectAllDemandeQuestion($question);
 
         $action = 'frontController.php?action=demandesAccepted&controller=question&id=' . $idQuestion;
 
@@ -514,7 +514,7 @@ class ControllerQuestion extends GenericController
         foreach ($_POST['user'] as $idUser) {
             $role = $_POST['role'][$idUser];
             $demande = new Demande($role, $question, (new UserRepository())->select($idUser));
-            (new DemandeUserRepository())->delete($demande);
+            DemandeUserRepository::delete($demande);
             if($role=='votant'){
                 $accepteVotant[] = $idUser;
             }
@@ -536,14 +536,17 @@ class ControllerQuestion extends GenericController
 
         $demande = new Demande($role, $question, (new UserRepository())->select($idUser));
         if(!((new UserRepository())->estOrganisateurSurQuestion($idUser,$question->getId()))
-            && !(new DemandeUserRepository())->aDejaDemande($idUser,$question->getId())
-            && (new DemandeUserRepository())->sauvegarder(($demande))
+            && !DemandeUserRepository::aDejaDemande($idUser,$question->getId())
+            && DemandeUserRepository::sauvegarder(($demande))
             )
         {
             MessageFlash::ajouter('success', 'Votre demande a bien été enregistré');
         }
+        else if (DemandeUserRepository::aDejaDemande($idUser, $question->getId())){
+            MessageFlash::ajouter('info', 'Une autre demande de votre part est déjà en attente pour cette question');
+        }
         else{
-            MessageFlash::ajouter('info', 'Une erreur est survenu lors de l\'enregistrement de votre demande');
+            MessageFlash::ajouter('warning', 'Une erreur est survenu lors de l\'enregistrement de votre demande');
         }
         self::read();
     }

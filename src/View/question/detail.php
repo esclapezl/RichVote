@@ -153,7 +153,7 @@ switch ($typePrecisPhase) {
                     }
                     echo '</div>';
 
-                    if(!(new DemandeUserRepository())->aDejaDemande(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion))
+                    if(!DemandeUserRepository::aDejaDemande(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion))
                     {
                        echo "<a class='optQuestion' href=frontController.php?controller=question&action=demandeRoleQuestion&role=responsable&id=". rawurlencode($idQuestion) .">
                                 Demander à écrire une proposition</a>";

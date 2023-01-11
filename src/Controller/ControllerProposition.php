@@ -49,7 +49,7 @@ class ControllerProposition extends GenericController
 
         $proposition = (new PropositionRepository())->select($idProposition);
 
-        $demandes = (new DemandeUserRepository)->selectAllDemandeAuteurProposition($proposition);
+        $demandes = DemandeUserRepository::selectAllDemandeAuteurProposition($proposition);
 
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $roleProposition = '';
@@ -335,7 +335,7 @@ class ControllerProposition extends GenericController
         $user = (new UserRepository())->select($idUser);
         $demande = new Demande('auteur', $question, $user, $proposition);
 
-        (new DemandeUserRepository)->sauvegarder($demande);
+        DemandeUserRepository::sauvegarder($demande);
 
         MessageFlash::ajouter('success', 'Demande effectuée');
         ControllerQuestion::readAll();
@@ -347,7 +347,7 @@ class ControllerProposition extends GenericController
 
         $proposition = (new PropositionRepository())->select($idProposition);
         if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()){
-            $demandes = (new DemandeUserRepository)->selectAllDemandeAuteurProposition($proposition);
+            $demandes = DemandeUserRepository::selectAllDemandeAuteurProposition($proposition);
 
             $action = 'frontController.php?action=demandesAccepted&controller=Proposition&id=' . $idProposition;
 
@@ -373,14 +373,14 @@ class ControllerProposition extends GenericController
         $idProposition = $_GET['id'];
         $proposition = (new PropositionRepository())->select($idProposition);
         if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()) {
-            $demandesProposition = (new DemandeUserRepository)->selectAllDemandeAuteurProposition($proposition);
+            $demandesProposition = DemandeUserRepository::selectAllDemandeAuteurProposition($proposition);
             $acceptees = [];
             foreach ($_POST['user'] as $idUser) {
                 $acceptees[] = $idUser;
             }
             foreach($demandesProposition as $demande){
                 if(in_array($demande->getDemandeur()->getId(), $acceptees)){
-                    (new DemandeUserRepository)->delete($demande);
+                    DemandeUserRepository::delete($demande);
                 }
             }
             (new PropositionRepository())->addAuteursProposition($acceptees, $proposition);
