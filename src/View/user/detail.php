@@ -5,6 +5,7 @@ use App\Model\DataObject\Question;
 use App\Model\DataObject\Proposition;
 use App\Model\DataObject\User;
 use App\Lib\ConnexionUtilisateur;
+use \App\Model\Repository\UserRepository;
 
 /** @var Question[] $questions
  * @var Proposition[] $propositions
@@ -12,6 +13,7 @@ use App\Lib\ConnexionUtilisateur;
  * @var array $demandes
  * @var User $user
  */
+
 
 $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$user->getId() || (new ConnexionUtilisateur())->estAdministrateur());
 
