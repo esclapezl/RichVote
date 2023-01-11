@@ -121,6 +121,16 @@ class ControllerVote extends GenericController
         self::afficheVue('view.php', $parametres);
     }
 
+    public static function redaction() : void
+    {
+        $parametres = array(
+            'pagetitle' => 'Redaction',
+            'cheminVueBody' => 'vote/redaction.php'
+        );
+
+        self::afficheVue('view.php', $parametres);
+    }
+
     public static function demandeAcces() : void{
         MessageFlash::ajouter('danger', 'changer le fonctionnnement de cette fonction pour etre utilisé dans demandeRole pour question');
         self::connexionRedirect('warning', 'Connectez-vous');
