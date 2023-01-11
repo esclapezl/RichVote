@@ -394,12 +394,12 @@ class ControllerUser extends GenericController
 
                 $userRepository->update($user);
                 MessageFlash::ajouter('info', 'Identifiant mis à jour.');
-                self::redirection('frontController.php?controller=user&action=read&id='.$user->getId());
+                self::redirection('frontController.php?controller=user&action=read&id='.rawurlencode($user->getId()));
             }
             else
             {
                 MessageFlash::ajouter('danger', 'Identifiant déjà utilisé.');
-                self::redirection('frontController.php?controller=user&action=read&id='.$user->getId().'&modif=identifiant');
+                self::redirection('frontController.php?controller=user&action=read&id='.rawurlencode($user->getId()).'&modif=identifiant');
             }
         }
         else if(isset($_POST['nom']))
@@ -407,21 +407,21 @@ class ControllerUser extends GenericController
             $user->setNom($_POST['nom']);
             $userRepository->update($user);
             MessageFlash::ajouter('info', 'Nom mis à jour.');
-            self::redirection('frontController.php?controller=user&action=read&id='.$user->getId());
+            self::redirection('frontController.php?controller=user&action=read&id='.rawurlencode($user->getId()));
         }
         else if(isset($_POST['prenom']))
         {
             $user->setPrenom($_POST['prenom']);
             $userRepository->update($user);
             MessageFlash::ajouter('info', 'Prenom mis à jour.');
-            self::redirection('frontController.php?controller=user&action=read&id='.$user->getId());
+            self::redirection('frontController.php?controller=user&action=read&id='.rawurlencode($user->getId()));
         }
         else if(isset($_POST['email']))
         {
             $user->setEmail($_POST['email']);
             $userRepository->update($user);
             MessageFlash::ajouter('info', 'Prenom mis à jour.');
-            self::redirection('frontController.php?controller=user&action=read&id='.$user->getId());
+            self::redirection('frontController.php?controller=user&action=read&id='.rawurlencode($user->getId()));
         }
         self::afficheVue('view.php', $parametres);
     }
@@ -487,12 +487,12 @@ class ControllerUser extends GenericController
             if(!$userRepository->checkCmdp($mdp, $cMdp))
             {
                 MessageFlash::ajouter('danger', 'Les mots de passe ne correspondent pas.');
-                self::redirection('frontController.php?controller=user&action=delete&id='.$user->getId());
+                self::redirection('frontController.php?controller=user&action=delete&id='.rawurlencode($user->getId()));
             }
             else if(!$userRepository->checkCmdp($user->getMdpHache(), $userRepository->setMdpHache($mdp)))
             {
                 MessageFlash::ajouter('danger', 'Mot de passe incorrect.');
-                self::redirection('frontController.php?controller=user&action=delete&id='.$user->getId());
+                self::redirection('frontController.php?controller=user&action=delete&id='.rawurlencode($user->getId()));
             }
 
         }
@@ -561,7 +561,7 @@ class ControllerUser extends GenericController
             self::redirection('frontController.php?controller=user&action=accueil');
         } else {
             MessageFlash::ajouter('info', 'Les mots de passe ne correspondent pas.');
-            self::redirection('frontController.php?controller=user&action=update&id='.$id);
+            self::redirection('frontController.php?controller=user&action=update&id='.rawurlencode($id));
         }
     }
 
