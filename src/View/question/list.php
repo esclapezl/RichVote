@@ -62,6 +62,9 @@ use App\Model\DataObject\Question;
                     case 'consultation':
                         $typePhase= 'En cours de consultation';
                         break;
+                    case 'redaction':
+                        $typePhase= 'En cours de redaction';
+                        break;
                     case 'scrutinMajoritaire' || 'scrutinMajoritairePlurinominal' :
                         $typePhase= 'En cours de vote';
                         break;
