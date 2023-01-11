@@ -6,16 +6,12 @@
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
-
     font-family: 'Poppins', sans-serif;
 }
 
 html{
     scroll-behavior: smooth;
-
 }
-
-
 
 html{
     background: rgb(9,4,84);
@@ -24,38 +20,15 @@ html{
 }
 
 body {
-
-
     height: 100%;
 }
-
-
-
 
 header:first-child,
 body:first-child{
     margin-top: 20px;
 }
 
-
-.blocvid{
-    position: relative;
-    height: 85vh;
-    width: 100%;
-    z-index: -100;
-    overflow: hidden;
-}
-.blocvid video{
-    position: absolute;
-    min-width: 100%;
-    min-height: 100%;
-    height: 50%;
-    top:50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-
-
-}
+/* NAVBAR */
 nav{
     width: 100%;
 }
@@ -84,20 +57,6 @@ nav{
     border: 5px solid white;
 }
 
-
-
-
-.text-box #logo{
-    width: 75px;
-    height: 75px;
-    margin-bottom: 20px;
-
-    transition: 0.5s;
-    border-radius: 100%;
-    background: white;
-    border: 5px solid white;
-}
-
 .navBar #logo:hover,
 .navBar #logo.active{
     transform: rotate(360deg);
@@ -107,22 +66,17 @@ nav{
     display: flex;
     position: absolute;
     left: 200px;
-    /*background-color: rgba(0,0,0,0.5);*/
     background: white;
     border-radius: 80px;
     height: 50px;
     justify-content: center;
     align-items: center;
     font-size: 1.2em;
-
 }
 
 .navBar ul li{
     margin: 0 25px;
-
 }
-
-
 
 .navBar .btn {
     display: none;
@@ -177,9 +131,6 @@ nav{
     margin-left: 200px;
 }
 
-
-
-
 .navBar #btn-connexion:first-child{
     margin-right: 5%;
 }
@@ -199,7 +150,6 @@ nav{
     transition: 1s;
 }
 
-
 .navBar #btn-connexion.active,
 .navBar #btn-connexion:hover,
 #formulaire input.active,
@@ -207,6 +157,108 @@ nav{
     background-color: rgba(0,0,0,0.5);
     color: white;
 }
+
+/* VIDEO PRESENTATION */
+.blocvid{
+    position: relative;
+    height: 85vh;
+    width: 100%;
+    z-index: -100;
+    overflow: hidden;
+}
+.blocvid video{
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    height: 50%;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+/* TEXT-BOX */
+.block .text-box {
+    position: relative;
+    margin-top: 20px;
+    color: white;
+    padding: 25px;
+    width: 95%;
+    background: none;
+    backdrop-filter: blur( 15.5px );
+    -webkit-backdrop-filter: blur( 15.5px );
+    border-radius: 15px;
+}
+
+.text-box #logo{
+    width: 75px;
+    height: 75px;
+    margin-bottom: 20px;
+    transition: 0.5s;
+    border-radius: 100%;
+    background: white;
+    border: 5px solid white;
+}
+
+.block .text-box .ligneExt{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.block .text-box .ligne{
+    width: 10%;
+}
+
+.block .text-box .ligneExt .ligne:nth-child(1){
+    width: 50%;
+}
+
+.block .text-box .ligneExt .ligne:nth-child(2){
+    width: 25%;
+}
+
+.block .text-box .ligneExt .ligne{
+    margin: 10px 0 20px 0;
+}
+
+.block .column .text-box form div li{
+    cursor: initial;
+}
+
+.block .text-box .ligneExt div h3{
+    display: flex;
+    justify-content: end;
+    margin-bottom: 5px;
+}
+
+.block .text-box .ligneExt div h3 a{
+    color: white;
+    transition: 1s;
+}
+.block .text-box .ligneExt div h3 a.active,
+.block .text-box .ligneExt div h3 a:hover{
+    transform: scale(1.1);
+    color: mediumslateblue;
+}
+
+.block .text-box a.optQuestion{
+    width: 25%;
+}
+
+.block .text-box .optQuestion.active,
+.block .text-box .optQuestion:hover
+{
+    background-color: #34348a;
+    color: white;
+}
+.block .text-box .ligneExt .stVote{
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
 
 p#petit{
     color: white;
@@ -286,9 +338,7 @@ a#grp:hover{
     color: #fff;
 }
 
-.block .column .text-box form div li{
-    cursor: initial;
-}
+
 
 .scroll span{
     text-transform: uppercase;
@@ -454,21 +504,8 @@ footer .vague#vague4{
 
 
 
-.block .text-box {
-    position: relative;
-    margin-top: 20px;
-    color: white;
-    padding: 25px;
-    width: 95%;
 
 
-    background: none;
-    /*box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.5 );*/
-    backdrop-filter: blur( 15.5px );
-    -webkit-backdrop-filter: blur( 15.5px );
-    border-radius: 15px;
-
-}
 .results > h2{
     margin-bottom: 30px;
     font-size: 2.8em;
@@ -511,7 +548,6 @@ footer .vague#vague4{
 }
 
 .block .text-box .profil{
-    /*color: mediumblue;*/
     color: black;
 
 }
@@ -654,12 +690,6 @@ h3#mail{
     font-size: 1em;
 }
 
-.block .text-box .ligneExt{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
 #col {
     display: flex;
@@ -685,22 +715,7 @@ fieldset,.description{
     width: 100px;
 }
 
-.block .text-box .ligneExt div h3{
-    display: flex;
-    justify-content: end;
-    margin-bottom: 5px;
-}
 
-.block .text-box .ligneExt div h3 a{
-    color: white;
-    transition: 1s;
-}
-.block .text-box .ligneExt div h3 a.active,
-.block .text-box .ligneExt div h3 a:hover{
-    transform: scale(1.1);
-    color: mediumslateblue;
-
-}
 
 .ligneCent,
 .timeline{
@@ -795,28 +810,6 @@ fieldset,.description{
 
 }
 
-.block .text-box .ligne{
-    width: 10%;
-}
-
-
-
-
-.block .text-box .ligneExt .ligne:nth-child(1){
-    width: 50%;
-}
-
-.block .text-box .ligneExt .ligne:nth-child(2){
-    width: 25%;
-}
-
-
-
-
-.block .text-box .ligneExt .ligne{
-    margin: 10px 0 20px 0;
-}
-
 .block .text-box input{
     cursor: pointer;
 }
@@ -824,12 +817,7 @@ fieldset,.description{
 .block .text-box form legend{
     text-align: center;
 }
-/*
-.block .text-box form #quest
-{
-    align-content: center;
-    text-align: center;
-}*/
+
 .block .text-box form fieldset input[type=text],
 .block .text-box form input[type=number],
 .block .text-box form input[type=date],
@@ -1011,9 +999,6 @@ form input.optQuestion{
     width: 50%;
 }
 
-.block .text-box a.optQuestion{
-    width: 25%;
-}
 
 button.opt img,
 #refresh img{
@@ -1090,17 +1075,7 @@ textarea{
     width: 100px;
 }
 
-.block .text-box .optQuestion.active,
-.block .text-box .optQuestion:hover
-{
-    background-color: #34348a;
-    color: white;
-}
-.block .text-box .ligneExt .stVote{
-    width: 15%;
-    display: flex;
-    justify-content: space-between;
-}
+
 
 .sousquestion{
     width: 50%;
@@ -1353,25 +1328,65 @@ a{
 
 
 
+/* RESPONSIVE */
+@media screen and (max-width: 900px){
+    .block .text-box li,
+    .block .text-box h2,
+    .opt,
+    .block .text-box p{
+        font-size: 0.6em;
+    }
+    .block .text-box .optQuestion{
+        font-size: 0.5em;
+    }
+    .block .text-box .formAlign{
+        flex-direction: column;
 
-/* FORMAT TEL */
-@media screen and (max-width: 900px) {
+    }
+    .block .text-box p#date{
+        font-size: 1em;
+    }
+    .block .text-box p{
+        font-size: 1.2em;
+    }
+    .block .text-box #col h3{
+        font-size: 0.6em;
+
+    }
+    a#fleche.optQuestion{
+        margin-top: 40px;
+    }
+
+    .block div.description{
+        font-size: 0.7em;
+    }
+
+}
+@media screen and (max-width: 1110px) {
     .navBar{
         padding: 0;
         margin-bottom: 50px;
     }
+    .block .text-box #col h3{
+        text-align: end;
+    }
 
-    .text-box{
-        margin-top: 100px;
+    .block{
+        margin-top: 110px;
+    }
+    .block .text-box div.ligneExt a.liste{
+        display: none;
+    }
+    .block .text-box li.ligneExt{
+        margin: 8px 0 8px 0;
+    }
+
+    .block .text-box div.atxt{
+        font-size: 2em;
     }
 
 
-    .block .text-box li,
-    .block .text-box h2,
-    .optQuestion,
-    .opt{
-        font-size: 0.6em;
-    }
+
     .block .text-box ul div.ligneExt h2 {
         height: 100%;
 
@@ -1388,7 +1403,6 @@ a{
         height: 18px;
     }
 
-
     .abis,
     .responsive{
         display: none;
@@ -1396,6 +1410,8 @@ a{
     form.ligneAlign{
         width: 100%;
     }
+
+    /* NAVBAR */
 
     .navBar #logo{
         position: absolute;
@@ -1414,6 +1430,7 @@ a{
 
     .navBar ul{
         z-index: 1;
+        border-radius: 0;
 
         top:0;
         left: 0;
@@ -1436,19 +1453,5 @@ a{
         margin: 25px 0;
         font-size: 1.2em;
     }
-
-    /*conditionMdp:hover{*/
-    /*    color:red;*/
-    /*}*/
-
-    /*input:invalid {*/
-    /*    animation: shake .3s;*/
-    /*}*/
-
-    /*@keyframes shake {*/
-    /*    25% { transform: translateX(4px)}*/
-    /*    50% { transform: translateX(-4px)}*/
-    /*    75% { transform: translateX(4px)}*/
-    /*}*/
 }
 
