@@ -55,7 +55,7 @@ class ControllerQuestion extends GenericController
         $question = (new QuestionRepository())->select($idQuestion);
         $estFini = (new QuestionRepository())->estFini($idQuestion);
 
-        $demandes = DemandeUserRepository::selectAllDemandeVoteQuestion($question);
+        $demandes = DemandeUserRepository::selectAllDemandeQuestion($question);
 
         $phases=(new PhaseRepository())->getPhasesIdQuestion($idQuestion);
 
