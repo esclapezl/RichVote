@@ -1329,15 +1329,52 @@ a{
 
 
 /* RESPONSIVE */
+
+@media screen and (max-width: 360px){
+    h1#hprofil{
+        font-size: 1.8em;
+    }
+
+    div.description{
+        padding: 10px;
+    }
+    div.description .ligneAlign h1,
+    div.description .ligneCent h1{
+        font-size: 1.8em;
+    }
+    .block .text-box div.ligneExt{
+        justify-content: center;
+    }
+
+    .block .text-box a.optQuestion{
+        font-size: 0.6em;
+    }
+
+    form h1{
+        font-size: 0.4em;
+    }
+}
 @media screen and (max-width: 900px){
     .block .text-box li,
-    .block .text-box h2,
     .opt,
     .block .text-box p{
         font-size: 0.6em;
     }
+
+    .block .text-box h2{
+        font-size: 0.8em;
+    }
+
+    .block .text-box:nth-child(2) h3{
+        font-size: 1em;
+
+    }
+
+    .block .text-box:nth-child(2) div{
+        font-size: 0.8em;
+    }
     .block .text-box .optQuestion{
-        font-size: 0.5em;
+        font-size: 0.8em;
     }
     .block .text-box .formAlign{
         flex-direction: column;
@@ -1361,14 +1398,75 @@ a{
         font-size: 0.7em;
     }
 
+    div#groupe{
+        font-size: 0.6em;
+        text-align: center;
+    }
+
+
+    p#pet{
+        font-size: 0.8em;
+    }
+
 }
 @media screen and (max-width: 1110px) {
     .navBar{
         padding: 0;
         margin-bottom: 50px;
     }
-    .block .text-box #col h3{
-        text-align: end;
+
+    .ligneExt{
+        flex-direction: column;
+    }
+    a{
+        text-align: center;
+    }
+    .block .text-box li .atxt{
+        justify-content: center;
+    }
+    div#col{
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+    }
+    .block .text-box .ligneExt div#col h3{
+        justify-content: center;
+        margin-top: 10px;
+        font-size: 1em;
+    }
+    div#col h2,
+    div#col h3{
+        width: 100%;
+    }
+    div.description{
+        padding: 15px;
+    }
+    .block .text-box a.optQuestion{
+        width: 100%;
+    }
+
+    input[type=text],
+    input[type=date],
+    input[type=number],
+    input[type=password],
+    input[type=email],
+    input[type=prenom],
+    input[type=nom]{
+        font-size: 0.7em;
+        width: 100%;
+    }
+
+
+    div.profil div.ligneExt{
+        flex-direction: column;
+        text-align: center;
+        font-size: 0.8em;
+    }
+    div.profil div.ligneExt h1#hprofil{
+        margin-bottom: 20px;
+    }
+    div.profil div.ligneExt .ligneCent{
+        flex-direction: column;
     }
 
     .block{
