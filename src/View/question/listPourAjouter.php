@@ -19,7 +19,7 @@ foreach ($_GET as $key=>$value) {
     }
     $url.="$key=$value";
 }
-
+$nomEntite = isset($users)?'utilisateur':'groupe';
 $controller = isset($groupes)?'groupe':'user';
 $role = isset($_GET['role'])?$_GET['role']:'votant';
 ?>
@@ -122,7 +122,7 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
                           </div>";
             }
         }
-        echo '</ul> <div class="ligneCent"> <input type="submit" value="Ajouter les ' . $controller .'s selectionnés" class="optQuestion"></div></form>';
+        echo '</ul> <div class="ligneCent"> <input type="submit" value="Ajouter les ' . $nomEntite .'s selectionnés" class="optQuestion"></div></form>';
     }
     ?>
 </div>

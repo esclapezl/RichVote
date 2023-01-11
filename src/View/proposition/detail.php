@@ -1,4 +1,6 @@
 <?php
+
+use App\Model\DataObject\Demande;
 use App\Model\DataObject\Proposition;
 use App\Lib\ConnexionUtilisateur;
 use  App\Model\DataObject\Commentaire;
