@@ -72,7 +72,8 @@ class ControllerProposition extends GenericController
             'proposition' => $proposition,
             'demandes' => $demandes,
             'commentaires'=>$commentaires,
-            'roleProposition' => $roleProposition
+            'roleProposition' => $roleProposition,
+            'peutModifier' => (new QuestionRepository())->select($proposition->getIdQuestion())->getCurrentPhase()->getType()=='redaction'
         );
 
         self::afficheVue('view.php', $parametres);
@@ -83,7 +84,13 @@ class ControllerProposition extends GenericController
         $idProposition = $_GET['id'];
 
         $proposition = (new PropositionRepository())->select($idProposition);
-        if(in_array(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $proposition->getIdAuteurs())){
+        $question = (new QuestionRepository())->select($proposition->getIdQuestion());
+
+        if($question->getCurrentPhase()->getType()!='redaction'){
+            MessageFlash::ajouter('danger', 'Modification impossible');
+            self::read();
+        }
+        else if(in_array(ConnexionUtilisateur::getLoginUtilisateurConnecte(), $proposition->getIdAuteurs())){
             $parametres = array(
                 'pagetitle' => 'Modifier Proposition',
                 'cheminVueBody' => 'proposition/update.php',
@@ -103,9 +110,14 @@ class ControllerProposition extends GenericController
         self::connexionRedirect('warning', 'Veuillez vous connecter');
         $idProposition = $_GET['id'];
         $proposition = (new PropositionRepository())->select($idProposition);
+        $question = (new QuestionRepository())->select($proposition->getIdQuestion());
         if($proposition==null){
             MessageFlash::ajouter('danger', "La question avec l'id suivant : " . $_GET['id'] . "n'existe pas");
             self::redirection('frontController.php?controller=question&action=readAll');
+        }
+        else if($question->getCurrentPhase()->getType()!='redaction'){
+            MessageFlash::ajouter('danger', 'Modification impossible');
+            self::read();
         }
         else {
             $sectionsText = $proposition->getSectionsTexte();
