@@ -22,9 +22,8 @@ use App\Lib\ConnexionUtilisateur;
             tinymce.init({
                 selector: '#mytextarea',
                 plugins: [
-                    'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
-                    'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
-                    'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+                    'advlist','autolink',
+                    'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks','fullscreen','insertdatetime','media','table','help','wordcount'
                 ],
                 toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
                     'alignleft aligncenter alignright alignjustify | ' +
