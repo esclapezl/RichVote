@@ -1,8 +1,7 @@
 <?php
 
-use App\Model\DataObject\Question;
 use App\Model\DataObject\Phase;
-use App\Model\DataObject\Section;
+
 /** @var Phase $phase
  * @var int $numeroPhase
  */
@@ -15,11 +14,11 @@ $nbPlaces = $phase->getNbDePlaces();
 <div class="descP"></div>
 Modifier la phase de rédaction
 <div id="phase<?=$id?>">
-    <div>Début :
-        <input type="date" name="dateDebut[<?=$id?>]" value="<?=$dateDebut?>">
+    <div><label for="dr">Début :</label>
+        <input type="date" id="dr" name="dateDebut[<?=$id?>]" value="<?=$dateDebut?>">
     </div><div class="descP"></div>
-    <div>Fin :
-        <input type="date" name="dateFin[<?=$id?>]" value="<?=$dateFin?>">
+    <div><label for="df">Fin :</label>
+        <input type="date" id="df" name="dateFin[<?=$id?>]" value="<?=$dateFin?>">
     </div><div class="descP"></div>
 
     <div class="descG"></div>

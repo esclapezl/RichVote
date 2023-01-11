@@ -1,7 +1,11 @@
 <?php
-/** @var \App\Model\DataObject\Groupe $groupe
+/** @var Groupe $groupe
  * @var bool $canAdd
  */
+
+use App\Lib\ConnexionUtilisateur;
+use App\Model\DataObject\Groupe;
+
 $nomGroupe = $groupe->getId();
 $responsable = $groupe->getIdResponsable();
 $membres = $groupe->getIdMembres();
@@ -14,7 +18,7 @@ $membres = $groupe->getIdMembres();
         <?=$responsable!=null?'<h2> Responsable : '.ucfirst(htmlspecialchars($responsable)) . '</h2>':''?>
         <br>
         <?php
-        if(\App\Lib\ConnexionUtilisateur::getLoginUtilisateurConnecte()==$responsable){
+        if(ConnexionUtilisateur::getLoginUtilisateurConnecte()==$responsable){
             echo'<div class="ligneCent"><a class="optButton" href="frontController.php?controller=groupe&action=addUserToGroupe&nomGroupe=' .$nomGroupe.'">Ajouter des membres</a></div>';
         }
         ?>

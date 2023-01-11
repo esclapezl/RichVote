@@ -1,6 +1,8 @@
 <?php
 
-$phases=(new \App\Model\Repository\PhaseRepository())->getPhasesIdQuestion($question->getId());
+use App\Model\Repository\PhaseRepository;
+
+$phases=(new PhaseRepository())->getPhasesIdQuestion($question->getId());
 
 $bool=0;
 foreach ($phases as $phase)

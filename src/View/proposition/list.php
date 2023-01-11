@@ -1,9 +1,7 @@
 <?php
 //liste des propositions pour une question donnée
 
-use \App\Lib\ConnexionUtilisateur;
-use App\Model\DataObject\Phase;
-use App\Model\DataObject\Proposition;
+use App\Lib\ConnexionUtilisateur;
 /** @var array $propositions
  * @var ?array $scores
  */
@@ -16,32 +14,24 @@ use App\Model\DataObject\Proposition;
             <div>
                 <h1>Propositions publiées :</h1>
             </div>
-            <!-- <?php
+             <?php
             if(ConnexionUtilisateur::estConnecte()){
-            echo '<div class="responsive">Vous êtes connecté en tant que :<h3>'.ucfirst(ConnexionUtilisateur::getRole()).'</h3></div></div>
-<div class="ligneExt"><ul>';
+                echo '<div class="responsive">Vous êtes connecté en tant que :<h3>'.ucfirst(ConnexionUtilisateur::getRole()).'</h3></div></div><div class="ligneExt"><ul>';
             }
             ?>
-        <div class="ligneExt"><div class="ligne"></div><div class="ligne"></div></div>
-        </div> -->
 
-    </div>
-
-
-
-    <div class="ligneExt"><div class="ligne"></div></div>
-    <ul>
-
-
+        </div>
+        <div class="ligneExt"><div class="ligne"></div></div>
+        <ul>
             <?php
 
-                if (empty($propositions)) {
-                    echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat n'a été trouvé</h3></div>
+            if (empty($propositions)) {
+                echo "<div class='descG'></div><div class='ligneCent'><h3>Aucun résultat n'a été trouvé</h3></div>
                     <div class='descP'></div><div class='ligneCent'>";
-                }
-                else {
+            }
+            else {
 
-                    foreach ($propositions as $proposition) {
+                foreach ($propositions as $proposition) {
                     if (isset($scores)) {
                         $infoComplement = $scores[$proposition->getId()];
                     } else {
@@ -57,12 +47,8 @@ use App\Model\DataObject\Proposition;
                     }
                     echo '<li class="ligneExt"><a class="atxt" href=frontController.php?controller=proposition&action=read&id=' . rawurlencode($proposition->getIdProposition()) . '>'
                         . htmlspecialchars($intitule) . $infoComplement . '</a>';
-
-
-                    }
-
-
-                }?>
+                }
+            }?>
         </ul>
     </div>
 </div>

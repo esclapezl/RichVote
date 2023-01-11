@@ -20,12 +20,14 @@ class ControllerGroupe extends GenericController
         else{
             $groupes = (new GroupeRepository())->selectAll();
         }
+        $privilegeUser = (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte());
 
 
         $parametres = array(
             'pagetitle' => 'Liste Groupes',
             'cheminVueBody' => 'groupe/list.php',
-            'groupes' => $groupes
+            'groupes' => $groupes,
+            'privilegeUser' => $privilegeUser
         );
         self::afficheVue('view.php', $parametres);
     }

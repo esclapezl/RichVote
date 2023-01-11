@@ -19,8 +19,8 @@ use App\Model\DataObject\Question;
         <div class="ligneExt">
         <form class="ligneAlign" method="post" action="frontController.php?controller=question&action=readAllArchives">
                 <input type="search" class="opt" name="title" id="title" placeholder="Rechercher une Question archivée">
-                <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
-                <a href="frontController.php?controller=question&action=readAllArchives" id="refresh"><img src="../assets/img/icon-refresh.svg"></a>
+                <button type="submit" class="opt"><img alt="recherche" src="../assets/img/icon-chercher.svg"></button>
+                <a href="frontController.php?controller=question&action=readAllArchives" id="refresh"><img alt="actualiser la liste" src="../assets/img/icon-refresh.svg"></a>
             </form>
             <h3>Résultats</h3></div>
  <ul>';
@@ -51,7 +51,7 @@ use App\Model\DataObject\Question;
                             </div>
                         </li>
            
-            <a class="liste" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '><h2><img src="../assets/img/icon-vote.png"></h2></a>
+            <a class="liste" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '><h2><img alt="résultats" src="../assets/img/icon-vote.png"></h2></a>
         
             </div>';
                 }

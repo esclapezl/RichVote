@@ -1,8 +1,7 @@
 <?php
 
 use App\Model\DataObject\Phase;
-use App\Model\DataObject\Section;
-use App\Model\DataObject\Question;
+
 /** @var Phase $phase
  * @var int $numeroPhase
  */
@@ -15,15 +14,15 @@ $nbPlaces = $phase->getNbDePlaces();
 <div class="descP"></div>
 Modifier la phase de vote final
 <div id="phase<?=$id?>">
-    <div>Début :
-    <input type="date" name="dateDebut[<?=$id?>]" value="<?=$dateDebut?>">
+    <div><label for="dpf">Début :</label>
+        <input type="date" id="dpf" name="dateDebut[<?=$id?>]" value="<?=$dateDebut?>">
     </div><div class="descP"></div>
-    <div>Fin :
-    <input type="date" name="dateFin[<?=$id?>]" value="<?=$dateFin?>">
+    <div><label for="dff">Fin :</label>
+    <input type="date" id="dff" name="dateFin[<?=$id?>]" value="<?=$dateFin?>">
     </div><div class="descP"></div>
 
     <div>
-        Type de phase :
+        <label for="selectwidth">Type de phase :</label>
         <select id="selectwidth" name="<?="type[$id]"?>">
             <option value="scrutinMajoritaire" <?=$type=='scrutinMajoritaire'?'selected':''?>>Phase de vote par scrutin majoritaire</option>
             <option value="scrutinMajoritairePlurinominal" <?=$type=='scrutinMajoritairePlurinominal'?'selected':''?>>Phase de vote par scutin majoritaire plurinominal</option>

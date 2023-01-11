@@ -1,8 +1,7 @@
 <?php
 
 use App\Model\DataObject\Phase;
-use App\Model\DataObject\Question;
-use App\Model\DataObject\Section;
+
 /** @var Phase $phase
  * @var int $numeroPhase
  */
@@ -29,15 +28,15 @@ $nbPlaces = $phase->getNbDePlaces();
 <div class="descP"></div>
 <input type="button" onclick="visibilite('phase<?=$id?>');" value="Modifier la phase de vote <?=$numeroPhase?>">
 <div id="phase<?=$id?>" style="display: none">
-    <div>Début :
+    <div><label for="<?='dD'.$id?>">Début :</label>
     <input type="date" id=<?='dD'.$id?> name=<?='dateDebut['.$id.']'?> value="<?=$dateDebut?>">
     </div><div class="descP"></div>
-    <div>Fin :
+    <div><label for="<?='dF'.$id?>">Fin :</label>
     <input type="date" id=<?='dF'.$id?> name=<?='dateFin['.$id.']'?> value="<?=$dateFin?>">
     </div><div class="descP"></div>
 
     <div>
-        Type de phase :
+        <label for="selectwidth">Type de phase :</label>
         <select id="selectwidth" name="<?="type[$id]"?>">
             <option value="scrutinMajoritaire" <?=$type=='scrutinMajoritaire'?'selected':''?>>Phase de vote par scrutin majoritaire</option>
             <option value="scrutinMajoritairePlurinominal" <?=$type=='scrutinMajoritairePlurinominal'?'selected':''?>>Phase de vote par scutin majoritaire plurinominal</option>
