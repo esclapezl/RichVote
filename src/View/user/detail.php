@@ -42,8 +42,8 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
                         }
                         else if($peutModif)
                         {
-                            echo '<div class="ligneCent"><p class="names" id="petit">Nom :</p><h3 class="names">' . htmlspecialchars(ucfirst($user->getNom())) . '
-                                </h3><a href="frontController.php?controller=user&action=read&id='.$user->getId().'&modif=nom" id="modif">
+                            echo '<div class="ligneCent"><p class="names" id="petit">Nom :</p><h3 class="names">' . $user->getNom() . '
+                                </h3><a href="frontController.php?controller=user&action=read&id='.rawurlencode($user->getId()).'&modif=nom" id="modif">
                                 <img alt="coche" src="../assets/img/icons8-paramètres.svg"></a></div>';
                         }
                         else

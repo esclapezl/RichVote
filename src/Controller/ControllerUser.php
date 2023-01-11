@@ -497,7 +497,7 @@ class ControllerUser extends GenericController
         $user = $userRepository->select($_GET['id']);
 
         if ((new ConnexionUtilisateur())->estAdministrateur()||($userRepository->checkCmdp($mdp, $cMdp)
-        &&$userRepository->checkCmdp($user->getMdpHache(), $userRepository->setMdpHache($mdp))))
+        && MotDePasse::verifier($mdp,$user->getMdpHache())))
         {
             $userRepository->delete($user->getId());
             MessageFlash::ajouter('info', 'Profil supprimé.');
