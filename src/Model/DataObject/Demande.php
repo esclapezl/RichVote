@@ -31,7 +31,7 @@ class Demande
     }
 
     /**
-     * @return string
+     * @return Question
      */
     public function getQuestion(): Question
     {
@@ -39,7 +39,7 @@ class Demande
     }
 
     /**
-     * @return string
+     * @return User|Groupe
      */
     public function getDemandeur(): User|Groupe
     {
@@ -47,7 +47,7 @@ class Demande
     }
 
     /**
-     * @return string|null
+     * @return Proposition|null
      */
     public function getProposition(): ?Proposition
     {

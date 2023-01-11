@@ -4,8 +4,6 @@ namespace App\Model\DataObject;
 
 use App\Lib\MotDePasse;
 use App\Model\Repository\DatabaseConnection;
-use App\Model\Repository\UserRepository;
-use http\QueryString;
 
 class User extends AbstractDataObject
 {
@@ -29,7 +27,7 @@ class User extends AbstractDataObject
      * @param string $prenom
      * @param string $nom
      * @param string $role
-
+     * @param string $email
      */
     public function __construct(string $id, string $mdp, string $prenom, string $nom, string $role, string $email)
     {
@@ -158,7 +156,7 @@ class User extends AbstractDataObject
     }
 
     /**
-     * @param string $mdpHache
+     * @param string $mdp
      */
 
 
@@ -172,9 +170,6 @@ class User extends AbstractDataObject
 
     public function formatTableau(): array
     {
-        if($this->isAdmin()) {$bool = 1;}
-        else{$bool = 0;}
-
         return array(
             '"idUser"' => $this->getId(),
             'MDP' => $this->getMdpHache(),

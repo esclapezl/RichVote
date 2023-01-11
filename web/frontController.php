@@ -4,11 +4,12 @@ use App\Controller ;
 use App\Controller\ControllerAdmin;
 use App\Controller\ControllerUser;
 use App\Controller\GenericController;
+use App\Lib\Psr4AutoloaderClass;
 
 require_once __DIR__ . '/../src/Lib/Psr4AutoloaderClass.php';
 
 // instantiate the loader
-$loader = new \App\Lib\Psr4AutoloaderClass();
+$loader = new Psr4AutoloaderClass();
 // register the base directories for the namespace prefix
 $loader->addNamespace('App', __DIR__ . '/../src');
 // register the autoloader
@@ -60,4 +61,4 @@ else //si il n'y a pas de controller dans l'URL
     }
 }
 
-?>
+

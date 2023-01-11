@@ -11,6 +11,9 @@
 
         <?php
         /** @var Proposition[] $propositions */
+
+        use App\Model\DataObject\Proposition;
+
         foreach ($propositions as $proposition){
             $idProposition = $proposition->getId();
             $intituleProposition = $proposition->getIntitule();
@@ -21,7 +24,7 @@
         }
         ?>
         <div class="descG"></div>
-        <button type="submit" class="opt"><img src="../assets/img/icon-vote.png"></button>
+        <button type="submit" class="opt"><img alt="voter" src="../assets/img/icon-vote.png"></button>
 
             </fieldset>
 

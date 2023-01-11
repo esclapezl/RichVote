@@ -2,6 +2,8 @@
 
 namespace App\Model\DataObject;
 
+use DateTime;
+
 class Commentaire extends AbstractDataObject
 {
 
@@ -18,6 +20,7 @@ class Commentaire extends AbstractDataObject
      * @param string $TEXTE
      * @param string $DATECOMMENTAIRE
      * @param int $NBLIKE
+     * @param int $IDCOMMENTAIRE
      */
     public function __construct(string $IDPROPOSITION, string $IDUSER, string $TEXTE, string $DATECOMMENTAIRE,int $NBLIKE, int $IDCOMMENTAIRE)
     {
@@ -105,8 +108,7 @@ class Commentaire extends AbstractDataObject
     {
         $date = date("'d/m/y G:i:s'");
         //$dateCom =strtotime($this->getDATECOMMENTAIRE());
-        $dateCom=\DateTime::createFromFormat('d/m/y G:i:s',$this->getDATECOMMENTAIRE());
-        return $dateCom;
+        return DateTime::createFromFormat('d/m/y G:i:s',$this->getDATECOMMENTAIRE());
     }
 
 

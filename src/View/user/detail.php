@@ -22,8 +22,6 @@ $peutModif =(((new ConnexionUtilisateur())->getLoginUtilisateurConnecte())==$use
 
 <div class="block">
     <div class="text-box">
-        <!-- <div class="ligneExt"><a class="optQuestion" id="fleche" href=<?=$_SERVER['HTTP_REFERER']?>>↩</a><h3>Detail user</h3></div>-->
-
         <br>
         <?php
         if(ConnexionUtilisateur::estConnecte()){

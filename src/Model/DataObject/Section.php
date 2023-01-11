@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Model\DataObject;
-use App\Model\Repository\DatabaseConnection;
 
 class Section extends AbstractDataObject
 {

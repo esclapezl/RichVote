@@ -2,7 +2,6 @@
 namespace App\Model\Repository;
 
 use App\Model\DataObject\AbstractDataObject;
-use mysql_xdevapi\DatabaseObject;
 
 abstract class AbstractRepository{
     protected abstract function getNomTable() : string;

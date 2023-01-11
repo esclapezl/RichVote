@@ -2,11 +2,8 @@
 
 namespace App\Model\Repository;
 
-use App\Lib\ConnexionUtilisateur;
 use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Proposition;
-use App\Model\DataObject\Question;
-use App\Model\DataObject\User;
 
 class PropositionRepository extends AbstractRepository
 {
@@ -222,7 +219,8 @@ class PropositionRepository extends AbstractRepository
         return $result;
     }
 
-    public function selectAllWithScoreForUser(string $idPhase, string $idUser){ // comme au dessus sauf que c'est pour un user (propal de score 0 si pas votée)
+    public function selectAllWithScoreForUser(string $idPhase, string $idUser): array
+    { // comme au dessus sauf que c'est pour un user (propal de score 0 si pas votée)
         $sql = 'SELECT vp.idProposition, idResponsable, intitule, archive, p.idQuestion, NVL(scoreVote, 0) as scoreVote
                 FROM VotantProposition vp
                 RIGHT JOIN Propositions p ON p.idProposition=vp.idProposition

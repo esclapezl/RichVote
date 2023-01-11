@@ -2,10 +2,8 @@
 
 namespace App\Model\DataObject;
 
-use App\Lib\ConnexionUtilisateur;
-use App\Model\DataObject\Section;
 use App\Model\Repository\DatabaseConnection;
-use App\Model\Repository\UserRepository;
+
 
 class Proposition extends AbstractDataObject
 {
@@ -153,7 +151,7 @@ class Proposition extends AbstractDataObject
 
     public function getNbLike():string
     {
-        $sql = "SELECT COUNT * FROM souvignetn.likesSections WHERE idproposition = '".this->getIdProposition()."'";
+        $sql = "SELECT COUNT * FROM souvignetn.likesSections WHERE idproposition = '".$this->getIdProposition()."'";
         $pdo = DatabaseConnection::getInstance()::getPdo();
         $pdoStatement = $pdo->prepare($sql);
 

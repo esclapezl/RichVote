@@ -4,7 +4,6 @@ namespace App\Model\Repository;
 
 use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Proposition;
-use App\Model\DataObject\Question;
 use App\Model\DataObject\User;
 use App\Lib\VerificationEmail;
 
@@ -67,7 +66,7 @@ class UserRepository extends AbstractRepository
 
         $alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
         $contientMaj = false;
-        foreach ($alphabet as &$lettre)
+        foreach ($alphabet as $lettre)
         {
             if(strpos($mdp, $lettre) !== false)
             {
@@ -81,7 +80,7 @@ class UserRepository extends AbstractRepository
 
         $chiffres = [0,1,2,3,4,5,6,7,8,9];
         $contientChiffre = false;
-        foreach ($chiffres as &$chiffre)
+        foreach ($chiffres as $chiffre)
         {
             if(strpos($mdp, $chiffre) !== false)
             {
@@ -97,7 +96,7 @@ class UserRepository extends AbstractRepository
         $specialChars = ['&','"','#','~','\'','{','(','[','-','|','è','`','_','^','à','@',')',']','=','}','+','°','^','$','*','¨','$','£','€','µ','%','ù','!','§','/',';','.',',','?'];
 
         $contientSpecialChar = false;
-        foreach ($specialChars as &$speChar)
+        foreach ($specialChars as $speChar)
         {
             if(strpos($mdp, $speChar) !== false)
             {
@@ -438,9 +437,7 @@ class UserRepository extends AbstractRepository
         $pdoStatement->execute([
             'idUser' => $idUser
         ]);
-        $result = $pdoStatement->fetch()[0];
-
-        return $result;
+        return $pdoStatement->fetch()[0];
     }
 
     public static function estOrganisateurSurQuestion(string $idUser, int $idQuestion):bool

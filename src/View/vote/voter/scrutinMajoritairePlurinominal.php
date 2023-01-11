@@ -6,6 +6,8 @@
  * - une dernière qui affiche les neutres?
  */
 use App\Model\DataObject\Proposition;
+use App\Model\DataObject\Question;
+
 /**
  * @var Proposition[] $propositionsPour
  * @var Proposition[] $propositionsContre
@@ -43,7 +45,7 @@ use App\Model\DataObject\Proposition;
             }
             ?></fieldset>
                 <div class="descG"></div>
-                <a href=frontController.php?controller=question&action=read&id=<?=$question->getId()?> class="opt"><img src="../assets/img/icon-vote.png"></a>
+                <a href=frontController.php?controller=question&action=read&id=<?=$question->getId()?> class="opt"><img alt="voter" src="../assets/img/icon-vote.png"></a>
             </fieldset>
         </form>
     </div>

@@ -2,7 +2,6 @@
 
 namespace App\Model\Repository;
 
-use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Demande;
 use App\Model\DataObject\Proposition;
 use App\Model\DataObject\Question;
@@ -12,7 +11,7 @@ class DemandeUserRepository
     private static string $nomTable = 'view_demandes';
     private static string $nomClePrimaire = 'IDUSER';
 
-    public static final function selectAllDemandeVoteQuestion(Question $question){
+    public static final function selectAllDemandeVoteQuestion(Question $question) : array{
         $nom = self::$nomTable;
         $sql = "SELECT * FROM $nom WHERE idQuestion=:idQuestion AND role='votant'";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
@@ -33,7 +32,7 @@ class DemandeUserRepository
         return $result;
     }
 
-    public static final function selectAllDemandeQuestion($question){
+    public static final function selectAllDemandeQuestion($question) : array{
         $nomTable = self::$nomTable;
         $sql = "SELECT * FROM $nomTable WHERE idQuestion=:idQuestion AND idProposition IS NULL";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
@@ -76,7 +75,7 @@ class DemandeUserRepository
         return $result;
     }
 
-    public static final function selectAllDemandeDemandeur(string $idDemandeur){
+    public static final function selectAllDemandeDemandeur(string $idDemandeur) : array{
         $nomTable = self::$nomTable;
         $clePrimaire = self::$nomClePrimaire;
         $sql = "select * from $nomTable where $clePrimaire=:idDemandeur";

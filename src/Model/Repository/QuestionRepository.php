@@ -5,9 +5,6 @@ namespace App\Model\Repository;
 use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
-use App\Model\DataObject\Section;
-use App\Lib\ConnexionUtilisateur;
-use mysql_xdevapi\Result;
 
 class QuestionRepository extends AbstractRepository
 {
@@ -82,8 +79,7 @@ class QuestionRepository extends AbstractRepository
 
         $id = $pdoStatementId->fetch()[0];
 
-        $question = $this->select($id);
-        return $question;
+        return $this->select($id);
     }
 
     public function select(string $id) : AbstractDataObject
@@ -143,7 +139,8 @@ class QuestionRepository extends AbstractRepository
         }
     }
 
-    public function getAllIdVotant(string $idQuestion){
+    public function getAllIdVotant(string $idQuestion): array
+    {
         $sql = "SELECT idUser FROM votants where idQuestion=:idQuestion";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
         $pdoStatement->execute(['idQuestion' => $idQuestion]);
@@ -155,7 +152,8 @@ class QuestionRepository extends AbstractRepository
         return $result;
     }
 
-    public function getAllIdResponsable(string $idQuestion){
+    public function getAllIdResponsable(string $idQuestion): array
+    {
         $sql = "SELECT idAuteur FROM responsables where idQuestion=:idQuestion";
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
         $pdoStatement->execute(['idQuestion' => $idQuestion]);

@@ -43,7 +43,7 @@ use App\Model\DataObject\Question;
                 <br>
                 <br>
                 <br>
-            <div class="ligneCent"><button type="submit" class="opt"><img src="../assets/img/icon-vote.png"></button></div>
+            <div class="ligneCent"><button type="submit" class="opt"><img alt="voter" src="../assets/img/icon-vote.png"></button></div>
 
             </fieldset>
         </form>

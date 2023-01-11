@@ -80,7 +80,8 @@ class Phase extends AbstractDataObject
         return $this->id;
     }
 
-    public static function emptyPhase(){
+    public static function emptyPhase(): Phase
+    {
         return new Phase(null, 'consultation', date_create(), date_create(), null);
     }
 

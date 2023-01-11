@@ -1,15 +1,17 @@
 <?php
 use App\Model\DataObject\User;
-use \App\Lib\ConnexionUtilisateur;
-use App\Model\Repository\UserRepository;
-/** @var User[] $users*/
+use App\Lib\ConnexionUtilisateur;
+
+/** @var User[] $users
+ * @var string $privilegeUser
+ */
 ?>
 <div class="block">
     <div class="text-box">
         <div class="ligneExt"> <h1>Liste des Utilisateurs :</h1> <?php
             if(ConnexionUtilisateur::estConnecte()){
                 $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-                echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>".ucfirst((new UserRepository())->getPrivilege($idUser))."</h3></div>";
+                echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>".ucfirst($privilegeUser)."</h3></div>";
 
 
             }
@@ -23,10 +25,10 @@ use App\Model\Repository\UserRepository;
             {
                 echo '  <div class="ligneExt"><form class="ligneAlign" method="post" action="frontController.php?controller=user&action=readAll">
                 <input type="search" class="opt" name="title" id="title" placeholder="Rechercher un Utilisateur">
-                <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
-                <a href="frontController.php?controller=user&action=readAll" id="refresh"><img src="../assets/img/icon-refresh.svg"></a>
+                <button type="submit" class="opt"><img alt="recherche" src="../assets/img/icon-chercher.svg"></button>
+                <a href="frontController.php?controller=user&action=readAll" id="refresh"><img alt="actualiser la liste" src="../assets/img/icon-refresh.svg"></a>
             </form><h3>Rôle</h3></div>';
-                if((new UserRepository())->getPrivilege($idUser)=='administrateur'){
+                if($privilegeUser=='administrateur'){
                     echo '<div class="ligneAlign">
                             <a class="optButton" href="frontController.php?controller=groupe&action=readAll">Voir Groupes</a>
                             <a class="optButton" href="frontController.php?controller=groupe&action=create">Créer Groupe</a>

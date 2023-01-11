@@ -62,7 +62,8 @@ class Question extends AbstractDataObject
         return $this->dateFermeture;
     }
 
-    public function dateToString(DateTime $date){
+    public function dateToString(DateTime $date): string
+    {
         return $date->format('d-m-20y');
     }
 

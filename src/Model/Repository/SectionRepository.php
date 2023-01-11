@@ -3,9 +3,8 @@
 namespace App\Model\Repository;
 
 use App\Model\DataObject\AbstractDataObject;
-use App\Model\DataObject\Proposition;
 use App\Model\DataObject\Section;
-use App\Model\Repository\DatabaseConnection;
+
 
 class SectionRepository extends AbstractRepository
 {
@@ -119,7 +118,6 @@ class SectionRepository extends AbstractRepository
         $sql = "SELECT COUNT(IDSECTION) FROM souvignetn.likesSections WHERE IDSECTION = '" . $idSection . "' AND  IDPROPOSITION = ". $idProposition;
         $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
         $pdoStatement->execute();
-        $p = $pdoStatement->fetch()[0];
-        return $p;
+        return $pdoStatement->fetch()[0];
     }
 }

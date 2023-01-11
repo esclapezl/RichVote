@@ -1,7 +1,7 @@
 <?php
 namespace App\Model\Repository;
-use \App\Config\Conf as Conf;
-use \PDO as PDO;
+use App\Config\Conf as Conf;
+use PDO as PDO;
 
 class DatabaseConnection{
     private static ?DatabaseConnection $instance = null;
@@ -37,4 +37,3 @@ class DatabaseConnection{
     }
 
 }
-?>

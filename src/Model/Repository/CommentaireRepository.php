@@ -4,8 +4,7 @@ namespace App\Model\Repository;
 
 use App\Model\DataObject\AbstractDataObject;
 use App\Model\DataObject\Commentaire;
-use App\Model\DataObject\User;
-use MongoDB\Driver\Exception\CommandException;
+
 
 class CommentaireRepository extends AbstractRepository
 {

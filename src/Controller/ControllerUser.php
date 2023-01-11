@@ -269,11 +269,14 @@ class ControllerUser extends GenericController
                 $arrayUser = (new UserRepository())->selectAllValide();
             }
 
+            $privilegeUser=(new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte());
+
 
             $parametres = array(
                 'pagetitle' => 'Liste Utilisateurs',
                 'cheminVueBody' => 'user/list.php',
-                'users' => $arrayUser
+                'users' => $arrayUser,
+                'privilegeUser' => $privilegeUser
             );
         }
         else
@@ -312,6 +315,9 @@ class ControllerUser extends GenericController
 
     public static function update():void
     {
+        $mdpOublie = false;
+        if((new UserRepository())->selectMdpHache($_GET['id']) != null) $mdpOublie=true;
+
         if((new UserRepository())->select($_GET['id']) != null || (new UserRepository())->selectMdpHache(($_GET['id'])) != null)
         {
             if((new UserRepository())->select($_GET['id']) != null )
@@ -330,7 +336,8 @@ class ControllerUser extends GenericController
             $parametres = array(
                 'pagetitle' => 'Mettre à jour un utilisateur',
                 'cheminVueBody' => 'user/update.php',
-                'user' => $user
+                'user' => $user,
+                'mdpOublie' => $mdpOublie
             );
             self::afficheVue('view.php', $parametres);
         }
@@ -366,13 +373,18 @@ class ControllerUser extends GenericController
             }
             else
             {
+                $mdpOublie = false;
+                if((new UserRepository())->selectMdpHache($_GET['id']) != null) $mdpOublie=true;
+
                 if (!$userRepository->checkCmdp($nMdp, $cNMdp)) {
+
 
                     $parametres = array(
                         'pagetitle' => 'Erreur',
                         'cheminVueBody' => 'user/update.php',
                         'msgErreur' =>  'Les mots de passes doivent être identiques.',
-                        'user' => $user
+                        'user' => $user,
+                        'mdpOublie' => $mdpOublie
                     );
 
                 }
@@ -381,7 +393,9 @@ class ControllerUser extends GenericController
                         'pagetitle' => 'Erreur',
                         'cheminVueBody' => 'user/update.php',
                         'msgErreur' =>  'L\'ancien mot de passe ne correspond pas.',
-                        'user' => $user);
+                        'user' => $user,
+                        'mdpOublie' => $mdpOublie
+                    );
                 }
             }
         }
