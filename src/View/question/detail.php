@@ -3,16 +3,19 @@ use App\Model\DataObject\Question;
 use App\Model\DataObject\Demande;
 use App\Model\DataObject\Phase;
 use \App\Lib\ConnexionUtilisateur;
+use App\Model\Repository\QuestionRepository;
 use \App\Model\Repository\UserRepository;
+use \App\Model\Repository\DemandeUserRepository;
 
 /** @var Question $question
  * @var Demande[] $demandes
  * @var Phase[] $phases
  * @var string $roleQuestion
  * @var bool $peutVoter
+ * @var bool $peutPasser
  */
-if(!isset($demandes)){
-    $demandes=[];
+if(!isset($demandes)) {
+    $demandes = [];
 }
 
 $nbDemandes=sizeof($demandes);
@@ -80,21 +83,19 @@ switch ($typePrecisPhase) {
             <?php
             if(ConnexionUtilisateur::estConnecte()) {
                 if ($roleQuestion == "organisateur") {
-                    $btnPhase = '';
-                    $currentDate = date_create("now");
-
-                    foreach ($question->getPhases() as $phase){
-                        $dateDebut = $phase->getDateDebut();
-                        $dateFin = $phase->getDateFin();
-                        $bool1 = ($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 0);
-                        $bool2 = ($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 0);
-                        if($bool1 || $bool2){
-                            $btnPhase = '<a class="optQuestion" href="frontController.php?controller=question&action=changePhase&id=' . $question->getId() .'">Passer à la prochaine phase</a>';
-                        }
+                    if($peutPasser) {
+                        $btnPhase = '<a class="optQuestion" href="frontController.php?controller=question&action=changePhase&id=' . $question->getId() . '">Passer à la prochaine phase</a>';
+                    }else{
+                        $btnPhase = '';
                     }
 
                     echo '<h2>Interface Organisateur</h2><br><div class="ligneExt"><a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
-                    echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
+                    if((new QuestionRepository())->estFini($idQuestion))
+                    {
+                        echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
+                    }
+
+
                         echo '</div><div class="ligneExt"><div class="ligneExt">' .$btnPhase .
                         '</div><div class="ligneAlign">
                             <a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '><img class="icons" title="Modifier Question" alt="Modifier" src="../assets/img/icons8-crayon-48.png"></a> 
@@ -126,7 +127,10 @@ switch ($typePrecisPhase) {
                 } else if($roleQuestion=="responsable"){
                     echo '<div class="ligneExt">
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
-                            echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
+                    if((new QuestionRepository())->estFini($idQuestion)) {
+                        echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
+                    }
+
 
                             if(!(new UserRepository())->aDejaCreeProp(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion))
                             {
@@ -144,9 +148,21 @@ switch ($typePrecisPhase) {
                 else{
                     echo '<div class="ligneExt">
                             <a class="optQuestion" href=frontController.php?controller=proposition&action=readAll&id=' . rawurlencode($question->getId()) . '>Voir les propositions</a>';
-                            echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
-                    echo "</div><a class='optQuestion' href=frontController.php?controller=question&action=demandeRoleQuestion&role=responsable&id=". rawurlencode($idQuestion) .">
+                    if((new QuestionRepository())->estFini($idQuestion)) {
+                        echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
+                    }
+                    echo '</div>';
+
+                    if(!(new DemandeUserRepository())->aDejaDemande(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion))
+                    {
+                       echo "<a class='optQuestion' href=frontController.php?controller=question&action=demandeRoleQuestion&role=responsable&id=". rawurlencode($idQuestion) .">
                                 Demander à écrire une proposition</a>";
+                    }
+                    else
+                    {
+                        echo "<div class='optQuestionEnAttente'>Demande en attente de confirmation</div>";
+                    }
+
                 }
 
                 //TIMELINE

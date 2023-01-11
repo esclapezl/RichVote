@@ -420,8 +420,13 @@ class UserRepository extends AbstractRepository
         $pdoStatement->execute([
             'idUser' => $idUser
         ]);
-        $result = $pdoStatement->fetch()[0];
-        return $result != null;
+        if(!$pdoStatement->fetch())
+        {
+            return false;
+        }
+        else
+            return true;
+
     }
 
     public static function getPropDejaCree(string $idUser, int $idQuestion):int
@@ -471,4 +476,6 @@ class UserRepository extends AbstractRepository
 
         return $tabRepo;
     }
+
+
 }

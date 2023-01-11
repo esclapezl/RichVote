@@ -25,7 +25,8 @@ $idProposition = $proposition->getId();
             if ($roleProposition=='responsable'){
                 echo '<div class="ligneAlign">'.
                     '<a href=frontController.php?controller=proposition&action=update&id=' . rawurlencode($idProposition) . ' ><img class="icons" title="Modifier Proposition" alt="Modifier Proposition" src="../assets/img/icons8-crayon-48.png"></a>' .
-                    '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($idProposition) . ' ><img class="icons" id="poubelle" title="Supprimer Proposition" alt="Supprimer Proposition" src="../assets/img/icons8-poubelleBlanc.svg"></a>'
+                    '<a href=frontController.php?controller=proposition&action=delete&id='. rawurlencode($idProposition) . ' ><img class="icons" id="poubelle" title="Supprimer Proposition" alt="Supprimer Proposition" src="../assets/img/icons8-poubelleBlanc.svg"></a>' .
+                    '<a href="frontController.php?controller=proposition&action=addAuteursToProposition&id=' . rawurlencode($idProposition) . '"><img class="icons" title="Ajouter Utilisateurs" alt="Ajouter Utilisateurs" src="../assets/img/icons8-ajtUserBlanc-48.png"></a>'
                     .'</div>';
             }
             elseif ($roleProposition!='auteur'){

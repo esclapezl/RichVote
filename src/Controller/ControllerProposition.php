@@ -22,6 +22,10 @@ class ControllerProposition extends GenericController
     {
         self::connexionRedirect('warning', 'Connectez-vous pour voir les propositions');
         $idQuestion = $_GET['id'];
+        if($_GET['id']=='')
+        {
+            self::redirection('frontController.php?controller=question&action=readAll');
+        }
 
         $listePropositions = (new PropositionRepository())->selectAllByDate($idQuestion);
 
@@ -36,7 +40,11 @@ class ControllerProposition extends GenericController
 
     public static function read() : void
     {
-        self::connexionRedirect('warning', 'Connectez-vous pour accéder aux propositions');
+        self::connexionRedirect('info', 'Connectez-vous pour accéder aux propositions');
+        if($_GET['id']=='')
+        {
+            self::redirection('frontController.php?controller=question&action=readAll');
+        }
         $idProposition = $_GET['id'];
 
         $proposition = (new PropositionRepository())->select($idProposition);
@@ -260,7 +268,12 @@ class ControllerProposition extends GenericController
             ];
 
             if($entite=='user') {
-                $users = (new UserRepository())->selectAll();
+                if(isset($_POST['filtre'])){
+                    $users = (new UserRepository())->search($_POST['filtre']);
+                }
+                else{
+                    $users = (new UserRepository())->selectAll();
+                }
 
                 $idAuteurs = $proposition->getIdAuteurs();
                 foreach ($users as $index => $user) {
@@ -271,7 +284,12 @@ class ControllerProposition extends GenericController
                 $param['users'] = $users;
             }
             else{
-                $groupes = (new GroupeRepository())->selectAll();
+                if(isset($_POST['filtre'])){
+                    $groupes = (new GroupeRepository())->search($_POST['filtre']);
+                }
+                else{
+                    $groupes = (new GroupeRepository())->selectAll();
+                }
                 $param['groupes'] = $groupes;
             }
 

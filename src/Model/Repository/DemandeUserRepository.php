@@ -36,4 +36,22 @@ class DemandeUserRepository extends DemandeRepository
 
         return $pdoStatement->execute($params);
     }
+
+    public function aDejaDemande($idUser,$idQuestion):bool
+    {
+        $sql = "SELECT IDUSER FROM  SOUVIGNETN.VIEW_DEMANDES WHERE IDUSER = :IDUSER AND IDQUESTION = ".$idQuestion;
+        $pdoStatement = DatabaseConnection::getInstance()::getPdo()->prepare($sql);
+        $params = [
+            'IDUSER' => $idUser
+        ];
+
+        $pdoStatement->execute($params);
+
+        if(!$pdoStatement->fetch())
+        {
+            return false;
+        }
+        else
+            return true;
+    }
 }

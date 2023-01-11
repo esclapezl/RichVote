@@ -17,9 +17,7 @@ class ConnexionUtilisateur
 
     public static function estConnecte(): bool
     {
-        if(Session::getInstance()->lire(ConnexionUtilisateur::$cleConnexion) != null)
-        {return true;}
-        else return false;
+        return (Session::getInstance()->lire(ConnexionUtilisateur::$cleConnexion) != null);
     }
 
     public static function deconnecter(): void

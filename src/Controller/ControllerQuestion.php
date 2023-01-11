@@ -47,6 +47,10 @@ class ControllerQuestion extends GenericController
 
     public static function read() : void
     {
+        if(!isset($_GET['id']))
+        {
+            self::redirection('frontController.php?controller=question&action=readAll');
+        }
         $idQuestion = $_GET['id'];
 
         $question = (new QuestionRepository())->select($idQuestion);
@@ -57,10 +61,24 @@ class ControllerQuestion extends GenericController
 
         $roleQuestion='';
         $peutVoter = false;
+        $peutPasser = false;
         if(ConnexionUtilisateur::estConnecte()) {
             $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
             $roleQuestion = (new UserRepository())->getRoleQuestion($idUser, $idQuestion);
             $peutVoter = UserRepository::peutVoter($idUser, $idQuestion);
+            $peutPasser = false;
+            if($roleQuestion=='organisateur') {
+                $currentDate = date_create("now");
+                foreach ($question->getPhases() as $phase) {
+                    $dateDebut = $phase->getDateDebut();
+                    $dateFin = $phase->getDateFin();
+                    $bool1 = ($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 0);
+                    $bool2 = ($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 0);
+                    if(!$peutPasser) {
+                        $peutPasser = $bool1 || $bool2;
+                    }
+                }
+            }
         }
 
         $parametres = array(
@@ -70,8 +88,10 @@ class ControllerQuestion extends GenericController
             'demandes' => $demandes,
             'phases' => $phases,
             'roleQuestion' => $roleQuestion,
-            'peutVoter' => $peutVoter
+            'peutVoter' => $peutVoter,
+            'peutPasser' => $peutPasser
         );
+
 
         self::afficheVue('view.php', $parametres);
     }
@@ -298,7 +318,7 @@ class ControllerQuestion extends GenericController
                 $users = (new UserRepository())->search($recherche);
             }
             else{
-                $users = (new UserRepository())->selectAllSaufOrganisateur($idQuestion);
+                $users = (new UserRepository())->selectAll();
             }
             //retirer les membres qui sont deja votant
             foreach ($users as $key=>$user){
@@ -376,7 +396,8 @@ class ControllerQuestion extends GenericController
         self::connexionRedirect('warning', 'Veuillez vous connecter pour accéder aux résultats');
 
         $idQuestion = $_GET['id'];
-        if((new QuestionRepository())->estFini($idQuestion)){
+        $question = (new QuestionRepository())->select($_GET['id']);
+        if($question->isClosed()){
             $question = (new QuestionRepository())->select($idQuestion);
 
             $phases = $question->getPhases();
@@ -442,7 +463,7 @@ class ControllerQuestion extends GenericController
         $idQuestion = $_GET['id'];
 
         $question = (new QuestionRepository())->select($idQuestion);
-        $currentPhase=(new PhaseRepository())->getCurrentPhase($idQuestion);
+        $currentPhase = $question->getCurrentPhase();
 
         $dateFin = $currentPhase->getDateFin();
         $currentDate = date_create("now");
@@ -452,7 +473,7 @@ class ControllerQuestion extends GenericController
 
         foreach ($question->getPhases() as $phase){
             $dateDebut = $phase->getDateDebut();
-            if($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 1){
+            if($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 0){
                 (new PhaseRepository())->startPhase($phase->getId());
             }
         }
@@ -514,7 +535,10 @@ class ControllerQuestion extends GenericController
 
         $demande = new Demande($role, $question, (new UserRepository())->select($idUser));
         if(!((new UserRepository())->estOrganisateurSurQuestion($idUser,$question->getId()))
-            && (new DemandeUserRepository())->sauvegarder(($demande))){
+            && !(new DemandeUserRepository())->aDejaDemande($idUser,$question->getId())
+            && (new DemandeUserRepository())->sauvegarder(($demande))
+            )
+        {
             MessageFlash::ajouter('success', 'Votre demande a bien été enregistré');
         }
         else{
@@ -581,8 +605,4 @@ class ControllerQuestion extends GenericController
 
 
     }
-
-
-
-
 }

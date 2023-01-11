@@ -320,5 +320,15 @@ class PropositionRepository extends AbstractRepository
         return $propositions;
     }
 
+    public function selectResponsable(string $idProposition): string{
+        $sql = 'SELECT idResponsable FROM SOUVIGNETN.propositions WHERE IDPROPOSITION = '.$idProposition;
+        $pdo = DatabaseConnection::getInstance()::getPdo();
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute();
+
+        return $pdoStatement->fetch()[0];
+    }
+
 
 }
