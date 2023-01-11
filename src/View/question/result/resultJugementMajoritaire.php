@@ -3,7 +3,15 @@
  * @var array $propositionsScore
  */
 
-echo '<h1>Gagnant : </h1>';
+echo '<h1>Gagnant : ' . $propositionsScore[0][0]->getIntitule() .'</h1>';
+$nbParticipant = 0;
+$cptligne = 0;
+if(isset($propositionsScore[0])){
+    $infoScore = $propositionsScore[0][1];
+    foreach ($infoScore as $score){
+        $nbParticipant += $score;
+    }
+}
 foreach ($propositionsScore as [$proposition, $scores]){
     echo '<br>' . $proposition->getIntitule() . '   -> scores: <ol>';
     foreach ($scores as $nomScore=>$score){
@@ -29,7 +37,7 @@ foreach ($propositionsScore as [$proposition, $scores]){
                 break;
 
         }
-        echo "<li>Pour $tradNom : $score </li>";
+        echo "<li>$tradNom : $score </li>";
     }
     echo '</ol>';
 }
