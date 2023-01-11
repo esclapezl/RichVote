@@ -81,10 +81,10 @@ class ControllerQuestion extends GenericController
                 foreach ($question->getPhases() as $phase) {
                     $dateDebut = $phase->getDateDebut();
                     $dateFin = $phase->getDateFin();
-                    $bool1 = ($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 0);
-                    $bool2 = ($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 0);
+
                     if(!$peutPasser) {
-                        $peutPasser = $bool1 || $bool2;
+                        $peutPasser = ($dateDebut >= $currentDate && date_diff($dateDebut, $currentDate)->d == 0)
+                            || ($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 0);
                     }
                 }
             }
