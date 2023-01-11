@@ -83,11 +83,11 @@ $idProposition = $proposition->getId();
                 {
                     if($commentaire->getIDUSER() == ConnexionUtilisateur::getLoginUtilisateurConnecte() || ConnexionUtilisateur::estAdministrateur())
                     {
-                        echo '<li class="ligneExt"><div><div  class="descP">'.$commentaire->getIDUSER().'</div><div class="descP" style="margin-left: 20px;color: black">'.$commentaire->getTEXTE(). ' </div><div style="color: #adadad;">' .$commentaire->getDATECOMMENTAIRE().' </div></div>   <div><a href="frontController.php?controller=proposition&action=deleteCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE() .'"><img alt="Supprimer Commentaire" src="../assets/img/icons8-poubelleNoir.svg"></a></div></li>';
+                        echo '<li class="ligneExt"><div><div  class="descP"><a href="frontController.php?controller=user&action=read&id='.$commentaire->getIDUSER().'">'.$commentaire->getIDUSER().'</a></div><div class="descP" style="margin-left: 20px;color: black">'.$commentaire->getTEXTE(). ' </div><div style="color: #adadad;">' .$commentaire->getDATECOMMENTAIRE().' </div></div>   <div><a href="frontController.php?controller=proposition&action=deleteCommentaire&id='.$proposition->getId().'&idCommentaire='.$commentaire->getIDCOMMENTAIRE() .'"><img alt="Supprimer Commentaire" src="../assets/img/icons8-poubelleNoir.svg"></a></div></li>';
                     }
                     else
                     {
-                        echo '<li class="ligneExt"><div><div  class="descP">'.$commentaire->getIDUSER().'</div><div class="descP" style="margin-left: 20px;color: black">'.$commentaire->getTEXTE(). ' </div><div style="color: #adadad;">' .$commentaire->getDATECOMMENTAIRE().' </div></div>   </li>';
+                        echo '<li class="ligneExt"><div><div  class="descP"><a href="frontController.php?controller=user&action=read&id='.$commentaire->getIDUSER().'">'.$commentaire->getIDUSER().'</a></div><div class="descP" style="margin-left: 20px;color: black">'.$commentaire->getTEXTE(). ' </div><div style="color: #adadad;">' .$commentaire->getDATECOMMENTAIRE().' </div></div>   </li>';
                     }
                 }
             }
