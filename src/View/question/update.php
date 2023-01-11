@@ -25,6 +25,10 @@ use App\Model\DataObject\Question;
                 }
             }
 
+            $numeroPhase = count($phases)-1;
+            $phase = $phases[$numeroPhase];
+
+
             require __DIR__ .'/../phase/updateFinalVote.php';
             ?>
 

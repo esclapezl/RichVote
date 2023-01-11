@@ -68,7 +68,7 @@ class PhaseRepository extends AbstractRepository
     }
 
     public function getPhasesIdQuestion(string $idQuestion) : array{
-        $sql = "SELECT * FROM vue_PhasesDetail WHERE idQuestion = :idQuestion ORDER BY dateDebut";
+        $sql = "SELECT * FROM vue_PhasesDetail WHERE idQuestion = :idQuestion ORDER BY idPhase";
         $pdo = DatabaseConnection::getInstance()::getPdo();
         $pdoStatement = $pdo->prepare($sql);
         $pdoStatement->execute(['idQuestion' => $idQuestion]);

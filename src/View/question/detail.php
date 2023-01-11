@@ -69,8 +69,6 @@ switch ($typePrecisPhase) {
                         }
 
                         echo '</div>';
-
-
                     }
                     else{
                       echo '<div><h2 id="desc">Aucunes informations disponibles.</h2></div>';
@@ -168,8 +166,8 @@ switch ($typePrecisPhase) {
                 //TIMELINE
                 if(!(empty($phases))){
                     echo '<h3 id="prog">Progression :</h3><div class="ligneP"></div>';
-                    echo '<div class="timeline">
-                        <p id="pet">Phase de rédaction</p>';
+                    echo '<div class="timeline">';
+
                     $widthLigne=(80/(sizeof($phases)+1));
                     foreach ($phases as $phase){
                         $type='';
@@ -188,45 +186,47 @@ switch ($typePrecisPhase) {
                                 $type='Jugement Majoritaire';
                                 break;
                             case 'redaction':
-                                $type='rédaction';
+                                $type='Rédaction';
                                 break;
                         }
 
                         echo '<style>.ligneTbis{width: '.$widthLigne.'%;}</style>';
-                        echo '<div class="ligneT" style="background: transparent"></div>
-                        <p id="pet">'.$type.'<br><span id="prop">(' . $phase->getNbDePlaces();
+                        echo '
+                        <p id="pet">'.$type.'<br>';
                         if($phase->getNbDePlaces()>1){
-                            echo ' propositions selectionnées ';
+                            echo ' <span id="prop">(' . $phase->getNbDePlaces() . ' propositions selectionnées)</span> ';
                         }
-                        else{
-                            echo ' proposition selectionée ';
+                        else if($phase->getNbDePlaces()==1){
+                            echo ' <span id="prop">(' . $phase->getNbDePlaces() . ' proposition selectionnée)</span> ';
                         }
-                            echo ')</span></p>';
+                            echo "</p><div class='ligneT' style='background: transparent'></div>";
+
+
                     }
-                    echo '<div class="ligneT" style="background: transparent"></div><p id="pet">Résultats publics</p></div>';
+                    echo '<p id="pet">Résultats publics</p></div>';
 
                     //DEBUT
-                    echo '<div class="timeline"><a href=frontController.php?controller=vote&action=' . rawurlencode($question->getPhases()[0]->getType()) . ' title="La phase de rédaction est la période où les responsables auteurs écrivent leur proposition." id="circle"></a>';
+                    echo '<div class="timeline">';
 
-                    $widthLigne= 90/(sizeof($phases)+1);
+                    $widthLigne= 85/(sizeof($phases));
 
                     foreach ($phases as $phase){
 
                         echo '<style>.ligneT{width: '.$widthLigne.'%;}</style>';
-                        echo '<div class="ligneT"></div><a href=frontController.php?controller=question&action=readResultPhase&id=' . $question->getId() . '&idPhase='. $phase->getId() .' id="circle"></a>';
+                        echo '<a href=frontController.php?controller=question&action=readResultPhase&id=' . $question->getId() . '&idPhase='. $phase->getId() .' id="circle"></a><div class="ligneT"></div>';
                     }
                     //FIN
-                    echo '<div class="ligneT"></div><a href=frontController.php?controller=question&action=readResult&id=' . $question->getId() . ' id="circle"></a></div>';
+                    echo '<a href=frontController.php?controller=question&action=readResult&id=' . $question->getId() . ' id="circle"></a></div>';
 
 
-                    echo '<div class="timeline" id="margintimeline"><p id="pet">'.htmlspecialchars($question->dateToString($question->getDateCreation())).'</p>';
-                    $widthLigne=(70/(sizeof($phases)+1));
+                    echo '<div class="timeline" id="margintimeline">';
+                    $widthLigne=(100/(sizeof($phases)+1));
                     foreach ($phases as $phase){
                         echo '<style>.ligneTbis{width: '.$widthLigne.'%;}</style>';
-                        echo '<div class="ligneTbis" style="background: transparent"></div><p id="pet">Du '.htmlspecialchars($question->dateToString($phase->getDateDebut())).' au
-                        '.htmlspecialchars($question->dateToString($phase->getDateFin())).'</p>';
+                        echo '<p id="pet">Du '.htmlspecialchars($question->dateToString($phase->getDateDebut())).'<br> au
+                        '.htmlspecialchars($question->dateToString($phase->getDateFin())).'</p><div class="ligneTbis" style="background: transparent"></div>';
                     }
-                    echo '<div class="ligneTbis" style="background: transparent"></div><p id="pet">'.htmlspecialchars($question->dateToString($question->getDateFermeture())).'</p></div>';
+                    echo '<p id="pet">'.htmlspecialchars($question->dateToString($question->getDateFermeture())).'</p></div>';
                 }
 
                 echo '<br><div class="description">';
