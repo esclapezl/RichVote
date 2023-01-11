@@ -64,14 +64,16 @@ class ControllerQuestion extends GenericController
         $peutVoter = false;
         $peutPasser = false;
         $dejaResponsable = false;
-        $propositionDejaExistante=null;
         $dejaDemande=null;
+        $propositionDejaExistante=null;
         if(ConnexionUtilisateur::estConnecte()) {
             $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
             $roleQuestion = (new UserRepository())->getRoleQuestion($idUser, $idQuestion);
             $peutVoter = UserRepository::peutVoter($idUser, $idQuestion);
             $dejaResponsable = (new UserRepository())->aDejaCreeProp(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion);
-            $propositionDejaExistante = (new UserRepository())->getPropDejaCree(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion);
+            if($dejaResponsable){
+                $propositionDejaExistante = (new UserRepository())->getPropDejaCree(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion);
+            }
             $dejaDemande=(new DemandeUserRepository())->aDejaDemande(ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idQuestion);
             $peutPasser = false;
             if($roleQuestion=='organisateur') {
@@ -448,10 +450,13 @@ class ControllerQuestion extends GenericController
 
             if ($phase->estFinie()) {
                 $question = (new QuestionRepository())->select($idQuestion);
-
                 self::afficheResultPhase($phase, $question);
-            } else {
+            } else if($phase->estCommence() && !($phase->estFinie())){
                 MessageFlash::ajouter('info', 'La phase n\'est pas encore finie, revenez plus tard');
+                self::redirection('frontController.php?controller=question&action=read&id=' . $idQuestion);
+            }
+            else{
+                MessageFlash::ajouter('info', 'La phase n\'est pas encore commencée, revenez plus tard');
                 self::redirection('frontController.php?controller=question&action=read&id=' . $idQuestion);
             }
         }

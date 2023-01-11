@@ -1,5 +1,5 @@
 <?php
-use \App\Lib\ConnexionUtilisateur;
+use App\Lib\ConnexionUtilisateur;
 use App\Model\DataObject\Groupe;
 use App\Model\DataObject\User;
 
@@ -38,10 +38,11 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
             <div class="ligne"></div>
         </div>
 <div class="ligneExt"><form class="ligneAlign" method="post" action="<?=$url?>">
+        <label for="filtre"></label>
         <input type="search" class="opt" name="filtre" id="filtre" placeholder="Rechercher un Utilisateur">
-        <button type="submit" class="opt"><img src="../assets/img/icon-chercher.svg"></button>
+        <button type="submit" class="opt"><img alt="recherche" src="../assets/img/icon-chercher.svg"></button>
         <a href="<?=$url?>" id="refresh">
-            <img src="../assets/img/icon-refresh.svg">
+            <img alt="rafraichir la page" src="../assets/img/icon-refresh.svg">
         </a>
     </form>
     <h3>Ajouter</h3>
@@ -86,28 +87,14 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
         echo "<form method='post' action='$action'><ul>";
 
         if($controller=='user') {
-            liste::users($users);
-        }
-        else {
-            liste::groupes($groupes);
-        }
-        echo '</ul> <div class="ligneCent"> <input type="submit" value="Ajouter les ' . $controller .'s selectionnés" class="optQuestion"></div></form>';
-    }
-    ?>
-</div>
-</div>
+            foreach ($users as $user) {
+                $idUser = rawurlencode($user->getId());
+                $htmlId = ucfirst(htmlspecialchars($idUser));
+                $prenom = ucfirst(htmlspecialchars($user->getPrenom()));
+                $nom = ucfirst(htmlspecialchars($user->getNom()));
 
-<?php
-class liste{
-    public static function users(array $users){
-        foreach ($users as $user) {
-            $idUser = rawurlencode($user->getId());
-            $htmlId = ucfirst(htmlspecialchars($idUser));
-            $prenom = ucfirst(htmlspecialchars($user->getPrenom()));
-            $nom = ucfirst(htmlspecialchars($user->getNom()));
-
-            if($idUser != (new \App\Model\Repository\QuestionRepository())->selectOrganisateur($_GET['id']))
-            echo "<div class='ligneExt'>
+                if($privilegeUser=="organisateur")
+                    echo "<div class='ligneExt'>
 
                             <li class='ligneExt'>
                             <label for='cb[$idUser]' class='checkbox'>
@@ -118,23 +105,25 @@ class liste{
                             </li>
                             <input type='checkbox' id='cb[$idUser]' name='user[$idUser]' value='$idUser'>
                             </div>";
+            }
         }
-    }
-
-    public static function groupes(array $groupes){
-        foreach ($groupes as $groupe) {
-            $nomGroupe = htmlspecialchars($groupe->getId());
-            $htmlnom = ucfirst(htmlspecialchars($nomGroupe));
+        else {
+            foreach ($groupes as $groupe) {
+                $nomGroupe = htmlspecialchars($groupe->getId());
+                $htmlnom = ucfirst(htmlspecialchars($nomGroupe));
 
 
-            echo "<div class='ligneExt'>
+                echo "<div class='ligneExt'>
 
                             <li class='ligneExt'> <a href='frontController.php?controller=groupe&action=read&nomGroupe=$nomGroupe'> $htmlnom</a></span></li>
                             <label for='checkbox' class='checkbox'> 
                                 <input type='checkbox' id='cb[$nomGroupe]' name='groupe[$nomGroupe]' value='$nomGroupe'>
                             </label>
                           </div>";
+            }
         }
+        echo '</ul> <div class="ligneCent"> <input type="submit" value="Ajouter les ' . $controller .'s selectionnés" class="optQuestion"></div></form>';
     }
-}
-?>
+    ?>
+</div>
+</div>

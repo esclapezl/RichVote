@@ -1,8 +1,6 @@
 <?php
-use \App\Lib\ConnexionUtilisateur;
 use App\Model\DataObject\Phase;
 use App\Model\DataObject\Question;
-use App\Model\Repository\PropositionRepository;
 /** @var Question $question
  * @var array $propositionsScore
  *  une array [Proposition, int score]

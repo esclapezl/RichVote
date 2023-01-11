@@ -28,6 +28,9 @@ switch ($typePrecisPhase) {
     case 'consultation':
         $typePhase= 'En cours de consultation';
         break;
+    case 'redaction':
+        $typePhase= 'En cours de rédaction';
+        break;
     case 'scrutinMajoritaire' || 'scrutinMajoritairePlurinominal' || 'jugementMajoritaire' :
         $typePhase= 'Voter juste Ici';
         break;
@@ -53,15 +56,15 @@ switch ($typePrecisPhase) {
                             echo "<h3>Vous n'avez pas de rôle sur cette question.</h3>";
                         }
 
-                        if($peutVoter && $typePrecisPhase!="termine" && $typePrecisPhase!="consultation") {
+                        if($peutVoter && $typePrecisPhase!="termine" && $typePrecisPhase!="consultation"&& $typePrecisPhase!="redaction") {
                             $typePrecisPhase = ucfirst($typePrecisPhase);
                             echo "<a href=frontController.php?controller=vote&action=voter$typePrecisPhase&idQuestion=$idQuestion id='boutonVote'><h2>Vote en cliquant ici</h2></a>";
                         }
-                        else if($roleQuestion==null && ($typePrecisPhase!="termine" || $typePrecisPhase!="consultation")){
+                        else if($roleQuestion==null && ($typePrecisPhase!="termine")){
                             echo "<a href=frontController.php?controller=question&action=demandeRoleQuestion&role=votant&id=". rawurlencode($idQuestion) .">
                                 <h2>Vous souhaitez voter?</h2></a>";
                         }
-                        else if($question->getCurrentPhase()->getType()=="termine" || $question->getCurrentPhase()->getType()=="consultation"){
+                        else if($question->getCurrentPhase()->getType()=="termine" || $question->getCurrentPhase()->getType()=="consultation"|| $question->getCurrentPhase()->getType()=="redaction"){
                             echo '<h2>' . $typePhase . '</h2>';
                         }
                         else{

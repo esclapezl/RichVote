@@ -429,7 +429,7 @@ class UserRepository extends AbstractRepository
 
     }
 
-    public static function getPropDejaCree(string $idUser, int $idQuestion):int
+    public static function getPropDejaCree(string $idUser, int $idQuestion): ?int
     {
         $sql = "SELECT IDPROPOSITION FROM SOUVIGNETN.PROPOSITIONS WHERE IDRESPONSABLE = :IDUSER AND IDQUESTION =".$idQuestion;
         $pdo = DatabaseConnection::getInstance()::getPdo();
