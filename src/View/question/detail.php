@@ -96,10 +96,7 @@ switch ($typePrecisPhase) {
                         echo '<a class="optQuestion" href=frontController.php?controller=question&action=readResult&id=' . rawurlencode($question->getId()) . '>Résultats</a>';
                     }
 
-                        $btnModifier = '';
-                        if($question->getCurrentPhase()->getType()=='redaction'){
-                            $btnModifier = '<a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '><img class="icons" title="Modifier Question" alt="Modifier" src="../assets/img/icons8-crayon-48.png"></a>';
-                        }
+                        $btnModifier = '<a href=frontController.php?controller=question&action=update&id=' . rawurlencode($question->getId()) . '><img class="icons" title="Modifier Question" alt="Modifier" src="../assets/img/icons8-crayon-48.png"></a>';
                         echo '</div><div class="ligneExt"><div class="ligneExt">' .$btnPhase .
                         '</div><div class="ligneAlign">
                             ' . $btnModifier .'

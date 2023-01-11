@@ -164,10 +164,6 @@ class ControllerQuestion extends GenericController
             MessageFlash::ajouter('warning', 'Vous n\'avez pas les droits');
             self::read();
         }
-        else if($question->getCurrentPhase()->getType()!='redaction'){
-            MessageFlash::ajouter('danger', 'Modification impossible');
-            self::read();
-        }
         else{
             $parametres = array(
                 'pagetitle' => 'Modifier Question',
@@ -183,11 +179,8 @@ class ControllerQuestion extends GenericController
     {
         self::connexionRedirect('warning', 'Connectez-vous');
         $question = (new QuestionRepository())->select($_GET['id']);
-        if($question->getCurrentPhase()->getType()!='redaction'){
-            MessageFlash::ajouter('danger', 'Modification impossible');
-            self::read();
-        }
-        else if($question->getIdOrganisateur() != ConnexionUtilisateur::getLoginUtilisateurConnecte()){
+
+        if($question->getIdOrganisateur() != ConnexionUtilisateur::getLoginUtilisateurConnecte()){
             MessageFlash::ajouter('warning', 'Vous n\'avez pas les droits');
             self::readAll();
         }
