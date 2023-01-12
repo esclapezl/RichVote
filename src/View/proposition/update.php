@@ -1,5 +1,7 @@
 <?php
 use App\Model\DataObject\Proposition;
+use App\Model\Repository\SectionRepository;
+
 /** @var Proposition $proposition */
 $intitule = $proposition->getIntitule();
 if($intitule = null)
@@ -24,16 +26,20 @@ if($intitule = null)
 
 
                 <?php
+                $i=0;
                 $sectionsText = $proposition->getSectionsTexte();
                 foreach ($sectionsText as $infos){
                     $idSection = $infos['section']->getId();
                     $text = $infos['texte'];
+                    $i++;
+                    echo '<br><div class="ligneExt" id="section'. $i .'"><h3 id="sections">'. $i .'. ' . (new SectionRepository())->select($idSection)->getIntitule() . "</h3></div>";
+                    echo "<div class='ligne'></div>";
                     if($text == 'à remplir')
                     {
                         $text = ' ';
                     }
                     echo ' <div class="descP"></div><h3>Description : </h3>
-                        <textarea rows="4" cols="80" maxlength="1000" id="mytextarea" name=texte[' . $idSection . '] >' . $text . '</textarea></form>';
+                        <textarea rows="4" cols="80" maxlength="1000" id="mytextarea" name=texte[' . $idSection . '] >' . $text . '</textarea><br></form>';
                 }
                 ?>
             <div class="descG"></div>

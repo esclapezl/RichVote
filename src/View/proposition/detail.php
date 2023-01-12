@@ -49,11 +49,14 @@ $idProposition = $proposition->getId();
         <br>
 
             <?php
+            $i=0;
             foreach ($proposition->getSectionsTexte() as $infos){
                 $idSection = $infos['section']->getId();
                 $texte = $infos['texte'];
                 $nbLikes = (new SectionRepository())->getNbLikes($idSection,$idProposition);
-
+                $i++;
+                echo '<div class="ligneExt" id="section'. $i .'"><h3 id="sections">'. $i .'. ' . (new SectionRepository())->select($idSection)->getIntitule() . "</h3></div>";
+                echo "<div class='ligne'></div>";
                 echo $texte ;
                 if((new SectionRepository())->userALike($idSection,ConnexionUtilisateur::getLoginUtilisateurConnecte(),$idProposition))
                 {
