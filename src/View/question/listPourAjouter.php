@@ -92,8 +92,6 @@ $role = isset($_GET['role'])?$_GET['role']:'votant';
                 $htmlId = ucfirst(htmlspecialchars($idUser));
                 $prenom = ucfirst(htmlspecialchars($user->getPrenom()));
                 $nom = ucfirst(htmlspecialchars($user->getNom()));
-
-                if($privilegeUser=="organisateur")
                     echo "<div class='ligneExt'>
 
                             <li class='ligneExt'>
