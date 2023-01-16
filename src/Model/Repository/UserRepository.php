@@ -151,8 +151,6 @@ class UserRepository extends AbstractRepository
 
     public function selectAllValide(): array{
         $pdo = DatabaseConnection::getInstance()::getPdo();
-        $sqlUpdate = 'CALL updatePhase()';
-        $pdo->query($sqlUpdate);
 
 
         $pdoStatement = $pdo->query('SELECT * FROM souvignetn.users WHERE "idUser" NOT IN(SELECT IDUSER FROM SOUVIGNETN.EMAILUSERSINVALIDE)');

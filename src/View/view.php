@@ -103,7 +103,7 @@ use App\Lib\ConnexionUtilisateur;
                 <li><a href="frontController.php?controller=user&action=accueil">Accueil</a></li>
                 <li><a href="frontController.php?controller=question&action=readAll">Questions</a></li>
                 <li><a href="frontController.php?controller=question&action=readAllArchives">Archives</a></li>
-                <li><a href="frontController.php?controller=user&action=about">Contributeurs</a></li>
+                <li><a href="frontController.php?controller=user&action=readAll">Contributeurs</a></li>
             </ul>
 
             <p>Copyright &copy; RichVote | Tous droits réservés</p>
