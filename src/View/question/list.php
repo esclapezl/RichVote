@@ -78,7 +78,7 @@ use App\Model\DataObject\Question;
                                 <a href=frontController.php?controller=question&action=read&id=' . rawurlencode($question->getId()).'>
                                     <div class="atxt">' .ucfirst(htmlspecialchars($question->getIntitule())).'</div>
                                     <div class="descP"></div>
-                                    <p>'. htmlspecialchars($question->getApercuDescription()).'</p>
+                                    <p>'. $question->getApercuDescription().'</p>
                                     <p id="date">Du '. htmlspecialchars($question->dateToString($question->getDateCreation())) .' au ' .
                                         htmlspecialchars($question->dateToString($question->getDateFermeture())) .'</p>
                                 </a>
