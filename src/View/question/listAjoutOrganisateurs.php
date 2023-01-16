@@ -9,7 +9,7 @@ use App\Model\Repository\UserRepository;
     <div class="text-box">
         <div class="ligneExt"> <h1>Ajouter des Organisateurs :</h1> <?php
             if(ConnexionUtilisateur::estConnecte()){
-                $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
+                $idUser = htmlspecialchars(ConnexionUtilisateur::getLoginUtilisateurConnecte());
                 echo "<div class='responsive'>Vous êtes connecté en tant que :<h3>".ucfirst((new UserRepository())->getPrivilege($idUser))."</h3></div>";
             }
             else{
@@ -26,7 +26,7 @@ use App\Model\Repository\UserRepository;
             <?php
             if (empty($users)){
                 echo "<div class='descG'></div><div class='ligneCent'>
-                    <h3>Aucun résultat a été trouvé pour " . $_POST['title'] . " .</h3></div>
+                    <h3>Aucun résultat a été trouvé pour " . htmlspecialchars($_POST['title']) . " .</h3></div>
                     <div class='descP'></div><div class='ligneCent'>
                     <a href='frontController.php?controller=question&action=addOrganisateurs'>Clique <strong>ici</strong> pour afficher <strong>toute</strong> la liste !</a></div>";
             }
@@ -45,7 +45,7 @@ use App\Model\Repository\UserRepository;
                             <li class='ligneExt'> <a href='frontController.php?controller=user&action=read&id=$idUser'> $htmlId</a> <span> $prenom $nom </span></span></li>
                             <h2>" . ucfirst($role) . " </h2>
                             <label for='checkbox' class='checkbox'> 
-                                <input type='checkbox' id='cb[$idUser]' name='user[$idUser]' value='$idUser'>
+                                <input type='checkbox' id='cb[$htmlId]' name='user[$htmlId]' value='$htmlId'>
                             </label>
                           </div>";
                     }

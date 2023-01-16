@@ -123,7 +123,7 @@ class ControllerProposition extends GenericController
             $sectionsText = $proposition->getSectionsTexte();
 
             foreach ($sectionsText as $index=>$infos){
-                $infos['texte'] = htmlspecialchars($_POST['texte'])[$infos['section']->getId()];
+                $infos['texte'] = $_POST['texte'][$infos['section']->getId()];
                 $sectionsText[$index] = $infos;
             }
 
