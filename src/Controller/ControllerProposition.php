@@ -19,8 +19,8 @@ class ControllerProposition extends GenericController
     public static function readAll() : void
     {
         self::connexionRedirect('warning', 'Connectez-vous pour voir les propositions');
-        $idQuestion = $_GET['id'];
-        if($_GET['id']=='')
+        $idQuestion = htmlspecialchars($_GET['id']);
+        if(htmlspecialchars($_GET['id'])=='')
         {
             self::redirection('frontController.php?controller=question&action=readAll');
         }
@@ -39,11 +39,11 @@ class ControllerProposition extends GenericController
     public static function read() : void
     {
         self::connexionRedirect('info', 'Connectez-vous pour accéder aux propositions');
-        if($_GET['id']=='')
+        if(htmlspecialchars($_GET['id'])=='')
         {
             self::redirection('frontController.php?controller=question&action=readAll');
         }
-        $idProposition = $_GET['id'];
+        $idProposition = htmlspecialchars($_GET['id']);
 
         $proposition = (new PropositionRepository())->select($idProposition);
 
@@ -81,7 +81,7 @@ class ControllerProposition extends GenericController
 
     public static function update(){
         self::connexionRedirect('warning', 'Veuillez vous connecter');
-        $idProposition = $_GET['id'];
+        $idProposition = htmlspecialchars($_GET['id']);
 
         $proposition = (new PropositionRepository())->select($idProposition);
         $question = (new QuestionRepository())->select($proposition->getIdQuestion());
@@ -108,11 +108,11 @@ class ControllerProposition extends GenericController
     public static function updated() : void
     {
         self::connexionRedirect('warning', 'Veuillez vous connecter');
-        $idProposition = $_GET['id'];
+        $idProposition = htmlspecialchars($_GET['id']);
         $proposition = (new PropositionRepository())->select($idProposition);
         $question = (new QuestionRepository())->select($proposition->getIdQuestion());
         if($proposition==null){
-            MessageFlash::ajouter('danger', "La question avec l'id suivant : " . $_GET['id'] . "n'existe pas");
+            MessageFlash::ajouter('danger', "La question avec l'id suivant : " . htmlspecialchars($_GET['id']) . "n'existe pas");
             self::redirection('frontController.php?controller=question&action=readAll');
         }
         else if($question->getCurrentPhase()->getType()!='redaction'){
@@ -123,12 +123,12 @@ class ControllerProposition extends GenericController
             $sectionsText = $proposition->getSectionsTexte();
 
             foreach ($sectionsText as $index=>$infos){
-                $infos['texte'] = $_POST['texte'][$infos['section']->getId()];
+                $infos['texte'] = htmlspecialchars($_POST['texte'])[$infos['section']->getId()];
                 $sectionsText[$index] = $infos;
             }
 
             $proposition->setSectionsTexte($sectionsText);
-            $proposition->setIntitule($_POST['intitule']);
+            $proposition->setIntitule(htmlspecialchars($_POST['intitule']));
 
             (new PropositionRepository())->update($proposition);
             self::read();
@@ -137,7 +137,7 @@ class ControllerProposition extends GenericController
 
     public static function create(){
         self::connexionRedirect('warning', 'Veuillez vous connecter');
-        $idQuestion = $_GET['id'];
+        $idQuestion = htmlspecialchars($_GET['id']);
 
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         if((new UserRepository())->getRoleQuestion($idUser, $idQuestion) == 'responsable')
@@ -164,7 +164,7 @@ class ControllerProposition extends GenericController
 
     public static function delete(){
         self::connexionRedirect('warning', 'Veuillez vous connecter');
-        $idProposition = $_GET['id'];
+        $idProposition = htmlspecialchars($_GET['id']);
 
         $proposition = (new PropositionRepository())->select($idProposition);
         if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()){
@@ -186,7 +186,7 @@ class ControllerProposition extends GenericController
 
     public static function selectAllWithScore(){
         self::connexionRedirect('warning', 'Connectez-vous');
-        $idPhase = $_GET['idPhase'];
+        $idPhase = htmlspecialchars($_GET['idPhase']);
         $scores = [];
         $propositions = [];
 
@@ -209,10 +209,10 @@ class ControllerProposition extends GenericController
     public static function ajtCommentaire()
     {
         self::connexionRedirect('warning', 'Connectez-vous');
-        $commentaire = $_POST['commentaire'];
+        $commentaire = htmlspecialchars($_POST['commentaire']);
         $userRepository = new UserRepository();
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-        $idProposition=$_GET['id'];
+        $idProposition=htmlspecialchars($_GET['id']);
         $date = date("'d/m/y G:i:s'");
         $date .=",'dd/mm/yy hh24:mi:ss'";
 
@@ -226,8 +226,8 @@ class ControllerProposition extends GenericController
     public static function deleteCommentaire():void
     {// s'assurer que le commentaire nous apppartient
         self::connexionRedirect('warning', 'Connectez-vous');
-        $idCommentaire= $_GET['idCommentaire'];
-        $idProposition= $_GET['id'];
+        $idCommentaire= htmlspecialchars($_GET['idCommentaire']);
+        $idProposition= htmlspecialchars($_GET['id']);
 
         (new CommentaireRepository())->deleteCommentaire($idCommentaire);
 
@@ -239,8 +239,8 @@ class ControllerProposition extends GenericController
     public static function likeCommentaire():void
     {
         self::connexionRedirect('warning', 'Connectez-vous');
-        $idCommentaire= $_GET['idCommentaire'];
-        $idProposition= $_GET['id'];
+        $idCommentaire= htmlspecialchars($_GET['idCommentaire']);
+        $idProposition= htmlspecialchars($_GET['id']);
 
         (new CommentaireRepository())->liker($idCommentaire);
 
@@ -250,8 +250,8 @@ class ControllerProposition extends GenericController
     public static function dislikeCommentaire():void
     {
         self::connexionRedirect('warning', 'Connectez-vous');
-        $idCommentaire= $_GET['idCommentaire'];
-        $idProposition= $_GET['id'];
+        $idCommentaire= htmlspecialchars($_GET['idCommentaire']);
+        $idProposition= htmlspecialchars($_GET['id']);
 
         (new CommentaireRepository())->disliker($idCommentaire);
 
@@ -260,11 +260,11 @@ class ControllerProposition extends GenericController
 
     public static function addAuteursToProposition(){
         self::connexionRedirect('warning', 'Connectez-vous');
-        $proposition = (new PropositionRepository())->select($_GET['id']);
-        $responsableProposition = (new PropositionRepository())->selectResponsable($_GET['id']);
+        $proposition = (new PropositionRepository())->select(htmlspecialchars($_GET['id']));
+        $responsableProposition = (new PropositionRepository())->selectResponsable(htmlspecialchars($_GET['id']));
 
         if(isset($_GET['entite'])){
-            $entite = $_GET['entite'];
+            $entite = htmlspecialchars($_GET['entite']);
         }
         else{
             $entite = 'user';
@@ -283,7 +283,7 @@ class ControllerProposition extends GenericController
 
             if($entite=='user') {
                 if(isset($_POST['filtre'])){
-                    $users = (new UserRepository())->search($_POST['filtre']);
+                    $users = (new UserRepository())->search(htmlspecialchars($_POST['filtre']));
                 }
                 else{
                     $users = (new UserRepository())->selectAll();
@@ -299,7 +299,7 @@ class ControllerProposition extends GenericController
             }
             else{
                 if(isset($_POST['filtre'])){
-                    $groupes = (new GroupeRepository())->search($_POST['filtre']);
+                    $groupes = (new GroupeRepository())->search(htmlspecialchars($_POST['filtre']));
                 }
                 else{
                     $groupes = (new GroupeRepository())->selectAll();
@@ -313,10 +313,10 @@ class ControllerProposition extends GenericController
 
     public static function auteursAdded(){
         self::connexionRedirect('warning', 'Connectez-vous');
-        $proposition = (new PropositionRepository())->select($_GET['id']);
+        $proposition = (new PropositionRepository())->select(htmlspecialchars($_GET['id']));
 
         if(isset($_GET['entite'])){
-            $entite = $_GET['entite'];
+            $entite = htmlspecialchars($_GET['entite']);
         }
         else{
             $entite = 'user';
@@ -336,7 +336,7 @@ class ControllerProposition extends GenericController
     public static function addDemandeAuteur(){
         self::connexionRedirect('warning', 'Connectez-vous');
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-        $idProposition =$_GET['id'];
+        $idProposition =htmlspecialchars($_GET['id']);
 
         $proposition = (new PropositionRepository())->select($idProposition);
 
@@ -357,7 +357,7 @@ class ControllerProposition extends GenericController
 
     public static function readDemandeAuteur() : void{
         self::connexionRedirect('warning', 'Connectez-vous');
-        $idProposition = $_GET['id'];
+        $idProposition = htmlspecialchars($_GET['id']);
 
         $proposition = (new PropositionRepository())->select($idProposition);
         if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()){
@@ -384,13 +384,13 @@ class ControllerProposition extends GenericController
     public static function demandesAccepted(){
         self::connexionRedirect('warning', 'Connectez-vous');
 
-        $idProposition = $_GET['id'];
+        $idProposition = htmlspecialchars($_GET['id']);
         $proposition = (new PropositionRepository())->select($idProposition);
         if($proposition->getIdResponsable()==ConnexionUtilisateur::getLoginUtilisateurConnecte()) {
             $demandesProposition = DemandeUserRepository::selectAllDemandeAuteurProposition($proposition);
             $acceptees = [];
             foreach ($_POST['user'] as $idUser) {
-                $acceptees[] = $idUser;
+                $acceptees[] = htmlspecialchars($idUser);
             }
             foreach($demandesProposition as $demande){
                 if(in_array($demande->getDemandeur()->getId(), $acceptees)){
@@ -409,8 +409,8 @@ class ControllerProposition extends GenericController
 
     public static function likeSectionProposition()
     {
-        $idSection = $_GET['id'];
-        $idProposition = $_GET['idProposition'];
+        $idSection = htmlspecialchars($_GET['id']);
+        $idProposition = htmlspecialchars($_GET['idProposition']);
 
         if (ConnexionUtilisateur::estConnecte()) {
             $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
