@@ -511,7 +511,8 @@ class ControllerQuestion extends GenericController
 
         $dateFin = $currentPhase->getDateFin();
         $currentDate = date_create();
-        if($dateFin >= $currentDate && date_diff($dateFin, $currentDate)->d == 0){
+        $dateDiff = date_diff($dateFin, $currentDate)->d;
+        if($dateFin >= $currentDate && ($dateDiff == 0 || $dateDiff==1)){
             (new PhaseRepository())->endPhase($currentPhase->getId());
         }
 
