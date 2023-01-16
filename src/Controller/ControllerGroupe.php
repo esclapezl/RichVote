@@ -36,7 +36,7 @@ class ControllerGroupe extends GenericController
     public static function read(){
         self::connexionRedirect('warning', 'Connectez-vous pour voir les membres');
 
-        $nomGroupe = $_GET['nomGroupe'];
+        $nomGroupe = htmlspecialchars($_GET['nomGroupe']);
         $groupe = (new GroupeRepository())->select($nomGroupe);
 
         $params=[
@@ -58,7 +58,7 @@ class ControllerGroupe extends GenericController
     public static function created(){
         self::connexionRedirect('warning', 'Connectez-vous pour créer un groupe');
 
-        $nomGroup = $_POST['nomGroupe'];
+        $nomGroup = htmlspecialchars($_POST['nomGroupe']);
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $groupe = new Groupe($nomGroup, $idUser);
         (new GroupeRepository())->sauvegarder($groupe);
@@ -68,13 +68,13 @@ class ControllerGroupe extends GenericController
     public static function addUserToGroupe(){
         self::connexionRedirect('warning', 'Veuillez vous connecter');
 
-        $nomGroupe = $_GET['nomGroupe'];
+        $nomGroupe = htmlspecialchars($_GET['nomGroupe']);
         $groupe = (new GroupeRepository())->select($nomGroupe);
         if (ConnexionUtilisateur::getLoginUtilisateurConnecte() == $groupe->getIdResponsable()) {
             $action = 'frontController.php?controller=groupe&action=usersAddedToGroupe&nomGroupe='.$nomGroupe;
 
             if(isset($_POST['filtre'])){
-                $users = (new UserRepository())->search($_POST['filtre']);
+                $users = (new UserRepository())->search(htmlspecialchars($_POST['filtre']));
             }
             else{
                 $users = (new UserRepository())->selectAll();
@@ -109,12 +109,12 @@ class ControllerGroupe extends GenericController
     {
         self::connexionRedirect('warning', 'Veuillez vous connecter');
 
-        $nomGroupe = $_GET['nomGroupe'];
+        $nomGroupe = htmlspecialchars($_GET['nomGroupe']);
         $groupe = (new GroupeRepository())->select($nomGroupe);
         if (ConnexionUtilisateur::getLoginUtilisateurConnecte() == $groupe->getIdResponsable()) {
             if (isset($_POST['user'])) {
                 foreach ($_POST['user'] as $idUser) {
-                    $groupe->addUser($idUser);
+                    $groupe->addUser(htmlspecialchars($idUser));
                 }
             }
         }

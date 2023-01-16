@@ -30,7 +30,7 @@ class ControllerVote extends GenericController
     public static function voterScrutinMajoritaire() : void
     {
         self::connexionRedirect('warning', 'Connectez-vous');
-        $question = (new QuestionRepository())->select($_GET['idQuestion']);
+        $question = (new QuestionRepository())->select(htmlspecialchars($_GET['idQuestion']));
         $propositions = (new PropositionRepository())->selectAllForQuestion($question->getId());
         $parametres = array(
             'pagetitle' => 'Scrutin Majoritaire',
@@ -54,7 +54,7 @@ class ControllerVote extends GenericController
     public static function voterScrutinMajoritairePlurinominal() : void
     {
         self::connexionRedirect('warning', 'Connectez-vous');
-        $question = (new QuestionRepository())->select($_GET['idQuestion']);
+        $question = (new QuestionRepository())->select(htmlspecialchars($_GET['idQuestion']));
         $propositions = (new PropositionRepository())->selectAllWithScoreForUser($question->getCurrentPhase()->getId(), ConnexionUtilisateur::getLoginUtilisateurConnecte());
 
         $propositionsPour = [];
@@ -83,12 +83,12 @@ class ControllerVote extends GenericController
         self::connexionRedirect('warning', 'Connectez-vous pour voter');
         $user = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         if(isset($_POST['idPropositionPour'])){
-            PropositionRepository::voter($_POST['idPropositionPour'], $user, 1);
+            PropositionRepository::voter(htmlspecialchars($_POST['idPropositionPour']), $user, 1);
 
             MessageFlash::ajouter('success', 'Votre vote a bien été pris en compte !');
         }
         else if(isset($_POST['idPropositionContre'])){
-            PropositionRepository::voter($_POST['idPropositionContre'], $user, 0);
+            PropositionRepository::voter(htmlspecialchars($_POST['idPropositionContre']), $user, 0);
 
             MessageFlash::ajouter('success', 'Votre vote a bien été pris en compte !');
         }
@@ -102,7 +102,7 @@ class ControllerVote extends GenericController
         self::connexionRedirect('warning', 'Connectez-vous');
         $user = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         if(isset($_POST['idProposition'])){
-            PropositionRepository::voter($_POST['idProposition'], $user, 1);
+            PropositionRepository::voter(htmlspecialchars($_POST['idProposition']), $user, 1);
 
             MessageFlash::ajouter('success', 'Votre vote a bien été pris en compte !');
         }
@@ -135,7 +135,7 @@ class ControllerVote extends GenericController
         MessageFlash::ajouter('danger', 'changer le fonctionnnement de cette fonction pour etre utilisé dans demandeRole pour question');
         self::connexionRedirect('warning', 'Connectez-vous');
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-        $idQuestion = $_GET['idQuestion'];
+        $idQuestion = htmlspecialchars($_GET['idQuestion']);
 
         if((new UserRepository())->demanderAccesVote($idUser, $idQuestion)
         && !(new UserRepository())->estOrganisateurSurQuestion($idUser, $idQuestion)){
@@ -150,7 +150,7 @@ class ControllerVote extends GenericController
 
     public static function voterJugementMajoritaire(){
         self::connexionRedirect('warning', 'Connectez-vous pour voter');
-        $question = (new QuestionRepository())->select($_GET['idQuestion']);
+        $question = (new QuestionRepository())->select(htmlspecialchars($_GET['idQuestion']));
         $propositionsWithScore = (new PropositionRepository())->selectAllWithScoreForUser($question->getCurrentPhase()->getId(), ConnexionUtilisateur::getLoginUtilisateurConnecte());
 
         $parametres = array(
@@ -167,7 +167,7 @@ class ControllerVote extends GenericController
         $user = ConnexionUtilisateur::getLoginUtilisateurConnecte();
 
         foreach($_POST['score'] as $idProposition=>$score){
-            PropositionRepository::voter($idProposition, $user, $score);
+            PropositionRepository::voter($idProposition, $user, htmlspecialchars($score));
         }
         MessageFlash::ajouter('success', 'Votre vote a bien été pris en compte !');
         ControllerQuestion::readAll();
