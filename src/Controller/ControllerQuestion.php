@@ -132,7 +132,7 @@ class ControllerQuestion extends GenericController
             self::readAll();
         }
         else{
-            $intitule = $_POST['titreQuestion'];
+            $intitule = htmlspecialchars($_POST['titreQuestion']);
             $nbSections = $_POST['nbSections'];
             $nbPhases = $_POST['nbPhases'] + 1; // inclus la phase de rédaction
             $dateCreation = date_create();
@@ -190,7 +190,7 @@ class ControllerQuestion extends GenericController
                 self::redirection('frontController.php?controller=question&action=update&id='. $_GET['id']);
             }
             else {
-                $titreQuestion = $_POST['titreQuestion'];
+                $titreQuestion = htmlspecialchars($_POST['titreQuestion']);
                 $descriptionQuestion = $_POST['descriptionQuestion'];
 
                 $question = (new QuestionRepository())->select($_GET['id']);
@@ -200,7 +200,7 @@ class ControllerQuestion extends GenericController
 
                 $sections = array();
                 foreach ($_POST['intitule'] as $key => $intitule) {
-                    $sections[$key]['intitule'] = $intitule;
+                    $sections[$key]['intitule'] = htmlspecialchars($intitule);
                 }
 
                 foreach ($_POST['description'] as $key => $description) {
