@@ -75,8 +75,8 @@ class ControllerUser extends GenericController
 
     public static function connected()
     {
-        $id = $_POST['id'];
-        $mdp =  $_POST['mdp'];
+        $id = htmlspecialchars($_POST['id']);
+        $mdp =  htmlspecialchars($_POST['mdp']);
 
         $userRepository = (new UserRepository());
         /** @var User $user */
@@ -134,12 +134,12 @@ class ControllerUser extends GenericController
 
     public static function inscrit() : void
     {
-        $idUser = $_POST['identifiant'];
-        $mdp = $_POST['motDePasse'];
-        $cmdp = $_POST['confirmerMotDePasse'];
-        $prenom = $_POST['prenom'];
-        $nom = $_POST['nom'];
-        $email = $_POST['email'];
+        $idUser = htmlspecialchars($_POST['identifiant']);
+        $mdp = htmlspecialchars($_POST['motDePasse']);
+        $cmdp = htmlspecialchars($_POST['confirmerMotDePasse']);
+        $prenom = htmlspecialchars($_POST['prenom']);
+        $nom = htmlspecialchars($_POST['nom']);
+        $email = htmlspecialchars($_POST['email']);
 
         $parametres = [];
         $mdpconfig = new MotDePasse();
@@ -216,14 +216,14 @@ class ControllerUser extends GenericController
     public static function userValide()
     {
         $userRepository = new UserRepository();
-        $user = $userRepository->select($_GET['idUser']);
+        $user = $userRepository->select(htmlspecialchars($_GET['idUser']));
 
-        if($userRepository->checkCmdp($user->getNonce(),$_POST['nonce'])
+        if($userRepository->checkCmdp($user->getNonce(),htmlspecialchars($_POST['nonce']))
         && $user != null)
         {
             $userRepository->validerUser($user);
             $connexion = new ConnexionUtilisateur();
-            $connexion->connecter($_GET['idUser']);
+            $connexion->connecter(htmlspecialchars($_GET['idUser']));
 
             $parametres = array(
                 'pagetitle' => 'Inscription validée !',
@@ -244,7 +244,7 @@ class ControllerUser extends GenericController
 
     public static function renvoyerCode()
     {
-        $idUser = $_GET['idUser'];
+        $idUser = htmlspecialchars($_GET['idUser']);
         $userRepository = new UserRepository();
         $user = $userRepository->select($idUser);
         if($user != null)
@@ -306,12 +306,12 @@ class ControllerUser extends GenericController
     public static function read():void
     {
         self::connexionRedirect('warning', 'Connectez-vos');
-        $groupes = GroupeRepository::selectAllGroupeIdUser($_GET['id']);
-        $questions = (new QuestionRepository())->selectAllfromOrganisateur($_GET['id']);
-        $propositions = (new PropositionRepository())->selectAllfromResponsable($_GET['id']);
-        $user = (new UserRepository())->select($_GET['id']);
+        $groupes = GroupeRepository::selectAllGroupeIdUser(htmlspecialchars($_GET['id']));
+        $questions = (new QuestionRepository())->selectAllfromOrganisateur(htmlspecialchars($_GET['id']));
+        $propositions = (new PropositionRepository())->selectAllfromResponsable(htmlspecialchars($_GET['id']));
+        $user = (new UserRepository())->select(htmlspecialchars($_GET['id']));
 
-        $demandes = DemandeUserRepository::selectAllDemandeDemandeur($_GET['id']);
+        $demandes = DemandeUserRepository::selectAllDemandeDemandeur(htmlspecialchars($_GET['id']));
 
         $parametres = array(
             'pagetitle' => 'Détails user',
@@ -329,13 +329,13 @@ class ControllerUser extends GenericController
     public static function update():void
     {
         $mdpOublie = false;
-        if((new UserRepository())->selectMdpHache($_GET['id']) != null) $mdpOublie=true;
+        if((new UserRepository())->selectMdpHache(htmlspecialchars($_GET['id'])) != null) $mdpOublie=true;
 
-        if((new UserRepository())->select($_GET['id']) != null || (new UserRepository())->selectMdpHache(($_GET['id'])) != null)
+        if((new UserRepository())->select(htmlspecialchars($_GET['id'])) != null || (new UserRepository())->selectMdpHache((htmlspecialchars($_GET['id']))) != null)
         {
-            if((new UserRepository())->select($_GET['id']) != null )
+            if((new UserRepository())->select(htmlspecialchars($_GET['id'])) != null )
             {
-                $user = (new UserRepository())->select($_GET['id']);
+                $user = (new UserRepository())->select(htmlspecialchars($_GET['id']));
                 if(!(new ConnexionUtilisateur())->estUtilisateur($user->getId()) && !(new ConnexionUtilisateur())->estAdministrateur())
                 {
                     MessageFlash::ajouter('danger', "Vous n'êtes pas autorisé à acceder à cette page.");
@@ -344,7 +344,7 @@ class ControllerUser extends GenericController
             }
             else
             {
-                $user = (new UserRepository())->selectMdpHache($_GET['id']);
+                $user = (new UserRepository())->selectMdpHache(htmlspecialchars($_GET['id']));
             }
             $parametres = array(
                 'pagetitle' => 'Mettre à jour un utilisateur',
@@ -365,14 +365,14 @@ class ControllerUser extends GenericController
     {
         $userRepository = new UserRepository();
         $mdp = new MotDePasse();
-        $user = $userRepository->select($_GET['id']);
+        $user = $userRepository->select(htmlspecialchars($_GET['id']));
         $parametres=[];
 
         if( isset($_POST['aMdp']))
         {
-            $aMdp = $_POST['aMdp'];
-            $nMdp = $_POST['nMdp'];
-            $cNMdp = $_POST['cNMdp'];
+            $aMdp = htmlspecialchars($_POST['aMdp']);
+            $nMdp = htmlspecialchars($_POST['nMdp']);
+            $cNMdp = htmlspecialchars($_POST['cNMdp']);
 
 
             if ($userRepository->checkCmdp($nMdp, $cNMdp) &&
@@ -388,7 +388,7 @@ class ControllerUser extends GenericController
             else
             {
                 $mdpOublie = false;
-                if((new UserRepository())->selectMdpHache($_GET['id']) != null) $mdpOublie=true;
+                if((new UserRepository())->selectMdpHache(htmlspecialchars($_GET['id'])) != null) $mdpOublie=true;
 
                 if (!$userRepository->checkCmdp($nMdp, $cNMdp)) {
 
@@ -415,10 +415,10 @@ class ControllerUser extends GenericController
         }
         else if(isset($_POST['identifiant']))
         {
-            if($userRepository->checkId($_POST['identifiant']))
+            if($userRepository->checkId(htmlspecialchars($_POST['identifiant'])))
             {
 
-                $user->setId($_POST['identifiant']);
+                $user->setId(htmlspecialchars($_POST['identifiant']));
 
                 $userRepository->update($user);
                 MessageFlash::ajouter('info', 'Identifiant mis à jour.');
@@ -432,21 +432,21 @@ class ControllerUser extends GenericController
         }
         else if(isset($_POST['nom']))
         {
-            $user->setNom($_POST['nom']);
+            $user->setNom(htmlspecialchars($_POST['nom']));
             $userRepository->update($user);
             MessageFlash::ajouter('info', 'Nom mis à jour.');
             self::redirection('frontController.php?controller=user&action=read&id='.rawurlencode($user->getId()));
         }
         else if(isset($_POST['prenom']))
         {
-            $user->setPrenom($_POST['prenom']);
+            $user->setPrenom(htmlspecialchars($_POST['prenom']));
             $userRepository->update($user);
             MessageFlash::ajouter('info', 'Prenom mis à jour.');
             self::redirection('frontController.php?controller=user&action=read&id='.rawurlencode($user->getId()));
         }
         else if(isset($_POST['email']))
         {
-            $user->setEmail($_POST['email']);
+            $user->setEmail(htmlspecialchars($_POST['email']));
             $userRepository->update($user);
             MessageFlash::ajouter('info', 'Prenom mis à jour.');
             self::redirection('frontController.php?controller=user&action=read&id='.rawurlencode($user->getId()));
@@ -463,9 +463,9 @@ class ControllerUser extends GenericController
 
     public static function delete()
     {
-        if((new UserRepository())->select($_GET['id']) != null)
+        if((new UserRepository())->select(htmlspecialchars($_GET['id'])) != null)
         {
-            $user = (new UserRepository())->select($_GET['id']);
+            $user = (new UserRepository())->select(htmlspecialchars($_GET['id']));
             if(!(new ConnexionUtilisateur())->estUtilisateur($user->getId()) && !(new ConnexionUtilisateur())->estAdministrateur())
             {
                 MessageFlash::ajouter('danger', "Vous n'êtes pas autorisé à acceder à cette page.");
@@ -490,11 +490,11 @@ class ControllerUser extends GenericController
 
         if(!(new ConnexionUtilisateur())->estAdministrateur())
         {
-            $mdp = $_POST['mdp'];
-            $cMdp = $_POST['cMdp'];
+            $mdp = htmlspecialchars($_POST['mdp']);
+            $cMdp = htmlspecialchars($_POST['cMdp']);
         }
         $userRepository = new UserRepository();
-        $user = $userRepository->select($_GET['id']);
+        $user = $userRepository->select(htmlspecialchars($_GET['id']));
 
         if ((new ConnexionUtilisateur())->estAdministrateur()||($userRepository->checkCmdp($mdp, $cMdp)
         && MotDePasse::verifier($mdp,$user->getMdpHache())))
@@ -549,9 +549,9 @@ class ControllerUser extends GenericController
     {
         $userRepository = new UserRepository();
 
-        if(isset($_POST['emailRecup']) && $userRepository->emailExiste($_POST['emailRecup']))
+        if(isset($_POST['emailRecup']) && $userRepository->emailExiste(htmlspecialchars($_POST['emailRecup'])))
         {
-            VerificationEmail::envoiEmailRecuperation($_POST['emailRecup']);
+            VerificationEmail::envoiEmailRecuperation(htmlspecialchars($_POST['emailRecup']));
             MessageFlash::ajouter('info', 'Email de récupération envoyé.');
             self::redirection('frontController.php?controller=user&action=mdpOublie');
         }
@@ -566,10 +566,10 @@ class ControllerUser extends GenericController
     public static function updatedMdpOublie() : void
     {
         $userRepository = new UserRepository();
-        $id = $_GET['id'];
-        $user = $userRepository->selectMdpHache($_GET['id']);
-        $nMdp = $_POST['nMdp'];
-        $cNMdp = $_POST['cNMdp'];
+        $id = htmlspecialchars($_GET['id']);
+        $user = $userRepository->selectMdpHache(htmlspecialchars($_GET['id']));
+        $nMdp = htmlspecialchars($_POST['nMdp']);
+        $cNMdp = htmlspecialchars($_POST['cNMdp']);
 
         if((new ConnexionUtilisateur())->estConnecte())
         {
