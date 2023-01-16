@@ -50,7 +50,7 @@ class ControllerQuestion extends GenericController
         {
             self::redirection('frontController.php?controller=question&action=readAll');
         }
-        $idQuestion = $_GET['id'];
+        $idQuestion = htmlspecialchars($_GET['id']);
 
         $question = (new QuestionRepository())->select($idQuestion);
         $estFini = (new QuestionRepository())->estFini($idQuestion);
@@ -133,7 +133,7 @@ class ControllerQuestion extends GenericController
         }
         else{
             $intitule = htmlspecialchars($_POST['titreQuestion']);
-            $nbSections = $_POST['nbSections'];
+            $nbSections = htmlspecialchars($_POST['nbSections']);
             $nbPhases = $_POST['nbPhases'] + 1; // inclus la phase de rédaction
             $dateCreation = date_create();
             $dateFermeture = date_create($_POST['dateFermeture']);
@@ -159,7 +159,7 @@ class ControllerQuestion extends GenericController
     public static function update() : void
     {
         self::connexionRedirect('warning', 'Connectez-vous');
-        $question = (new QuestionRepository())->select($_GET['id']);
+        $question = (new QuestionRepository())->select(htmlspecialchars($_GET['id']));
         if($question->getIdOrganisateur() != ConnexionUtilisateur::getLoginUtilisateurConnecte()){
             MessageFlash::ajouter('warning', 'Vous n\'avez pas les droits');
             self::read();
@@ -178,7 +178,7 @@ class ControllerQuestion extends GenericController
     public static function updated() : void
     {
         self::connexionRedirect('warning', 'Connectez-vous');
-        $question = (new QuestionRepository())->select($_GET['id']);
+        $question = (new QuestionRepository())->select(htmlspecialchars($_GET['id']));
 
         if($question->getIdOrganisateur() != ConnexionUtilisateur::getLoginUtilisateurConnecte()){
             MessageFlash::ajouter('warning', 'Vous n\'avez pas les droits');
@@ -187,13 +187,13 @@ class ControllerQuestion extends GenericController
         else{ // l'utilisateur est l'oganisateur de la question
             if($_POST['titreQuestion']==null || $_POST['descriptionQuestion']==null) {
                 MessageFlash::ajouter('danger', 'Veuillez remplir les éléments manquants');
-                self::redirection('frontController.php?controller=question&action=update&id='. $_GET['id']);
+                self::redirection('frontController.php?controller=question&action=update&id='. rawurlencode($_GET['id']));
             }
             else {
                 $titreQuestion = htmlspecialchars($_POST['titreQuestion']);
                 $descriptionQuestion = $_POST['descriptionQuestion'];
 
-                $question = (new QuestionRepository())->select($_GET['id']);
+                $question = (new QuestionRepository())->select(htmlspecialchars($_GET['id']));
                 $question->setIntitule($titreQuestion);
                 $question->setDescription($descriptionQuestion);
                 (new QuestionRepository())->update($question);
@@ -208,7 +208,7 @@ class ControllerQuestion extends GenericController
                 }
 
                 foreach ($sections as $key => $tabSection) {
-                    $section = new Section($key, $_GET['id'], $tabSection['intitule'], $tabSection['description']);
+                    $section = new Section($key, htmlspecialchars($_GET['id']), htmlspecialchars($tabSection['intitule']), $tabSection['description']);
                     (new SectionRepository())->update($section);
                 }
 
@@ -257,7 +257,7 @@ class ControllerQuestion extends GenericController
                     $dateDeb = $newPhase->getDateDebut();
                     if($dateDeb<$dateFinPrecedente){
                         MessageFlash::ajouter('warning', 'Mettre une phase après l\'autre');
-                        self::redirection('frontController.php?controller=question&action=update&id='. $_GET['id']);
+                        self::redirection('frontController.php?controller=question&action=update&id='. rawurlencode($_GET['id']));
                     }
                     $dateFinPrecedente = $newPhase->getDateFin();
                 }
@@ -275,13 +275,13 @@ class ControllerQuestion extends GenericController
     public static function delete() : void
     {
         self::connexionRedirect('warning', 'Connectez-vous');
-        $question = (new QuestionRepository())->select($_GET['id']);
+        $question = (new QuestionRepository())->select(htmlspecialchars($_GET['id']));
         if($question->getIdOrganisateur() != ConnexionUtilisateur::getLoginUtilisateurConnecte()){
             MessageFlash::ajouter('warning', 'Vous n\'avez pas les droits');
             self::readAll();
         }
         else{
-            (new QuestionRepository())->delete($_GET['id']);
+            (new QuestionRepository())->delete(htmlspecialchars($_GET['id']));
 
             MessageFlash::ajouter('success', 'La question a bien été suprimée.');
             self::redirection('frontController.php?controller=question&action=readAll');
@@ -299,7 +299,7 @@ class ControllerQuestion extends GenericController
 
             if (isset($_POST['user'])) {
                 foreach ($_POST['user'] as $idUser) {
-                    $idUsers[] = $idUser;
+                    $idUsers[] = htmlspecialchars($idUser);
                 }
                 (new QuestionRepository())->addOrganisateurs($idUsers);
                 MessageFlash::ajouter('success', 'Utilisateur(s) ajouté(s)!');
@@ -335,7 +335,7 @@ class ControllerQuestion extends GenericController
 
     public static function addUsersToQuestion(){
         self::connexionRedirect('warning', 'Connectez-vous');
-        $question = (new QuestionRepository())->select($_GET['id']);
+        $question = (new QuestionRepository())->select(htmlspecialchars($_GET['id']));
         $role = isset($_GET['role'])?$_GET['role']:'votant';
 
         if($question->getIdOrganisateur() != ConnexionUtilisateur::getLoginUtilisateurConnecte()){
@@ -343,7 +343,7 @@ class ControllerQuestion extends GenericController
             self::readAll();
         }
         else{
-            $idQuestion = $_GET['id'];
+            $idQuestion = htmlspecialchars($_GET['id']);
 
             if (isset($_POST['filtre']) AND !empty($_POST['filtre'])){
                 $recherche= strtolower(htmlspecialchars($_POST['filtre']));
@@ -369,7 +369,7 @@ class ControllerQuestion extends GenericController
                 }
             }
 
-            $action = 'frontController.php?controller=question&action=usersAdded&id=' . $idQuestion . '&role=' .  $role;
+            $action = 'frontController.php?controller=question&action=usersAdded&id=' . rawurlencode($idQuestion) . '&role=' .  rawurlencode($role);
 
             $privilegeUser = (new UserRepository())->getPrivilege(ConnexionUtilisateur::getLoginUtilisateurConnecte());
 
@@ -388,19 +388,19 @@ class ControllerQuestion extends GenericController
 
     public static function usersAdded(){
         self::connexionRedirect('warning', 'Connectez-vous');
-        $question = (new QuestionRepository())->select($_GET['id']);
+        $question = (new QuestionRepository())->select(htmlspecialchars($_GET['id']));
         if($question->getIdOrganisateur() != ConnexionUtilisateur::getLoginUtilisateurConnecte()){
             MessageFlash::ajouter('warning', 'Vous n\'avez pas les droits');
             self::readAll();
         }
         else {
             $idUsers = [];
-            $idQuestion = $_GET['id'];
-            $role = $_GET['role'];
+            $idQuestion = htmlspecialchars($_GET['id']);
+            $role = htmlspecialchars($_GET['role']);
 
             if (isset($_POST['user'])) {
                 foreach ($_POST['user'] as $idUser) {
-                    $idUsers[] = $idUser;
+                    $idUsers[] = htmlspecialchars($idUser);
                 }
                 (new QuestionRepository())->addUsersQuestion($idUsers, $idQuestion, $role);
                 MessageFlash::ajouter('success', 'Utilisateur(s) ajouté(s)!');
@@ -436,8 +436,8 @@ class ControllerQuestion extends GenericController
     {
         self::connexionRedirect('warning', 'Veuillez vous connecter pour accéder aux résultats');
 
-        $idQuestion = $_GET['id'];
-        $question = (new QuestionRepository())->select($_GET['id']);
+        $idQuestion = htmlspecialchars($_GET['id']);
+        $question = (new QuestionRepository())->select(htmlspecialchars($_GET['id']));
         if($question->isClosed()){
             $question = (new QuestionRepository())->select($idQuestion);
 
@@ -455,8 +455,8 @@ class ControllerQuestion extends GenericController
     {
         self::connexionRedirect('warning', 'Veuillez vous connecter pour accéder aux résultats');
 
-        $idQuestion = $_GET['id'];
-        $idPhase = $_GET['idPhase'];
+        $idQuestion = htmlspecialchars($_GET['id']);
+        $idPhase = htmlspecialchars($_GET['idPhase']);
 
         if($idPhase!=null) {
             $phase = (new PhaseRepository())->select($idPhase);
@@ -504,7 +504,7 @@ class ControllerQuestion extends GenericController
     public static function changePhase() : void
     {
         self::connexionRedirect('warning', 'Veuillez vous connecter');
-        $idQuestion = $_GET['id'];
+        $idQuestion = htmlspecialchars($_GET['id']);
 
         $question = (new QuestionRepository())->select($idQuestion);
         $currentPhase = $question->getCurrentPhase();
@@ -527,7 +527,7 @@ class ControllerQuestion extends GenericController
 
     public static function readDemandeVote() : void{
         self::connexionRedirect('warning', 'Connectez-vous');
-        $idQuestion = $_GET['id'];
+        $idQuestion = htmlspecialchars($_GET['id']);
 
         $question = (new QuestionRepository())->select($idQuestion);
         if($question->getIdOrganisateur()!=ConnexionUtilisateur::getLoginUtilisateurConnecte()){
@@ -550,7 +550,7 @@ class ControllerQuestion extends GenericController
     }
 
     public static function demandesAccepted(){
-        $idQuestion = $_GET['id'];
+        $idQuestion = htmlspecialchars($_GET['id']);
         $question = (new QuestionRepository())->select($idQuestion);
         $accepteResponsable = [];
         $accepteVotant = [];
@@ -573,9 +573,9 @@ class ControllerQuestion extends GenericController
 
     public static function demandeRoleQuestion(){
         self::connexionRedirect('warning', 'Connectez-vous afin de pouvoir demander');
-        $question = (new QuestionRepository())->select($_GET['id']);
+        $question = (new QuestionRepository())->select(htmlspecialchars($_GET['id']));
         $idUser = ConnexionUtilisateur::getLoginUtilisateurConnecte();
-        $role = $_GET['role'];
+        $role = htmlspecialchars($_GET['role']);
 
         $demande = new Demande($role, $question, (new UserRepository())->select($idUser));
         if(!((new UserRepository())->estOrganisateurSurQuestion($idUser,$question->getId()))
@@ -598,12 +598,12 @@ class ControllerQuestion extends GenericController
     {
         self::connexionRedirect('warning', 'Connectez-vous');
 
-        $question = (new QuestionRepository())->select($_GET['id']);
+        $question = (new QuestionRepository())->select(htmlspecialchars($_GET['id']));
         if(ConnexionUtilisateur::getLoginUtilisateurConnecte()!=$question->getIdOrganisateur()){
             MessageFlash::ajouter('danger', 'Vous n\'êtes pas organisateur de cette question!');
             self::redirection('frontController.php?controller=question&action=read&id=' . htmlspecialchars($question->getId()));
         }
-        $role = $_GET['role'];
+        $role = htmlspecialchars($_GET['role']);
         $groupes = (new GroupeRepository())->selectAll();
         $action = 'frontController.php?controller=question&action=addedGroupeRoleQuestion&role=' . htmlspecialchars($role) . '&id=' . htmlspecialchars($question->getId());
         $privilegeUser = 'Organisateur';
@@ -621,13 +621,13 @@ class ControllerQuestion extends GenericController
     public static function addedGroupeRoleQuestion(){
         self::connexionRedirect('warning', 'Connectez-vous');
 
-        $question = (new QuestionRepository())->select($_GET['id']);
+        $question = (new QuestionRepository())->select(htmlspecialchars($_GET['id']));
         if(ConnexionUtilisateur::getLoginUtilisateurConnecte()!=$question->getIdOrganisateur()){
             MessageFlash::ajouter('danger', 'Vous n\'êtes pas organisateur de cette question!');
             self::redirection('frontController.php?controller=question&action=read&id=' . htmlspecialchars($question->getId()));
         }
-        $role = $_GET['role'];
-        $groupes = $_POST['groupe'];
+        $role = htmlspecialchars($_GET['role']);
+        $groupes = htmlspecialchars($_POST['groupe']);
         (new QuestionRepository())->addGroupesQuestion($groupes, $question->getId(), $role);
         MessageFlash::ajouter('succes', 'Les groupes ont bien été ajouté!');
         self::redirection('frontController.php?controller=question&action=read&id='.$question->getId());
